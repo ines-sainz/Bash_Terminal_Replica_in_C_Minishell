@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/10 14:15:02 by danjimen         ###   ########.fr        #
+#    Updated: 2024/07/10 15:22:13 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,25 +31,32 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -g3
 
 SRC_DIR			=	src
-
 SRC				=	$(SRC_DIR)/main.c
 
 OBJ				=	$(SRC:.c=.o)
 
+LIBFT_DIR	=	include/libft
+LIBFT		=	$(LIBFT_DIR)/libft.a
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(LIBFT):
+	@$(MAKE) -s -C $(LIBFT_DIR)
+
+$(NAME): $(LIBFT) $(OBJ)
+	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(LIBFT) -o $(NAME)
 	$(call print_cyan, "Compiled minishell")
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
 	$(call print_green, "Cleaned minishell objects")
 
 fclean: clean
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
 	$(call print_green, "Cleaned minishell executable")
 
