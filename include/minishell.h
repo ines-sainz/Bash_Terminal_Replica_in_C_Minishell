@@ -6,14 +6,14 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 15:18:07 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:27:37 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // DEFINES
 
 //libft
-#include "include/libft/libft.h"
+#include "libft/libft.h"
 
 // printf, readline, perror
 #include <stdio.h>
