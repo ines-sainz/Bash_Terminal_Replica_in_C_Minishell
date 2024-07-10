@@ -1,7 +1,9 @@
-prueba rara 1.2
-vammos a ver que sale de qui
-*aquí
-;););););)
+
  ^^
 <··>
-;)
+Esta prueba la estamos haciendo modificando cada
+uno el archivo ines.txt
+en el ordenador de cada uno,
+yo en la rama main,
+e Inés en la rama parseo
+:D
