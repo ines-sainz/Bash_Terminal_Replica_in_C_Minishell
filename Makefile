@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen <danjimen@student.42.fr>          +#+  +:+       +#+         #
+#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/28 09:19:38 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/10 12:00:41 by danjimen         ###   ########.fr        #
+#    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
+#    Updated: 2024/07/10 14:15:02 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,20 +25,14 @@ define print_green
 	@echo $(COLOR_GREEN)$1$(COLOR_RESET)
 endef
 
-NAME			=	philo
+NAME			=	minishell
 
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -g3
 
 SRC_DIR			=	src
-FUNCTIONS_DIR	=	$(SRC_DIR)/functions
-SRC				=	$(SRC_DIR)/philo.c \
-					$(SRC_DIR)/parse.c \
-					$(SRC_DIR)/routine.c \
-					$(SRC_DIR)/actions.c \
-					$(FUNCTIONS_DIR)/ft_atoi.c \
-					$(FUNCTIONS_DIR)/ft_atol.c \
-					$(FUNCTIONS_DIR)/ft_isdigit.c
+
+SRC				=	$(SRC_DIR)/main.c
 
 OBJ				=	$(SRC:.c=.o)
 
@@ -46,18 +40,18 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	$(call print_cyan, "Compiled philo")
+	$(call print_cyan, "Compiled minishell")
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ)
-	$(call print_green, "Cleaned philo objects")
+	$(call print_green, "Cleaned minishell objects")
 
 fclean: clean
 	@rm -f $(NAME)
-	$(call print_green, "Cleaned philo executable")
+	$(call print_green, "Cleaned minishell executable")
 
 re: fclean all
 
