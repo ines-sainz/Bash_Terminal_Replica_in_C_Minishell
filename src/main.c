@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 15:29:49 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:34:14 by isainz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	main(int argc, char const *argv[])
 {
 	(void)argc;
 	(void)argv;
-	write(1, "Inés es una muggle\n", 21);
+	write(1, "Inés es una maga\n", 17);
 	return (0);
 }
