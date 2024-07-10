@@ -1,3 +1,6 @@
-tercera prueba
-cambiando contenido desde otra rama
-;)
+Esta prueba la estamos haciendo modificando cada
+uno el archivo ines.txt
+en el ordenador de cada uno,
+yo en la rama main,
+e Inés en la rama parseo
+:D
