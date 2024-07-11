@@ -13,6 +13,8 @@ int main(void)
 	int	i = 0;
 	while (1)
 	{
+		if (i >= 10)
+			signal(SIGINT, SIG_DFL);
 		printf("Time => %d\n", i);
 		sleep(1);
 		i++;
