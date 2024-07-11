@@ -1,0 +1,206 @@
+FUNCIONES PERMITIDAS
+
+readline :char	*readline (const char *prompt);
+	Se utiliza como un prompt para indicar al usuario que debe ingresar información. 
+	Permite recuperar las líneas anteriores con las flechas. La línea se agrega automáticamente al historial. 
+	Permite buscar en el historial con ctr+R.
+	Se puede configurar lo guardado en el historial, limitar las líneas que se guardan,
+	deshabilitarlo o cambiar la ubicación de guardado a un archivo o memoria.
+	lee una línea de la terminal y la devuelve alocada con malloc. Si es NULL no devuelve.
+	Si Está vacía devuelve un str vacío.Se elimina el salto de línea final.
+	Ofrece capacidades de edición mientras el usuario ingresa la línea.Controla teclas.
+	Devuelve la línea de entrada stdin. Si encuentra EOF al leer una línea y la línea está vacía, se devuelve NULL. 
+	Si EOF se lee con una línea no vacía, se trata como una nueva línea.
+
+rl_clear_history: void	rl_clear_history()
+	permite limpiar todas las líneas almacenadas en el historial. No necesita parámetros y no devuelve nada.
+	Elimina todas las líneas almacenadas en el historial.
+	El historial queda vacío y no hay líneas para recuperar con las flechas arriba y abajo.
+	No afecta al archivo de historial, si se tiene un archivo de historial configurado sigue existiendo.
+
+rl_on_new_line: void	rl_clear_history()
+	Indica al sistema que se ha movido a una nueva línea vacía y limpia la pantalla. No ejecuta.
+	Actualiza el sistema de lectura de comandos, el historial de comandos y la posición del cursor.
+
+rl_replace_line: void	rl_replace_line (const char *string, int clear_undo)
+	Reemplaza la línea de comandos con string actualizandola. String tiene el texto que para reemplazar.
+	Clear_undo es un booleano 1 limpiar el historial 0 no al reemplazar la línea de comandos.
+
+rl_redisplay: void	rl_redisplay (void);
+	Actualiza la línea de entrada mostrada en la pantalla. 
+	Se usa después de cambiar la línea de entrada con otras funciones. Actualiza la interfaz de línea de comandos.
+
+add_history: void	add_history(const char *line);
+	Agrega una línea al historial.
+	Line representa la línea a agregar al final del historial y se convierte en la línea actual. 
+	El argumento es obligatorio pero si es NULL no agregará nada al historial.
+
+printf
+malloc
+free
+write
+access
+open
+read
+close
+fork
+wait
+waitpid
+
+wait3: pid_t	wait3(int *status, int options, struct rusage *rusage);
+	Espera la terminación de un proceso.
+	Suspende el proceso hasta que finalice un hijo o una señal, o llame a una función que maneje señales.
+	Si un hijo ha terminado cuando se realiza la llamada ("zombie"), la función regresa inmediatamente.
+	Todos los recursos del sistema utilizados por el hijo son liberados.
+
+wait4: pid_t	wait4(pid_t pid, int *status, int options, struct rusage *rusage);
+	Suspende el proceso hasta que pid termine o una señal o llame a una función que maneje señales.
+	Si el hijo ha terminado ya la función regresa inmediatamente.
+	Todos los recursos del sistema utilizados por el hijo son liberados.
+
+signal: void	*signal (int sig, void(*func)(int))(int)
+	Para elegir la forma de manejar una señal que interrumpa el sistema operativo o de la función raise().
+	Al compilar con SYSIFCOPT (*ASYNCSIGNAL), usa señales asíncronas como sigaction() con SA_NODEFER y SA_RESETHAND.
+	No pueden llamar a abort() o exit(). sig es una de las macros en signal.h. 
+	func es una de las macros en <signal.h> , o una dirección de función.Un valor de retorno de SIG_ERR es error.
+	devuelve el valor más reciente de func. El valor de errno puede establecerse en EINVAL (la señal no es válida).
+
+sigaction: int	sigaction ( signal,  action,  oaction)
+	Examina y cambia la acción al entregar una señal específica al proceso. signal especifica la señal. 
+	Action apunta a sigaction que describe la acción que se debe realizar al recibir la señal de signal.
+	Oaction apunta sigaction en la que se devuelven los datos de la señal de la llamada de sigaction.
+	Si action es nulo, el manejo de señales no cambia. Consulta el manejo de una señal.
+
+kill: int	kill( Process, Signal )
+	envía Signal al proceso o grupo de procesos de Process. el proceso de llamada debe tener autorización de root.
+	Para enviar una señal a otro proceso, el ID del proceso de envío debe coincidir con el ID del de recepción.
+	Los procesos con ID de 0 y 1 se conocen aquí como proc0 y proc1. Se pueden enviar señales a sí mismos.
+
+exit
+
+getcwd: char *getcwd(char *buffer, int maxlen)
+	Obtiene la ruta del directorio y la almacena en buffer. Maxlen es la longitud máxima de la ruta de acceso.
+	Si la longitud de la ruta de acceso con el nulo es mayor que maxlen es error. 
+	Buffer puede ser NULL; alocas mínimo maxlen para la ruta de acceso. Devuelve la ruta de acceso del directorio.
+	Si estás en la raíz termina con una (\). Si no con el nombre del directorio. Devuelve un puntero a buffer. 
+	Devuelve NULL error y establece errno en ENOMEM. 
+	No hay memoria suficiente para maxlen si buffer es NULL, o a ERANGE si la ruta de acceso es mayor que maxlen. 
+	Si maxlen es menor o igual que cero devuelve error.
+
+chdir: int	chdir(const char *path)
+	Muestra o cambia el directorio. Si usa una letra muestra los nombres del directorio actual.
+	Si se usa sin parámetros, muestra la unidad y el directorio actuales. Se usa como cd.
+
+stat: int stat(const char *file_name, struct stat *buf);
+	Devuelve información del fichero. Se necesitan derechos de búsqueda en todos los directorios camino al fichero.
+	Examina el fichero al que apunta file_name y llena buf. Devuelve una estructura stat, que contiene:
+              struct stat {
+                  dev_t         st_dev;      /* dispositivo */
+                  ino_t         st_ino;      /* inodo */
+                  mode_t        st_mode;     /* protección */
+                  nlink_t       st_nlink;    /* número de enlaces físicos */
+                  uid_t         st_uid;      /* ID del usuario propietario */
+                  gid_t         st_gid;      /* ID del grupo propietario */
+                  dev_t         st_rdev;     /* tipo dispositivo (si es
+                                                dispositivo inodo) */
+                  off_t         st_size;     /* tamaño total, en bytes */
+                  blksize_t     st_blksize;  /* tamaño de bloque para el
+                                                sistema de ficheros de E/S */
+                  blkcnt_t      st_blocks;   /* número de bloques asignados */
+                  time_t        st_atime;    /* hora último acceso */
+                  time_t        st_mtime;    /* hora última modificación */
+                  time_t        st_ctime;    /* hora último cambio */
+              };
+	st_size da el tamaño del fichero en bytes. Si es un enlace simbólico la longitud es la ruta sin contar el NULL.
+	st_blocks da el tamaño del fichero en bloques de 512 bytes. 
+	st_blksize da el tamaño para operaciones sobre el sistema de ficheros.
+	st_atime se modifica por accesos al fichero: execve(2), pipe(2), y read(2) (de más de cero bytes). 
+	st_mtime se modifica por cambios en el fichero write. Un directorio por creación o borrado de ficheros en él.
+	st_ctime se modifica por la escritura o cambio de información del propietario, grupo, contador de enlaces, modo.
+	Devuelve cero. Si falla devuelve -1.
+
+lstat: int lstat(const char *file_name, struct stat *buf);
+	Igual a stat, salvo en enlaces simbólicos que se examinan el enlace, no el fichero al que hace referencia.
+
+fstat:    int fstat(int filedes, struct stat *buf);
+	Igual a stat. Sólo el fichero abierto apuntado por filedes(devuelto por open(2))es examinado en vez de file_name.
+
+unlink
+execve
+dup
+dup2
+pipe
+
+opendir: DIR *opendir(const char *nombre);
+	Abre y recibe un directorio. Devuelve un puntero al flujo de directorio(DIR) en la 1º entrada o NULL.
+
+readdir: struct dirent *readdir(DIR *dir);
+	Lee las entradas del directorio abierto. 
+	Recibe el flujo de directorio (DIR). Devuelve un puntero a una estructura dir o NULL si es error o fin del directorio.
+	dirent representa la siguiente entrada de directorio al que apunte dir.
+
+closedir: int closedir(DIR *dir); 
+	Cierra el flujo de directorio abierto. Recibe el puntero al flujo de directorio(DIR). Devuelve 0 o -1 en error.
+
+strerror
+perror
+
+getenv: char *getenv(const char *varname);
+	Busca en las variables de entorno nombre_var. 
+	Devuelve un puntero a la serie que contiene el valor para nombre_var especificado en el entorno. 
+	Si no encuentra la serie de entorno devuelve NULL y establece errno.
+
+//PARA MODIFICAR LAS PROPIEDADES DE LA TERRMINAL (top) SE QUEDA CON LAS PROPIEDADES DE ANTES DE EJECUTAR
+isatty: int	isatty( int fd );
+	Determina si un fd está asociado a una terminal, una consola, una impresora o un puerto serie.
+	Valida el parámetro fd. Si fd es un puntero de archivo incorrecto devuelve error. 
+	Si la ejecución puede continuar, la función devuelve 0 y establece errno en EBAD.
+
+ttyname: char *ttyname(int fildes);
+	Devuelve la ruta del terminal asociado al fd fildes. Puede sobrescribirse si apunta a datos estáticos. 
+	Falla si fildes no es una terminal o no se puede determinar el nombre de la ruta. Devuelve un puntero NULL. 
+	Establece errno a EBADF si fildes no es un fd abierto válido, o en ENOTTY si no está asociado a una terminal.
+
+ttyslot: int ttyslot(void);
+	Encuentra la posición de la terminal de usuario actual. Devuelve el número de slot. 
+	En caso de error si ninguno de los fds, 0, 1 o 2 están asociados con un terminal devuelve 0 en UNIX.
+
+ioctl: int ioctl (fd,  cmd, .../* arg */) 
+	Realiza varios controles relacionados con la red. fd es un descriptor de socket. Si no, no está especificado.
+	Pasa e interpreta el cmd y un tercer argumento opcional variable para realizar una operación de control. 
+	Devuelve 0. De lo contrario, devuelve -1 y establece errno. 
+	Las operaciones son Socket, tabla de direccionamiento, Tabla  ARP, Parámetros de red global, Interfaz
+
+tcsetattr: int tcsetattr (FileDescriptor, OptionalActions, TermiosPointer)
+	Establece FileDescriptor de la estructura de TermiosPointerdeterrminado por OptionalActions.
+	La velocidad de 0 baudios (B0).
+	Si se especifica como salida al llamarse las líneas de control de módem ya no se afirman y desconecta la línea.
+	Si no puede hacer nada devuelve -1 y errno se establece en EINVAL. 
+	Si las tasas de baudios de entrada y salida difieren y no está soportado, no cambia la velocidad. 
+	Una llamada posterior devuelve el estado del terminal reflejando los cambios de la llamada anterior.
+	no cambia los valores de la estructura termios. 
+	Si un proceso es miembro de un FileDescriptor asociado con su terminal se envía una señal SIGTTOU. 
+	Si las está bloqueando o ignorando se realiza y no envía señal.
+
+tcgetattr: int tcgetattr(int fildes, struct termios *termios_p);
+	obtiene los parámetros del terminal referenciado por fildes y los almacena en termios_p.
+	fildes es un fd abierto asociado con la terminal. 
+	Si terminal admite diferentes velocidades en baudios de entrada y salida, las almacenadas reflejan las reales.
+	Si no devuelve la velocidad en baudios real. 
+	Si no admite velocidades en baudios divididas, la velocidad entrada almacenada en termios será la de salida. 
+	Devuelve 0 o -1 en error. EBADF si fildes no es un fd válido. ENOTTY si el archivo de fildes no es una terminal.
+
+tgetent: int tgetent(char *bp, const char *name);
+	Busca la entrada termcap para el nombre. ignora el puntero del bp. Devuelve OK, si falla un puntero nulo ERR. 
+
+tgetflag
+
+tgetnum
+
+tgetstr
+
+tgoto: char *tgoto(const char *cap, int col, int row);
+	routine instantiates the parameters in the given capability. The output is to be passed to tputs().
+
+tputs: int tputs(const char *str, int affcnt, int (*putc(int));
+	It can retrieve capabilities by either termcap or terminfo name.
