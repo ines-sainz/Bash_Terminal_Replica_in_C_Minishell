@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/12 13:54:36 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:17:58 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	signal_sigquit(int sig)
 int	main(void)
 {
 	char	*input;
+	char	*entrada;
 
+	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
 	// Configurar los manejadores de señal
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, signal_sigquit);
@@ -44,7 +46,7 @@ int	main(void)
 	// Bucle principal del shell
 	while (1)
 	{
-		input = readline("shell> ");
+		input = readline(entrada);
 		if (!input)
 		{
 			// Detectar Ctrl-D (EOF)
@@ -57,6 +59,7 @@ int	main(void)
 
 		// Procesar la entrada del usuario
 		printf("You entered: %s\n", input);
+		parse(input);
 
 		free(input);  // Liberar la memoria asignada por readline
 	}
