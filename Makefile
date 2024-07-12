@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/12 13:58:11 by danjimen         ###   ########.fr        #
+#    Updated: 2024/07/12 14:28:16 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ CFLAGS			=	-Wall -Wextra -Werror -g3
 READFLAG		=	-lreadline
 
 SRC_DIR			=	src
-SRC				=	$(SRC_DIR)/main.c
+SRC				=	$(SRC_DIR)/main.c \
+					$(SRC_DIR)/parse.c
 
 OBJ				=	$(SRC:.c=.o)
 
