@@ -6,22 +6,25 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/12 12:17:00 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:52:32 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 // Manejador de la señal SIGINT (Ctrl-C)
-void	handle_sigint(int sig)
+void	signal_sigint(int sig)
 {
-	printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
-	clear_history();
-	exit (0);
+	(void)sig;
+	//printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 // Manejador de la señal SIGQUIT (Ctrl-\)
-void	handle_sigquit(int sig)
+void	signal_sigquit(int sig)
 {
 	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
 	clear_history();
@@ -35,8 +38,8 @@ int	main(void)
 	char	*input;
 
 	// Configurar los manejadores de señal
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	signal(SIGINT, signal_sigint);
+	signal(SIGQUIT, signal_sigquit);
 
 	// Bucle principal del shell
 	while (1)
