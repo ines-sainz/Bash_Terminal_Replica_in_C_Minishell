@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/11 10:32:08 by danjimen         ###   ########.fr        #
+#    Updated: 2024/07/12 12:20:55 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ NAME			=	minishell
 
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -g3
+READFLAG		=	-lreadline
 
 SRC_DIR			=	src
 SRC				=	$(SRC_DIR)/main.c
@@ -44,7 +45,7 @@ $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
 	$(call print_cyan, "Compiled minishell")
 
 %.o: %.c
