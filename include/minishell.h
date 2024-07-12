@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 15:29:57 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:57:20 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 // rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
 #include <readline/readline.h>
+#include <readline/history.h>
 
 // malloc, free, exit, getenv
 #include <stdlib.h>
