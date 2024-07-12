@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:38:22 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/11 11:14:35 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:07:46 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	handle_sigint(int sig)
 {
 	printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
+	clear_history();
 	exit (0);
 }
 
@@ -28,6 +29,7 @@ void	handle_sigint(int sig)
 void	handle_sigquit(int sig)
 {
 	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
+	clear_history();
 	signal(sig, SIG_DFL);  // Restaurar el comportamiento por defecto
 	kill(getpid(), sig);   // Enviar la señal nuevamente
 }
