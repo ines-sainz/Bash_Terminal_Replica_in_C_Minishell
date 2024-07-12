@@ -6,16 +6,57 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 15:34:14 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:17:00 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char const *argv[])
+// Manejador de la señal SIGINT (Ctrl-C)
+void	handle_sigint(int sig)
 {
-	(void)argc;
-	(void)argv;
-	write(1, "Inés es una maga\n", 17);
+	printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
+	clear_history();
+	exit (0);
+}
+
+// Manejador de la señal SIGQUIT (Ctrl-\)
+void	handle_sigquit(int sig)
+{
+	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
+	clear_history();
+	signal(sig, SIG_DFL);  // Restaurar el comportamiento por defecto
+	kill(getpid(), sig);   // Enviar la señal nuevamente
+}
+
+// cc signals.c -lreadline
+int	main(void)
+{
+	char	*input;
+
+	// Configurar los manejadores de señal
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
+
+	// Bucle principal del shell
+	while (1)
+	{
+		input = readline("shell> ");
+		if (!input)
+		{
+			// Detectar Ctrl-D (EOF)
+			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
+			break ;
+		}
+
+		if (input[0] != '\0')
+			add_history(input);
+
+		// Procesar la entrada del usuario
+		printf("You entered: %s\n", input);
+
+		free(input);  // Liberar la memoria asignada por readline
+	}
+
 	return (0);
 }
