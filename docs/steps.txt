@@ -1,11 +1,11 @@
 Minishell
 
-1°PONER ENTRADA 
-	Mostrar una entrada mientras espera un comando nuevo.
+✅ 1°PONER ENTRADA 
+	Mostrar una entrada mientras espera un comando nuevo. ✅
 		readline :char	*readline (const char *prompt);
 
 2°HISTORIAL
-	• Tener un historial funcional.
+	• Tener un historial funcional. ✅
 		rl_clear_history: void	rl_clear_history()
 		rl_on_new_line: void	rl_clear_history()
 		rl_replace_line: void	rl_replace_line (const char *string, int clear_undo)
