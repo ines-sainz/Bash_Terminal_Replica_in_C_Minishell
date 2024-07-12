@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/12 14:17:58 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/12 14:29:02 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(void)
 			add_history(input);
 
 		// Procesar la entrada del usuario
-		printf("You entered: %s\n", input);
+		//printf("You entered: %s\n", input);
 		parse(input);
 
 		free(input);  // Liberar la memoria asignada por readline
