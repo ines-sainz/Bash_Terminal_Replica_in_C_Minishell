@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/12 12:52:32 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:03:52 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	main(void)
 
 		free(input);  // Liberar la memoria asignada por readline
 	}
-
+	clear_history();
 	return (0);
 }
