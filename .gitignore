@@ -55,4 +55,4 @@ dkms.conf
 
 # Directories
 .vscode/
-!docs/
+!docs/*.txt
