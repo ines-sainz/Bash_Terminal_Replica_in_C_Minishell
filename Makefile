@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/12 12:20:55 by danjimen         ###   ########.fr        #
+#    Updated: 2024/07/12 13:58:11 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ LIBFT_DIR	=	include/libft
 LIBFT		=	$(LIBFT_DIR)/libft.a
 
 all: $(NAME)
+
+r: all
+	./$(NAME)
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
