@@ -1,0 +1,63 @@
+>>MINISHELL<<
+   (Bash)
+
+• Entrada:	minishell: |
+			minishell.pwd: |
+
+• Historial funcional de entradas
+
+• Buscar y ejecutar ejecutables (PATH, rutas absolutas, rutas relativas)
+
+• Evitat utilizar más de una variable global para indicar la recepción de una señal.
+  Sólo una variable, no una estructura
+
+• No interpretar comillas sin cerrar o caracteres especiales como '\' o ';'
+
+• Gestiomar que la ' evite que shell interprete los metacaracteres* en la secuencia entrecomillada.
+  Todo lo que haya entre comillas simples deberá ser tratado como un texto literal.
+  (ej:	echo 'Hola $USER' ==> Hola $USER)
+
+• Gestionar que la " evite que el shell interprete los metacaracteres* en la secuencia entrecomillada exceptuando $.
+  (ej:	echo "Hola file*" ==> Hola file*)
+  (ej:	echo "Hola $USER" ==> Hola danjimen)
+
+*metacaracteres:
+	*, ?. $, [y], `, $(...), &, |, ;, &&, ||, >, >>, <, <<, &>, |&, ~
+
+• Interpretar redirecciones:
+	<	redirigir input
+	>	redirigir output
+	<<	Recibir delimitador, después leer el inpput hasta encontrar el delimitador.
+		No necesita actualizar el historial
+	>> redirigir output en modo append
+
+• Implementar pipes: El output de un comando se conecta mediante un pipe con el input del siguiente comando.
+
+• Gestionar las variables de entorno que deberían expandirse a sus valores
+
+• Gestionar $? que deberá expandirse al estado de salida del comando más reciente
+
+• Gestionar:
+	ctrl-C:	Envía la señal SIGINT que termina el proceso actual
+	ctrl-D:	Envía la señal EOF e indica que no hay más datos para leer
+	ctrl-\:	Envía la señal SIGQUIT al proceso y produce un volcado de la memoria
+
+• Gestionar:
+	ctrl-C:	Imprime una nueva entrada en una línea nueva
+	ctrl-D:	Termina el shell
+	ctrl-\:	No hace nada
+
+• Implementar los built-ins:
+	echo con la opción -n (sin salto de línea)
+	cd solo con una ruta relativa o obsuluta
+	pwd sin opciones
+	export sin opciones
+	unset sin opciones
+	env sin opciones o argumentos
+	exit sin opciones
+
+
+>>BONUS<<
+
+• Implementar && y || con paréntesis para prioridades
+• Los wildcard * deben funcionar para el directorio actual
