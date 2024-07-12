@@ -3,6 +3,7 @@ Minishell
 1°PONER ENTRADA 
 	Mostrar una entrada mientras espera un comando nuevo.
 		readline :char	*readline (const char *prompt);
+
 2°HISTORIAL
 	• Tener un historial funcional.
 		rl_clear_history: void	rl_clear_history()
@@ -10,23 +11,6 @@ Minishell
 		rl_replace_line: void	rl_replace_line (const char *string, int clear_undo)
 		rl_redisplay: void	rl_redisplay (void);
 		add_history: void	add_history(const char *line);
-5°PIPEX
-	• Buscar y ejecutar el ejecutable correcto (basado en la variable PATH o mediante 
-	el uso de rutas relativas o absolutas).
-		access
-		open
-		read
-		close
-		fork
-		wait
-		waitpid
-
-	• Evita utilizar más de una variable global para indicar la recepción de una señal. 
-	Piensa en lo que implica: Esta aproximación evita que tu gestor de señales acceda a 
-	tus estructuras de datos principales.
-	¡Cuidado!. Esta variable global no puede proporcionar ninguna otra información o datos 
-	que el número de una señal recibida. Por lo tanto está prohibido utilizar estructuras 
-	de tipo “norm” en global.
 
 3°PARSEO
 	• No interpretar comillas sin cerrar o caracteres especiales no especificados 
@@ -37,6 +21,10 @@ Minishell
 
 	3.2• Gestionar que la " evite que el shell interprete los metacaracteres en la secuencia
 	entrecomillada exceptuando $ (signo de dólar).
+	Si no se encuentra la variable de entorno, devuelve salto de línea
+
+	3.3• Implementar pipes (carácter |). El output de cada comando en la pipeline se conecta 
+	a través de un pipe al input del siguiente comando.
 
 	3.4• Implementar redirecciones:
 		◦ < debe redirigir input. (Buscar infile, outfile)
@@ -45,9 +33,6 @@ Minishell
 		hasta que una línea que contenga solo el delimitador aparezca. Sin embargo, 
 		no necesita actualizar el historial.
 		◦ “>>” debe redirigir el output en modo append.
-	
-	3.3• Implementar pipes (carácter |). El output de cada comando en la pipeline se conecta 
-	a través de un pipe al input del siguiente comando.
 
 	3.5• Gestionar las variables de entorno ($ seguidos de caracteres) que deberán 
 	expandirse a sus valores.
@@ -67,6 +52,24 @@ Minishell
 			kill: int	kill( Process, Signal )
 			exit
 
+5°PIPEX
+	• Buscar y ejecutar el ejecutable correcto (basado en la variable PATH o mediante 
+	el uso de rutas relativas o absolutas).
+		access
+		open
+		read
+		close
+		fork
+		wait
+		waitpid
+
+	• Evita utilizar más de una variable global para indicar la recepción de una señal. 
+	Piensa en lo que implica: Esta aproximación evita que tu gestor de señales acceda a 
+	tus estructuras de datos principales.
+	¡Cuidado!. Esta variable global no puede proporcionar ninguna otra información o datos 
+	que el número de una señal recibida. Por lo tanto está prohibido utilizar estructuras 
+	de tipo “norm” en global.
+
 6°BUILT-INS
 	• Deberá implementar los built-ins:
 		◦ echo con la opción -n.
@@ -85,4 +88,3 @@ La función readline puede producir algunos leaks que no necesitas arreglar. Eso
 significa que tu código, sí, el código que has escrito, pueda producir leaks.
 Limítate a hacer lo que pide el enunciado. Cualquier cosa no solicitada no se requiere.
 Para cada punto, y en caso de dudas, puedes utilizar bash como una referencia.
-

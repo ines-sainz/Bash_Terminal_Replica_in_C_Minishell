@@ -27,7 +27,7 @@
 • Interpretar redirecciones:
 	<	redirigir input
 	>	redirigir output
-	<<	Recibir delimitador, después leer el inpput hasta encontrar el delimitador.
+	<<	Recibir delimitador, después leer el input hasta encontrar el delimitador.
 		No necesita actualizar el historial
 	>> redirigir output en modo append
 
@@ -49,9 +49,9 @@
 
 • Implementar los built-ins:
 	echo con la opción -n (sin salto de línea)
-	cd solo con una ruta relativa o obsuluta
+	cd solo con una ruta relativa o obsuluta (sin pipes)
 	pwd sin opciones
-	export sin opciones
+	export sin opciones (sin pipes)
 	unset sin opciones
 	env sin opciones o argumentos
 	exit sin opciones
