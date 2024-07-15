@@ -1,0 +1,5 @@
+BASH ERRORS:
+
+cat <<<txt.txt
+bash: syntax error near unexpected token `<'
+echo $? ==> 2
