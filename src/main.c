@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/12 14:29:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/15 14:24:20 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	main(void)
 
 		// Procesar la entrada del usuario
 		//printf("You entered: %s\n", input);
+		if (ft_strcmp(input, "exit") == 0 && ft_strlen(input) == 4)
+			exit (0);
 		parse(input);
 
 		free(input);  // Liberar la memoria asignada por readline
