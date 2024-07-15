@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/12 14:28:16 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/07/15 13:29:43 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ READFLAG		=	-lreadline
 
 SRC_DIR			=	src
 SRC				=	$(SRC_DIR)/main.c \
-					$(SRC_DIR)/parse.c
+					$(SRC_DIR)/parse.c \
+					$(SRC_DIR)/ft_tokenize.c
 
 OBJ				=	$(SRC:.c=.o)
 
