@@ -33,7 +33,7 @@ static int	ft_count_elements(const char *s, char c)
 			sim_quote = 1;
 		else if (s[i] == '\"' && dbl_quote == 0)
 			dbl_quote = 1;
-		while (((s[i] != c ) || sim_quote == 1 || dbl_quote == 1) && s[i] != '\0')
+		while ((s[i] != c || sim_quote == 1 || dbl_quote == 1) && s[i] != '\0')
 		{
 			i++;
 			if ((s[i] == '\'' && sim_quote == 1))
