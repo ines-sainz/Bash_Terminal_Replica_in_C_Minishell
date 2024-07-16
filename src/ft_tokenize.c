@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/16 09:23:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/16 22:57:10 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ static int	ft_count_elements(const char *s, char c)
 	int		i;
 	int		sim_quote;
 	int		dbl_quote;
+	int		flag;
 
 	count = 0;
 	i = 0;
 	sim_quote = 0;
 	dbl_quote = 0;
+	flag = 0;
 	while (s[i] != '\0')
 	{
 		while (s[i] == c)
@@ -36,10 +38,24 @@ static int	ft_count_elements(const char *s, char c)
 		while ((s[i] != c || sim_quote == 1 || dbl_quote == 1) && s[i] != '\0')
 		{
 			i++;
-			if ((s[i] == '\'' && sim_quote == 1))
-				sim_quote = 0;
-			if ((s[i] == '\"' && dbl_quote == 1))
-				dbl_quote = 0;
+			if ((s[i] == '\'' && sim_quote == 1 && s[i + 1] == c))
+			{
+				if (flag != 0)
+					flag--;
+				else
+					sim_quote = 0;
+			}
+			else if ((s[i] == '\'' && sim_quote == 1 && s[i + 1] != c))
+				flag++;
+			if ((s[i] == '\"' && dbl_quote == 1 && s[i + 1] == c))
+			{
+				if (flag != 0)
+					flag--;
+				else
+					dbl_quote = 0;
+			}
+			else if ((s[i] == '\"' && dbl_quote == 1 && s[i + 1] != c))
+				flag++;
 		}
 	}
 	printf("palabras = %i\n", count);
@@ -55,7 +71,7 @@ static void	free_split_awk(char **split, int count)
 	}
 }
 
-static int	find_string(int *i, char c, const char *s)
+static int	find_string(int *i, char c, const char *s, int *flag)
 {
 	int	start;
 	int	sim_quote;
@@ -73,14 +89,30 @@ static int	find_string(int *i, char c, const char *s)
 		sim_quote = 1;
 	else if (s[*i] == '\"' && dbl_quote == 0)
 		dbl_quote = 1;
-	while (((s[*i] != c && s[*i] != '\0') || sim_quote == 1 || dbl_quote == 1))
+	while ((s[*i] != c || sim_quote == 1 || dbl_quote == 1) && s[*i] != '\0')
 	{
 		(*i)++;
-		if (s[*i] == '\'' && sim_quote == 1)
-			sim_quote = 0;
-		if ((s[*i] == '\"' && dbl_quote == 1))
-			dbl_quote = 0;
+		if ((s[*i] == '\'' && sim_quote == 1 && s[*i + 1] == c))
+		{
+			if (*flag != 0)
+				(*flag)--;
+			else
+				sim_quote = 0;
+		}
+		else if ((s[*i] == '\'' && sim_quote == 1 && s[*i + 1] != c))
+			(*flag)++;
+		if ((s[*i] == '\"' && dbl_quote == 1 && s[*i + 1] == c))
+		{
+			if (*flag != 0)
+				(*flag)--;
+			else
+				dbl_quote = 0;
+		}
+		else if ((s[*i] == '\"' && dbl_quote == 1 && s[*i + 1] != c))
+			(*flag)++;
 	}
+	if (sim_quote == 1 || dbl_quote == 1)
+		(*i)++;
 	return (start);
 }
 
@@ -89,25 +121,28 @@ static char	**ft_copy_string(const char *s, char c, char **split)
 	int	start;
 	int	count;
 	int	i;
+	int	flag;
 
 	start = 0;
 	count = 0;
 	i = 0;
+	flag = 0;
 	while (s[i])
 	{
-		start = find_string(&i, c, s);
+		start = find_string(&i, c, s, &flag);
+		printf("flag == %i\n", flag);
 		if (s[start] == '\'' || s[start] == '\"')
 			start++;
-		split[count] = (char *)malloc((i - start) * sizeof(char));
+		split[count] = (char *)malloc((i - start - flag) * sizeof(char));
 		if (!split[count])
 		{
 			free_split_awk(split, count);
 			return (NULL);
 		}
-		if (s[start - 1] == '\'' || s[start - 1] == '\"')
-			ft_strlcpy(split[count++], s + start, i - start);
+		if (s[start] == '\'' || s[start] == '\"')
+			ft_strlcpy(split[count++], s + start, i - start - flag);
 		else
-			ft_strlcpy(split[count++], s + start, i - start + 1);
+			ft_strlcpy(split[count++], s + start, i - start + 1  - flag);
 	}
 	split[count] = NULL;
 	return (split);
