@@ -1,0 +1,25 @@
+En "un 'lugar' de" la 'mancha "de" cuyo' nombre
+	1. En
+	2. un 'lugar' de
+	3. la
+	4. mancha "de" cuyo
+	5. nombre
+
+En "un 'lugar' de" la 'mancha "de" cuyo nombre
+	1. En
+	2. un 'lugar' de
+	3. la
+	4. mancha "de" cuyo nombre
+
+En "un 'lugar' de" la 'mancha "de cuyo' nombre
+	1. En
+	2. un 'lugar' de
+	3. la
+	4. mancha "de cuyo
+	5. nombre
+
+En "un 'lugar' de la 'mancha "de" cuyo' nombre
+	1. En
+	2. un 'lugar' de la 'mancha 
+	3. de
+	4. " cuyo' nombre
