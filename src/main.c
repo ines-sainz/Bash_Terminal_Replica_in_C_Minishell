@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/15 14:24:20 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/16 12:09:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(void)
 			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
-
 		if (input[0] != '\0')
 			add_history(input);
 
