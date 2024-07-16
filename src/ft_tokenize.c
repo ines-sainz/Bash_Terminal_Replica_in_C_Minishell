@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/15 14:39:47 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/16 09:13:16 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int	ft_count_elements(const char *s, char c)
 			count++;
 		if (s[i] == '\'' && sim_quote == 0)
 			sim_quote = 1;
-		else if (s[i] == '\"' && dbl_quote == 0)
+		if (s[i] == '\"' && dbl_quote == 0)
 			dbl_quote = 1;
-		while (((s[i] != c ) || sim_quote == 1 || dbl_quote == 1) && s[i] != '\0')
+		while (((s[i] != c && s[i] != '\0') || sim_quote == 1 || dbl_quote == 1))
 		{
 			i++;
 			if ((s[i] == '\'' && sim_quote == 1))
@@ -73,7 +73,7 @@ static int	find_string(int *i, char c, const char *s)
 		sim_quote = 1;
 	else if (s[*i] == '\"' && dbl_quote == 0)
 		dbl_quote = 1;
-	while (((s[*i] != c ) || sim_quote == 1 || dbl_quote == 1) && s[*i] != '\0')
+	while (((s[*i] != c && s[*i] != '\0') || sim_quote == 1 || dbl_quote == 1))
 	{
 		(*i)++;
 		if (s[*i] == '\'' && sim_quote == 1)
