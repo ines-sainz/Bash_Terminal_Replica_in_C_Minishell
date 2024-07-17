@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/16 12:09:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/17 11:29:32 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,23 @@ int	main(void)
 {
 	char	*input;
 	char	*entrada;
+	char	*user_prompt;
 
 	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
+
+	user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	if (!user_prompt)
+	{
+		fprintf(stderr, "Error allocating memory\n");
+		return (1);
+	}
+	ft_strcpy(user_prompt, RED);
+	ft_strlcat(user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	ft_strlcat(user_prompt, entrada, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	ft_strlcat(user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	//strcat(user_prompt, entrada);
+	//strcat(user_prompt, RESET);
+
 	// Configurar los manejadores de señal
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, signal_sigquit);
@@ -46,7 +61,7 @@ int	main(void)
 	// Bucle principal del shell
 	while (1)
 	{
-		input = readline(entrada);
+		input = readline(user_prompt);
 		if (!input)
 		{
 			// Detectar Ctrl-D (EOF)
@@ -64,6 +79,8 @@ int	main(void)
 
 		free(input);  // Liberar la memoria asignada por readline
 	}
+	free(entrada);
+	free(user_prompt);
 	clear_history();
 	return (0);
 }
