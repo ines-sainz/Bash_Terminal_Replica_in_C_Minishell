@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/15 13:34:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/17 11:12:23 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@
 // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 #include <curses.h>
 #include <term.h>
+
+// Secuencias de escape ANSI para colores
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define WHITE "\033[37m"
+#define BOLD "\033[1m"
 
 // DEFINES
 /* #define NUM_THREADS 5 */
