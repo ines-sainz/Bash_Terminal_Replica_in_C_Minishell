@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/17 08:57:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/17 10:42:42 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ static int	find_string(int *i, char c, const char *s, int *flag)
 		else if ((s[*i] == '\"' && dbl_quote == 1 && s[*i + 1] != c))
 			(*flag)++;
 	}
-	if (sim_quote == 1 || dbl_quote == 1)
-		(*i)++;
+	/* if (sim_quote == 1 || dbl_quote == 1)
+		(*i)++; */
 	return (start);
 }
 
