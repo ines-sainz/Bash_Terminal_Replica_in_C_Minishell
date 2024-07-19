@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:29:59 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/17 14:30:15 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/19 15:16:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,44 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "../include/minishell.h"
 
 #define MAX_ARGS 100
 
-void parse_input(char *input, char *args[], int *argc)
+void	parse_input(char *input, char *args[], int *argc)
 {
-	int in_single_quote = 0, in_double_quote = 0;
-	char *arg = malloc(strlen(input) + 1);
-	char *p = input, *q = arg;
+	int		in_single_quote;
+	int		in_double_quote;
+	char	*arg;
+	char	*q;
+
+	in_single_quote = 0;
+	in_double_quote = 0;
+	arg = malloc(strlen(input) + 1);
+	q = arg;
 	*argc = 0;
 
-	while (*p) {
-		if (*p == '\'' && !in_double_quote) {
+	while (*input)
+	{
+		if (*input == '\'' && !in_double_quote)
 			in_single_quote = !in_single_quote;
-		} else if (*p == '\"' && !in_single_quote) {
+		else if (*input == '\"' && !in_single_quote)
 			in_double_quote = !in_double_quote;
-		} else if (isspace(*p) && !in_single_quote && !in_double_quote) {
-			if (q != arg) {
+		else if (isspace(*input) && !in_single_quote && !in_double_quote)
+		{
+			if (q != arg)
+			{
 				*q = '\0';
 				args[(*argc)++] = strdup(arg);
 				q = arg;
 			}
-		} else {
-			*q++ = *p;
 		}
-		p++;
+		else
+			*q++ = *input;
+		input++;
 	}
-	if (q != arg) {
+	if (q != arg)
+	{
 		*q = '\0';
 		args[(*argc)++] = strdup(arg);
 	}
@@ -48,16 +59,18 @@ void parse_input(char *input, char *args[], int *argc)
 	free(arg);
 }
 
-int main()
+int	main(void)
 {
-	char input[1024];
-	char *args[MAX_ARGS];
-	int argc, i;
+	char	input[1024];
+	char	*args[MAX_ARGS];
+	int		argc;
+	int		i;
 
 	printf("Enter a command: ");
-	if (!fgets(input, sizeof(input), stdin)) {
+	if (!fgets(input, sizeof(input), stdin))
+	{
 		perror("fgets");
-		return 1;
+		return (1);
 	}
 
 	// Remove the newline character if present
@@ -66,10 +79,13 @@ int main()
 	parse_input(input, args, &argc);
 
 	printf("Parsed arguments:\n");
-	for (i = 0; i < argc; i++) {
+	i = 0;
+	while (i < argc)
+	{
 		printf("arg[%d]: %s\n", i, args[i]);
 		free(args[i]);
+		i++;
 	}
 
-	return 0;
+	return (0);
 }
