@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/06/17 08:49:47 by danjimen         ###   ########.fr        #
+#    Updated: 2024/07/19 15:15:32 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,9 @@ SRC			=	ft_isalpha.c \
 				ft_lstmap_bonus.c \
 				ft_strcpy.c \
 				ft_strcmp.c \
-				ft_strstr.c
+				ft_strstr.c \
+				ft_isspace.c \
+				ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)
 
