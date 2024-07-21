@@ -25,6 +25,7 @@ int	parse(char *input)
 {
 	char	**tokens;
 	t_mini	mini;
+	int		args_nbr;
 
 	printf("You entered: %s\n", input);
 	ft_bzero(&mini, sizeof(t_mini));
