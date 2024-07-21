@@ -74,7 +74,8 @@ int	main(void)
 	}
 
 	// Remove the newline character if present
-	input[strcspn(input, "\n")] = 0;
+	//input[strcspn(input, "\n")] = 0;
+	input[strchr(input, '\n') - input] = 0;
 
 	parse_input(input, args, &argc);
 
