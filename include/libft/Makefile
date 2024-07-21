@@ -75,7 +75,7 @@ SRC			=	ft_isalpha.c \
 				ft_strcmp.c \
 				ft_strstr.c \
 				ft_isspace.c \
-				ft_strcspn.c
+				#ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)
 

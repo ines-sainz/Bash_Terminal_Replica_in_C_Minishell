@@ -76,6 +76,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_strcpy(char *dest, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(char *haystack, char *needle);
-size_t	*ft_strcspn(const char *s, const char *reject);
+//size_t	*ft_strcspn(const char *s, const char *reject);
 
 #endif
