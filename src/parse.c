@@ -23,19 +23,15 @@
 	analize_built_in();
 } */
 
-int	parse(char *input, char **env)
+int	parse(char *input, t_mini *mini)
 {
 	char	*args[MAX_ARGS];
-	t_mini	mini;
 	int		argc;
 	int		i;
 
 	printf("You entered: %s\n", input);
-	ft_bzero(&mini, sizeof(t_mini));
-	ft_set_env(env, &mini);	///TENEMOS QUE SETEAR LA VARIABLE EN EL MAIN
 	ft_tokenize(input, args, &argc);
 	printf("argc ==> %i\n", argc);
-
 	printf("Parsed arguments:\n");
 	i = 0;
 	while (i < argc)

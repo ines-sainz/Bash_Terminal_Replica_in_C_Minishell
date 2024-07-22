@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **env)
 	char	*input;
 	char	*entrada;
 	char	*user_prompt;
+	t_mini	mini;
 
 	//environment
 	(void)argv;
@@ -63,6 +64,11 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, signal_sigquit);
 
+	//Inicializar la estructura y el environment
+	ft_bzero(&mini, sizeof(t_mini));
+	ft_set_env(env, &mini);
+	ft_print_env(&mini);
+
 	// Bucle principal del shell
 	while (1)
 	{
@@ -81,7 +87,7 @@ int	main(int argc, char **argv, char **env)
 		
 		if (ft_strcmp(ft_strtrim(input, " "), "exit") == 0)
 			exit (0);
-		parse(input, env);
+		parse(input, &mini);
 
 		free(input);  // Liberar la memoria asignada por readline
 	}
