@@ -33,11 +33,16 @@ void	signal_sigquit(int sig)
 }
 
 // cc signals.c -lreadline
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char	*input;
 	char	*entrada;
 	char	*user_prompt;
+
+	//environment
+	(void)argv;
+	if (argc != 1)
+		return (1);
 
 	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
 
@@ -76,7 +81,7 @@ int	main(void)
 		
 		if (ft_strcmp(ft_strtrim(input, " "), "exit") == 0)
 			exit (0);
-		parse(input);
+		parse(input, env);
 
 		free(input);  // Liberar la memoria asignada por readline
 	}

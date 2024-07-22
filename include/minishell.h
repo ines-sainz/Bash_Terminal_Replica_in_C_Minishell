@@ -69,6 +69,13 @@
 
 // STRUCTURES
 
+typedef struct s_env
+{
+	char			*variable;
+	char			*content;
+	struct s_env	*next;
+}			t_env;
+
 typedef enum s_bool
 {
 	t_false,
@@ -86,6 +93,8 @@ typedef struct s_mini
 {
 	int		pipes;
 	t_fd	in_out;
+	t_env	*env_first_node;
+	t_env	*env_iter;
 }	t_mini;
 
 /*_____           _        _                         
@@ -105,10 +114,22 @@ typedef struct s_mini
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
-int		parse(char *input);
+int		parse(char *input, char **env);
 
 //////////////////////////////////////////////////////
 //					FT_TOKENIZE.C					//
 //////////////////////////////////////////////////////
 void	ft_tokenize(char *input, char *args[], int *argc);
 //char	**ft_tokenize(char const *s, char c);
+
+//////////////////////////////////////////////////////
+//				FT_ENVIRONMENT.C					//
+//////////////////////////////////////////////////////
+void	ft_unset_env(char *unset, t_mini *mini);
+void	ft_export_env(char *new_env, t_mini *mini);
+char	*ft_get_env(char *to_expand, t_mini *mini);
+t_env	*env_new(char *env);
+int		add_back_env(t_env *node, t_mini *mini);
+void	free_env(t_mini *mini);
+void	ft_print_env(t_mini *mini);
+int		ft_set_env(char **env, t_mini *mini);
