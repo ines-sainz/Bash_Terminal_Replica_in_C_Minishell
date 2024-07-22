@@ -29,6 +29,7 @@ int	parse(char *input, t_mini *mini)
 	int		argc;
 	int		i;
 
+	(void)mini;
 	printf("You entered: %s\n", input);
 	ft_tokenize(input, args, &argc);
 	printf("argc ==> %i\n", argc);

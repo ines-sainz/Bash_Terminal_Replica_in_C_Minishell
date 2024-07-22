@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	ft_print_env(t_mini *mini)
 {
