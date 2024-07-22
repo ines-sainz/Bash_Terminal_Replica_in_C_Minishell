@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/22 09:05:59 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/22 13:56:16 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,5 @@ int		parse(char *input);
 //////////////////////////////////////////////////////
 //					FT_TOKENIZE.C					//
 //////////////////////////////////////////////////////
+void	ft_tokenize(char *input, char *args[], int *argc);
 //char	**ft_tokenize(char const *s, char c);
