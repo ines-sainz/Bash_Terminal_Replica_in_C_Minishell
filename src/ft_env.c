@@ -202,9 +202,6 @@ int	ft_set_env(char **env, t_mini *mini)
 
 /*
 ******************FALLA**********************
-_=/home/isainz-r/Desktop/test_mini/./mini ******MIO
-_=/usr/bin/env ******ORIGINAL
-******************FALLA**********************
 el unset no unset la variable.
 
 $ echo $VAR
