@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/22 14:54:12 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/22 21:53:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,9 @@ static void	add_to_args(char *input, char *args[], int *argc, char **arg_ptr, ch
 
 void	ft_tokenize(char *input, char *args[], int *argc)
 {
-	int		in_single_quote;
-	int		in_double_quote;
 	char	*arg;
 	char	*arg_ptr;
 
-	in_single_quote = 0;
-	in_double_quote = 0;
 	arg = malloc(ft_strlen(input) + 1);
 	arg_ptr = arg;
 	*argc = 0;
