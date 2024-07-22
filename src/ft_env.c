@@ -88,6 +88,7 @@ void	ft_unset_env(char *unset, t_mini *mini)
 {
 	t_env	*prev;
 
+	mini->env_iter = mini->env_first_node;
 	while (mini->env_iter != NULL)
 	{
 		if (!ft_strncmp(unset, mini->env_iter->variable, ft_strlen(unset)))
