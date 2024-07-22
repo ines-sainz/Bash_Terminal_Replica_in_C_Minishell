@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/17 11:35:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/22 13:12:17 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(void)
 
 		// Procesar la entrada del usuario
 		//printf("You entered: %s\n", input);
-		if (ft_strcmp(input, "exit") == 0 && ft_strlen(input) == 4)
+		
+		if (ft_strcmp(ft_strtrim(input, " "), "exit") == 0)
 			exit (0);
 		parse(input);
 
