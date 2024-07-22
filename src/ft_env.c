@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/07/18 09:55:26 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/07/22 21:51:50 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -83,7 +82,8 @@ t_env	*env_new(char *env)
 	return (node);
 }
 
-//cuento con que solo me dan lla variable que quiere dessetear, no el contenido también
+// Cuento con que solo me dan la variable que
+// quiere desetear, no el contenido también
 void	ft_unset_env(char *unset, t_mini *mini)
 {
 	t_env	*prev;
@@ -93,7 +93,9 @@ void	ft_unset_env(char *unset, t_mini *mini)
 	{
 		if (!ft_strncmp(unset, mini->env_iter->variable, ft_strlen(unset)))
 		{
-			if (!ft_strncmp(mini->env_iter->variable, mini->env_first_node->variable, ft_strlen(mini->env_first_node->variable)))
+			if (!ft_strncmp(mini->env_iter->variable,
+					mini->env_first_node->variable,
+					ft_strlen(mini->env_first_node->variable)))
 			{
 				mini->env_first_node = mini->env_first_node->next;
 				free(mini->env_iter->variable);
@@ -102,7 +104,8 @@ void	ft_unset_env(char *unset, t_mini *mini)
 				return ;
 			}
 			prev = mini->env_first_node;
-			while (prev != NULL && ft_strncmp(prev->next->variable, unset, ft_strlen(unset)))
+			while (prev != NULL && ft_strncmp(prev->next->variable,
+					unset, ft_strlen(unset)))
 				prev = prev->next;
 			if (mini->env_iter->next)
 				prev->next = mini->env_iter->next;
@@ -131,7 +134,7 @@ void	ft_export_env(char *new_env, t_mini *mini)
 	while (mini->env_iter != NULL)
 	{
 		if (!ft_strncmp(new_node->variable, mini->env_iter->variable,
-			ft_strlen(mini->env_iter->variable)))
+				ft_strlen(mini->env_iter->variable)))
 		{
 			mini->env_iter->content = ft_strdup(new_node->content);
 			free(new_node->content);
@@ -149,7 +152,8 @@ char	*ft_get_env(char *to_expand, t_mini *mini)
 	mini->env_iter = mini->env_first_node;
 	while (mini->env_iter != NULL)
 	{
-		if (!ft_strncmp(to_expand, mini->env_iter->variable, ft_strlen(mini->env_iter->variable)))
+		if (!ft_strncmp(to_expand, mini->env_iter->variable,
+				ft_strlen(mini->env_iter->variable)))
 			return (mini->env_iter->content);
 		mini->env_iter = mini->env_iter->next;
 	}
@@ -174,7 +178,7 @@ int	ft_set_env(char **env, t_mini *mini)
 	return (0);
 }
 
-/*int	main(int argc, char **argv, char **env)
+/* int	main(int argc, char **argv, char **env)
 {
 	t_mini	mini;
 
@@ -199,7 +203,7 @@ int	ft_set_env(char **env, t_mini *mini)
 	ft_unset_env("INES", &mini);
 	printf("/////////////////////////////////////\n         IMPRIME EL ENV              \n/////////////////////////////////////\n");
 	ft_print_env(&mini);
-}*/
+} */
 
 /*
 ******************FALLA**********************
