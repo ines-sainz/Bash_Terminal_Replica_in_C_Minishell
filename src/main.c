@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 11:54:38 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/23 13:00:26 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(int argc, char **argv, char **env)
 			exit (0);
 		parse(&args, &mini);
 
+		// Da error desde que está en la estructura t_args
 		free(args.input);  // Liberar la memoria asignada por readline
 	}
 	free(entrada);

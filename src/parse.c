@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/22 14:01:42 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/23 12:19:03 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@
 	analize_built_in();
 } */
 
-int	parse(char *input, t_mini *mini)
+int	parse(t_args *args, t_mini *mini)
 {
-	char	*args[MAX_ARGS];
-	int		argc;
+	//char	*args[MAX_ARGS];
+	//int		argc;
 	int		i;
 
 	(void)mini;
-	printf("You entered: %s\n", input);
-	ft_tokenize(input, args, &argc);
-	printf("argc ==> %i\n", argc);
+	printf("You entered: %s\n", args->input);
+	//ft_tokenize(input, args, &argc);
+	ft_tokenize(args, &args->argc);
+	printf("argc ==> %i\n", args->argc);
 	printf("Parsed arguments:\n");
 	i = 0;
-	while (i < argc)
+	while (i < args->argc)
 	{
-		printf("arg[%d]: %s\n", i, args[i]);
-		free(args[i]);
+		printf("arg[%d]: %s\n", i, args->args[i]);
+		free(args->args[i]);
 		i++;
 	}
 	return (0);
