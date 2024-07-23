@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 12:19:03 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/23 14:51:06 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@
 
 int	parse(t_args *args, t_mini *mini)
 {
-	//char	*args[MAX_ARGS];
-	//int		argc;
-	int		i;
+	int	i;
 
 	(void)mini;
 	printf("You entered: %s\n", args->input);
-	//ft_tokenize(input, args, &argc);
 	ft_tokenize(args, &args->argc);
 	printf("argc ==> %i\n", args->argc);
 	printf("Parsed arguments:\n");
