@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:00:26 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/23 14:54:04 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	signal_sigquit(int sig)
 {
 	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
 	clear_history();
-	signal(sig, SIG_DFL);  // Restaurar el comportamiento por defecto
-	kill(getpid(), sig);   // Enviar la señal nuevamente
+	signal(sig, SIG_DFL); // Restaurar el comportamiento por defecto
+	kill(getpid(), sig); // Enviar la señal nuevamente
 }
 
 // cc signals.c -lreadline
@@ -85,14 +85,12 @@ int	main(int argc, char **argv, char **env)
 			add_history(args.input);
 
 		// Procesar la entrada del usuario
-		//printf("You entered: %s\n", input);
-		
+		// OJO: ft_strtrim utiliza malloc!!!!!
 		if (ft_strcmp(ft_strtrim(args.input, " "), "exit") == 0)
 			exit (0);
 		parse(&args, &mini);
 
-		// Da error desde que está en la estructura t_args
-		free(args.input);  // Liberar la memoria asignada por readline
+		free(args.input); // Liberar la memoria asignada por readline
 	}
 	free(entrada);
 	free(user_prompt);
