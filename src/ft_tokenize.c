@@ -6,27 +6,25 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/23 12:30:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/23 14:51:59 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-//static void	add_to_args(char *input, char *args[], int *argc, char **arg_ptr, char *arg)
 static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 {
-	int	in_single_quote;
-	int	in_double_quote;
+	char	*input_ptr;
 
-	in_single_quote = 0;
-	in_double_quote = 0;
-	while (*(args->input))
+	input_ptr = args->input;
+	while (*input_ptr)
 	{
-		if (*(args->input) == '\'' && !in_double_quote)
-			in_single_quote = !in_single_quote;
-		else if (*(args->input) == '\"' && !in_single_quote)
-			in_double_quote = !in_double_quote;
-		else if (ft_isspace(*(args->input)) && !in_single_quote && !in_double_quote)
+		if (*input_ptr == '\'' && !(args->in_double_quote))
+			args->in_single_quote = !(args->in_single_quote);
+		else if (*input_ptr == '\"' && !(args->in_single_quote))
+			args->in_double_quote = !(args->in_double_quote);
+		else if (ft_isspace(*input_ptr) && !(args->in_single_quote)
+			&& !(args->in_double_quote))
 		{
 			if (*arg_ptr != args->arg)
 			{
@@ -36,21 +34,16 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 			}
 		}
 		else
-			*(*arg_ptr)++ = *(args->input);
-		args->input++;
+			*(*arg_ptr)++ = *input_ptr;
+		input_ptr++;
 	}
 }
 
-//void	ft_tokenize(char *input, char *args[], int *argc)
 void	ft_tokenize(t_args *args, int *argc)
 {
-	//char	*arg;
-	//char	*arg_ptr;
-
 	args->arg = malloc(ft_strlen(args->input) + 1);
 	args->arg_ptr = args->arg;
 	*argc = 0;
-	//add_to_args(input, args, argc, &arg_ptr, arg);
 	add_to_args(args, argc, &args->arg_ptr);
 	if (args->arg_ptr != args->arg)
 	{
