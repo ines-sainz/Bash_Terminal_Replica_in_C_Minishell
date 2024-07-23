@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/22 21:57:37 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:03:11 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 #define BOLD "\033[1m"
 
 // DEFINES
-/* #define NUM_THREADS 5 */
+#define MAX_ARGS 100
 
 // STRUCTURES
 
@@ -96,6 +96,15 @@ typedef struct s_mini
 	t_env	*env_iter;
 }	t_mini;
 
+typedef struct s_args
+{
+	char	*input;
+	char	*args[MAX_ARGS];
+	int		argc;
+	char	*arg;
+	char	*arg_ptr;
+}	t_args;
+
 /*_____           _        _                         
  |  __ \         | |      | |                        
  | |__) | __ ___ | |_ ___ | |_ _   _ _ __   ___  ___ 
@@ -113,7 +122,7 @@ typedef struct s_mini
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
-int		parse(char *input, t_mini *mini);
+int		parse(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FT_TOKENIZE.C					//
