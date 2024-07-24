@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 14:40:46 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/24 08:45:44 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_mini
 typedef struct s_args
 {
 	char	*input;
+	char	*input_trimed;
 	char	*args[MAX_ARGS];
 	int		argc;
 	char	*arg;
