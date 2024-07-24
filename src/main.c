@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 14:54:04 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/24 08:50:28 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ int	main(int argc, char **argv, char **env)
 
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
-		if (ft_strcmp(ft_strtrim(args.input, " "), "exit") == 0)
+		args.input_trimed = ft_strtrim(args.input, " ");
+		if (ft_strcmp(args.input_trimed, "exit") == 0)
 			exit (0);
 		parse(&args, &mini);
 
 		free(args.input); // Liberar la memoria asignada por readline
+		free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
+
 	}
 	free(entrada);
 	free(user_prompt);
