@@ -26,3 +26,24 @@ En "un 'lugar' de la 'mancha "de" cuyo' nombre
 
 "l'"s'
 	1. l's
+
+"hola"a"a"a"a"
+	1. holaaaaa
+
+"hola"a'"a"a"a"'
+	1. holaa"a"a"a"
+
+"hola"a'"a"a"a"'""a
+	1. holaa"a"a"a"a
+
+"hola"a'"a"a"a"'""aa
+	1. holaa"a"a"a"aa
+
+"hola"a'"a"a"a"'""a"a"
+	1. holaa"a"a"a"aa
+
+"hola"a'"a"a"a"'""a"a"''''''
+	1. holaa"a"a"a"aa
+
+"$USER"a'"$USER"a"a"'""a"a"'''''
+	danjimen"$USER"a"a"aa
