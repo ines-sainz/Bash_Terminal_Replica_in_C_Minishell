@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/24 08:45:44 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/07/24 14:37:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,21 @@
 #define MAX_ARGS 100
 
 // STRUCTURES
+typedef enum e_param_type
+{
+	CMD,
+	IN_OUT,
+	PIPE,
+	PARAMS
+}	t_param_type;
+
+typedef enum e_file_type
+{
+	INFILE,
+	HERE_DOC,
+	TRUNC,
+	APPEND
+}	t_file_type;
 
 typedef struct s_env
 {
@@ -96,16 +111,24 @@ typedef struct s_mini
 	t_env	*env_iter;
 }	t_mini;
 
+typedef struct s_params
+{
+	t_param_type	param_type;
+	int				argc;
+	char			*content;
+}	t_params;
+
 typedef struct s_args
 {
-	char	*input;
-	char	*input_trimed;
-	char	*args[MAX_ARGS];
-	int		argc;
-	char	*arg;
-	char	*arg_ptr;
-	int		in_single_quote;
-	int		in_double_quote;
+	char		*input;
+	char		*input_trimed;
+	char		*args[MAX_ARGS];
+	int			argc;
+	char		*arg;
+	char		*arg_ptr;
+	int			in_single_quote;
+	int			in_double_quote;
+	t_params	*argv;
 }	t_args;
 
 /*_____           _        _                         
