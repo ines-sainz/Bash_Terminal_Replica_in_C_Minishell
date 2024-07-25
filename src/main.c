@@ -45,9 +45,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	if (argc != 1)
 		return (1);
-
 	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
-
 	user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
 	if (!user_prompt)
 	{
@@ -68,8 +66,14 @@ int	main(int argc, char **argv, char **env)
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&mini, sizeof(t_mini));
-	ft_set_env(env, &mini);
-	//ft_print_env(&mini);
+//	ft_set_env(env, &mini);
+//	ft_print_env(&mini);
+//	printf("\n\n\n\n\n\n");
+//	ft_export_env("INES=ines", &mini);
+//	ft_print_env(&mini);
+//	ft_unset_env("INES", &mini);
+//	printf("\n\n\n\n\n\n");
+//	ft_print_env(&mini);
 
 	// Bucle principal del shell
 	while (1)

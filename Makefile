@@ -35,7 +35,8 @@ SRC_DIR			=	src
 SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse.c \
 					$(SRC_DIR)/ft_tokenize.c \
-					$(SRC_DIR)/ft_env.c
+					$(SRC_DIR)/ft_env.c \
+					$(SRC_DIR)/ft_list_env.c
 
 OBJ				=	$(SRC:.c=.o)
 
