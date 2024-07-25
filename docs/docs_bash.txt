@@ -1,0 +1,63 @@
+Documentación
+
+Hay tres tipos de tokens: palabras reservadas, palabras y operadores.
+Los operadores son caracteres con significado para shell, como | y >. El resto son palabras comunes.
+Las variables son cadenas. Si se proporciona el valor, lo expande. Una palabra que comienza con dólar introduce una referencia que se reemplaza con el valor.
+Pipe es una lista lineal de comandos en la que la salida de un comando es la entrada del siguiente.
+Permite que los flujos de entrada, salida y error se redirijan a otro archivo o proceso cuando se invoca el comando.
+La redirección permite abrir y cerrar archivos .
+La estructura de datos de shell para pasar información de una etapa a la siguiente y para operar en unidades de datos dentro de cada etapa de procesamiento es WORD_DESC:
+typedef struct word_desc { 
+  char *word; /* Cadena terminada en cero. */ 
+  int flags; /* Banderas asociadas con esta palabra. */ 
+} WORD_DESC;
+Capta caracteres de la terminal o un archivo, se dividen en líneas y pasan al analizador de shell para transformarlas en comandos. 
+Readline lleva un registro del contenido del búfer de caracteres mostrados en pantalla, el contenido actualizado de lo que se ve y los caracteres reales mostrados.
+
+Análisis Léxico
+Interpreta los caracteres y cadenas entre comillas y evita que se reconozcan como palabras reservadas o metacaracteres. 
+Separa los caracteres en palabras y aplica significado al resultado. 
+Las palabras son caracteres separados por metacaracteres: espacios y tabulaciones, o caracteres especiales como ; y &.
+Toma la entrada de readline, divide los tokens en metacaracteres, los identifica en función del contexto y los pasa al analizador para ensamblarlos en declaraciones y comandos.
+La palabra puede ser reservada, un identificador, parte de una declaración de asignación u otra palabra, y el siguiente es un comando válido.
+Las comillas interpretan diferente el texto. Las simples, impiden la interpretación de todos los caracteres. 
+Las dobles impiden, pero permiten expansiones (tratan las barras invertidas diferente). 
+
+Análisis Sintáctico
+Permite el análisis dependiendo del contexto de la gramática. El analizador léxico clasifica según el tipo de token: palabra reservada, palabra, declaración de asignación, etc. Para esto, el analizador sintáctico debe indicarle si está procesando una cadena de varias líneas, si está en una declaración de caso o en un comando condicional, o si es un patrón de shell extendido o una declaración de asignación compuesta.
+Al expandir usa el analizador para encontrar el final correcto de la construcción. 
+El analizador devuelve una estructura que representa un comando y lo pasa a la expansión de palabras. La estructura de comandos está compuesta por objetos de comandos y listas de palabras. La mayoría de las listas de palabras están sujetas a varias transformaciones, según su contexto, como se explica en las siguientes secciones.
+
+3.5. Expansiones de palabras
+Después del análisis, pero antes de la ejecución, muchas de las palabras producidas por la etapa de análisis se someten a la expansión de palabras.
+Las variables se expanden y transforman en nuevas palabras y listas de palabras.
+${parameter:-word}se expandirá a parameter si está configurada y, word si no está configurada, a la cadena vacía.
+Expansión de llaves, que convierte:
+pre{uno,dos,tres}post
+en:
+preonepost pretwopost prethreepost
+La sustitución de comandos ejecuta un comando, recopila el resultado y lo usa como valor de la expansión. Ejecuta el comando adjunto inmediatamente y espera a que se complete. 
+Bash usa la sustitución de proceso, una combinación de sustitución de comandos y pipelines. Al igual que la sustitución de comandos, bash ejecuta un comando, pero lo deja ejecutarse en segundo plano y no espera a que se complete. Abre un pipe al comando para leerlo o escribirlo y lo expone como un nombre de archivo, que se convierte en el resultado de la expansión.
+La expansión de tilde estaba pensada para convertirse ~alanen una referencia al directorio personal de Alan, pero se ha convertido en una forma de hacer referencia a una gran cantidad de directorios diferentes.
+La expansión aritmética, $((expression)) que hace que expression se evalúe según las reglas de C. El resultado de la expresión se convierte en el resultado de la expansión.
+En la expansión de variables se diferencian las comillas simples y dobles. Las simples inhiben todas las expansiones mientras que las dobles permiten algunas expansiones e inhiben otras. Las expansiones de palabras y la sustitución de comandos, aritmética y procesos tienen lugar pero la expansión con llaves y tildes no.
+3.5.4. Aglutinación
+Una vez divididos los resultados, interpreta cada palabra resultante de las expansiones anteriores como un patrón potencial e intenta compararlo con un nombre de archivo existente, incluida cualquier ruta de directorio principal.
+3.5.5 Implementación
+Las expansiones de palabras son una pequeña tubería. Cada etapa toma una palabra y, después de transformarla, la pasa a la siguiente etapa de expansión. Una vez que se han realizado todas las expansiones de palabras, se ejecuta el comando.
+Las palabras del analizador se expanden individualmente, resultando en una o más palabras para cada palabra de entrada. Los indicadores se usan para codificar información para la expansión de palabras y pasar información de la etapa a la siguiente. El analizador usa un indicador para indicar a las etapas de expansión y ejecución de comandos y el código de expansión usa indicadores para inhibir la división de palabras o notar la presencia de una cadena nula entre comillas ( "$x", donde $xno está establecido o tiene un valor nulo). 
+3.6. Ejecución de comandos
+La ejecución del pipeline. El conjunto de palabras expandidas se descompone en un nombre de comando y un conjunto de argumentos, y se pasa al sistema operativo como un archivo para leer y ejecutar, y las palabras restantes se pasan como el resto de los elementos de argv. La entrada es la estructura de comandos del analizador y un conjunto de palabras posiblemente expandidas.
+3.6.1. Redirección
+El analizador clasifica la palabra como una redirección que contiene una asignación de variable; el analizador sintáctico crea el objeto de redirección y el código de redirección interpreta el indicador y garantiza que el número del fd esté asignado a la variable correcta.
+Los efectos de las redirecciones no deben persistir más de la finalización del comando. Tiene que realizar un seguimiento de cómo deshacer los efectos de cada redirección, si no, redirigir la salida de una integración cambiaría la salida estándar. Deshace ya sea cerrando un fd o guardando el fd que se está duplicando y restaurándolo más tarde usando dup2.Las redirecciones múltiples se implementan como listas simples de objetos, las redirecciones usadas para deshacer se guardan en otra lista que se procesa al completar un comando. 
+3.6.2. Comandos integrados
+Convertir un comando en incorporado sirve para mantener o modificar el estado interno del shell. cd no se puede implementar como un comando externo.
+Cada instrucción toma una lista de palabras como argumentos. Las palabras son las de la expansión de palabras; las instrucciones incorporadas las tratan como nombres de comandos y argumentos. Las instrucciones incorporadas usan las reglas de expansión salvo las que aceptan declaraciones de asignación como argumentos (declarey, export) usan las reglas asignaciones de variables. El flag de la WORD_DESCestructura se usa para pasar información entre una etapa de la tubería interna del shell y otra.
+3.6.3. Ejecución de comandos simples
+Las asignaciones de variables (var=value) son comandos simples. Las instrucciones de asignación pueden preceder a un nombre de comando o ser independientes en una línea de comandos. Si preceden a un comando, las variables se pasan al comando ejecutado en su entorno (si preceden a un comando integrado o una función del shell, persisten solo al ejecutarse el comando integrado o la función). Si no van seguidas del nombre del comando, las instrucciones de asignación modifican el estado del shell.
+Si un comando no es una función de shell o una instrucción incorporada, busca en el sistema de archivos un ejecutable con ese nombre. PATH se usa como lista de directorios en los que buscar. Los nombres de comandos que contienen barras (u otros separadores de directorios) se ejecutan directamente.
+Al encontrar un comando en PATH, se guarda el nombre del comando y la ruta completa correspondiente. Si no lo encuentra se ejecuta una función con el nombre del comando y los argumentos como argumentos de la función.
+3.6.4 Control de trabajos
+Puede ejecutar comandos en primer plano, el comando termina y recopila su estado de salida, o en segundo plano, donde lee el siguiente comando. El control de tareas es la capacidad de mover procesos entre planos, y suspender y reanudar su ejecución. Es un comando que se está ejecutando por uno o más procesos. Una tubería usa un proceso para cada uno de sus elementos. El grupo de procesos es una forma de unir procesos separados en un solo trabajo. 
+Shell usa estructuras de datos simples en el control de trabajos. Hay una estructura para representar un proceso secundario, con el ID del proceso, su estado y el estado de retorno. Una tubería es una lista enlazada de estas estructuras de proceso. Un trabajo tien una lista de procesos, algún estado del trabajo (en ejecución, suspendido, salido, etc.) y el ID del grupo de procesos del trabajo. La lista de procesos tiene un solo proceso; las tuberías dan más de un proceso asociado con un trabajo. Cada trabajo tiene un ID de grupo de procesos único. El ID del proceso que es el del grupo de procesos del trabajo es el líder. El conjunto de trabajos se pone en una matriz. El estado del trabajo y el estado de salida se ensamblan agregando el estado y los estados de salida de los procesos constituyentes.
