@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&mini, sizeof(t_mini));
-//	ft_set_env(env, &mini);
+	ft_set_env(env, &mini);
 //	ft_print_env(&mini);
 //	printf("\n\n\n\n\n\n");
 //	ft_export_env("INES=ines", &mini);
@@ -87,6 +87,10 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (args.input[0] != '\0')
 			add_history(args.input);
+		//IMPORTANTE actualizar el estado de las redirecciones
+		//Cuento que en este momento esté todo cerrado
+		mini.in_out.inf = 0;
+		mini.in_out.outf = 1;
 
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
