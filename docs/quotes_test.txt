@@ -47,3 +47,11 @@ En "un 'lugar' de la 'mancha "de" cuyo' nombre
 
 "$USER"a'"$USER"a"a"'""a"a"'''''
 	danjimen"$USER"a"a"aa
+
+<Makefile cat|echo "hola qie tal">/dev/stdout
+You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
+argc ==> 3
+Parsed arguments:
+arg[0]: <Makefile
+arg[1]: cat|echo
+arg[2]: hola qie tal>/dev/stdout
