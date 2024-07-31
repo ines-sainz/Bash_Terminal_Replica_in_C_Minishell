@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	//ft_print_env(&mini);
 
 	printf("%s\n", buit_ins("pwd", "", &mini));
-	printf("%s\n", buit_ins("env", "", &mini));
+//	printf("%s\n", buit_ins("env", "", &mini));
 
 	// Bucle principal del shell
 	while (1)
