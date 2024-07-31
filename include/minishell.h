@@ -15,6 +15,10 @@
 //libft
 #include "libft/libft.h"
 
+//max int y min int
+#include <stdint.h>
+#include <limits.h>
+
 // printf, readline, perror
 #include <stdio.h>
 
@@ -103,9 +107,16 @@ typedef struct s_fd
 	int		outf;
 }	t_fd;
 
+typedef struct s_pipes
+{
+	int	num_pipes;
+	int	inf_pipe;
+	int	outf_pipe;
+}		t_pipes;
+
 typedef struct s_mini
 {
-	int		pipes;
+	t_pipes	pipes;
 	t_fd	in_out;
 	t_env	*env_first_node;
 	t_env	*env_iter;
@@ -168,3 +179,13 @@ int		add_back_env(t_env *node, t_mini *mini);
 void	free_env(t_mini *mini);
 void	ft_print_env(t_mini *mini);
 int		ft_set_env(char **env, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//					EXPANDER.C						//
+//////////////////////////////////////////////////////
+char	*expander(char *variable);
+
+//////////////////////////////////////////////////////
+//					BUILT-INS.C						//
+//////////////////////////////////////////////////////
+char	*buit_ins(char *command, char *argv, t_mini *mini);
