@@ -67,13 +67,10 @@ int	main(int argc, char **argv, char **env)
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_set_env(env, &mini);
-//	ft_print_env(&mini);
-//	printf("\n\n\n\n\n\n");
-//	ft_export_env("INES=ines", &mini);
-//	ft_print_env(&mini);
-//	ft_unset_env("INES", &mini);
-//	printf("\n\n\n\n\n\n");
-//	ft_print_env(&mini);
+	//ft_print_env(&mini);
+
+	printf("%s\n", buit_ins("pwd", "", &mini));
+	printf("%s\n", buit_ins("env", "", &mini));
 
 	// Bucle principal del shell
 	while (1)
