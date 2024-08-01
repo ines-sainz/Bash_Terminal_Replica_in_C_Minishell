@@ -12,7 +12,6 @@
 
 #include "../include/minishell.h"
 
-
 char	*join_four_args(char *var, char *equal, char *content, char *jump)
 {
 	int		len;
@@ -45,7 +44,7 @@ char	*ft_built_env(t_mini *mini)
 	char	*line;
 
 	mini->env_iter = mini->env_first_node;
-	line = NULL;
+	line = "";
 	while (mini->env_iter != NULL)
 	{
 		temp = ft_strdup(line);
@@ -70,10 +69,30 @@ char	*buit_ins(char *command, char *argv, t_mini *mini)
 		output = getcwd(buffer,  INT_MAX);
 		/*if (!output)*/
 		temp = ft_strjoin(output, "/");
-		free(output);
 		free(buffer);
-		output = ft_strjoin(temp, argv);
-		chdir(output);
+		buffer = ft_strjoin(temp, argv);
+		chdir(buffer);
+		temp = ft_strjoin("OLDPWD=", output);
+		free(output);
+		output = NULL;
+		ft_export_env(temp, mini);
+		free(temp);
+		temp = ft_strjoin("PWD=", buffer);
+		ft_export_env(temp, mini);
+		free(temp);
+		rl_on_new_line();
+		temp = ft_strjoin(getenv("USER"), "@minishell/");
+		buffer = ft_strjoin(temp, argv);
+		free(temp);
+		temp = ft_strjoin(buffer, "> ");
+		/*if (!temp)*/
+		mini->user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(temp) + ft_strlen(RESET) + 1);
+		ft_strcpy(mini->user_prompt, RED);
+		ft_strlcat(mini->user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(temp) + ft_strlen(RESET) + 1);
+		ft_strlcat(mini->user_prompt, temp, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(temp) + ft_strlen(RESET) + 1);
+		ft_strlcat(mini->user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(temp) + ft_strlen(RESET) + 1);
+		rl_replace_line(mini->user_prompt, 0);
+		rl_redisplay();
 	}
 	if (!ft_strncmp("pwd", command, ft_strlen(command)))
 		output = getcwd(buffer, INT_MAX);
