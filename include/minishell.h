@@ -116,6 +116,7 @@ typedef struct s_pipes
 
 typedef struct s_mini
 {
+	char	*user_prompt;
 	t_pipes	pipes;
 	t_fd	in_out;
 	t_env	*env_first_node;
