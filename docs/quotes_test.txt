@@ -55,3 +55,12 @@ Parsed arguments:
 arg[0]: <Makefile
 arg[1]: cat|echo
 arg[2]: hola qie tal>/dev/stdout
+
+isainz-r@minishell> hola "que atdll adss sad 'fs ewwr'n" dfs 'sadf "hhh"  sdf'
+You entered: hola "que atdll adss sad 'fs ewwr'n" dfs 'sadf "hhh"  sdf'
+argc ==> 4
+Parsed arguments:
+arg[0]: hola
+arg[1]: que atdll adss sad 'fs ewwr'n
+arg[2]: dfs
+arg[3]: sadf "hhh"  sdf
