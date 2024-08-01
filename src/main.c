@@ -38,30 +38,8 @@ int	main(int argc, char **argv, char **env)
 	//char	*input;
 	t_args	args;
 	char	*entrada;
-	char	*user_prompt;
+	//char	*user_prompt;
 	t_mini	mini;
-
-	//environment
-	(void)argv;
-	if (argc != 1)
-		return (1);
-	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
-	user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	if (!user_prompt)
-	{
-		fprintf(stderr, "Error allocating memory\n");
-		return (1);
-	}
-	ft_strcpy(user_prompt, RED);
-	ft_strlcat(user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	ft_strlcat(user_prompt, entrada, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	ft_strlcat(user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	//strcat(user_prompt, entrada);
-	//strcat(user_prompt, RESET);
-
-	// Configurar los manejadores de señal
-	signal(SIGINT, signal_sigint);
-	signal(SIGQUIT, signal_sigquit);
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -69,13 +47,37 @@ int	main(int argc, char **argv, char **env)
 	ft_set_env(env, &mini);
 	//ft_print_env(&mini);
 
-	printf("%s\n", buit_ins("pwd", "", &mini));
-//	printf("%s\n", buit_ins("env", "", &mini));
+	//environment
+	(void)argv;
+	if (argc != 1)
+		return (1);
+	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
+	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	if (!mini.user_prompt)
+	{
+		fprintf(stderr, "Error allocating memory\n");
+		return (1);
+	}
+	ft_strcpy(mini.user_prompt, RED);
+	ft_strlcat(mini.user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini.user_prompt, entrada, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	//strcat(user_prompt, entrada);
+	//strcat(user_prompt, RESET);
+
+	// Configurar los manejadores de señal
+	signal(SIGINT, signal_sigint);
+	signal(SIGQUIT, signal_sigquit);
+
+	//Built-ins
+	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
+	//printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
+	//printf("cd: %s\n", buit_ins("cd", "src", &mini));
 
 	// Bucle principal del shell
 	while (1)
 	{
-		args.input = readline(user_prompt);
+		args.input = readline(mini.user_prompt);
 		if (!args.input)
 		{
 			// Detectar Ctrl-D (EOF)
@@ -101,7 +103,7 @@ int	main(int argc, char **argv, char **env)
 
 	}
 	free(entrada);
-	free(user_prompt);
+	free(mini.user_prompt);
 	clear_history();
 	return (0);
 }
