@@ -71,8 +71,8 @@ int	main(int argc, char **argv, char **env)
 
 	//Built-ins
 	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
-	//printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
-	//printf("cd: %s\n", buit_ins("cd", "src", &mini));
+//	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
+//	printf("cd: %s\n", buit_ins("cd", "src", &mini));
 
 	// Bucle principal del shell
 	while (1)
