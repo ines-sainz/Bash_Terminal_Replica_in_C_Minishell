@@ -202,5 +202,5 @@ tgetstr
 tgoto: char *tgoto(const char *cap, int col, int row);
 	routine instantiates the parameters in the given capability. The output is to be passed to tputs().
 
-tputs: int tputs(const char *str, int affcnt, int (*putc(int));
+tputs: int tputs(const char *str, int affcnt, int (*putc(int)));
 	It can retrieve capabilities by either termcap or terminfo name.
