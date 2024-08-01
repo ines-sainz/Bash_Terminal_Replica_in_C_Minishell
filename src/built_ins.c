@@ -102,4 +102,3 @@ char	*buit_ins(char *command, char *argv, t_mini *mini)
 		output = ft_built_env(mini);
 	return (output);
 }
-
