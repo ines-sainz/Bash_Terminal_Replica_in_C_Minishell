@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/23 14:51:59 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/02 11:52:56 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 			args->in_double_quote = !(args->in_double_quote);
 		else if (ft_isspace(*input_ptr) && !(args->in_single_quote)
 			&& !(args->in_double_quote))
+			//&& !(args->in_double_quote) && *input_ptr != '|')
 		{
 			if (*arg_ptr != args->arg)
 			{
