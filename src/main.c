@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/24 08:50:28 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/02 12:08:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,12 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, signal_sigquit);
 
 	//Built-ins
+	printf("%s\n", expander("$INES"));
 	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
-//	printf("cd: %s\n", buit_ins("cd", "src", &mini));
+	printf("cd: %s\n", buit_ins("cd", "..", &mini));
+	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
+	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 
 	// Bucle principal del shell
 	while (1)
