@@ -78,3 +78,10 @@ danjimen@c1r12s1:~/Desktop/minishell$ cat <dani <txt.txt <adios
 bash: adios: No such file or directory
 danjimen@c1r12s1:~/Desktop/minishell$ cat <dani <txt <adios.txt 
 bash: txt: No such file or directory
+
+danjimen@c1r12s1:~/Desktop/minishell$ cd ../ | echo $?
+0
+// No se hace el cd pero si el siguiente comando
+
+danjimen@c1r12s1:~/Desktop/minishell$ echo "hola inés" | cd ../
+// No se hace el cd pero si el comando, pero como se dirige la salida al pipe...
