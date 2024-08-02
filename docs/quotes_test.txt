@@ -64,3 +64,17 @@ arg[0]: hola
 arg[1]: que atdll adss sad 'fs ewwr'n
 arg[2]: dfs
 arg[3]: sadf "hhh"  sdf
+
+
+cat txt.txt >aksjjs>jsd>ksj>ksjasdasd
+//lo guarda en el ultimo archivo y crea todos los demás vacíos
+// lo mismo para con append, con y sin espacios entre el > y el file name
+
+danjimen@c1r12s1:~/Desktop/minishell$ cat <dani<txt.txt<adios.txt 
+HOLA
+danjimen@c1r12s1:~/Desktop/minishell$ cat <dani <txt.txt <adios.txt 
+HOLA
+danjimen@c1r12s1:~/Desktop/minishell$ cat <dani <txt.txt <adios
+bash: adios: No such file or directory
+danjimen@c1r12s1:~/Desktop/minishell$ cat <dani <txt <adios.txt 
+bash: txt: No such file or directory
