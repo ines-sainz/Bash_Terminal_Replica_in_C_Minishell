@@ -66,6 +66,10 @@ arg[2]: dfs
 arg[3]: sadf "hhh"  sdf
 
 
+///////////////////////
+//		infile		//
+/////////////////////
+
 cat txt.txt >aksjjs>jsd>ksj>ksjasdasd
 //lo guarda en el ultimo archivo y crea todos los demás vacíos
 // lo mismo para con append, con y sin espacios entre el > y el file name
