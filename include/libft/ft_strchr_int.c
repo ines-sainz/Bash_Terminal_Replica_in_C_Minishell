@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:05:48 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/12 15:18:52 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:25:33 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_strchr_int(const char *s, int c)
 	return (-1);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char	str[] = "En un lugar de la mancha";
 	char	character = 'E';
@@ -42,4 +42,4 @@ int	main(void)
 	else
 		printf("No se encontró el caracter '%c' en la cadena\n", character);
 	return (0);
-}
+} */
