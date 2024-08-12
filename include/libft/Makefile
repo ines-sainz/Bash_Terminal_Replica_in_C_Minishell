@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/07/22 21:37:30 by danjimen         ###   ########.fr        #
+#    Updated: 2024/08/12 15:17:53 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,8 @@ SRC			=	ft_isalpha.c \
 				ft_strcpy.c \
 				ft_strcmp.c \
 				ft_strstr.c \
-				ft_isspace.c
+				ft_isspace.c \
+				ft_strchr_int.c
 #				ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)

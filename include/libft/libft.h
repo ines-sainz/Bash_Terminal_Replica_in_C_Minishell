@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:59:20 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/22 21:37:59 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:17:44 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char	*ft_strcpy(char *dest, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(char *haystack, char *needle);
 //size_t	*ft_strcspn(const char *s, const char *reject);
+int		ft_strchr_int(const char *s, int c);
 
 #endif
