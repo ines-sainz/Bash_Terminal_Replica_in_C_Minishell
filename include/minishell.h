@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/24 14:37:01 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/12 19:43:52 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ int		ft_set_env(char **env, t_mini *mini);
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
-char	*expander(char *variable);
+//char	*expander(char *input);
+char	*expander(char *input, bool in_single_quote);
 
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
