@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/13 12:19:49 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:50:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,21 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 {
 	char	*input_ptr;
 	char	*expanded_arg;
-	t_bool	in_single_quote = false;
-	t_bool	in_double_quote = false;
+	char	*next_char;
 
 	input_ptr = args->input;
 	while (*input_ptr)
 	{
-		if (*input_ptr == '\'' && !in_double_quote)
-			in_single_quote = !in_single_quote;
-		else if (*input_ptr == '\"' && !in_single_quote)
-			in_double_quote = !in_double_quote;
-		if ((ft_isspace(*input_ptr) || *input_ptr == '|') && !in_single_quote && !in_double_quote)
+		if (*input_ptr == '\'' && !args->in_double_quote)
+			args->in_single_quote = !args->in_single_quote;
+		else if (*input_ptr == '\"' && !args->in_single_quote)
+			args->in_double_quote = !args->in_double_quote;
+		if ((ft_isspace(*input_ptr) || *input_ptr == '|') && !args->in_single_quote && !args->in_double_quote)
 		{
 			if (*arg_ptr != args->arg)
 			{
 				**arg_ptr = '\0';
-				expanded_arg = expander(args->arg, in_single_quote);
+				expanded_arg = expander(args->arg, args->in_single_quote);
 				if (expanded_arg)
 					args->args[(*argc)++] = expanded_arg;
 				*arg_ptr = args->arg;
@@ -47,27 +46,63 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 			if (*input_ptr == '|')
 				args->args[(*argc)++] = ft_strdup("|");
 		}
+		else if (*input_ptr == '$' && !args->in_single_quote)
+		{
+			// Check if the next character is a digit
+			next_char = input_ptr + 1;
+			/* if (next_char == '$')
+			{
+				// // Copy $ as literal
+				// *(*arg_ptr)++ = *input_ptr++;
+				// // Skip the digits
+				// while (isdigit(*temp_ptr))
+				next_char++;
+				// Continue copying the rest of the string
+				input_ptr = next_char;
+				continue;
+			} */
+			if (isdigit(*next_char) || *next_char == '*')
+			{
+				// // Copy $ as literal
+				// *(*arg_ptr)++ = *input_ptr++;
+				// // Skip the digits
+				// while (isdigit(*temp_ptr))
+				next_char++;
+				// Continue copying the rest of the string
+				input_ptr = next_char;
+				continue;
+			}
+			/* else if (!ft_isalpha(*next_char) && *next_char != '_')
+			{
+				// Copy $ as literal
+				*(*arg_ptr)++ = '$';
+				input_ptr++;
+				continue;
+			} */
+			else
+				*(*arg_ptr)++ = *input_ptr;
+		}
 		else
 			*(*arg_ptr)++ = *input_ptr;
 		input_ptr++;
 	}
 
 	// Aquí verificamos si hay comillas no cerradas
-	if (in_single_quote)
+	if (args->in_single_quote)
 	{
 		*(*arg_ptr)++ = '\''; // Cierra la comilla simple
-		in_single_quote = false;
+		args->in_single_quote = false;
 	}
-	if (in_double_quote)
+	if (args->in_double_quote)
 	{
 		*(*arg_ptr)++ = '\"'; // Cierra la comilla doble
-		in_double_quote = false;
+		args->in_double_quote = false;
 	}
 
 	if (*arg_ptr != args->arg)
 	{
 		**arg_ptr = '\0';
-		expanded_arg = expander(args->arg, in_single_quote);
+		expanded_arg = expander(args->arg, args->in_single_quote);
 		if (expanded_arg)
 			args->args[(*argc)++] = expanded_arg;
 	}
