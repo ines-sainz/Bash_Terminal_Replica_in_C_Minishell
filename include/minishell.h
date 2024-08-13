@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/12 22:32:42 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:15:21 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,8 @@ int		ft_set_env(char **env, t_mini *mini);
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
-char	*expander(char *input);
-//char	*expander(char *input, bool in_single_quote);
+//char	*expander(char *input);
+char	*expander(char *input, t_bool in_single_quote);
 
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
