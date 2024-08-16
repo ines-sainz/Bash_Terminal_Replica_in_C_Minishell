@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/16 20:08:52 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:17:02 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,11 +225,21 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 
 void ft_tokenize(t_args *args, int *argc)
 {
+	// Reserva memoria para 'arg', un buffer donde se almacenará temporalmente cada argumento
+	// Se asigna espacio suficiente para almacenar una copia de la cadena de entrada completa
 	args->arg = malloc(ft_strlen(args->input) + 1);
+	// `arg_ptr` apunta al comienzo del buffer `arg`
+	// Esto se usará para construir cada argumento individualmente antes de almacenarlo
 	args->arg_ptr = args->arg;
+	// Inicializamos `argc` a 0, lo que representa el número de argumentos encontrados hasta ahora
 	*argc = 0;
+	// Inicializamos las banderas de comillas simples y dobles a `false`
+	// Estas banderas rastrean si estamos dentro de comillas simples o dobles
 	args->in_single_quote = false;
 	args->in_double_quote = false;
+	// Llamamos a `add_to_args`, que es la función encargada de analizar la cadena de entrada,
+	// separar los argumentos y manejar las comillas, expansión de variables, etc.
 	add_to_args(args, argc, &args->arg_ptr);
+	// Liberamos la memoria asignada para `arg` ya que ya no se necesita
 	free(args->arg);
 }
