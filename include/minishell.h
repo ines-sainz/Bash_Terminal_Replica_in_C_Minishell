@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/16 13:05:29 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:54:19 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ typedef struct s_args
 	int			argc;
 	char		*arg;
 	char		*arg_ptr;
-	int			in_single_quote;
-	int			in_double_quote;
+	t_bool		in_single_quote;
+	t_bool		in_double_quote;
 	t_params	*argv;
 }	t_args;
 
