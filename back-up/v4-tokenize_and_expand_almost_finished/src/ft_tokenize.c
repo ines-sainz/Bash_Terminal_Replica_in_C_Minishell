@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/13 17:50:54 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:08:52 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,37 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 	char	*expanded_arg;
 	char	*next_char;
 
+	// Asignamos el puntero de entrada al inicio de la cadena de entrada
 	input_ptr = args->input;
+	// Iteramos sobre cada carácter de la cadena de entrada
 	while (*input_ptr)
 	{
+		// Verificamos si encontramos una comilla simple y no estamos dentro de una comilla doble
 		if (*input_ptr == '\'' && !args->in_double_quote)
-			args->in_single_quote = !args->in_single_quote;
+			args->in_single_quote = !args->in_single_quote; // Alternamos el estado de la bandera de comilla simple
+		// Verificamos si encontramos una comilla doble y no estamos dentro de una comilla simple
 		else if (*input_ptr == '\"' && !args->in_single_quote)
-			args->in_double_quote = !args->in_double_quote;
+			args->in_double_quote = !args->in_double_quote; // Alternamos el estado de la bandera de comilla doble
+		// Si encontramos un espacio o un pipe ('|'), y no estamos dentro de comillas.
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|') && !args->in_single_quote && !args->in_double_quote)
 		{
+			// Si `arg_ptr` ha avanzado desde su posición inicial, es decir, si hemos acumulado un argumento
 			if (*arg_ptr != args->arg)
 			{
-				**arg_ptr = '\0';
+				**arg_ptr = '\0'; // Termina la cadena actual con un carácter nulo
+				// Expande el argumento si es necesario (por ejemplo, manejo de variables)
 				expanded_arg = expander(args->arg, args->in_single_quote);
+				// Si la expansión fue exitosa, añadimos el argumento expandido al arreglo de argumentos
 				if (expanded_arg)
 					args->args[(*argc)++] = expanded_arg;
+				// Reiniciamos `arg_ptr` a la posición inicial para el próximo argumento
 				*arg_ptr = args->arg;
 			}
+			// Si encontramos un pipe ('|'), lo añadimos como un argumento separado
 			if (*input_ptr == '|')
 				args->args[(*argc)++] = ft_strdup("|");
 		}
+		// Manejo del símbolo de dólar ('$') fuera de comillas simples
 		else if (*input_ptr == '$' && !args->in_single_quote)
 		{
 			// Check if the next character is a digit
@@ -61,6 +72,7 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 				input_ptr = next_char;
 				continue;
 			} */
+			// Verificamos si el carácter siguiente es un dígito o un asterisco ('*')
 			if (isdigit(*next_char) || *next_char == '*')
 			{
 				// // Copy $ as literal
@@ -68,9 +80,9 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 				// // Skip the digits
 				// while (isdigit(*temp_ptr))
 				next_char++;
-				// Continue copying the rest of the string
+				// Continuamos con el siguiente carácter sin copiar el '$' actual
 				input_ptr = next_char;
-				continue;
+				continue; // Salta a la siguiente iteración
 			}
 			/* else if (!ft_isalpha(*next_char) && *next_char != '_')
 			{
@@ -80,11 +92,11 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 				continue;
 			} */
 			else
-				*(*arg_ptr)++ = *input_ptr;
+				*(*arg_ptr)++ = *input_ptr; // Copiamos el '$' en el argumento
 		}
 		else
-			*(*arg_ptr)++ = *input_ptr;
-		input_ptr++;
+			*(*arg_ptr)++ = *input_ptr; // Copiamos el carácter actual en el argumento
+		input_ptr++; // Avanzamos al siguiente carácter de la cadena de entrada
 	}
 
 	// Aquí verificamos si hay comillas no cerradas
@@ -98,13 +110,14 @@ static void	add_to_args(t_args *args, int *argc, char **arg_ptr)
 		*(*arg_ptr)++ = '\"'; // Cierra la comilla doble
 		args->in_double_quote = false;
 	}
-
+	
+	// Si `arg_ptr` ha avanzado desde su posición inicial, añadimos el último argumento
 	if (*arg_ptr != args->arg)
 	{
-		**arg_ptr = '\0';
-		expanded_arg = expander(args->arg, args->in_single_quote);
+		**arg_ptr = '\0'; // Termina la cadena actual con un carácter nulo
+		expanded_arg = expander(args->arg, args->in_single_quote); // Expande el argumento si es necesario
 		if (expanded_arg)
-			args->args[(*argc)++] = expanded_arg;
+			args->args[(*argc)++] = expanded_arg; // Añade el argumento expandido al arreglo de argumentos
 	}
 }
 
