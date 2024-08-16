@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/13 11:15:21 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 13:05:29 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@
 #include <term.h>
 
 // Secuencias de escape ANSI para colores
-#define RESET "\033[0m"
-#define RED "\033[31m"
-#define GREEN "\033[32m"
-#define YELLOW "\033[33m"
-#define BLUE "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN "\033[36m"
-#define WHITE "\033[37m"
-#define BOLD "\033[1m"
+#define RESET "\001\033[0m\002"
+#define RED "\001\033[31m\002"
+#define GREEN "\001\033[32m\002"
+#define YELLOW "\001\033[33m\002"
+#define BLUE "\001\033[34m\002"
+#define MAGENTA "\001\033[35m\002"
+#define CYAN "\001\033[36m\002"
+#define WHITE "\001\033[37m\002"
+#define BOLD "\001\033[1m\002"
 
 // DEFINES
 #define MAX_ARGS 100
