@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/07/23 14:51:06 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/16 20:18:59 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 	analize_outfile();
 	analize_built_in();
 } */
+
+static void	ft_tokenize(t_args *args, int *argc)
+{
+	args->arg = malloc(ft_strlen(args->input) + 1);
+	args->arg_ptr = args->arg;
+	*argc = 0;
+	args->in_single_quote = false;
+	args->in_double_quote = false;
+	add_to_args(args, argc);
+	free(args->arg);
+}
 
 int	parse(t_args *args, t_mini *mini)
 {
