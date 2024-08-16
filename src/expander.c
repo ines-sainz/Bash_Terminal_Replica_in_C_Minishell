@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/13 17:49:31 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 22:07:16 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char *expander(char *input, t_bool started_in_single_quote)
 
 	result_capacity = ft_strlen(input) * 2;
 	result = malloc(result_capacity);
-	in_single_quotes = started_in_single_quote;
-	in_double_quotes = false;
 	if (!result)
 		return (NULL);
+	in_single_quotes = started_in_single_quote;
+	in_double_quotes = false;
 	i = 0;
 	j = 0;
 	while (input[i])
@@ -68,13 +68,13 @@ char *expander(char *input, t_bool started_in_single_quote)
 		{
 			in_single_quotes = !in_single_quotes;
 			i++; // Skip the single quote
-			continue;
+			continue ;
 		}
 		else if (input[i] == '"' && !in_single_quotes)
 		{
 			in_double_quotes = !in_double_quotes;
 			i++; // Skip the double quote
-			continue;
+			continue ;
 		}
 		if (input[i] == '$' && !in_single_quotes)
 		{
@@ -109,19 +109,19 @@ char *expander(char *input, t_bool started_in_single_quote)
 			if (input[i] == '\0') 
 			{
 				result[j++] = '$';
-				continue;
+				continue ;
 			}
 			// Check if the next character is a special character or digit
 			next_char = input[i];
-			if (!isalpha(next_char) && next_char != '_')
+			if (!ft_isalpha(next_char) && next_char != '_')
 			{
 				result[j++] = '$'; // Keep the $ symbol as a literal
 				result[j++] = next_char; // Keep the special character
 				i++;
-				continue;
+				continue ;
 			}
 			start = i;
-			while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
+			while (input[i] && (ft_isalpha(input[i]) || input[i] == '_'))
 				i++;
 			var_name = ft_substr(input, start, i - start);
 			env_value = getenv(var_name);
@@ -145,7 +145,7 @@ char *expander(char *input, t_bool started_in_single_quote)
 				ft_strcpy(result + j, env_value);
 				j += env_len;
 			}
-			continue; // Avoid double increment of i
+			continue ; // Avoid double increment of i
 		}
 
 		// Copy character unless it's a quote
