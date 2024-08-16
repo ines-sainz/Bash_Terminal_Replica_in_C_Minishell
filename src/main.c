@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/12 22:21:10 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:57:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int	main(int argc, char **argv, char **env)
 
 	//Built-ins
 	//printf("%s\n", expander("$INES"));
-	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
+//	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
-	printf("cd: %s\n", buit_ins("cd", "..", &mini));
-	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
-	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
+//	printf("cd: %s\n", buit_ins("cd", "..", &mini));
+//	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
+//	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 
 	// Bucle principal del shell
 	while (1)
