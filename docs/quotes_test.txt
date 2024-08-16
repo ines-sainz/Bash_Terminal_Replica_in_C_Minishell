@@ -46,7 +46,7 @@ En "un 'lugar' de la 'mancha "de" cuyo' nombre
 	1. holaa"a"a"a"aa
 
 "$USER"a'"$USER"a"a"'""a"a"''''''
-	danjimen"$USER"a"a"aa
+	danjimena"$USER"a"a"aa
 
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
