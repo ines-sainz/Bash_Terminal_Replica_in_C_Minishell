@@ -48,6 +48,16 @@ En "un 'lugar' de la 'mancha "de" cuyo' nombre
 "$USER"a'"$USER"a"a"'""a"a"''''''
 	danjimena"$USER"a"a"aa
 
+$USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
+	arg[0]: bishopvk
+	arg[1]: bishopvk
+	arg[2]: $USER
+	arg[3]: 123
+	arg[4]: bishopvk
+	arg[5]: 456
+	arg[6]: 123 bishopvk 456
+	arg[7]: 123 $USER 456
+
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
 argc ==> 3
