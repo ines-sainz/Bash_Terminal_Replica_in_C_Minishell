@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/16 20:39:20 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 20:48:53 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	dollar_out_of_single_quotes(char *input_ptr, t_args *args)
 {
 	char	*next_char;
-	
+
 	next_char = input_ptr + 1;
 	if (ft_isdigit(*next_char) || *next_char == '*')
 	{
@@ -54,12 +54,12 @@ static void	verify_closed_quotes(t_args *args)
 {
 	if (args->in_single_quote)
 	{
-		*args->arg_ptr++ = '\''; // Cierra la comilla simple
+		*args->arg_ptr++ = '\'';
 		args->in_single_quote = false;
 	}
 	if (args->in_double_quote)
 	{
-		*args->arg_ptr++ = '\"'; // Cierra la comilla doble
+		*args->arg_ptr++ = '\"';
 		args->in_double_quote = false;
 	}
 }
@@ -73,7 +73,8 @@ void	add_to_args(t_args *args, int *argc)
 	while (*input_ptr)
 	{
 		control_quotes(input_ptr, args);
-		if ((ft_isspace(*input_ptr) || *input_ptr == '|') && !args->in_single_quote && !args->in_double_quote)
+		if ((ft_isspace(*input_ptr) || *input_ptr == '|')
+			&& !args->in_single_quote && !args->in_double_quote)
 			out_of_quotes(input_ptr, args, &argc);
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			dollar_out_of_single_quotes(input_ptr, args);
