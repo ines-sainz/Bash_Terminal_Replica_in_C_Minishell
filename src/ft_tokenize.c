@@ -6,24 +6,24 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/16 20:48:53 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/16 22:05:28 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	dollar_out_of_single_quotes(char *input_ptr, t_args *args)
+static void	dollar_out_of_single_quotes(char **input_ptr, t_args *args)
 {
 	char	*next_char;
 
-	next_char = input_ptr + 1;
+	next_char = *input_ptr + 1;
 	if (ft_isdigit(*next_char) || *next_char == '*')
 	{
-		next_char++;
-		input_ptr = next_char;
+		//next_char++;
+		*input_ptr = next_char;
 	}
 	else
-		*args->arg_ptr++ = *input_ptr;
+		*args->arg_ptr++ = **input_ptr;
 }
 
 static void	out_of_quotes(char *input_ptr, t_args *args, int **argc)
@@ -77,7 +77,7 @@ void	add_to_args(t_args *args, int *argc)
 			&& !args->in_single_quote && !args->in_double_quote)
 			out_of_quotes(input_ptr, args, &argc);
 		else if (*input_ptr == '$' && !args->in_single_quote)
-			dollar_out_of_single_quotes(input_ptr, args);
+			dollar_out_of_single_quotes(&input_ptr, args);
 		else
 			*args->arg_ptr++ = *input_ptr;
 		input_ptr++;
