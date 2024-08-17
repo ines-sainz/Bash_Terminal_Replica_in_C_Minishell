@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/16 22:07:16 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:39:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *expander(char *input, t_bool started_in_single_quote)
 	if (!result)
 		return (NULL);
 	in_single_quotes = started_in_single_quote;
-	in_double_quotes = false;
+	in_double_quotes = t_false;
 	i = 0;
 	j = 0;
 	while (input[i])
