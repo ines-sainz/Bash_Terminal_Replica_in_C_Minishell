@@ -14,14 +14,14 @@ Minishell
 
 3°PARSEO
 	• No interpretar comillas sin cerrar o caracteres especiales no especificados 
-	en el enunciado como \ (barra invertida) o ; (punto y coma).
+	en el enunciado como \ (barra invertida) o ; (punto y coma). ✅
 
 	3.1• Gestionar que la ’ evite que el shell interprete los metacaracteres en la 
-	secuencia entrecomillada.
+	secuencia entrecomillada. ✅
 
 	3.2• Gestionar que la " evite que el shell interprete los metacaracteres en la secuencia
-	entrecomillada exceptuando $ (signo de dólar).
-	Si no se encuentra la variable de entorno, devuelve salto de línea
+	entrecomillada exceptuando $ (signo de dólar). 
+	Si no se encuentra la variable de entorno, devuelve salto de línea ✅
 
 	3.3• Implementar pipes (carácter |). El output de cada comando en la pipeline se conecta 
 	a través de un pipe al input del siguiente comando.
@@ -35,15 +35,15 @@ Minishell
 		◦ “>>” debe redirigir el output en modo append.
 
 	3.5• Gestionar las variables de entorno ($ seguidos de caracteres) que deberán 
-	expandirse a sus valores.
+	expandirse a sus valores. ✅
 
 	3.6• Gestionar $?, que deberá expandirse al estado de salida del comando más reciente
 	ejecutado en la pipeline.
 
 4°SEÑALES 
-	4.1• Gestionar ctrl-C ctrl-D ctrl-\, que deberán funcionar como en bash.
+	4.1• Gestionar ctrl-C ctrl-D ctrl-\, que deberán funcionar como en bash. ❔ (Liberar lo que sea necesario)
 
-	4.2• Cuando sea interactivo:
+	4.2• Cuando sea interactivo: ❔
 		◦ ctrl-C imprime una nueva entrada en una línea nueva.
 		◦ ctrl-D termina el shell.
 		◦ ctrl-\ no hace nada.
@@ -74,15 +74,15 @@ Minishell
 	• Deberá implementar los built-ins:
 		◦ echo con la opción -n.
 			Parseo
-		◦ cd solo con una ruta relativa o absoluta.
+		◦ cd solo con una ruta relativa o absoluta. (no entre pipes)
 			getcwd: char *getcwd(char *buffer, int maxlen)
 			chdir: int	chdir(const char *path)
 	◦ pwd sin opciones.
-	◦ export sin opciones.
-	◦ unset sin opciones.
+	◦ export sin opciones. (no entre pipes)
+	◦ unset sin opciones. (no entre pipes)
 	◦ env sin opciones o argumentos.
 		getenv: char *getenv(const char *varname);
-	◦ exit sin opciones.
+	◦ exit sin opciones. (no entre pipes)
 
 La función readline puede producir algunos leaks que no necesitas arreglar. Eso no
 significa que tu código, sí, el código que has escrito, pueda producir leaks.
