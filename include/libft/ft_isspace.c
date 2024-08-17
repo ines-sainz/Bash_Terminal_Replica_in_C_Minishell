@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:44:31 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/07/19 15:13:07 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/17 18:01:57 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

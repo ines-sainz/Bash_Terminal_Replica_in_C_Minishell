@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:05:48 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/12 15:25:33 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:01:43 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //Busca la primera aparición de un carácter en una cadena.
 int	ft_strchr_int(const char *s, int c)
 {
-	int pos;
+	int	pos;
 
 	pos = 0;
 	c = (unsigned char)c;
