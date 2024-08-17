@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/16 20:19:49 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:49:16 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,25 @@
 #define MAX_ARGS 100
 
 // STRUCTURES
-typedef enum e_param_type
-{
-	CMD,
-	IN_OUT,
-	PIPE,
-	PARAMS
-}	t_param_type;
-
-typedef enum e_file_type
+/* typedef enum e_file_type
 {
 	INFILE,
 	HERE_DOC,
 	TRUNC,
 	APPEND
-}	t_file_type;
+}	t_file_type; */
+
+typedef enum e_param_type
+{
+	CMD,
+	INFILE,
+	HERE_DOC,
+	OUTFILE,
+	APPEND,
+	PIPE,
+	PARAMS,
+	BUILTING
+}	t_param_type;
 
 typedef struct s_env
 {
