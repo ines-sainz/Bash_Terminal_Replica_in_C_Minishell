@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/16 18:57:56 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:49:32 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ int	main(int argc, char **argv, char **env)
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_set_env(env, &mini);
 	//ft_print_env(&mini);
-
 	//environment
 	(void)argv;
 	if (argc != 1)
 		return (1);
-	entrada = ft_strjoin(getenv("USER"), "@minishell> ");
+	if (getenv("USER") == NULL)
+		entrada = "user@minishell> ";
+	else
+		entrada = ft_strjoin(getenv("USER"), "@minishell> ");
 	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
 	if (!mini.user_prompt)
 	{
