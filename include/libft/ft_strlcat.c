@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:06:10 by danjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 08:46:13 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:49:45 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,27 @@
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	src_length;
-	size_t	dst_lenght;
+	size_t	dst_length ;
 	size_t	i;
 
-	if (dstsize == 0)
-		return (ft_strlen(src));
 	src_length = ft_strlen(src);
-	dst_lenght = ft_strlen(dst);
-	if (dstsize <= dst_lenght)
+	dst_length = ft_strlen(dst);
+	if (!dst && !src)
+		return (0);
+	if (dst == NULL || dstsize == 0)
+		return (src_length);
+	if (src == NULL)
+		return (dst_length);
+	if (dstsize <= dst_length)
 		return (src_length + dstsize);
 	i = 0;
-	while (src[i] != '\0' && i < dstsize - dst_lenght - 1)
+	while (src[i] != '\0' && i < dstsize - dst_length - 1)
 	{
-		dst[dst_lenght + i] = src[i];
+		dst[dst_length + i] = src[i];
 		i++;
 	}
-	dst[dst_lenght + i] = '\0';
-	return (src_length + dst_lenght);
+	dst[dst_length + i] = '\0';
+	return (src_length + dst_length);
 }
 
 /* int	main(void)
