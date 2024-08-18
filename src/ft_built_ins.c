@@ -156,7 +156,7 @@ int ft_built_ins(t_args *args, t_mini *mini)
 }
 
 /*
-echo funciona si solo pones echo sin redirecciones ni pipes ni nada
+echo funciona si solo pones echo sin redirecciones ni pipes ni nada (funciona el -n)
 cd funciona
 pwd funciona si solo pones pwd sin redirecciones ni pipes ni nada
 export funciona
