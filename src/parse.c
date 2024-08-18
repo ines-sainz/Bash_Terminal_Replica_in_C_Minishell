@@ -42,6 +42,8 @@ int	parse(t_args *args, t_mini *mini)
 	printf("You entered: %s\n", args->input);
 	ft_tokenize(args, &args->argc);
 	printf("argc ==> %i\n", args->argc);
+	if (ft_built_ins(args, mini) == 1)
+		return (0);
 	printf("Parsed arguments:\n");
 	i = 0;
 	while (i < args->argc)
