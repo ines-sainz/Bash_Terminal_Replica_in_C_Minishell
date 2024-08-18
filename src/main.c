@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 {
 	//char	*input;
 	t_args	args;
-	char	*entrada;
+	char	*entry;
 	//char	*user_prompt;
 	t_mini	mini;
 
@@ -51,19 +51,19 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 1)
 		return (1);
 	if (getenv("USER") == NULL)
-		entrada = "user@minishell> ";
+		entry = "user@minishell> ";
 	else
-		entrada = ft_strjoin(getenv("USER"), "@minishell> ");
-	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+		entry = ft_strjoin(getenv("USER"), "@minishell> ");
+	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	if (!mini.user_prompt)
 	{
 		fprintf(stderr, "Error allocating memory\n");
 		return (1);
 	}
 	ft_strcpy(mini.user_prompt, RED);
-	ft_strlcat(mini.user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	ft_strlcat(mini.user_prompt, entrada, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
-	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entrada) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini.user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini.user_prompt, entry, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	//strcat(user_prompt, entrada);
 	//strcat(user_prompt, RESET);
 
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **env)
 		free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 
 	}
-	free(entrada);
+	free(entry);
 	free(mini.user_prompt);
 	clear_history();
 	return (0);
