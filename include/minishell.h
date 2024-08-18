@@ -192,4 +192,4 @@ char	*expander(char *input, t_bool in_single_quote);
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
 //////////////////////////////////////////////////////
-char	*buit_ins(char *command, char *argv, t_mini *mini);
+int ft_built_ins(t_args *args, t_mini *mini);
