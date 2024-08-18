@@ -156,6 +156,16 @@ int ft_built_ins(t_args *args, t_mini *mini)
 }
 
 /*
+echo funciona si solo pones echo sin redirecciones ni pipes ni nada
+cd funciona
+pwd funciona si solo pones pwd sin redirecciones ni pipes ni nada
+export funciona
+unset funciona
+env funciona
+exit hay que hacerlo
+*/
+
+/*
 ◦ echo con la opción -n.
 ◦ cd solo con una ruta relativa o absoluta. (no entre pipes)
 ◦ pwd sin opciones.
