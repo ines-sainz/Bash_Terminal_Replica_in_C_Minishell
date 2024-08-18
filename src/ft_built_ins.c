@@ -83,6 +83,8 @@ void    ft_built_cd(t_args *args, t_mini *mini)
     char    *temp;
 
     buffer = NULL;
+    if (args->argc > 2)
+        printf("bash: cd: too many arguments\n");
     ft_export_env(ft_strjoin("OLDPWD=", ft_get_env("PWD", mini)), mini);
     output = getcwd(buffer,  INT_MAX);
     //if (!output)
@@ -91,7 +93,8 @@ void    ft_built_cd(t_args *args, t_mini *mini)
     free(buffer);
     output = ft_strjoin(temp, args->args[1]);
     free(temp);
-    chdir(output);
+    if (chdir(output) == -1)
+        printf("-bash: cd: %s: No such file or directory\n", args->args[1]);
     output = getcwd(buffer, INT_MAX);
     //if (!output)
     ft_export_env(ft_strjoin("PWD=", output), mini);
@@ -118,7 +121,7 @@ void    ft_built_echo(t_args *args, int flag)
     i = 1;
     if (flag == 1)
         i = 2;
-    while (args->args[i])
+    while (i < args->argc)
     {
         printf("%s", args->args[i]);
         if (i != args->argc - 1)
@@ -140,7 +143,7 @@ int ft_built_ins(t_args *args, t_mini *mini)
             flag = 1;
         ft_built_echo(args, flag);
     }
-    if (args->argc == 2 && ft_strncmp(args->args[0], "cd", ft_strlen(args->args[0])) == 0)
+    if (ft_strncmp(args->args[0], "cd", ft_strlen(args->args[0])) == 0)
         ft_built_cd(args, mini);
     if (ft_strncmp(args->args[0], "pwd", ft_strlen(args->args[0])) == 0)
         ft_built_pwd(args);
@@ -175,8 +178,7 @@ exit hay que hacerlo
 ◦ exit sin opciones. (no entre pipes)
 
 
-ines@FS26QF2:~/minishell_1$ pwd
-/home/ines/minishell_1
+
 ines@FS26QF2:~/minishell_1$ pwd k
 /home/ines/minishell_1
 ines@FS26QF2:~/minishell_1$ pwd cat
