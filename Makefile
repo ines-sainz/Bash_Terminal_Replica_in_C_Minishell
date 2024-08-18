@@ -38,7 +38,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/ft_env.c \
 					$(SRC_DIR)/ft_list_env.c \
 					$(SRC_DIR)/expander.c \
-					$(SRC_DIR)/built_ins.c
+					$(SRC_DIR)/ft_built_ins.c
 
 OBJ				=	$(SRC:.c=.o)
 
