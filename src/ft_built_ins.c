@@ -1,161 +1,173 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_built_ins.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
+/*   Updated: 2024/08/19 10:49:21 by danjimen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void    ft_built_exit(t_args *args, t_mini *mini)
+void	ft_built_exit(t_args *args, t_mini *mini)
 {
-    (void)mini;
-    (void)args;
+	(void)mini;
+	(void)args;
 }
 
-void    ft_built_unset(t_args *args, t_mini *mini)
+void	ft_built_unset(t_args *args, t_mini *mini)
 {
-    int i;
-    if (args->argc == 1)        //MIRAR
-        return ;
-    i = 1;
-    while (args->args[i])
-    {
-        ft_unset_env(args->args[i], mini);
-        i++;
-    }
+	int i;
+	if (args->argc == 1) //MIRAR
+		return ;
+	i = 1;
+	while (args->args[i])
+	{
+		ft_unset_env(args->args[i], mini);
+		i++;
+	}
 }
 
-void    ft_built_export(t_args *args, t_mini *mini)
+void	ft_built_export(t_args *args, t_mini *mini)
 {
-    int i;
+	int i;
 
-    if (args->argc == 1)
-    {
-        mini->env_iter = mini->env_first_node;
-	    while (mini->env_iter != NULL)
-	    {
-	    	printf("declare -x %s=\"%s\"\n", mini->env_iter->variable, mini->env_iter->content);
-    		mini->env_iter = mini->env_iter->next;
-    	}
-        return ;
-    }
-    i = 1;
-    while (args->args[i])
-    {
-        if (ft_strchr(args->args[i], '='))
-            ft_export_env(args->args[i], mini);
-        i++;
-    }
+	if (args->argc == 1)
+	{
+		mini->env_iter = mini->env_first_node;
+		while (mini->env_iter != NULL)
+		{
+			printf("declare -x %s=\"%s\"\n", mini->env_iter->variable, mini->env_iter->content);
+			mini->env_iter = mini->env_iter->next;
+		}
+		return ;
+	}
+	i = 1;
+	while (args->args[i])
+	{
+		if (ft_strchr(args->args[i], '='))
+			ft_export_env(args->args[i], mini);
+		i++;
+	}
 }
 
-void    ft_built_pwd(t_args *args)
+void	ft_built_pwd(t_args *args)
 {
-    char    *temp;
-    char    *buffer;
-    int     i;
-    int     j;
+	char	*temp;
+	char	*buffer;
+	int	 i;
+	int	 j;
 
-    i = 1;
-    if (args->argc != 1)
-    {
-        if (args->args[1][0] == '-')
-        {
-            printf("-bash: pwd: %s: invalid option\n", args->args[1]);
-            return ;
-        }
-        while (args->args[i])
-        {
-            j = 0;
-            while (args->args[i][j])
-            {
-             if (ft_strchr("<>|", args->args[i][j])) //MIRAR
-                 return ;
-             j++;
-         }
-         i++;
-        }
-    }
-    buffer = NULL;
-    temp = getcwd(buffer, INT_MAX);
-    if (!temp)
-        return ;
-    printf("%s\n", temp);
+	i = 1;
+	if (args->argc != 1)
+	{
+		if (args->args[1][0] == '-')
+		{
+			printf("-bash: pwd: %s: invalid option\n", args->args[1]);
+			return ;
+		}
+		while (args->args[i])
+		{
+			j = 0;
+			while (args->args[i][j])
+			{
+			 if (ft_strchr("<>|", args->args[i][j])) //MIRAR
+				 return ;
+			 j++;
+		 }
+		 i++;
+		}
+	}
+	buffer = NULL;
+	temp = getcwd(buffer, INT_MAX);
+	if (!temp)
+		return ;
+	printf("%s\n", temp);
 }
 
-void    ft_built_cd(t_args *args, t_mini *mini)
+void	ft_built_cd(t_args *args, t_mini *mini)
 {
-    char    *output;
-    char    *buffer;
-    char    *temp;
+	char	*output;
+	char	*buffer;
+	char	*temp;
 
-    buffer = NULL;
-    if (args->argc > 2)
-        printf("bash: cd: too many arguments\n");
-    ft_export_env(ft_strjoin("OLDPWD=", ft_get_env("PWD", mini)), mini);
-    output = getcwd(buffer,  INT_MAX);
-    //if (!output)
-    temp = ft_strjoin(output, "/");
-    free(output);
-    free(buffer);
-    output = ft_strjoin(temp, args->args[1]);
-    free(temp);
-    if (chdir(output) == -1)
-        printf("-bash: cd: %s: No such file or directory\n", args->args[1]);
-    output = getcwd(buffer, INT_MAX);
-    //if (!output)
-    ft_export_env(ft_strjoin("PWD=", output), mini);
-    free(output);
+	buffer = NULL;
+	if (args->argc > 2)
+		printf("bash: cd: too many arguments\n");
+	ft_export_env(ft_strjoin("OLDPWD=", ft_get_env("PWD", mini)), mini);
+	output = getcwd(buffer,  INT_MAX);
+	//if (!output)
+	temp = ft_strjoin(output, "/");
+	free(output);
+	free(buffer);
+	output = ft_strjoin(temp, args->args[1]);
+	free(temp);
+	if (chdir(output) == -1)
+		printf("-bash: cd: %s: No such file or directory\n", args->args[1]);
+	output = getcwd(buffer, INT_MAX);
+	//if (!output)
+	ft_export_env(ft_strjoin("PWD=", output), mini);
+	free(output);
 }
 
-void    ft_built_echo(t_args *args, int flag)
+void	ft_built_echo(t_args *args, int flag)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 1;
-    while (args->args[i])
-    {
-        j = 0;
-        while (args->args[i][j])
-        {
-            if (ft_strchr("<>|", args->args[i][j])) //MIRAR
-                return ;
-            j++;
-        }
-        i++;
-    }
-    i = 1;
-    if (flag == 1)
-        i = 2;
-    while (i < args->argc)
-    {
-        printf("%s", args->args[i]);
-        if (i != args->argc - 1)
-            printf(" ");
-        i++;
-    }
-    if (flag == 0)
-        printf("\n");
+	i = 1;
+	while (args->args[i])
+	{
+		j = 0;
+		while (args->args[i][j])
+		{
+			if (ft_strchr("<>|", args->args[i][j])) //MIRAR
+				return ;
+			j++;
+		}
+		i++;
+	}
+	i = 1;
+	if (flag == 1)
+		i = 2;
+	while (i < args->argc)
+	{
+		printf("%s", args->args[i]);
+		if (i != args->argc - 1)
+			printf(" ");
+		i++;
+	}
+	if (flag == 0)
+		printf("\n");
 }
 
-int ft_built_ins(t_args *args, t_mini *mini)
+int	ft_built_ins(t_args *args, t_mini *mini)
 {
-    int flag;
+	int flag;
 
-    flag = 0;
-    if (args->argc > 1 && ft_strncmp(args->args[0], "echo", ft_strlen(args->args[0])) == 0)
-    {
-        if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
-            flag = 1;
-        ft_built_echo(args, flag);
-    }
-    if (ft_strncmp(args->args[0], "cd", ft_strlen(args->args[0])) == 0)
-        ft_built_cd(args, mini);
-    if (ft_strncmp(args->args[0], "pwd", ft_strlen(args->args[0])) == 0)
-        ft_built_pwd(args);
-    if (ft_strncmp(args->args[0], "export", ft_strlen(args->args[0])) == 0)
-        ft_built_export(args, mini);
-    if (ft_strncmp(args->args[0], "unset", ft_strlen(args->args[0])) == 0)
-        ft_built_unset(args, mini);
-    if (args->argc == 1 && ft_strncmp(args->args[0], "env", ft_strlen(args->args[0])) == 0)
-        ft_print_env(mini);
-    if (args->argc == 1 && ft_strncmp(args->args[0], "exit", ft_strlen(args->args[0])) == 0)
-        ft_built_exit(args, mini);
-    return (0);
+	flag = 0;
+	if (args->argc > 1 && ft_strncmp(args->args[0], "echo", ft_strlen(args->args[0])) == 0)
+	{
+		if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
+			flag = 1;
+		ft_built_echo(args, flag);
+	}
+	if (ft_strncmp(args->args[0], "cd", ft_strlen(args->args[0])) == 0)
+		ft_built_cd(args, mini);
+	if (ft_strncmp(args->args[0], "pwd", ft_strlen(args->args[0])) == 0)
+		ft_built_pwd(args);
+	if (ft_strncmp(args->args[0], "export", ft_strlen(args->args[0])) == 0)
+		ft_built_export(args, mini);
+	if (ft_strncmp(args->args[0], "unset", ft_strlen(args->args[0])) == 0)
+		ft_built_unset(args, mini);
+	if (args->argc == 1 && ft_strncmp(args->args[0], "env", ft_strlen(args->args[0])) == 0)
+		ft_print_env(mini);
+	if (args->argc == 1 && ft_strncmp(args->args[0], "exit", ft_strlen(args->args[0])) == 0)
+		ft_built_exit(args, mini);
+	return (0);
 }
 
 /*
