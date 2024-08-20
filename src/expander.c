@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/20 13:10:02 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:02:45 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ char *expander(char *input, t_bool started_in_single_quote)
 		{
 			if (input[i + 1] == '$') // $$ = PID
 			{
-				var_name = ft_substr(input, start, i - start);
 				env_value = ft_itoa(getpid());
-				//printf(">>pid = %s\n", env_value);
-				free(var_name);
+				printf(">>pid = %s\n", env_value);
 				if (env_value)
 				{
 					env_len = ft_strlen(env_value);
