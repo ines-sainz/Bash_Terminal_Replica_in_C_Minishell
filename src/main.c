@@ -6,11 +6,30 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/20 19:25:36 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:07:03 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	error_mini_use(int argc, char **argv)
+{
+	int	i;
+	
+	if (argc != 1)
+	{
+		printf("%s: ", argv[0]);
+		i = 1;
+		while (i < argc)
+		{
+			printf("%s", argv[i++]);
+			if (i != (argc))
+				printf(", ");
+		}
+		printf(": Not flags are allowed\n");
+		exit (127);
+	}
+}
 
 // Manejador de la señal SIGINT (Ctrl-C)
 void	signal_sigint(int sig)
@@ -47,9 +66,7 @@ int	main(int argc, char **argv, char **env)
 	ft_set_env(env, &mini);
 	//ft_print_env(&mini);
 	//environment
-	(void)argv;
-	if (argc != 1)
-		return (1);
+	error_mini_use(argc, argv);
 	if (getenv("USER") == NULL)
 		entry = "user@minishell> ";
 	else
