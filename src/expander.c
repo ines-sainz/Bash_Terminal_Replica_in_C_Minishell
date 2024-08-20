@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/17 18:39:15 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:14:43 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ char *expander(char *input, t_bool started_in_single_quote)
 		}
 		if (input[i] == '$' && !in_single_quotes)
 		{
-			/* if (input[i + 1] == '$')
+			if (input[i + 1] == '$') // $$ = PID
 			{
 				var_name = ft_substr(input, start, i - start);
 				env_value = ft_itoa(getpid());
-				printf(">>pid = %s\n", env_value);
+				//printf(">>pid = %s\n", env_value);
 				free(var_name);
 				if (env_value)
 				{
@@ -103,8 +103,9 @@ char *expander(char *input, t_bool started_in_single_quote)
 					ft_strcpy(result + j, env_value);
 					j += env_len;
 				}
-				i = i + 2;;
-			} */
+				i = i + 2;
+				continue ;
+			}
 			i++;
 			if (input[i] == '\0') 
 			{
