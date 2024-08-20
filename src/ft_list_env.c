@@ -6,11 +6,23 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:30:06 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:03:09 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*ft_find_env(t_mini *mini, char *find)
+{
+	mini->env_iter = mini->env_first_node;
+	while (mini->env_iter != NULL)
+	{
+		if (ft_strcmp(mini->env_iter->variable, find) == 0)
+			return (mini->env_iter->content);
+		mini->env_iter = mini->env_iter->next;
+	}
+	return (NULL);
+}
 
 void	ft_print_env(t_mini *mini)
 {
