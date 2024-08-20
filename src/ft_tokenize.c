@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/16 22:05:28 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:31:32 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static void	dollar_out_of_single_quotes(char **input_ptr, t_args *args)
 
 	next_char = *input_ptr + 1;
 	if (ft_isdigit(*next_char) || *next_char == '*')
-	{
-		//next_char++;
 		*input_ptr = next_char;
-	}
 	else
 		*args->arg_ptr++ = **input_ptr;
 }
