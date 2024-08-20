@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/16 20:18:59 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:20:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 	analize_built_in();
 } */
 
-static void	ft_tokenize(t_args *args, int *argc)
+static void	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 {
 	args->arg = malloc(ft_strlen(args->input) + 1);
 	args->arg_ptr = args->arg;
 	*argc = 0;
 	args->in_single_quote = false;
 	args->in_double_quote = false;
-	add_to_args(args, argc);
+	add_to_args(args, argc, mini);
 	free(args->arg);
 }
 
@@ -38,9 +38,9 @@ int	parse(t_args *args, t_mini *mini)
 {
 	int	i;
 
-	(void)mini;
+	//(void)mini;
 	printf("You entered: %s\n", args->input);
-	ft_tokenize(args, &args->argc);
+	ft_tokenize(args, &args->argc, mini);
 	printf("argc ==> %i\n", args->argc);
 	if (ft_built_ins(args, mini) == 1)
 		return (0);
