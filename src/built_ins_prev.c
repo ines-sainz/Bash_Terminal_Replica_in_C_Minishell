@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_built_ins.c                                     :+:      :+:    :+:   */
+/*   built_ins_prev.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:32 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/07/30 09:31:35 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:17:58 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_built_env(t_mini *mini)
 	{
 		temp = ft_strdup(line);
 		line = ft_strjoin(temp, join_four_args(mini->env_iter->variable, "=",
-			mini->env_iter->content, "\n"));
+					mini->env_iter->content, "\n"));
 		free(temp);
 		mini->env_iter = mini->env_iter->next;
 	}
@@ -66,7 +66,7 @@ char	*buit_ins(char *command, char *argv, t_mini *mini)
 	buffer = NULL;
 	if (!ft_strncmp("cd", command, ft_strlen(command)))
 	{
-		output = getcwd(buffer,  INT_MAX);
+		output = getcwd(buffer, INT_MAX);
 		/*if (!output)*/
 		temp = ft_strjoin(output, "/");
 		free(buffer);
