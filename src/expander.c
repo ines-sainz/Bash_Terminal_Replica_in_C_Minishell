@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/20 15:02:45 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:31:41 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 	return (expanded);
 } */
 
-char *expander(char *input, t_bool started_in_single_quote)
+char *expander(char *input, t_bool started_in_single_quote, t_mini *mini)
 {
 	char	*var_name;
 	char	*env_value;
@@ -40,7 +40,8 @@ char *expander(char *input, t_bool started_in_single_quote)
 	int		start;
 	size_t	env_len;
 
-	result_capacity = ft_strlen(input) * 2;
+	result_capacity = ft_strlen(input);
+	//result_capacity = ft_strlen(input) * 2;
 	result = malloc(result_capacity);
 	if (!result)
 		return (NULL);
@@ -52,7 +53,7 @@ char *expander(char *input, t_bool started_in_single_quote)
 	{
 		if (j >= result_capacity - 1)
 		{
-			result_capacity *= 2;
+			result_capacity += 1;
 			new_result = malloc(result_capacity);
 			if (!new_result)
 			{
@@ -78,14 +79,16 @@ char *expander(char *input, t_bool started_in_single_quote)
 		{
 			if (input[i + 1] == '$') // $$ = PID
 			{
+				//env_value = ft_find_env(mini, "$");
 				env_value = ft_itoa(getpid());
-				printf(">>pid = %s\n", env_value);
+				printf("env_value ==> %s\n", env_value);
+				//printf(">>pid = %s\n", env_value);
 				if (env_value)
 				{
 					env_len = ft_strlen(env_value);
 					if (j + env_len >= result_capacity - 1)
 					{
-						result_capacity = (j + env_len) * 2;
+						result_capacity = (j + env_len) + 1;
 						new_result = malloc(result_capacity);
 						if (!new_result)
 						{
@@ -122,14 +125,16 @@ char *expander(char *input, t_bool started_in_single_quote)
 						while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
 							i++;
 						var_name = ft_substr(input, start, i - start);
-						env_value = getenv(var_name);
+						env_value = ft_find_env(mini, var_name);
+						printf("env_value ==> %s\n", env_value);
+						//env_value = getenv(var_name);
 						free(var_name);
 						if (env_value)
 						{
 							env_len = ft_strlen(env_value);
 							if (j + env_len >= result_capacity - 1)
 							{
-								result_capacity = (j + env_len) * 2;
+								result_capacity = (j + env_len) + 1;
 								new_result = malloc(result_capacity);
 								if (!new_result)
 								{
