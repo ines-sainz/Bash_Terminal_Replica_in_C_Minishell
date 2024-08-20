@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/20 12:31:32 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:08:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	add_to_args(t_args *args, int *argc)
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|')
 			&& !args->in_single_quote && !args->in_double_quote)
 			out_of_quotes(input_ptr, args, &argc);
+		//else if (*input_ptr == '$' && *input_ptr - 1 == '$' && !args->in_single_quote)
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			dollar_out_of_single_quotes(&input_ptr, args);
 		else
