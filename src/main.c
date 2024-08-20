@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/17 21:49:32 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:25:36 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ int	main(int argc, char **argv, char **env)
 //	printf("cd: %s\n", buit_ins("cd", "..", &mini));
 //	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
+	//GET $$ = PID
+	char	*pid_env = ft_strjoin("$=", ft_itoa(getpid()));
+	ft_export_env(pid_env, &mini);
+	free(pid_env);
 
 	// Bucle principal del shell
 	while (1)
