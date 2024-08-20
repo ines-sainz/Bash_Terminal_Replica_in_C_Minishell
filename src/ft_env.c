@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/07/22 21:51:50 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:02:57 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Cuento con que solo me dan la variable que
 // quiere desetear, no el contenido también
-int	ft_to_unset(t_env *prev, char *unset, t_mini *mini)
+static int	ft_to_unset(t_env *prev, char *unset, t_mini *mini)
 {
 	if (!ft_strncmp(mini->env_iter->variable,
 			mini->env_first_node->variable,
