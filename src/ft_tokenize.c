@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/20 15:08:15 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:22:01 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	dollar_out_of_single_quotes(char **input_ptr, t_args *args)
 		*args->arg_ptr++ = **input_ptr;
 }
 
-static void	out_of_quotes(char *input_ptr, t_args *args, int **argc)
+static void	out_of_quotes(char *input_ptr, t_args *args, int **argc, t_mini *mini)
 {
 	char	*expanded_arg;
 
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		expanded_arg = expander(args->arg, args->in_single_quote);
+		expanded_arg = expander(args->arg, args->in_single_quote, mini);
 		if (expanded_arg)
 			args->args[(**argc)++] = expanded_arg;
 		args->arg_ptr = args->arg;
@@ -61,7 +61,7 @@ static void	verify_closed_quotes(t_args *args)
 	}
 }
 
-void	add_to_args(t_args *args, int *argc)
+void	add_to_args(t_args *args, int *argc, t_mini *mini)
 {
 	char	*input_ptr;
 	char	*expanded_arg;
@@ -72,7 +72,7 @@ void	add_to_args(t_args *args, int *argc)
 		control_quotes(input_ptr, args);
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|')
 			&& !args->in_single_quote && !args->in_double_quote)
-			out_of_quotes(input_ptr, args, &argc);
+			out_of_quotes(input_ptr, args, &argc, mini);
 		//else if (*input_ptr == '$' && *input_ptr - 1 == '$' && !args->in_single_quote)
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			dollar_out_of_single_quotes(&input_ptr, args);
@@ -84,7 +84,7 @@ void	add_to_args(t_args *args, int *argc)
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		expanded_arg = expander(args->arg, args->in_single_quote);
+		expanded_arg = expander(args->arg, args->in_single_quote, mini);
 		if (expanded_arg)
 			args->args[(*argc)++] = expanded_arg;
 	}
