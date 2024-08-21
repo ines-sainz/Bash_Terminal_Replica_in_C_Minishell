@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/20 19:02:57 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/21 23:31:02 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_unset_env(char *unset, t_mini *mini)
 	t_env	*prev;
 
 	mini->env_iter = mini->env_first_node;
+	if (ft_strcmp(unset, "$") == 0) // Avoid to unset $$
+		return ;
 	while (mini->env_iter != NULL)
 	{
 		if (!ft_strncmp(unset, mini->env_iter->variable, ft_strlen(unset)))
