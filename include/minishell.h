@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/20 19:02:59 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:15:40 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_args
 	char		*args[MAX_ARGS];
 	int			argc;
 	char		*arg;
+	char		*result;
 	char		*arg_ptr;
 	t_bool		in_single_quote;
 	t_bool		in_double_quote;
@@ -194,7 +195,8 @@ int		ft_set_env(char **env, t_mini *mini);
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
 //char	*expander(char *input);
-char	*expander(char *input, t_bool in_single_quote, t_mini *mini);
+//char	*expander(char *input, t_bool in_single_quote, t_mini *mini);
+char	*expander(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
