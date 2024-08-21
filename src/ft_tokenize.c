@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/20 18:22:01 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:15:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	out_of_quotes(char *input_ptr, t_args *args, int **argc, t_mini *min
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		expanded_arg = expander(args->arg, args->in_single_quote, mini);
+		expanded_arg = expander(args, mini);
 		if (expanded_arg)
 			args->args[(**argc)++] = expanded_arg;
 		args->arg_ptr = args->arg;
@@ -52,12 +52,12 @@ static void	verify_closed_quotes(t_args *args)
 	if (args->in_single_quote)
 	{
 		*args->arg_ptr++ = '\'';
-		args->in_single_quote = false;
+		args->in_single_quote = t_false;
 	}
 	if (args->in_double_quote)
 	{
 		*args->arg_ptr++ = '\"';
-		args->in_double_quote = false;
+		args->in_double_quote = t_false;
 	}
 }
 
@@ -84,7 +84,8 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini)
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		expanded_arg = expander(args->arg, args->in_single_quote, mini);
+		//expanded_arg = expander(args->arg, args->in_single_quote, mini);
+		expanded_arg = expander(args, mini);
 		if (expanded_arg)
 			args->args[(*argc)++] = expanded_arg;
 	}
