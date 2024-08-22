@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/20 20:07:03 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:27:05 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **env)
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_set_env(env, &mini);
+	args.mini = &mini;
 	//ft_print_env(&mini);
 	//environment
 	error_mini_use(argc, argv);
