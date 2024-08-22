@@ -6,13 +6,13 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/21 23:36:11 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:30:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	pid_case(t_args *args, size_t *result_capacity, size_t *j, t_mini *mini)
+static int	pid_case(t_args *args, size_t *j, t_mini *mini)
 {
 	int		env_len;
 	char	*new_result;
@@ -20,10 +20,10 @@ static int	pid_case(t_args *args, size_t *result_capacity, size_t *j, t_mini *mi
 	if (ft_find_env(mini, "$"))
 	{
 		env_len = ft_strlen(ft_find_env(mini, "$"));
-		if (*j + env_len >= *result_capacity - 1)
+		if (*j + env_len >= args->result_capacity - 1)
 		{
-			*result_capacity = (*j + env_len) * 2;
-			new_result = malloc(*result_capacity);
+			args->result_capacity = (*j + env_len) * 2;
+			new_result = malloc(args->result_capacity);
 			if (!new_result)
 			{
 				free(args->result);
@@ -60,14 +60,14 @@ static char	*expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 	size_t	env_len;
 	char	*input;
 	char	*result;
-	size_t	result_capacity;
+	//size_t	result_capacity;
 
 	input = args->arg;
 	result = args->result;
-	result_capacity = ft_strlen(input);
+	args->result_capacity = ft_strlen(input);
 	if (input[*i + 1] == '$') // $$ = PID
 	{
-		if (pid_case(args, &result_capacity, j, mini))
+		if (pid_case(args, j, mini))
 			return (NULL);  // Retorna NULL si hubo un error de memoria en pid_case
 		*i += 2;
 		result = args->result;  // Actualiza result después de la llamada a pid_case
@@ -75,10 +75,11 @@ static char	*expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 	else
 	{
 		(*i)++;
-		if (input[*i] == '\0') 
+		if (input[*i] == '\0') // $ it's at the end of a string (or string part)
 			result[(*j)++] = '$';
 		else
 		{
+			//exp_normal_or_special(&result, i, j, result_capacity, args, mini);
 			// Check if the next character is a special character or digit
 			next_char = input[*i];
 			if (!ft_isalpha(next_char) && next_char != '_')
@@ -100,10 +101,10 @@ static char	*expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 				if (env_value)
 				{
 					env_len = ft_strlen(env_value);
-					if (*j + env_len >= result_capacity - 1)
+					if (*j + env_len >= args->result_capacity - 1)
 					{
-						result_capacity = (*j + env_len) * 2;
-						new_result = malloc(result_capacity);
+						args->result_capacity = (*j + env_len) * 2;
+						new_result = malloc(args->result_capacity);
 						if (!new_result)
 						{
 							free(result);
@@ -128,16 +129,7 @@ char *expander(t_args *args, t_mini *mini)
 	size_t	j;
 	t_bool	in_single_quotes;
 	t_bool	in_double_quotes;
-	//size_t	result_capacity;
 
-	/* char	*var_name;
-	char	*env_value;
-	char	*new_result;
-	char	next_char;
-	int		start;
-	size_t	env_len; */
-	
-	//result_capacity = ft_strlen(args->arg);
 	args->result = malloc(ft_strlen(args->arg));
 	if (!args->result)
 		return (NULL);
@@ -151,81 +143,7 @@ char *expander(t_args *args, t_mini *mini)
 			|| (args->arg[i] == '"' && !in_single_quotes))
 			check_quotes(args->arg, &i, &in_single_quotes, &in_double_quotes);
 		else if (args->arg[i] == '$' && !in_single_quotes)
-		{
 			args->result = expand_vars(args, &i, &j, mini);
-			/* if (args->arg[i + 1] == '$') // $$ = PID
-			{
-				env_value = ft_itoa(getpid());
-				printf("env_value ==> %s\n", env_value);
-				if (env_value)
-				{
-					env_len = ft_strlen(env_value);
-					if (j + env_len >= result_capacity - 1)
-					{
-						result_capacity = (j + env_len) * 2;
-						new_result = malloc(result_capacity);
-						if (!new_result)
-						{
-							free(args->result);
-							return NULL;
-						}
-						ft_memcpy(new_result, args->result, j);
-						free(args->result);
-						args->result = new_result;
-					}
-					ft_strcpy(args->result + j, env_value);
-					j += env_len;
-				}
-				i += 2;
-			}
-			else
-			{
-				i++;
-				if (args->arg[i] == '\0') 
-					args->result[j++] = '$';
-				else
-				{
-					// Check if the next character is a special character or digit
-					next_char = args->arg[i];
-					if (!ft_isalpha(next_char) && next_char != '_')
-					{
-						args->result[j++] = '$'; // Keep the $ symbol as a literal
-						args->result[j++] = next_char; // Keep the special character
-						i++;
-					}
-					else
-					{
-						start = i;
-						while (args->arg[i] && (ft_isalnum(args->arg[i]) || args->arg[i] == '_'))
-							i++;
-						var_name = ft_substr(args->arg, start, i - start);
-						env_value = ft_find_env(mini, var_name);
-						printf("env_value ==> %s\n", env_value);
-						//env_value = getenv(var_name);
-						free(var_name);
-						if (env_value)
-						{
-							env_len = ft_strlen(env_value);
-							if (j + env_len >= result_capacity - 1)
-							{
-								result_capacity = (j + env_len) * 2;
-								new_result = malloc(result_capacity);
-								if (!new_result)
-								{
-									free(args->result);
-									return NULL;
-								}
-								ft_memcpy(new_result, args->result, j);
-								free(args->result);
-								args->result = new_result;
-							}
-							ft_strcpy(args->result + j, env_value);
-							j += env_len;
-						}
-					}
-				}
-			} */
-		}
 		else // Copy character unless it's a quote
 			args->result[j++] = args->arg[i++];
 	}
