@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/21 12:15:40 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:27:09 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ typedef struct s_args
 	int			argc;
 	char		*arg;
 	char		*result;
+	size_t		result_capacity;
+	t_mini		*mini;
 	char		*arg_ptr;
 	t_bool		in_single_quote;
 	t_bool		in_double_quote;
