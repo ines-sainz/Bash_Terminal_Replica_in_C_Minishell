@@ -6,13 +6,13 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/21 12:15:48 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:28:53 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	dollar_out_of_single_quotes(char **input_ptr, t_args *args)
+static void	next_is_a_number(char **input_ptr, t_args *args)
 {
 	char	*next_char;
 
@@ -30,6 +30,7 @@ static void	out_of_quotes(char *input_ptr, t_args *args, int **argc, t_mini *min
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
+		//expanded_arg = expander(args->arg, args->in_single_quote, mini);
 		expanded_arg = expander(args, mini);
 		if (expanded_arg)
 			args->args[(**argc)++] = expanded_arg;
@@ -75,7 +76,7 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini)
 			out_of_quotes(input_ptr, args, &argc, mini);
 		//else if (*input_ptr == '$' && *input_ptr - 1 == '$' && !args->in_single_quote)
 		else if (*input_ptr == '$' && !args->in_single_quote)
-			dollar_out_of_single_quotes(&input_ptr, args);
+			next_is_a_number(&input_ptr, args);
 		else
 			*args->arg_ptr++ = *input_ptr;
 		input_ptr++;
