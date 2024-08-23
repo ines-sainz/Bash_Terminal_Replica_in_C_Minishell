@@ -6,22 +6,13 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/23 12:08:55 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 21:25:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 #define MAX_ARGS 100
-
-/* int	analize_parts(char *input)
-{
-	analize_simple_quotes();
-	analize_double_quotes();
-	analize_infile();
-	analize_outfile();
-	analize_built_in();
-} */
 
 static void	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 {
