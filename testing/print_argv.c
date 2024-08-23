@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:28:34 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/23 12:00:53 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:34:59 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char const *argv[])
 			int j = 0;
 			while (argv[i][j])
 			{
-				printf("Char = %d\n", argv[i][j]);
+				printf("Char = %c\n", argv[i][j]);
 				j++;
 			}
 			i++;
