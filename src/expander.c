@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/23 10:34:48 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:38:33 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,6 @@ char *expander(t_args *args, t_mini *mini)
 {
 	char	*var_name;
 	char	*env_value;
-	//char	*result = NULL;
-	//size_t	result_capacity;
 	size_t	i;
 	size_t	j;
 	char	*new_result;
@@ -170,7 +168,6 @@ char *expander(t_args *args, t_mini *mini)
 	size_t	env_len;
 
 	args->result_capacity = ft_strlen(args->arg);
-	//result_capacity = ft_strlen(input) * 2;
 	args->result = malloc(args->result_capacity);
 	if (!args->result)
 		return (NULL);
