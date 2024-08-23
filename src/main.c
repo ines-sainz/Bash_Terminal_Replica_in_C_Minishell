@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/22 12:53:02 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:07:45 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	main(int argc, char **argv, char **env)
 
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
-		args.input_trimed = ft_strtrim(args.input, " ");
+		args.input_trimed = ft_strtrim(args.input, " \t\n\r\f\v");
 		if (ft_strcmp(args.input_trimed, "exit") == 0)
 			exit (0);
 		if (args.input_trimed[0] != '\0')
