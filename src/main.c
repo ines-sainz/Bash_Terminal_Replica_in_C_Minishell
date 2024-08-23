@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/23 12:07:45 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:22:06 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	//char	*user_prompt;
 	t_mini	mini;
+	char	*pid_env;
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -69,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	//environment
 	error_mini_use(argc, argv);
 	if (getenv("USER") == NULL)
-		entry = "user@minishell> ";
+		entry = ft_strdup("user@minishell> ");
 	else
 		entry = ft_strjoin(getenv("USER"), "@minishell> ");
 	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
@@ -97,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 //	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 	//GET $$ = PID
-	char	*pid_env = ft_strjoin("$=", ft_itoa(getpid()));
+	pid_env = ft_strjoin("$=", ft_itoa(getpid()));
 	ft_export_env(pid_env, &mini);
 	free(pid_env);
 
@@ -121,13 +122,16 @@ int	main(int argc, char **argv, char **env)
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
 		args.input_trimed = ft_strtrim(args.input, " \t\n\r\f\v");
-		if (ft_strcmp(args.input_trimed, "exit") == 0)
+		free(args.input);
+		args.input = args.input_trimed;
+		args.input_trimed = NULL;
+		if (ft_strcmp(args.input, "exit") == 0)
 			exit (0);
-		if (args.input_trimed[0] != '\0')
+		if (args.input[0] != '\0')
 			parse(&args, &mini);
 
 		free(args.input); // Liberar la memoria asignada por readline
-		free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
+		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 
 	}
 	free(entry);
