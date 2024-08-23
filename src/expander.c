@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/23 10:28:31 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:34:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,8 @@ char *expander(t_args *args, t_mini *mini)
 			else
 			{
 				i++;
-				if (args->arg[i] == '\0') 
+				//if (args->arg[i] == '\0')
+				if (args->arg[i] == '\0' || (args->arg[i] == '"' && args->arg[i + 1] == '\0'))
 					args->result[j++] = '$';
 				else
 				{
@@ -247,8 +248,8 @@ char *expander(t_args *args, t_mini *mini)
 					if (!ft_isalpha(next_char) && next_char != '_')
 					{
 						args->result[j++] = '$'; // Keep the $ symbol as a literal
-						if (!in_double_quotes)
-							args->result[j++] = next_char; // Keep the special character
+						//if (!in_double_quotes)
+						args->result[j++] = next_char; // Keep the special character
 						i++;
 					}
 					else
