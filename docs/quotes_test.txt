@@ -71,6 +71,9 @@ $USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
 	arg[9]: 23NAME
 	arg[10]: $
 
+"123 $USER 456 $NAME 789 $$ 000 $,.-USER 123 $123NAME $"
+	arg[0]: 123 bishopvk 456 minishell 789 1231051 000 $,.-USER 123 23NAME $
+
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
 argc ==> 3

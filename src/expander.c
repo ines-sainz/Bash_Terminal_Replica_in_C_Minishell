@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/22 21:31:55 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:28:31 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ char *expander(t_args *args, t_mini *mini)
 	j = 0;
 	while (args->arg[i])
 	{
-		if (j >= args->result_capacity - 1)
+		/* if (j >= args->result_capacity - 1)
 		{
 			args->result_capacity += 1;
 			new_result = malloc(args->result_capacity);
@@ -193,7 +193,7 @@ char *expander(t_args *args, t_mini *mini)
 			ft_memcpy(new_result, args->result, j);
 			free(args->result);
 			args->result = new_result;
-		}
+		} */
 
 		if (args->arg[i] == '\'' && !in_double_quotes)
 		{
@@ -247,7 +247,8 @@ char *expander(t_args *args, t_mini *mini)
 					if (!ft_isalpha(next_char) && next_char != '_')
 					{
 						args->result[j++] = '$'; // Keep the $ symbol as a literal
-						args->result[j++] = next_char; // Keep the special character
+						if (!in_double_quotes)
+							args->result[j++] = next_char; // Keep the special character
 						i++;
 					}
 					else
