@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/08/07 12:30:36 by danjimen         ###   ########.fr        #
+#    Updated: 2024/08/27 14:54:21 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/ft_env.c \
 					$(SRC_DIR)/ft_list_env.c \
 					$(SRC_DIR)/expander.c \
-					$(SRC_DIR)/ft_built_ins.c
+					$(SRC_DIR)/ft_built_ins.c \
+					$(SRC_DIR)/list_of_params.c
 
 OBJ				=	$(SRC:.c=.o)
 
