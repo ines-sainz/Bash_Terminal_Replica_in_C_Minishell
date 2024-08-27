@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/23 20:20:04 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:09:13 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,35 @@ static char	*pid_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
 	return (args->result);  // Indica éxito
 }
 
+static char	*errno_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
+{
+	int		env_len;
+	char	*new_result;
+
+	if (ft_find_env(mini, "?"))
+	{
+		env_len = ft_strlen(ft_find_env(mini, "?"));
+		if (*j + env_len >= args->result_capacity - 1)
+		{
+			args->result_capacity += env_len - 2;
+			new_result = malloc(args->result_capacity);
+			if (!new_result)
+			{
+				free(args->result);
+				args->result = NULL;
+				return (NULL);
+			}
+			ft_memcpy(new_result, args->result, *j);
+			free(args->result);
+			args->result = new_result;
+		}
+		ft_strcpy(args->result + *j, ft_find_env(mini, "?"));
+		*j += env_len;
+	}
+	*i += 2;
+	return (args->result);  // Indica éxito
+}
+
 static char	*valid_var(t_args *args, size_t *i, size_t *j, int *start)
 {
 	char	*env_value;
@@ -141,6 +170,11 @@ static char *expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 	if (args->arg[*i + 1] == '$') // $$ = PID
 	{
 		if (!pid_case(args, i, j, mini))
+			return (NULL);
+	}
+	else if (args->arg[*i + 1] == '?') // $$ = ERRNO EXIT RETURN
+	{
+		if (!errno_case(args, i, j, mini))
 			return (NULL);
 	}
 	else
