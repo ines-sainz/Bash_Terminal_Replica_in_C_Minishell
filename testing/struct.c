@@ -19,10 +19,10 @@ typedef enum e_param_type
 
 typedef struct s_line_cmd
 {
-	char			*content;
-	int				argc;
-	t_param_type	type;
-	struct s_env	*next;
+	char				*content;
+	int					argc;
+	t_param_type		type;
+	struct s_line_cmd	*next;
 }	t_line_cmd;
 
 /* static void	asign_params(t_args *args, int i)
