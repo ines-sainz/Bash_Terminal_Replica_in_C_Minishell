@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/27 18:55:26 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:36:10 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini);
 //////////////////////////////////////////////////////
 //				LIST_OF_PARAMS.C					//
 //////////////////////////////////////////////////////
-t_params	*add_argument_to_list(t_args *args, const char *arg, int argc);
+t_params *add_argument_to_list(t_args *args, int *argc);
 
 //////////////////////////////////////////////////////
 //					FT_LIST_ENV.C					//
