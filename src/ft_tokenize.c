@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/22 21:28:53 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/27 22:31:03 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,35 @@ static void	next_is_a_number(char **input_ptr, t_args *args)
 		*args->arg_ptr++ = **input_ptr;
 }
 
-static void	out_of_quotes(char *input_ptr, t_args *args, int **argc, t_mini *mini)
+static void	out_of_quotes(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini)
 {
 	char	*expanded_arg;
 
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		//expanded_arg = expander(args->arg, args->in_single_quote, mini);
 		expanded_arg = expander(args, mini);
 		if (expanded_arg)
-			args->args[(**argc)++] = expanded_arg;
+			args->args[(*argc)++] = expanded_arg;
 		args->arg_ptr = args->arg;
 	}
-	if (*input_ptr == '|')
-		args->args[(**argc)++] = ft_strdup("|");
+	if (**input_ptr == '|')
+		args->args[(*argc)++] = ft_strdup("|");
+	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
+	{
+		args->args[(*argc)++] = ft_strdup("<<");
+		(*input_ptr)++;
+	}
+	else if (**input_ptr == '<')
+		args->args[(*argc)++] = ft_strdup("<");
+	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>')
+	{
+		args->args[(*argc)++] = ft_strdup(">>");
+		(*input_ptr)++;
+	}
+	else if (**input_ptr == '>')
+		args->args[(*argc)++] = ft_strdup(">");
 }
 
 static void	control_quotes(char *input_ptr, t_args *args)
@@ -65,16 +79,16 @@ static void	verify_closed_quotes(t_args *args)
 void	add_to_args(t_args *args, int *argc, t_mini *mini)
 {
 	char	*input_ptr;
-	char	*expanded_arg;
+	char	*expander_arg;
 
 	input_ptr = args->input;
 	while (*input_ptr)
 	{
 		control_quotes(input_ptr, args);
-		if ((ft_isspace(*input_ptr) || *input_ptr == '|')
+		if ((ft_isspace(*input_ptr) || *input_ptr == '|' || *input_ptr == '<'
+				|| *input_ptr == '>')
 			&& !args->in_single_quote && !args->in_double_quote)
-			out_of_quotes(input_ptr, args, &argc, mini);
-		//else if (*input_ptr == '$' && *input_ptr - 1 == '$' && !args->in_single_quote)
+			out_of_quotes(&input_ptr, args, argc, mini);
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			next_is_a_number(&input_ptr, args);
 		else
@@ -85,9 +99,8 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini)
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
-		//expanded_arg = expander(args->arg, args->in_single_quote, mini);
-		expanded_arg = expander(args, mini);
-		if (expanded_arg)
-			args->args[(*argc)++] = expanded_arg;
+		expander_arg = expander(args, mini);
+		if (expander_arg)
+			args->args[(*argc)++] = expander_arg;
 	}
 }
