@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/23 18:22:06 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:23:01 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 	//char	*user_prompt;
 	t_mini	mini;
 	char	*pid_env;
+	char	*last_history = NULL;
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -102,6 +103,9 @@ int	main(int argc, char **argv, char **env)
 	ft_export_env(pid_env, &mini);
 	free(pid_env);
 
+	//GET $? = Exit return
+	ft_export_env("?=0", &mini);
+
 	// Bucle principal del shell
 	while (1)
 	{
@@ -112,8 +116,14 @@ int	main(int argc, char **argv, char **env)
 			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
-		if (args.input[0] != '\0')
+		//if (args.input[0] != '\0')
+		if ((args.input[0] != '\0' && ft_strcmp(args.input, last_history) != 0) || last_history == NULL)
+		{
+			if (last_history != NULL)
+				free (last_history);
+			last_history = ft_strdup(args.input);
 			add_history(args.input);
+		}
 		//IMPORTANTE actualizar el estado de las redirecciones
 		//Cuento que en este momento esté todo cerrado
 		mini.in_out.inf = 0;
@@ -132,10 +142,11 @@ int	main(int argc, char **argv, char **env)
 
 		free(args.input); // Liberar la memoria asignada por readline
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
-
+		del_params(&args);
 	}
 	free(entry);
 	free(mini.user_prompt);
+	free (last_history);
 	clear_history();
 	return (0);
 }
