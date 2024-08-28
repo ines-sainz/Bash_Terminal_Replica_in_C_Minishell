@@ -58,7 +58,7 @@ $USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
 	arg[6]: 123 bishopvk 456
 	arg[7]: 123 $USER 456
 
-123 $USER 456 $NAME 789 $$ 000 $,.-USER 123 $123NAME $
+123 $USER 456 $MAIL 789 $$ 000 $,.-USER 123 $123MAIL $
 	arg[0]: 123
 	arg[1]: bishopvk
 	arg[2]: 456
@@ -71,8 +71,10 @@ $USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
 	arg[9]: 23NAME
 	arg[10]: $
 
-"123 $USER 456 $NAME 789 $$ 000 $,.-USER 123 $123NAME $"
+"123 $USER 456 $MAIL 789 $$ 000 $,.-USER 123 $MAIL $"
 	arg[0]: 123 bishopvk 456 minishell 789 1231051 000 $,.-USER 123 23NAME $
+
+esto //acabar
 
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
