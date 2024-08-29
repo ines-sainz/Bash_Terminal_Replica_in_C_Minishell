@@ -55,6 +55,8 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
+	//redirector(args, mini);
+	executor(args);
 	temp = args->params;
 	while (temp != NULL)
 	{
