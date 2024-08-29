@@ -3,19 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/27 20:23:01 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:56:10 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/* void	free_at_exit(t_args *args)
+{
+	//int	i;
+
+	if (args->input)
+		free (args->input);
+	// i = 0;
+	// if (args->args[i])
+	// {
+	// 	while (args->args[i])
+	// 		free (args->args[i++]);
+	// 	//free (args->args);
+	// }
+	if (args->arg)
+		free (args->arg);
+	if (args->result)
+		free (args->result);
+	if (args->mini->user_prompt)
+		free (args->mini->user_prompt);
+	free_env(args->mini);
+	if (args->arg_ptr)
+		free (args->arg_ptr);
+	del_params(args);
+} */
+
 static void	error_mini_use(int argc, char **argv)
 {
 	int	i;
-	
+
 	if (argc != 1)
 	{
 		printf("%s: ", argv[0]);
@@ -59,7 +84,6 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	//char	*user_prompt;
 	t_mini	mini;
-	char	*pid_env;
 	char	*last_history = NULL;
 
 	//Inicializar la estructura y el environment
@@ -84,6 +108,7 @@ int	main(int argc, char **argv, char **env)
 	ft_strlcat(mini.user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	ft_strlcat(mini.user_prompt, entry, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
+	free (entry);
 	//strcat(user_prompt, entrada);
 	//strcat(user_prompt, RESET);
 
@@ -99,8 +124,13 @@ int	main(int argc, char **argv, char **env)
 //	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 	//GET $$ = PID
-	pid_env = ft_strjoin("$=", ft_itoa(getpid()));
+	char	*itoa_pid;
+	char	*pid_env;
+
+	itoa_pid = ft_itoa(getpid());
+	pid_env = ft_strjoin("$=", itoa_pid);
 	ft_export_env(pid_env, &mini);
+	free(itoa_pid);
 	free(pid_env);
 
 	//GET $? = Exit return
@@ -135,16 +165,22 @@ int	main(int argc, char **argv, char **env)
 		free(args.input);
 		args.input = args.input_trimed;
 		args.input_trimed = NULL;
-		if (ft_strcmp(args.input, "exit") == 0)
-			exit (0);
+		/* if (ft_strcmp(args.input, "exit") == 0)
+			exit (0); */
 		if (args.input[0] != '\0')
 			parse(&args, &mini);
+		/* if (args.input[0] != '\0')
+		{
+			if (parse(&args, &mini) == ERR)
+				free_at_exit(&args);
+		} */
 
 		free(args.input); // Liberar la memoria asignada por readline
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
 	}
-	free(entry);
+	// Esto solo se ejecuta cuando recibamos Ctrl-D
+	//free(entry);
 	free(mini.user_prompt);
 	free (last_history);
 	clear_history();
