@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:29:15 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:05:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	ft_built_exit(t_args *args, t_mini *mini)
 {
-	(void)mini;
 	(void)args;
+	//(void)mini;
+	free_env(mini);
+	clear_history();
+	exit(0);
 }
 
 void	ft_built_unset(t_args *args, t_mini *mini)
@@ -153,23 +156,23 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 
 	flag = 0;
 	arg0_len = ft_strlen(args->args[0]);
-	if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0)
+	if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
 	{
 		if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
 			flag = 1;
 		ft_built_echo(args, flag);
 	}
-	if (ft_strncmp(args->args[0], "cd", arg0_len) == 0)
+	else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
 		ft_built_cd(args, mini);
-	if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0)
+	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
 		ft_built_pwd(args);
-	if (ft_strncmp(args->args[0], "export", arg0_len) == 0)
+	else if (ft_strncmp(args->args[0], "export", arg0_len) == 0 && arg0_len == 6)
 		ft_built_export(args, mini);
-	if (ft_strncmp(args->args[0], "unset", arg0_len) == 0)
+	else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
 		ft_built_unset(args, mini);
-	if (args->argc == 1 && ft_strncmp(args->args[0], "env", arg0_len) == 0)
+	else if (args->argc == 1 && ft_strncmp(args->args[0], "env", arg0_len) == 0 && arg0_len == 3)
 		ft_print_env(mini);
-	if (args->argc == 1 && ft_strncmp(args->args[0], "exit", arg0_len) == 0)
+	else if (args->argc == 1 && ft_strncmp(args->args[0], "exit", arg0_len) == 0 && arg0_len == 4)
 		ft_built_exit(args, mini);
 	return (0);
 }
