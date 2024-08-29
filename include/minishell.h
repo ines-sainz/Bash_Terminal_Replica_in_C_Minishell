@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/27 20:36:10 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:56:35 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,49 +163,50 @@ typedef struct s_args
 //////////////////////////////////////////////////////
 //						MAIN.C						//
 //////////////////////////////////////////////////////
+//void		free_at_exit(t_args *args);
 //int		main(void);
 
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
-void	del_params(t_args *args);
-int		parse(t_args *args, t_mini *mini);
+int			parse(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FT_TOKENIZE.C					//
 //////////////////////////////////////////////////////
-void	add_to_args(t_args *args, int *argc, t_mini *mini);
+int			add_to_args(t_args *args, int *argc, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //				LIST_OF_PARAMS.C					//
 //////////////////////////////////////////////////////
-t_params *add_argument_to_list(t_args *args, int *argc);
+void		del_params(t_args *args);
+t_params	*add_argument_to_list(t_args *args, int *argc);
 
 //////////////////////////////////////////////////////
 //					FT_LIST_ENV.C					//
 //////////////////////////////////////////////////////
-char	*ft_find_env(t_mini *mini, char *find);
-void	ft_print_env(t_mini *mini);
-void	free_env(t_mini *mini);
-int		add_back_env(t_env *node, t_mini *mini);
-t_env	*env_new(char *env);
+char		*ft_find_env(t_mini *mini, char *find);
+void		ft_print_env(t_mini *mini);
+void		free_env(t_mini *mini);
+int			add_back_env(t_env *node, t_mini *mini);
+t_env		*env_new(char *env);
 
 //////////////////////////////////////////////////////
 //				FT_ENVIRONMENT.C					//
 //////////////////////////////////////////////////////
-void	ft_unset_env(char *unset, t_mini *mini);
-void	ft_export_env(char *new_env, t_mini *mini);
-char	*ft_get_env(char *to_expand, t_mini *mini);
-int		ft_set_env(char **env, t_mini *mini);
+void		ft_unset_env(char *unset, t_mini *mini);
+void		ft_export_env(char *new_env, t_mini *mini);
+char		*ft_get_env(char *to_expand, t_mini *mini);
+int			ft_set_env(char **env, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
-//char	*expander(char *input);
-//char	*expander(char *input, t_bool in_single_quote, t_mini *mini);
-char	*expander(t_args *args, t_mini *mini);
+//char		*expander(char *input);
+//char		*expander(char *input, t_bool in_single_quote, t_mini *mini);
+char		*expander(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
 //////////////////////////////////////////////////////
-int ft_built_ins(t_args *args, t_mini *mini);
+int			ft_built_ins(t_args *args, t_mini *mini);
