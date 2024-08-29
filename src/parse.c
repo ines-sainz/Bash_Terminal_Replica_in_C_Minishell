@@ -43,7 +43,6 @@ int	parse(t_args *args, t_mini *mini)
 	printf("argc ==> %i\n", args->argc);
 	if (ft_built_ins(args, mini) == 1)
 		return (OK);
-	printf("Parsed arguments:\n");
 	i = 0;
 	while (i < args->argc)
 	{
@@ -57,6 +56,7 @@ int	parse(t_args *args, t_mini *mini)
 	}
 	//redirector(args, mini);
 	executor(args);
+	printf("Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
 	{
