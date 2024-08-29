@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   list_of_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/27 20:42:37 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:56:00 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	del_params(t_args *args)
+{
+	t_params	*current;
+	t_params	*next;
+
+	current = args->params;
+	if (args->params != NULL)
+	{
+		while (current != NULL)
+		{
+			next = current->next;
+			if (current->content != NULL)
+				free(current->content);
+			free(current);
+			current = next;
+		}
+		args->params = NULL;
+	}
+}
 
 static t_bool	is_builtin_command(const char *arg)
 {
