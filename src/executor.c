@@ -40,6 +40,7 @@ int	get_len_matrix(t_params *iter)
 	return (n_commands);
 }
 
+
 char	**make_param_matrix(t_params **iter)
 {
 	char		**param_matrix;
