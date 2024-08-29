@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/28 10:34:17 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/29 14:52:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,22 @@
 
 #define MAX_ARGS 100
 
-void	del_params(t_args *args)
-{
-	t_params	*current;
-	t_params	*next;
-
-	current = args->params;
-	if (args->params != NULL)
-	{
-		while (current != NULL)
-		{
-			next = current->next;
-			if (current->content != NULL)
-				free(current->content);
-			free(current);
-			current = next;
-		}
-		args->params = NULL;
-	}
-}
-
-static void	ft_tokenize(t_args *args, int *argc, t_mini *mini)
+static int	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 {
 	args->arg = malloc(ft_strlen(args->input) + 1);
 	args->arg_ptr = args->arg;
 	*argc = 0;
 	args->in_single_quote = t_false;
 	args->in_double_quote = t_false;
-	add_to_args(args, argc, mini);
+	if (add_to_args(args, argc, mini) == ERR)
+	{
+		free (args->arg);
+		args->arg = NULL;
+		return (ERR);
+	}
 	free(args->arg);
+	args->arg = NULL;
+	return (OK);
 }
 
 int	parse(t_args *args, t_mini *mini)
@@ -51,10 +38,11 @@ int	parse(t_args *args, t_mini *mini)
 	t_params	*temp;
 
 	printf("You entered: %s\n", args->input);
-	ft_tokenize(args, &args->argc, mini);
+	if (ft_tokenize(args, &args->argc, mini) == ERR)
+		return (ERR);
 	printf("argc ==> %i\n", args->argc);
 	if (ft_built_ins(args, mini) == 1)
-		return (0);
+		return (OK);
 	printf("Parsed arguments:\n");
 	i = 0;
 	while (i < args->argc)
@@ -73,7 +61,7 @@ int	parse(t_args *args, t_mini *mini)
 		printf("arg[%d]: %s, type: %d\n", temp->argc, temp->content, temp->type);
 		temp = temp->next;
 	}
-	return (0);
+	return (OK);
 }
 /*
 command < infile | command > outfile
