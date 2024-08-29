@@ -37,7 +37,6 @@ int	get_len_matrix(t_params *iter)
 		if (temp)
 			temp = temp->next;
 	}
-	printf("the number of commands is %i\n", n_commands);
 	return (n_commands);
 }
 
