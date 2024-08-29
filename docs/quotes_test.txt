@@ -24,8 +24,12 @@ En "un 'lugar' de la 'mancha "de" cuyo' nombre
 	1. En
 	2. un 'lugar' de la 'mancha de cuyo' nombre
 
+"l'"s
+	1. l's
+
 "l'"s'
 	1. l's
+	ó: syntax error
 
 "hola"a"a"a"a"
 	1. holaaaaa
@@ -74,7 +78,7 @@ $USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
 "123 $USER 456 $MAIL 789 $$ 000 $,.-USER 123 $MAIL $"
 	arg[0]: 123 bishopvk 456 minishell 789 1231051 000 $,.-USER 123 23NAME $
 
-esto //acabar
+esto|es<una<<prueba>de>>separadores completa
 
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
