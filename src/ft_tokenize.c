@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/08/27 22:31:03 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:20:00 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	control_quotes(char *input_ptr, t_args *args)
 		args->in_double_quote = !args->in_double_quote;
 }
 
-static void	verify_closed_quotes(t_args *args)
+/* static void	verify_closed_quotes(t_args *args)
 {
 	if (args->in_single_quote)
 	{
@@ -74,9 +74,20 @@ static void	verify_closed_quotes(t_args *args)
 		*args->arg_ptr++ = '\"';
 		args->in_double_quote = t_false;
 	}
+} */
+
+static int	verify_closed_quotes(t_args *args)
+{
+	if (args->in_single_quote || args->in_double_quote)
+	{
+		printf("minishell: syntax error: missing closed quotes\n");
+		//free_at_exit(args);
+		return (ERR);
+	}
+	return (OK);
 }
 
-void	add_to_args(t_args *args, int *argc, t_mini *mini)
+int	add_to_args(t_args *args, int *argc, t_mini *mini)
 {
 	char	*input_ptr;
 	char	*expander_arg;
@@ -95,7 +106,8 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini)
 			*args->arg_ptr++ = *input_ptr;
 		input_ptr++;
 	}
-	verify_closed_quotes(args);
+	if (verify_closed_quotes(args) == ERR)
+		return (ERR);
 	if (args->arg_ptr != args->arg)
 	{
 		*args->arg_ptr = '\0';
@@ -103,4 +115,5 @@ void	add_to_args(t_args *args, int *argc, t_mini *mini)
 		if (expander_arg)
 			args->args[(*argc)++] = expander_arg;
 	}
+	return (OK);
 }
