@@ -6,15 +6,15 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 14:56:10 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/30 13:13:36 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* void	free_at_exit(t_args *args)
+void	free_at_exit(t_args *args)
 {
-	//int	i;
+	// int	i;
 
 	if (args->input)
 		free (args->input);
@@ -31,11 +31,15 @@
 		free (args->result);
 	if (args->mini->user_prompt)
 		free (args->mini->user_prompt);
+	if (args->last_history)
+		free(args->last_history);
 	free_env(args->mini);
-	if (args->arg_ptr)
-		free (args->arg_ptr);
+	/* if (args->arg_ptr)
+		free (args->arg_ptr); */
 	del_params(args);
-} */
+	clear_history();
+	//exit(i);
+}
 
 static void	error_mini_use(int argc, char **argv)
 {
@@ -84,7 +88,6 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	//char	*user_prompt;
 	t_mini	mini;
-	char	*last_history = NULL;
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -136,6 +139,11 @@ int	main(int argc, char **argv, char **env)
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
 
+	//Get SHLVL
+	/* ft_export_env("MY_SHLVL=0", &mini);
+	if (!ft_strcmp(getenv("SHLVL"), ft_find_env(&mini, "MY_SHLVL")));
+		ft_export_env("MY_SHLVL=1", &mini); */
+
 	// Bucle principal del shell
 	while (1)
 	{
@@ -147,11 +155,11 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		//if (args.input[0] != '\0')
-		if ((args.input[0] != '\0' && ft_strcmp(args.input, last_history) != 0) || last_history == NULL)
+		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
 		{
-			if (last_history != NULL)
-				free (last_history);
-			last_history = ft_strdup(args.input);
+			if (args.last_history != NULL)
+				free (args.last_history);
+			args.last_history = ft_strdup(args.input);
 			add_history(args.input);
 		}
 		//IMPORTANTE actualizar el estado de las redirecciones
@@ -181,8 +189,9 @@ int	main(int argc, char **argv, char **env)
 	}
 	// Esto solo se ejecuta cuando recibamos Ctrl-D
 	//free(entry);
-	free(mini.user_prompt);
-	free (last_history);
-	clear_history();
+	//free(mini.user_prompt);
+	//free (last_history);
+	//clear_history();
+	free_at_exit(&args);
 	return (0);
 }
