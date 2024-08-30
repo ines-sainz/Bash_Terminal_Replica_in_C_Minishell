@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 14:45:53 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/30 11:59:25 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef enum e_param_type
 	CMD,
 	INFILE,
 	HERE_DOC,
+	INF_LITERAL,
 	OUTFILE,
 	APPEND,
 	PIPE,
@@ -107,8 +108,8 @@ typedef enum s_bool
 
 typedef struct s_fd
 {
-	int		inf;
-	int		outf;
+	int	inf;
+	int	outf;
 }	t_fd;
 
 typedef struct s_pipes
@@ -214,4 +215,4 @@ int			ft_built_ins(t_args *args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					EXECUTOR.C						//
 //////////////////////////////////////////////////////
-void   executor(t_args *args);
+void		executor(t_args *args);
