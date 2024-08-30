@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/27 20:09:13 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:56:46 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	check_quotes(t_args *args, size_t *i, t_bool *in_double_quotes)
 static char	*realloc_plain_text(t_args *args, size_t *i, size_t *j)
 {
 	char	*new_result;
-	
+
 	if (*j >= args->result_capacity - 1)
 	{
 		//args->result_capacity += ft_strlen(args->arg) - i - 1;
