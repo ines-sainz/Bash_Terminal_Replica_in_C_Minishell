@@ -1,2 +1,2 @@
 # minishell
-My own version of shell
+Our version of shell
