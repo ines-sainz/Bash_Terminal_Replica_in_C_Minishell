@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:59:25 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/30 12:26:17 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_args
 {
 	char		*input;
 	char		*input_trimed;
+	char		*last_history;
 	char		*args[MAX_ARGS];
 	int			argc;
 	char		*arg;
