@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 09:23:18 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/29 09:23:20 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:45:46 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_len_matrix(t_params *iter)
 	while (temp != NULL)
 	{
 		if (temp->type == PIPE)
-			break;
+			break ;
 		if (temp->type == BUILTING || temp->type == CMD
 			|| temp->type == PARAMS)
 		{
@@ -54,7 +54,7 @@ char	**make_param_matrix(t_params **iter)
 	while (*iter != NULL)
 	{
 		if ((*iter)->type == PIPE)
-			break;
+			break ;
 		if ((*iter)->type == BUILTING || (*iter)->type == CMD
 			|| (*iter)->type == PARAMS)
 		{
