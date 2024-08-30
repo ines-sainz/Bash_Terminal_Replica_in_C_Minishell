@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 15:05:52 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/30 12:26:11 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_built_exit(t_args *args, t_mini *mini)
 {
-	(void)args;
-	//(void)mini;
-	free_env(mini);
-	clear_history();
+	(void)mini;
+	//(void)args;
+	//free_env(mini);
+	//clear_history();
+	free_at_exit(args);
 	exit(0);
 }
 
