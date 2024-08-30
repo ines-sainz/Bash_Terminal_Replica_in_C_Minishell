@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 15:00:33 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/08/30 14:44:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,17 @@ void	free_env(t_mini *mini)
 {
 	t_env	*next;
 
-	if (mini->env_first_node)
+	mini->env_iter = mini->env_first_node;
+	if (mini->env_iter)
 	{
-		mini->env_iter = mini->env_first_node;
 		while (mini->env_iter != NULL)
 		{
-			next = mini->env_iter;
-			free(next->variable);
-			free(next->content);
-			free(next);
-			mini->env_iter = mini->env_iter->next;
+			next = mini->env_iter->next;
+			free(mini->env_iter->variable);
+			free(mini->env_iter->content);
+			free(mini->env_iter);
+			mini->env_iter = next;
 		}
-		next = NULL;
 	}
 	mini->env_first_node = NULL;
 	mini->env_iter = NULL;
