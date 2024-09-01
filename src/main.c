@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/30 13:13:36 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/02 01:26:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+volatile sig_atomic_t	g_signal_received = 0;
 
 void	free_at_exit(t_args *args)
 {
 	// int	i;
 
 	if (args->input)
+	{
 		free (args->input);
+		args->input = NULL;
+	}
 	// i = 0;
 	// if (args->args[i])
 	// {
@@ -26,17 +31,30 @@ void	free_at_exit(t_args *args)
 	// 	//free (args->args);
 	// }
 	if (args->arg)
+	{
 		free (args->arg);
+		args->arg = NULL;
+	}
 	if (args->result)
+	{
 		free (args->result);
+		args->result = NULL;
+	}
 	if (args->mini->user_prompt)
+	{
 		free (args->mini->user_prompt);
+		args->mini->user_prompt = NULL;
+	}
 	if (args->last_history)
+	{
 		free(args->last_history);
+		args->last_history = NULL;
+	}
 	free_env(args->mini);
 	/* if (args->arg_ptr)
 		free (args->arg_ptr); */
 	del_params(args);
+	printf("Resources freed successfully.\n");
 	clear_history();
 	//exit(i);
 }
@@ -72,12 +90,38 @@ void	signal_sigint(int sig)
 }
 
 // Manejador de la señal SIGQUIT (Ctrl-\)
-void	signal_sigquit(int sig)
+/* void	signal_sigquit(int sig)
 {
 	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
 	clear_history();
 	signal(sig, SIG_DFL); // Restaurar el comportamiento por defecto
 	kill(getpid(), sig); // Enviar la señal nuevamente
+} */
+
+// Manejador de la señal SIGQUIT (Ctrl-\)
+/* void	signal_sigquit(int sig)
+{
+	//(void)sig;
+	printf("XD\n");
+	g_signal_received = sig;
+	//exit(0);
+	//signal(SIGQUIT, SIG_IGN);
+} */
+
+// Manejador de la señal SIGQUIT (Ctrl-\)
+void	signal_sigquit(int sig)
+{
+	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
+	g_signal_received = sig;
+	clear_history();
+	signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
+	kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
+}
+
+// Manejo del EOF
+void handle_eof(void)
+{
+	g_signal_received = -1; // Usamos -1 para indicar EOF
 }
 
 // cc signals.c -lreadline
@@ -151,8 +195,17 @@ int	main(int argc, char **argv, char **env)
 		if (!args.input)
 		{
 			// Detectar Ctrl-D (EOF)
+			handle_eof();
 			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
 			break ;
+		}
+		if (g_signal_received == SIGQUIT)
+		{
+			printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", SIGQUIT);
+			printf("\nEsto debería hacerse\n");
+			free_at_exit(&args);
+			signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
+			kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
 		}
 		//if (args.input[0] != '\0')
 		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
@@ -192,6 +245,7 @@ int	main(int argc, char **argv, char **env)
 	//free(mini.user_prompt);
 	//free (last_history);
 	//clear_history();
+	printf("\n¡¡EXCLUSIVO PARA CTRL + D!!\n");
 	free_at_exit(&args);
 	return (0);
 }
