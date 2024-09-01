@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/30 10:56:46 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/02 00:46:08 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static char	*initilize_vars(t_args *args, t_bool *in_double_quotes, size_t *i, size_t *j)
 {
-	args->result_capacity = ft_strlen(args->arg) - 2 + 1;
+	//args->result_capacity = ft_strlen(args->arg) - 2 + 1;
+	args->result_capacity = ft_strlen(args->arg) + 1;
 	args->result = malloc(args->result_capacity);
 	if (!args->result)
 		return (NULL);
@@ -37,7 +38,7 @@ static char	*realloc_plain_text(t_args *args, size_t *i, size_t *j)
 {
 	char	*new_result;
 
-	if (*j >= args->result_capacity - 1)
+	if (*j >= args->result_capacity - 1 && args->result && args->result[*j])
 	{
 		//args->result_capacity += ft_strlen(args->arg) - i - 1;
 		args->result_capacity += *i;
@@ -116,8 +117,11 @@ static char	*valid_var(t_args *args, size_t *i, size_t *j, int *start)
 {
 	char	*env_value;
 	char	*new_result;
+	char	*sub_str;
 
-	env_value = ft_find_env(args->mini, ft_substr(args->arg, *start, *i - *start));
+	sub_str = ft_substr(args->arg, *start, *i - *start);
+	env_value = ft_find_env(args->mini, sub_str);
+	free(sub_str);
 	printf("env_value ==> %s\n", env_value);
 	if (env_value)
 	{
