@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 14:52:52 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/01 23:06:34 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	parse(t_args *args, t_mini *mini)
 			//printf("arg[%d]: %s\n", i, args->args[i]);
 			add_argument_to_list(args, &i);
 			free(args->args[i]);
+			args->args[i] = NULL;
 		}
 		i++;
 	}
