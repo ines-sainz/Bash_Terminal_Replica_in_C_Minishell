@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/30 12:26:17 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/01 23:04:55 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DEFINES
+// INCLUDES
 
 //libft
 #include "libft/libft.h"
@@ -57,7 +57,10 @@
 #include <curses.h>
 #include <term.h>
 
-// Secuencias de escape ANSI para colores
+// DEFINES
+#define MAX_ARGS 100
+
+// ANSI escape sequences for colors
 #define RESET "\001\033[0m\002"
 #define RED "\001\033[31m\002"
 #define GREEN "\001\033[32m\002"
@@ -68,8 +71,8 @@
 #define WHITE "\001\033[37m\002"
 #define BOLD "\001\033[1m\002"
 
-// DEFINES
-#define MAX_ARGS 100
+// GLOBAL VARIABLES
+extern volatile sig_atomic_t	g_signal_received;
 
 // STRUCTURES
 /* typedef enum e_file_type
