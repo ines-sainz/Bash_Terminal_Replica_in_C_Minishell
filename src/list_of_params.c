@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_of_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/29 12:56:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/02 22:47:01 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,32 @@ static t_bool	is_builtin_command(const char *arg)
 	return (t_false);
 }
 
+/* static t_param_type	classify_argument(t_args *args, int *argc)
+{
+	printf("args->args[%i] ==> %s\n", *argc, args->args[(*argc)]);
+	printf("args->quotes[%i] ==> %i\n", *argc, args->quotes[(*argc)]);
+	if (ft_strcmp(args->args[*argc], "|") == 0 && args->quotes[*argc] == t_false)
+		return (PIPE);
+	else if (ft_strcmp(args->args[*argc], "<") == 0  && args->quotes[*argc] == t_false)
+		return (INFILE);
+	else if (ft_strcmp(args->args[*argc], "<<") == 0  && args->quotes[*argc] == t_false)
+		return (HERE_DOC);
+	else if (ft_strcmp(args->args[*argc], ">") == 0  && args->quotes[*argc] == t_false)
+		return (OUTFILE);
+	else if (ft_strcmp(args->args[*argc], ">>") == 0  && args->quotes[*argc] == t_false)
+		return (APPEND);
+	else if (is_builtin_command(args->args[*argc]) && args->quotes[*argc] == t_false)
+		return (BUILTING);
+	else if (access(args->args[*argc], X_OK) == 0  && args->quotes[*argc] == t_false)
+		return (CMD);
+	else
+		return (PARAMS); // Se considera un parámetro adicional
+} */
+
 static t_param_type	classify_argument(t_args *args, int *argc)
 {
+	/* printf("args->args[%i] ==> %s\n", *argc, args->args[(*argc)]);
+	printf("args->quotes[%i] ==> %i\n", *argc, args->quotes[(*argc)]); */
 	if (ft_strcmp(args->args[*argc], "|") == 0)
 		return (PIPE);
 	else if (ft_strcmp(args->args[*argc], "<") == 0)
