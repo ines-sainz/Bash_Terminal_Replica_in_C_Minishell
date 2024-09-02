@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/02 20:42:02 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:13:31 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,19 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		expanded_arg = expander(args, mini);
 		if (expanded_arg)
 		{
-			args->args[(*argc)] = expanded_arg;
-			args->quotes[(*argc)++] = t_false;
+			args->args[(*argc)++] = expanded_arg;
 			//free(expanded_arg);
 			//expanded_arg = NULL;
 		}
 		args->arg_ptr = args->arg;
 	}
-	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
+	else if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
 	{
 		printf("minishell: syntax error: || it's not allowed\n");
 		return (ERR);
 	}
 	else if (**input_ptr == '|')
-	{
-		args->args[(*argc)] = ft_strdup("|");
-		args->quotes[(*argc)++] = t_false;
-	}
+		args->args[(*argc)++] = ft_strdup("|");
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<' && *(*input_ptr + 2) == '<')
 	{
 		printf("minishell: syntax error near unexpected token `<'\n");
@@ -64,16 +60,11 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	}
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
 	{
-		args->args[(*argc)] = ft_strdup("<<");
-		args->quotes[(*argc)++] = t_false;
+		args->args[(*argc)++] = ft_strdup("<<");
 		(*input_ptr)++;
 	}
 	else if (**input_ptr == '<')
-	{
-		args->args[(*argc)] = ft_strdup("<");
-		args->quotes[(*argc)++] = t_false;
-		
-	}
+		args->args[(*argc)++] = ft_strdup("<");
 	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>' && *(*input_ptr + 2) == '>')
 	{
 		printf("minishell: syntax error near unexpected token `>'\n");
@@ -81,24 +72,35 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	}
 	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>')
 	{
-		args->args[(*argc)] = ft_strdup(">>");
-		args->quotes[(*argc)++] = t_false;
+		args->args[(*argc)++] = ft_strdup(">>");
 		(*input_ptr)++;
 	}
 	else if (**input_ptr == '>')
-	{
-		args->args[(*argc)] = ft_strdup(">");
-		args->quotes[(*argc)++] = t_false;
-	}
+		args->args[(*argc)++] = ft_strdup(">");
 	return (OK);
 }
 
 static void	control_quotes(char *input_ptr, t_args *args)
 {
 	if (*input_ptr == '\'' && !args->in_double_quote)
+	{
+		printf("Entre comilla simple\n");
 		args->in_single_quote = !args->in_single_quote;
+		if (args->in_single_quote)
+			args->quotes[args->argc] = t_true;
+		else
+			args->quotes[args->argc] = t_false;
+	}
 	else if (*input_ptr == '\"' && !args->in_single_quote)
+	{
+		printf("Entre comilla doble\n");
 		args->in_double_quote = !args->in_double_quote;
+		if (args->in_double_quote)
+			args->quotes[args->argc] = t_true;
+		else
+			args->quotes[args->argc] = t_false;
+	}
+	printf("args->quotes[%i] ==> %i\n", args->argc, args->quotes[args->argc]);
 }
 
 /* static void	verify_closed_quotes(t_args *args)
@@ -156,8 +158,7 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 		expander_arg = expander(args, mini);
 		if (expander_arg)
 		{
-			args->args[(*argc)] = expander_arg;
-			args->quotes[(*argc)++] = t_true;
+			args->args[(*argc)++] = expander_arg;
 			//free (expander_arg);
 			//expander_arg = NULL;
 		}
