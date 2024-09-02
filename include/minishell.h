@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/01 23:04:55 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:54:23 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef enum e_param_type
 	CMD,
 	INFILE,
 	HERE_DOC,
-	INF_LITERAL,
 	OUTFILE,
 	APPEND,
 	PIPE,
