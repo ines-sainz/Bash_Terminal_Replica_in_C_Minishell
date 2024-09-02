@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 09:23:18 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/30 10:45:46 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/02 17:53:22 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	get_number_commands(t_args *args)
 
 int	redirector(t_args *args, t_mini *mini)
 {
-	t_params	*iter;
+	//t_params	*iter;
 	int			n_command;
 
 	(void)mini;
-	iter = args->params;
+	//iter = args->params;
 	n_command = get_number_commands(args);
 	if (n_command == -1)
 		return (1);
