@@ -116,15 +116,16 @@ typedef struct s_fd
 
 typedef struct s_pipes
 {
-	int	num_pipes;
-	int	inf_pipe;
-	int	outf_pipe;
+	int				num_command;
+	int				inf_pipe;
+	int				outf_pipe;
+	struct s_pipes	*next;
 }		t_pipes;
 
 typedef struct s_mini
 {
 	char	*user_prompt;
-	t_pipes	pipes;
+	t_pipes	*first_pipe;
 	t_fd	in_out;
 	t_env	*env_first_node;
 	t_env	*env_iter;
@@ -224,3 +225,8 @@ void		executor(t_args *args);
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
 int	redirector(t_args *args, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//					CREATE_PIPES.C					//
+//////////////////////////////////////////////////////
+void	create_pipes(int n_command, t_mini *mini);
