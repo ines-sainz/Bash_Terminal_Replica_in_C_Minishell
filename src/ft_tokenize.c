@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/02 00:38:13 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:41:11 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	next_is_a_number(char **input_ptr, t_args *args)
 		*args->arg_ptr++ = **input_ptr;
 }
 
-static void	out_of_quotes(char **input_ptr, t_args *args,
+static int	out_of_quotes(char **input_ptr, t_args *args,
 	int *argc, t_mini *mini)
 {
 	char	*expanded_arg;
@@ -40,8 +40,24 @@ static void	out_of_quotes(char **input_ptr, t_args *args,
 		}
 		args->arg_ptr = args->arg;
 	}
+	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
+	{
+		printf("minishell: syntax error: || it's not allowed\n");
+		return (ERR);
+	}
 	if (**input_ptr == '|')
 		args->args[(*argc)++] = ft_strdup("|");
+	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<' && *(*input_ptr + 2) == '<')
+	{
+		printf("minishell: syntax error near unexpected token `<'\n");
+		return (ERR);
+	}
+	else if ((**input_ptr == '<' && *(*input_ptr + 1) == '>')
+			|| (**input_ptr == '>' && *(*input_ptr + 1) == '<'))
+	{
+		printf("minishell: syntax error: forbidden token '<>' or '><'\n");
+		return (ERR);
+	}
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
 	{
 		args->args[(*argc)++] = ft_strdup("<<");
@@ -49,6 +65,11 @@ static void	out_of_quotes(char **input_ptr, t_args *args,
 	}
 	else if (**input_ptr == '<')
 		args->args[(*argc)++] = ft_strdup("<");
+	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>' && *(*input_ptr + 2) == '>')
+	{
+		printf("minishell: syntax error near unexpected token `>'\n");
+		return (ERR);
+	}
 	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>')
 	{
 		args->args[(*argc)++] = ft_strdup(">>");
@@ -56,6 +77,7 @@ static void	out_of_quotes(char **input_ptr, t_args *args,
 	}
 	else if (**input_ptr == '>')
 		args->args[(*argc)++] = ft_strdup(">");
+	return (OK);
 }
 
 static void	control_quotes(char *input_ptr, t_args *args)
@@ -103,7 +125,10 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|' || *input_ptr == '<'
 				|| *input_ptr == '>')
 			&& !args->in_single_quote && !args->in_double_quote)
-			out_of_quotes(&input_ptr, args, argc, mini);
+			{
+				if (out_of_quotes(&input_ptr, args, argc, mini) == ERR)
+				return (ERR);
+			}
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			next_is_a_number(&input_ptr, args);
 		else
