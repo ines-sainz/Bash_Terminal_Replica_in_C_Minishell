@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/02 17:54:23 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:36:17 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_args
 	char		*input_trimed;
 	char		*last_history;
 	char		*args[MAX_ARGS];
+	t_bool		quotes[MAX_ARGS];
 	int			argc;
 	char		*arg;
 	char		*result;
