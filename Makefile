@@ -40,7 +40,9 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/expander.c \
 					$(SRC_DIR)/ft_built_ins.c \
 					$(SRC_DIR)/list_of_params.c \
-					$(SRC_DIR)/executor.c
+					$(SRC_DIR)/executor.c \
+					$(SRC_DIR)/redirector.c \
+					$(SRC_DIR)/create_pipes.c
 
 OBJ				=	$(SRC:.c=.o)
 
