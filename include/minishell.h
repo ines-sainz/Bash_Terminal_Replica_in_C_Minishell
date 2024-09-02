@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/02 20:36:17 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:50:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,9 +225,9 @@ void		executor(t_args *args);
 //////////////////////////////////////////////////////
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
-int	redirector(t_args *args, t_mini *mini);
+int			redirector(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					CREATE_PIPES.C					//
 //////////////////////////////////////////////////////
-void	create_pipes(int n_command, t_mini *mini);
+void		create_pipes(int n_command, t_mini *mini);
