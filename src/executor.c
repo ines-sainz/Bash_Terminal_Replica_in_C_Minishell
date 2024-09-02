@@ -12,14 +12,73 @@
 
 #include "../include/minishell.h"
 
-/*void	redirector(t_args *args, t_mini *mini)
+int	get_number_commands(t_args *args)
 {
-}*/
+	t_params	*iter;
+	int			n_commands;
+
+	if (args->params->type == PIPE)
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		return (ERR);
+	}
+	iter = args->params;
+	n_commands = 1;
+	while (iter != NULL)
+	{
+		if (iter->type == PIPE)
+		{
+			if (iter->next == NULL)
+			{
+				printf("minishell: syntax error: | at the end of the commands\n");
+				return (ERR);
+			}
+			if (iter->next->type == PIPE)
+			{
+				printf("minishell: syntax error: two following ||\n");
+				return (ERR);
+			}
+			n_commands++;
+		}
+		iter = iter->next;
+	}
+	printf("the number of commands is : %i\n", n_commands);
+	return (n_commands);
+}
+
+int	redirector(t_args *args, t_mini *mini)
+{
+	t_params	*iter;
+	int			n_command;
+
+	(void)mini;
+	iter = args->params;
+	n_command = get_number_commands(args);
+	if (n_command == -1)
+		return (1);
+/*	while (iter != NULL)
+	{
+		if (iter->type == PIPE)
+		{
+			n_command++;
+		}
+		if (!(iter->type == BUILTING || iter->type == CMD
+			|| iter->type == PARAMS))
+		{
+			//ft_files();
+			if (iter)
+				iter = iter->next;
+		}
+		if (iter)
+			iter = iter->next;
+	}*/
+	return (0);
+}
 
 int	get_len_matrix(t_params *iter)
 {
 	t_params	*temp;
-	int			n_commands;
+	int			n_commands; //es el número de el comando más todo lo que hay detrás
 
 	temp = iter;
 	n_commands = 0;
