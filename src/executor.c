@@ -3,77 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 09:23:18 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/02 17:53:22 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:45:46 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	get_number_commands(t_args *args)
-{
-	t_params	*iter;
-	int			n_commands;
-
-	if (args->params->type == PIPE)
-	{
-		printf("bash: syntax error near unexpected token `|'\n");
-		return (ERR);
-	}
-	iter = args->params;
-	n_commands = 1;
-	while (iter != NULL)
-	{
-		if (iter->type == PIPE)
-		{
-			if (iter->next == NULL)
-			{
-				printf("minishell: syntax error: | at the end of the commands\n");
-				return (ERR);
-			}
-			if (iter->next->type == PIPE)
-			{
-				printf("minishell: syntax error: two following ||\n");
-				return (ERR);
-			}
-			n_commands++;
-		}
-		iter = iter->next;
-	}
-	printf("the number of commands is : %i\n", n_commands);
-	return (n_commands);
-}
-
-int	redirector(t_args *args, t_mini *mini)
-{
-	//t_params	*iter;
-	int			n_command;
-
-	(void)mini;
-	//iter = args->params;
-	n_command = get_number_commands(args);
-	if (n_command == -1)
-		return (1);
-/*	while (iter != NULL)
-	{
-		if (iter->type == PIPE)
-		{
-			n_command++;
-		}
-		if (!(iter->type == BUILTING || iter->type == CMD
-			|| iter->type == PARAMS))
-		{
-			//ft_files();
-			if (iter)
-				iter = iter->next;
-		}
-		if (iter)
-			iter = iter->next;
-	}*/
-	return (0);
-}
 
 int	get_len_matrix(t_params *iter)
 {
@@ -175,4 +112,24 @@ cat hola.txt
 cat <hola.txt >			->bash: syntax error near unexpected token `newline'
 cat <hola.txt >>		->bash: syntax error near unexpected token `newline'
 | cat hola.txt			->bash: syntax error near unexpected token `|'
+
+
+isainz-r@c1r9s5:~/minishell$ export pipe="|"
+isainz-r@c1r9s5:~/minishell$ ls $pipe grep m
+ls: cannot access 'grep': No such file or directory
+ls: cannot access 'm': No such file or directory
+'|'
+isainz-r@c1r9s5:~/minishell$ ls -la | grep m
+-rwxr-xr-x  1 isainz-r 2019 62440 Sep  2 14:59 minishell
+-rw-r--r--  1 isainz-r 2019    33 Sep  2 11:07 README.md
+isainz-r@c1r9s5:~/minishell$ ls -la $pipe grep m
+ls: cannot access 'grep': No such file or directory
+ls: cannot access 'm': No such file or directory
+-rw-r--r-- 1 isainz-r 2019 72 Sep  2 14:58 '|'
+isainz-r@c1r9s5:~/minishell$ ls > $pipe
+
+isainz-r@c1r9s5:~/minishell$ ls "|" ls
+ls: cannot access 'ls': No such file or directory
+'|'
+
 */
