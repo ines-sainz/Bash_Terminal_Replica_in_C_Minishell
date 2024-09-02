@@ -55,7 +55,8 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
-	//redirector(args, mini);
+	if (redirector(args, mini) == 1)
+		return (ERR);
 	executor(args);
 	printf("Parsed arguments:\n");
 	temp = args->params;
