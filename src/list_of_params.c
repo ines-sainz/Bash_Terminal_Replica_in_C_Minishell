@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/03 09:29:31 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:39:37 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_params *add_argument_to_list(t_args *args, int *argc)
 	new_node->content = ft_strdup(args->args[*argc]); // Copia el contenido del argumento
 	new_node->argc = *argc; // Asigna el número de argumentos
 	new_node->type = classify_argument(args, argc); // Clasifica el argumento
+	new_node->quotes = args->quotes[*argc];
 	new_node->next = NULL;
 
 	// Añadir el nuevo nodo al final de la lista
