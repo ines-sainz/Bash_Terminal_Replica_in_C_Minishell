@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/03 09:29:41 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:02:32 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,18 @@ int	parse(t_args *args, t_mini *mini)
 	temp = args->params;
 	while (temp != NULL)
 	{
-		printf("arg[%d]: %s, type: %d\n", temp->argc, temp->content, temp->type);
+		//printf("arg[%d]: %s,\t\ttype: %d,\t\tquotes: %i\n", temp->argc, temp->content, temp->type, temp->quotes);
+		printf("arg[%d]: %s", temp->argc, temp->content);
+		if (temp->type == CMD){printf("\ttype: %s", "CMD");}
+		else if (temp->type == INFILE){printf("\ttype: %s", "INFILE");}
+		else if (temp->type == HERE_DOC){printf("\ttype: %s", "HERE_DOC");}
+		else if (temp->type == OUTFILE){printf("\ttype: %s", "OUTFILE");}
+		else if (temp->type == APPEND){printf("\ttype: %s", "APPEND");}
+		else if (temp->type == PIPE){printf("\ttype: %s", "PIPE");}
+		else if (temp->type == PARAMS){printf("\ttype: %s", "PARAMS");}
+		else if (temp->type == BUILTING){printf("\ttype: %s", "BUILTING");}
+		if (temp->quotes == t_true){printf("\tquotes: %s\n", "TRUE");}
+		else if (temp->quotes == t_false){printf("\tquotes: %s\n", "FALSE");}
 		temp = temp->next;
 	}
 	return (OK);
