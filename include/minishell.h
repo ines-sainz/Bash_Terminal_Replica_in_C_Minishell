@@ -232,3 +232,9 @@ int			redirector(t_args *args, t_mini *mini);
 //					CREATE_PIPES.C					//
 //////////////////////////////////////////////////////
 void		create_pipes(int n_command, t_mini *mini);
+void	print_pipes(t_mini *mini);
+
+//////////////////////////////////////////////////////
+//				GET_REDIRECTIONS.C					//
+//////////////////////////////////////////////////////
+void	get_redirections(t_args *args, t_mini *mini);
