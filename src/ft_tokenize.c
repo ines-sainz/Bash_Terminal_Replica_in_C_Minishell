@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/02 23:13:31 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:28:25 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,26 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	return (OK);
 }
 
-static void	control_quotes(char *input_ptr, t_args *args)
+static void	control_quotes(char *input_ptr, t_args *args, int *flag)
 {
 	if (*input_ptr == '\'' && !args->in_double_quote)
 	{
-		printf("Entre comilla simple\n");
+		//printf("Entre comilla simple\n");
 		args->in_single_quote = !args->in_single_quote;
-		if (args->in_single_quote)
-			args->quotes[args->argc] = t_true;
-		else
-			args->quotes[args->argc] = t_false;
+		(*flag)++;
+		if (*flag % 2 != 0)
+			args->quotes[args->argc] = !args->quotes[args->argc];
 	}
 	else if (*input_ptr == '\"' && !args->in_single_quote)
 	{
-		printf("Entre comilla doble\n");
+		//printf("Entre comilla doble\n");
 		args->in_double_quote = !args->in_double_quote;
-		if (args->in_double_quote)
-			args->quotes[args->argc] = t_true;
-		else
-			args->quotes[args->argc] = t_false;
+		(*flag)++;
+		if (*flag % 2 != 0)
+			args->quotes[args->argc] = !args->quotes[args->argc];
 	}
-	printf("args->quotes[%i] ==> %i\n", args->argc, args->quotes[args->argc]);
+	// printf("flag = %i\n", *flag);
+	// printf("args->quotes[%i] ==> %i\n", args->argc, args->quotes[args->argc]);
 }
 
 /* static void	verify_closed_quotes(t_args *args)
@@ -132,11 +131,14 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 {
 	char	*input_ptr;
 	char	*expander_arg;
+	int		flag;
 
+	flag = 0;
+	args->quotes[args->argc] = t_false;
 	input_ptr = args->input;
 	while (*input_ptr)
 	{
-		control_quotes(input_ptr, args);
+		control_quotes(input_ptr, args, &flag);
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|' || *input_ptr == '<'
 				|| *input_ptr == '>')
 			&& !args->in_single_quote && !args->in_double_quote)
