@@ -74,12 +74,13 @@ int	redirector(t_args *args, t_mini *mini)
 //	t_params	*iter;
 	int			n_command;
 
-	(void)mini;
+//	(void)mini;
 	n_command = get_number_commands(args);
 	if (n_command == -1)
 		return (1);
-/*	create_pipes(n_command, mini);
-	get_redirections(args, mini);*/
+	create_pipes(n_command, mini);
+	print_pipes(mini);
+	get_redirections(args, mini);
 	/*if (n_command == 1)
 		execute_one();
 	else
