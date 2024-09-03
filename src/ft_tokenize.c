@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/03 09:28:25 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:49:12 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		}
 		args->arg_ptr = args->arg;
 	}
-	else if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
+	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
 	{
 		printf("minishell: syntax error: || it's not allowed\n");
 		return (ERR);
