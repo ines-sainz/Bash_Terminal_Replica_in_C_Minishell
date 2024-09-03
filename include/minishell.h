@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/02 20:50:15 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:23:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_params
 	char			*content;
 	int				argc;
 	t_param_type	type;
+	t_bool			quotes;
 	struct s_params	*next;
 }	t_params;
 
