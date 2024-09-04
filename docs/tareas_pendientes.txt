@@ -19,7 +19,7 @@ echo -n:
 	- echo -nada hola (devuelve "-nada hola")
 
 unset:
-	- No unset $_
+	- No unset $_ ✅
 
 
 <<:
@@ -34,4 +34,4 @@ $$:
 	- Devuelve el PID o no devuelve nada (prohibido usar getpid()) ✅
 
 SIGQUIT:
-	- No hace nada
+	- No hace nada ✅
