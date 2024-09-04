@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_of_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/03 13:39:37 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:41:14 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static t_param_type	classify_argument(t_args *args, int *argc)
 		return (APPEND);
 	else if (is_builtin_command(args->args[*argc]) && args->quotes[*argc] == t_false)
 		return (BUILTING);
-	else if (access(args->args[*argc], X_OK) == 0  && args->quotes[*argc] == t_false)
+	//else if (access(args->args[*argc], X_OK) == 0  && args->quotes[*argc] == t_false)
+	else if (access(args->args[*argc], X_OK) == 0)
 		return (CMD);
 	else
 		return (PARAMS); // Se considera un parámetro adicional
