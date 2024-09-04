@@ -28,7 +28,7 @@ unset:
 	- No debería expandirse el delimitador (<<$USER cerrará con $USER no con danjimen)
 
 $_:
-	- Devuelve el último parámetro
+	- Devuelve el último parámetro ✅
 
 $$:
 	- Devuelve el PID o no devuelve nada (prohibido usar getpid()) ✅
