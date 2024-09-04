@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 14:37:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/04 21:51:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static void	error_mini_use(int argc, char **argv)
 // Manejador de la señal SIGINT (Ctrl-C)
 void	signal_sigint(int sig)
 {
-	(void)sig;
+	//(void)sig;
+	g_signal_received = sig;
 	//printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
 	printf("\n");
 	rl_on_new_line();
@@ -111,11 +112,15 @@ void	signal_sigint(int sig)
 // Manejador de la señal SIGQUIT (Ctrl-\)
 void	signal_sigquit(int sig)
 {
-	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
+	//printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
 	g_signal_received = sig;
-	clear_history();
-	signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
-	kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
+	//printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	//clear_history();
+	//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
+	//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
 }
 
 // Manejo del EOF
@@ -198,14 +203,14 @@ int	main(int argc, char **argv, char **env)
 			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
-		if (g_signal_received == SIGQUIT)
+		/* if (g_signal_received == SIGQUIT)
 		{
 			printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", SIGQUIT);
 			printf("\nEsto debería hacerse\n");
-			free_at_exit(&args);
-			signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
-			kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
-		}
+			//free_at_exit(&args);
+			//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
+			//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
+		} */
 		//if (args.input[0] != '\0')
 		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
 		{
