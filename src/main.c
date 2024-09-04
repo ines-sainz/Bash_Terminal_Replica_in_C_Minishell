@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/02 01:26:54 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:37:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,14 +171,13 @@ int	main(int argc, char **argv, char **env)
 //	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 	//GET $$ = PID
-	char	*itoa_pid;
-	char	*pid_env;
+	// char	*itoa_pid;
+	// char	*pid_env;
 
-	itoa_pid = ft_itoa(getpid());
-	pid_env = ft_strjoin("$=", itoa_pid);
-	ft_export_env(pid_env, &mini);
-	free(itoa_pid);
-	free(pid_env);
+	// itoa_pid = ft_itoa(getenv());
+	// pid_env = ft_strjoin("$=", itoa_pid);
+	// ft_export_env(pid_env, &mini);
+	// free(pid_env);
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
