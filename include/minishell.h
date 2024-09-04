@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/03 13:23:26 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:26:50 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int			add_to_args(t_args *args, int *argc, t_mini *mini);
 //////////////////////////////////////////////////////
 //				LIST_OF_PARAMS.C					//
 //////////////////////////////////////////////////////
+void		update_last_command_env_var(t_args *args);
 void		del_params(t_args *args);
 t_params	*add_argument_to_list(t_args *args, int *argc);
 
