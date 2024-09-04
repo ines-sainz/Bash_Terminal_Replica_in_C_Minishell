@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/03 14:02:32 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:26:20 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
+	update_last_command_env_var(args);
 	if (redirector(args, mini) == 1)
 		return (ERR);
 	executor(args);
