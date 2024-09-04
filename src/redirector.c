@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   redirector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:08:00 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/04 09:53:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/02 18:08:03 by isainz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	redirector_syntax_errors(int i)
+int	redirector_syntax_errors(int i, char *red_content)
 {
 	if (i == 1)
 		printf("bash: syntax error near unexpected token `|'\n");
 	else if (i == 2)
 		printf("minishell: syntax error: | at the end of the commands\n");
 	else if (i == 3)
-		printf("minishell: syntax error: two following ||\n");
+		printf("bash: syntax error near unexpected token `newline'\n");
+	else if (i == 4)
+		printf("bash: syntax error near unexpected token `%s'\n", red_content);
 	return (ERR);
 }
 
@@ -29,20 +31,26 @@ int	get_number_commands(t_args *args)
 	int			n_commands;
 
 	if (args->params->type == PIPE)
-		return (redirector_syntax_errors(1));
+		return (redirector_syntax_errors(1, args->params->content));
 	iter = args->params;
 	n_commands = 1;
 	while (iter != NULL)
 	{
-		if ((iter->type == INFILE || iter->type == HERE_DOC
-			|| iter->type == OUTFILE || iter->type == APPEND) && iter->next->type == PIPE)
-			return (redirector_syntax_errors(1));
+		if (iter->type == INFILE || iter->type == HERE_DOC
+			|| iter->type == OUTFILE || iter->type == APPEND)
+		{
+			if (iter->next == NULL)
+				return (redirector_syntax_errors(3, iter->content));
+			if (iter->next->type == PIPE)
+				return (redirector_syntax_errors(1, iter->next->content));
+			if (iter->next->type == INFILE || iter->next->type == HERE_DOC
+				|| iter->next->type == OUTFILE || iter->next->type == APPEND)
+				return (redirector_syntax_errors(4, iter->next->content));
+		}
 		if (iter->type == PIPE)
 		{
 			if (iter->next == NULL)
-				return (redirector_syntax_errors(2));
-			if (iter->next->type == PIPE)
-				return (redirector_syntax_errors(3));
+				return (redirector_syntax_errors(2, iter->content));
 			n_commands++;
 		}
 		iter = iter->next;
@@ -50,24 +58,6 @@ int	get_number_commands(t_args *args)
 	printf("the number of commands is : %i\n", n_commands);
 	return (n_commands);
 }
-
-/* void	get_redirections(t_args *args, t_mini *mini)
-{
-	int			n_commands;
-	t_params	*iter;
-
-	n_commands = 1;
-	iter = args->params;
-	while (iter != NULL)
-	{
-		while (iter->type != PIPE)
-		{
-			iter = iter->next;
-		}
-		n_commands++;
-		iter = iter->next;
-	}
-} */
 
 int	redirector(t_args *args, t_mini *mini)
 {
