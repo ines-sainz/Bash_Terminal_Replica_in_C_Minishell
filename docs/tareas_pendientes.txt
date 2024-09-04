@@ -31,7 +31,7 @@ $_:
 	- Devuelve el último parámetro
 
 $$:
-	- Devuelve el PID o no devuelve nada (prohibido usar getpid())
+	- Devuelve el PID o no devuelve nada (prohibido usar getpid()) ✅
 
 SIGQUIT:
 	- No hace nada
