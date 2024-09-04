@@ -132,4 +132,7 @@ isainz-r@c1r9s5:~/minishell$ ls "|" ls
 ls: cannot access 'ls': No such file or directory
 '|'
 
+isainz-r@c1r13s2:~/minishell$ cat txt.txt | ls > 2 | pwd
+/home/isainz-r/minishell
+
 */
