@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 18:08:00 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/02 18:08:03 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/09/04 09:53:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	get_number_commands(t_args *args)
 	return (n_commands);
 }
 
-/*void	get_redirections(t_args *args, t_mini *mini)
+/* void	get_redirections(t_args *args, t_mini *mini)
 {
 	int			n_commands;
 	t_params	*iter;
@@ -67,7 +67,7 @@ int	get_number_commands(t_args *args)
 		n_commands++;
 		iter = iter->next;
 	}
-}*/
+} */
 
 int	redirector(t_args *args, t_mini *mini)
 {
@@ -80,7 +80,7 @@ int	redirector(t_args *args, t_mini *mini)
 		return (1);
 	create_pipes(n_command, mini);
 	print_pipes(mini);
-	get_redirections(args, mini);
+	//get_redirections(args, mini);
 	/*if (n_command == 1)
 		execute_one();
 	else
