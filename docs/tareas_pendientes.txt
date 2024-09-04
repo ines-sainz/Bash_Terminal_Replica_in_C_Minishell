@@ -1,0 +1,37 @@
+TAREAS:
+ablanco-
+
+cd:
+	- Debe funcionar con rutas absolutas
+
+export:
+	- Exportar variables vacías (export a, export a=, export a="")
+		> export a no le crea contenido y sólo es visible desde export
+		> export a= lo crea con un '\0' y es visible desde export y env
+		> export a="" lo crea con un '\0' y es visible desde export y env
+	- export (a secas) devuelve el contenido listado por valor ascii
+
+echo -n:
+	- echo -n -n -n hola (= que echo -n hola)
+	- echo -n -n hola -n -n (devuelve hola -n -n)
+	Interrumpir detección de flags cuando recibo algo que no empieza por '-'
+	- echo -nnnnnnnnnnnn hola (= que echo -n hola)
+	- echo -nada hola (devuelve "-nada hola")
+
+unset:
+	- No unset $_
+
+
+<<:
+	- Las signals deben seguir funcionando
+	- Las expansiones deben funcionar dentro del here_doc
+	- No debería expandirse el delimitador (<<$USER cerrará con $USER no con danjimen)
+
+$_:
+	- Devuelve el último parámetro
+
+$$:
+	- Devuelve el PID o no devuelve nada (prohibido usar getpid())
+
+SIGQUIT:
+	- No hace nada
