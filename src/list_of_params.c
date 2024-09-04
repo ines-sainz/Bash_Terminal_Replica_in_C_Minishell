@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 22:35:07 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:42:01 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	update_last_command_env_var(t_args *args)
 {
 	t_params	*current;
-	t_params	*next;
 	char		*tmp;
 
 	current = args->params;
@@ -23,30 +22,21 @@ void	update_last_command_env_var(t_args *args)
 	{
 		while (current != NULL)
 		{
-			next = current->next;
 			if (current->type != INFILE && current->type != HERE_DOC
 				&& current->type != OUTFILE && current->type != APPEND)
 			{
 				tmp = ft_strjoin("_=", current->content);
 				ft_export_env(tmp, args->mini);
+				free (tmp);
 			}
 			else
 			{
 				if (current->next != NULL)
-				{
-					current = next->next;
-					continue ;
-				}
+					current = current->next;
 				else
-				{
-					if (tmp != NULL)
-						free (tmp);
 					return ;
-				}
 			}
-			current = next;
-			if (tmp != NULL)
-				free (tmp);
+			current = current->next;
 		}
 	}
 }
