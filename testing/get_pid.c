@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:26:05 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/04 11:29:51 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/04 14:26:14 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	main(void)
 	int	pid;
 
 	pid = get_pid_from_proc_self();
+	sleep(5);
+	printf("get_pid.c: TERMINÉ\n");
 	if (pid != -1)
 		printf("El PID es: %d\n", pid);
 	return (0);
