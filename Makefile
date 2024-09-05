@@ -44,7 +44,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/redirector.c \
 					$(SRC_DIR)/create_pipes.c \
 					$(SRC_DIR)/get_redirections.c \
-					$(SRC_DIR)/here_doc.c
+					$(SRC_DIR)/here_doc.c \
 					$(BUILTINS_DIR)/ft_built_ins.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c
