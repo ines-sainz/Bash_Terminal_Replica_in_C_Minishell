@@ -12,16 +12,18 @@
 
 #include "../include/minishell.h"
 
-int	redirector_syntax_errors(int i, char *red_content)
+static int	redirector_syntax_errors(int i, char *red_content, t_args *args)
 {
 	if (i == 1)
-		printf("bash: syntax error near unexpected token `|'\n");
+		printf("minishell: syntax error near unexpected token `|'\n"); //es el 2 $?
 	else if (i == 2)
 		printf("minishell: syntax error: | at the end of the commands\n");
 	else if (i == 3)
-		printf("bash: syntax error near unexpected token `newline'\n");
+		printf("minishell: syntax error near unexpected token `newline'\n");
 	else if (i == 4)
-		printf("bash: syntax error near unexpected token `%s'\n", red_content);
+		printf("minishell: syntax error near unexpected token `%s'\n", red_content);
+	//actualizar el $? con el numerro
+	ft_export_env("?=1", args->mini);
 	return (ERR);
 }
 
@@ -31,7 +33,7 @@ int	get_number_commands(t_args *args)
 	int			n_commands;
 
 	if (args->params->type == PIPE)
-		return (redirector_syntax_errors(1, args->params->content));
+		return (redirector_syntax_errors(1, args->params->content, args));
 	iter = args->params;
 	n_commands = 1;
 	while (iter != NULL)
@@ -40,17 +42,17 @@ int	get_number_commands(t_args *args)
 			|| iter->type == OUTFILE || iter->type == APPEND)
 		{
 			if (iter->next == NULL)
-				return (redirector_syntax_errors(3, iter->content));
+				return (redirector_syntax_errors(3, iter->content, args));
 			if (iter->next->type == PIPE)
-				return (redirector_syntax_errors(1, iter->next->content));
+				return (redirector_syntax_errors(1, iter->next->content, args));
 			if (iter->next->type == INFILE || iter->next->type == HERE_DOC
 				|| iter->next->type == OUTFILE || iter->next->type == APPEND)
-				return (redirector_syntax_errors(4, iter->next->content));
+				return (redirector_syntax_errors(4, iter->next->content, args));
 		}
 		if (iter->type == PIPE)
 		{
 			if (iter->next == NULL)
-				return (redirector_syntax_errors(2, iter->content));
+				return (redirector_syntax_errors(2, iter->content, args));
 			n_commands++;
 		}
 		iter = iter->next;
@@ -70,7 +72,9 @@ int	redirector(t_args *args, t_mini *mini)
 		return (1);
 	create_pipes(n_command, mini);
 	print_pipes(mini);
-	//get_redirections(args, mini);
+	get_redirections(args, mini);
+	printf("after redirections:\n");
+	print_pipes(mini);
 	/*if (n_command == 1)
 		execute_one();
 	else
