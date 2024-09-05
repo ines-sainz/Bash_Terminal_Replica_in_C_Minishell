@@ -6,17 +6,17 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/05 14:08:13 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/05 15:08:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-static void	ft_built_exit(t_args *args)
+/* static void	ft_built_exit(t_args *args)
 {
 	free_at_exit(args);
 	exit(0);
-}
+} */
 
 /* void	ft_built_unset(t_args *args, t_mini *mini)
 {
@@ -115,7 +115,7 @@ static void	ft_built_exit(t_args *args)
 	free(output);
 } */
 
-void	ft_built_echo(t_args *args)
+/* void	ft_built_echo(t_args *args)
 {
 	int	i;
 	int	j;
@@ -167,7 +167,7 @@ void	ft_built_echo(t_args *args)
 	}
 	if (n_flag == 0)
 		printf("\n");
-}
+} */
 
 int	ft_built_ins(t_args *args, t_mini *mini)
 {

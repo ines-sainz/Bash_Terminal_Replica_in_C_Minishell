@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 22:26:50 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:08:16 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,10 @@ typedef struct s_args
 void		free_at_exit(t_args *args);
 //int		main(void);
 
+// ╔═.✵.═════════════════════════════════════════════╗
+// 					PARSE FOLDER
+// ╚═════════════════════════════════════════════.✵.═╝
+
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
@@ -184,11 +188,20 @@ int			parse(t_args *args, t_mini *mini);
 int			add_to_args(t_args *args, int *argc, t_mini *mini);
 
 //////////////////////////////////////////////////////
+//					EXPANDER.C						//
+//////////////////////////////////////////////////////
+char		*expander(t_args *args, t_mini *mini);
+
+//////////////////////////////////////////////////////
 //				LIST_OF_PARAMS.C					//
 //////////////////////////////////////////////////////
 void		update_last_command_env_var(t_args *args);
 void		del_params(t_args *args);
 t_params	*add_argument_to_list(t_args *args, int *argc);
+
+// ╔═.✵.═════════════════════════════════════════════╗
+// 					ENV FOLDER
+// ╚═════════════════════════════════════════════.✵.═╝
 
 //////////////////////////////////////////////////////
 //					FT_LIST_ENV.C					//
@@ -207,17 +220,28 @@ void		ft_export_env(char *new_env, t_mini *mini);
 char		*ft_get_env(char *to_expand, t_mini *mini);
 int			ft_set_env(char **env, t_mini *mini);
 
-//////////////////////////////////////////////////////
-//					EXPANDER.C						//
-//////////////////////////////////////////////////////
-//char		*expander(char *input);
-//char		*expander(char *input, t_bool in_single_quote, t_mini *mini);
-char		*expander(t_args *args, t_mini *mini);
+// ╔═.✵.═════════════════════════════════════════════╗
+	// 				BUILT-INS FOLDER
+// ╚═════════════════════════════════════════════.✵.═╝
 
 //////////////////////////////////////////////////////
 //					BUILT-INS.C						//
 //////////////////////////////////////////////////////
 int			ft_built_ins(t_args *args, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//					FT_ECHO.C						//
+//////////////////////////////////////////////////////
+void		ft_built_echo(t_args *args);
+
+//////////////////////////////////////////////////////
+//					FT_EXIT.C						//
+//////////////////////////////////////////////////////
+void		ft_built_exit(t_args *args);
+
+// ╔═.✵.═════════════════════════════════════════════╗
+// 					EXECUTOR FOLDER
+// ╚═════════════════════════════════════════════.✵.═╝
 
 //////////////////////////////////////////////////////
 //					EXECUTOR.C						//
@@ -233,9 +257,9 @@ int			redirector(t_args *args, t_mini *mini);
 //					CREATE_PIPES.C					//
 //////////////////////////////////////////////////////
 void		create_pipes(int n_command, t_mini *mini);
-void	print_pipes(t_mini *mini);
+void		print_pipes(t_mini *mini);
 
 //////////////////////////////////////////////////////
 //				GET_REDIRECTIONS.C					//
 //////////////////////////////////////////////////////
-void	get_redirections(t_args *args, t_mini *mini);
+void		get_redirections(t_args *args, t_mini *mini);

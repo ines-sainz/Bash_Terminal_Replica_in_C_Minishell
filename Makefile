@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/08/27 14:54:21 by danjimen         ###   ########.fr        #
+#    Updated: 2024/09/05 15:07:45 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,17 +32,20 @@ CFLAGS			=	-Wall -Wextra -Werror -g3
 READFLAG		=	-lreadline
 
 SRC_DIR			=	src
+BUILTINS_DIR	=	src/built-ins
 SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/parse.c \
 					$(SRC_DIR)/ft_tokenize.c \
 					$(SRC_DIR)/ft_env.c \
 					$(SRC_DIR)/ft_list_env.c \
 					$(SRC_DIR)/expander.c \
-					$(SRC_DIR)/ft_built_ins.c \
 					$(SRC_DIR)/list_of_params.c \
 					$(SRC_DIR)/executor.c \
 					$(SRC_DIR)/redirector.c \
-					$(SRC_DIR)/create_pipes.c
+					$(SRC_DIR)/create_pipes.c \
+					$(BUILTINS_DIR)/ft_built_ins.c \
+					$(BUILTINS_DIR)/ft_echo.c \
+					$(BUILTINS_DIR)/ft_exit.c
 
 OBJ				=	$(SRC:.c=.o)
 
