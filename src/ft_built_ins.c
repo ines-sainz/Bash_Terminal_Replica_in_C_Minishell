@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/05 14:05:08 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/05 14:08:13 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,7 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 	(void)mini;
 	//if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
 	if (ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
-	{
-		/* if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
-			flag = 1; */
 		ft_built_echo(args);
-	}
 	/* else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
 		ft_built_cd(args, mini);
 	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
