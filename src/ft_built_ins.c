@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/08/30 12:26:11 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/05 08:21:31 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	ft_built_echo(t_args *args, int flag)
 		i = 2;
 	while (i < args->argc)
 	{
+		printf("echo devuelve: ");
 		printf("%s", args->args[i]);
 		if (i != args->argc - 1)
 			printf(" ");
