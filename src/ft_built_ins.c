@@ -6,23 +6,19 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/05 08:52:56 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/05 14:05:08 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_built_exit(t_args *args, t_mini *mini)
+static void	ft_built_exit(t_args *args)
 {
-	(void)mini;
-	//(void)args;
-	//free_env(mini);
-	//clear_history();
 	free_at_exit(args);
 	exit(0);
 }
 
-void	ft_built_unset(t_args *args, t_mini *mini)
+/* void	ft_built_unset(t_args *args, t_mini *mini)
 {
 	int	i;
 
@@ -34,9 +30,9 @@ void	ft_built_unset(t_args *args, t_mini *mini)
 		ft_unset_env(args->args[i], mini);
 		i++;
 	}
-}
+} */
 
-void	ft_built_export(t_args *args, t_mini *mini)
+/* void	ft_built_export(t_args *args, t_mini *mini)
 {
 	int	i;
 
@@ -58,9 +54,9 @@ void	ft_built_export(t_args *args, t_mini *mini)
 			ft_export_env(args->args[i], mini);
 		i++;
 	}
-}
+} */
 
-void	ft_built_pwd(t_args *args)
+/* void	ft_built_pwd(t_args *args)
 {
 	char	*temp;
 	char	*buffer;
@@ -92,9 +88,9 @@ void	ft_built_pwd(t_args *args)
 	if (!temp)
 		return ;
 	printf("%s\n", temp);
-}
+} */
 
-void	ft_built_cd(t_args *args, t_mini *mini)
+/* void	ft_built_cd(t_args *args, t_mini *mini)
 {
 	char	*output;
 	char	*buffer;
@@ -117,54 +113,78 @@ void	ft_built_cd(t_args *args, t_mini *mini)
 	//if (!output)
 	ft_export_env(ft_strjoin("PWD=", output), mini);
 	free(output);
-}
+} */
 
-void	ft_built_echo(t_args *args, int flag)
+void	ft_built_echo(t_args *args)
 {
 	int	i;
 	int	j;
+	int	flag;
+	int	argc;
+	int	n_flag;
 
-	i = 1;
-	while (args->args[i])
+	flag = 0;
+	argc = 0;
+	n_flag = 0;
+	i = 0;
+	while (args->args[i++])
+		argc++;
+	printf("echo argc = %i\n", argc);
+	if (argc == 1)
 	{
-		j = 0;
-		while (args->args[i][j])
+		printf("echo devuelve:\n");
+		printf("\n");
+		return ;
+	}
+	i = 1;
+	while (args->args[i] && ft_strlen(args->args[i]) >= 2)
+	{
+		if (args->args[i][0] != '-')
+			break ;
+		else
 		{
-			if (ft_strchr("<>|", args->args[i][j])) //MIRAR
-				return ;
-			j++;
+			j = 1;
+			while (args->args[i][j])
+			{
+				if (args->args[i][j] != 'n')
+					flag++;
+				j++;
+			}
+			if (flag == 0)
+				n_flag++;
+			else
+				break ;
 		}
 		i++;
 	}
-	i = 1;
-	if (flag == 1)
-		i = 2;
-	while (i < args->argc)
+	printf("echo devuelve: ");
+	while (args->args[i])
 	{
-		printf("echo devuelve: ");
 		printf("%s", args->args[i]);
-		if (i != args->argc - 1)
+		if (i != argc - 1)
 			printf(" ");
 		i++;
 	}
-	if (flag == 0)
+	if (n_flag == 0)
 		printf("\n");
 }
 
 int	ft_built_ins(t_args *args, t_mini *mini)
 {
-	int		flag;
+	//int		flag;
 	size_t	arg0_len;
 
-	flag = 0;
+	//flag = 0;
 	arg0_len = ft_strlen(args->args[0]);
-	if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
+	(void)mini;
+	//if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
+	if (ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
 	{
-		if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
-			flag = 1;
-		ft_built_echo(args, flag);
+		/* if (ft_strncmp(args->args[1], "-n", ft_strlen(args->args[1])) == 0)
+			flag = 1; */
+		ft_built_echo(args);
 	}
-	else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
+	/* else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
 		ft_built_cd(args, mini);
 	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
 		ft_built_pwd(args);
@@ -173,9 +193,9 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 	else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
 		ft_built_unset(args, mini);
 	else if (args->argc == 1 && ft_strncmp(args->args[0], "env", arg0_len) == 0 && arg0_len == 3)
-		ft_print_env(mini);
+		ft_print_env(mini); */
 	else if (args->argc == 1 && ft_strncmp(args->args[0], "exit", arg0_len) == 0 && arg0_len == 4)
-		ft_built_exit(args, mini);
+		ft_built_exit(args);
 	return (0);
 }
 
