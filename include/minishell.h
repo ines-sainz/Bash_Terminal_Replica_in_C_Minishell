@@ -263,3 +263,4 @@ void		print_pipes(t_mini *mini);
 //				GET_REDIRECTIONS.C					//
 //////////////////////////////////////////////////////
 void		get_redirections(t_args *args, t_mini *mini);
+void		set_here_doc(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini);
