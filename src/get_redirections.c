@@ -12,37 +12,76 @@
 
 #include "../include/minishell.h"
 
-/*void	redirect(t_params *iter_params, int n_command, t_args *iter_pipes,
-	t_mini *mini)
+void	set_infile(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 {
-	while (iter_params != NULL && iter_params != PIPE)
+	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
+		return ;
+	if (iter_pipes->inf_pipe != 0)
+		close(iter_pipes->inf_pipe);
+	iter_pipes->inf_pipe = open(iter_params->content, O_RDONLY);
+	if (iter_pipes->inf_pipe < 0)
 	{
-		if (iter_params->type == INFILE)
-			infile(iter_params->next, iter_pipes, mini);
-		if (iter_params->type == HERE_DOC)
-			here_doc(iter_params->next, iter_pipes, mini);
-		if (iter_params->type == APPEND)
-			append(iter_params->next, iter_pipes, mini);
-		if (iter_params->type == OUTFILE)
-			outfile(iter_params->next, iter_pipes, mini);
+		printf("minishell: %s: No such file or directory\n",
+			iter_params->content);
+		ft_export_env("?=1", mini);
 	}
-}*/
+}
+
+void	set_outfile(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
+{
+	if (iter_pipes->outf_pipe < 0 || iter_pipes->inf_pipe < 0)
+		return ;
+	if (iter_pipes->outf_pipe != 1)
+		close(iter_pipes->outf_pipe);
+	iter_pipes->outf_pipe = open(iter_params->content,  O_RDWR | O_CREAT
+			| O_TRUNC, 0777);
+	if (iter_pipes->outf_pipe < 0)
+	{
+		printf("minishell: %s: Permission denied\n", iter_params->content);
+		ft_export_env("?=1", mini);
+	}
+}
+
+void	set_append(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
+{
+	if (iter_pipes->outf_pipe < 0 || iter_pipes->inf_pipe < 0)
+		return ;
+	if (iter_pipes->outf_pipe != 1)
+		close(iter_pipes->outf_pipe);
+	iter_pipes->outf_pipe = open(iter_params->content, O_WRONLY | O_CREAT
+			| O_APPEND, 0777);
+	if (iter_pipes->outf_pipe < 0)
+	{
+		printf("minishell: %s: Permission denied\n", iter_params->content);
+		ft_export_env("?=1", mini);
+	}
+}
+
+/*void	set_pipe(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
+{}*/
 
 void	get_redirections(t_args *args, t_mini *mini)
 {
 	t_params	*iter_params;
 	t_pipes		*iter_pipes;
-	int			n_commands;
 
 	iter_params = args->params;
 	iter_pipes = mini->first_pipe;
-	n_commands = 1;
 	while (iter_params != NULL)
 	{
-		//redirect(iter_params, );
-		while (iter_params != PIPE || iter_params->next != NULL)
-			iter_params = iter_params->next;
-		iter_pipes = iter_pipes->next;
+		if (iter_params->type == INFILE)
+			set_infile(iter_params->next, iter_pipes, mini);
+		else if (iter_params->type == HERE_DOC)
+			set_here_doc(iter_params->next, iter_pipes, mini);
+		else if (iter_params->type == APPEND)
+			set_append(iter_params->next, iter_pipes, mini);
+		else if (iter_params->type == OUTFILE)
+			set_outfile(iter_params->next, iter_pipes, mini);
+		else if (iter_params->type == PIPE)
+		{			
+			//set_pipe(iter_params, iter_pipes, mini);
+			iter_pipes = iter_pipes->next;
+		}
 		iter_params = iter_params->next;
 	}
 }
