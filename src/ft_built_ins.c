@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/05 08:21:31 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/05 08:52:56 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_built_cd(t_args *args, t_mini *mini)
 	if (args->argc > 2)
 		printf("bash: cd: too many arguments\n");
 	ft_export_env(ft_strjoin("OLDPWD=", ft_get_env("PWD", mini)), mini);
-	output = getcwd(buffer, INT_MAX);
+	output = getcwd(buffer, 0);
 	//if (!output)
 	temp = ft_strjoin(output, "/");
 	free(output);
@@ -113,7 +113,7 @@ void	ft_built_cd(t_args *args, t_mini *mini)
 	free(temp);
 	if (chdir(output) == -1)
 		printf("-bash: cd: %s: No such file or directory\n", args->args[1]);
-	output = getcwd(buffer, INT_MAX);
+	output = getcwd(buffer, 0);
 	//if (!output)
 	ft_export_env(ft_strjoin("PWD=", output), mini);
 	free(output);
