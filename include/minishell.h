@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/05 15:08:16 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/06 19:37:14 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void		ft_built_echo(t_args *args);
 //////////////////////////////////////////////////////
 //					FT_EXIT.C						//
 //////////////////////////////////////////////////////
-void		ft_built_exit(t_args *args);
+void		ft_built_exit(t_args *args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					EXECUTOR FOLDER
