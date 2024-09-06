@@ -39,3 +39,6 @@ $$:
 
 SIGQUIT:
 	- No hace nada ✅
+
+$:
+	Si solo recibo $ como único argumento, no debe dar segfault
