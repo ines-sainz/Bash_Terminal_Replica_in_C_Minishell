@@ -79,6 +79,21 @@ $USER "$USER" '$USER' 123 $USER 456 "123 $USER 456" '123 $USER 456'
 	arg[0]: 123 bishopvk 456 minishell 789 1231051 000 $,.-USER 123 23NAME $
 
 esto|es<una<<prueba>de>>separadores completa
+	arg[0]: esto			type: PARAMS	quotes: FALSE
+	arg[1]: |				type: PIPE		quotes: FALSE
+	arg[2]: es				type: PARAMS	quotes: FALSE
+	arg[3]: <				type: INFILE	quotes: FALSE
+	arg[4]: una				type: PARAMS	quotes: FALSE
+	arg[5]: <<				type: HERE_DOC	quotes: FALSE
+	arg[6]: prueba			type: PARAMS	quotes: FALSE
+	arg[7]: >				type: OUTFILE	quotes: FALSE
+	arg[8]: de				type: PARAMS	quotes: FALSE
+	arg[9]: >>				type: APPEND	quotes: FALSE
+	arg[10]: separadores	type: PARAMS	quotes: FALSE
+	arg[11]: completa		type: PARAMS	quotes: FALSE
+
+echo $"USER" $USER "$USER" $'USER' $"USER" $USER "$USER" $'USER'
+	echo devuelve: USER danjimen danjimen USER USER danjimen danjimen USER
 
 <Makefile cat|echo "hola qie tal">/dev/stdout
 You entered: <Makefile cat|echo "hola qie tal">/dev/stdout
