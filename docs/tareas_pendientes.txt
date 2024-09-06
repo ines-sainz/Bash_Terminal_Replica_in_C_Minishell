@@ -11,12 +11,14 @@ export:
 		> export a="" lo crea con un '\0' y es visible desde export y env
 	- export (a secas) devuelve el contenido listado por valor ascii
 
-echo -n:
+echo -n:  ✅
 	- echo -n -n -n hola (= que echo -n hola)
 	- echo -n -n hola -n -n (devuelve hola -n -n)
 	Interrumpir detección de flags cuando recibo algo que no empieza por '-'
 	- echo -nnnnnnnnnnnn hola (= que echo -n hola)
 	- echo -nada hola (devuelve "-nada hola")
+	- echo 123 $USER 456 $MAIL 789 $$ 000 $,.-USER 123 $123MAIL $
+		Como $MAIL no existe me devuelve 2 espacios seguidos: 123 bishopvk 456  789 $$ 000 $,.-USER 123 23MAIL $
 
 unset:
 	- No unset $_ ✅
