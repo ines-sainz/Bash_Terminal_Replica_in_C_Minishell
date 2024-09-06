@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/06 14:11:10 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/06 22:11:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,18 @@ char *expander(t_args *args, t_mini *mini)
 		if ((args->arg[i] == '\'' && !in_double_quotes)
 			|| (args->arg[i] == '"' && !args->in_single_quote))
 			check_quotes(args, &i, &in_double_quotes);
-		if ((args->arg[i + 1] == '"' || args->arg[i + 1] == '\'')
-			&& !in_double_quotes && !args->in_single_quote) // $" or $' case
-			i++;
+		// if (args->arg[i] == '$' && (args->arg[i + 1] == '"' || args->arg[i + 1] == '\'')
+		// 	&& !in_double_quotes && !args->in_single_quote) // $" or $' case
+		// 	i++;
 		else if (args->arg[i] == '$' && !args->in_single_quote)
 		{
-			if (!expand_vars(args, &i, &j, mini))
+			if (args->arg[i + 1] == '"' || args->arg[i + 1] == '\'') // $" or $' case
+			{
+				if (in_double_quotes)
+					args->result[j++] = '$';
+				i++;
+			}
+			else if (!expand_vars(args, &i, &j, mini))
 				return (NULL);
 		}
 		else // Copy character unless it's a quote
