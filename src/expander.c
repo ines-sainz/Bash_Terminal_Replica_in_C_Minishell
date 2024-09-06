@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/06 13:45:13 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/06 14:11:10 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,9 @@ static char *expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 		if (!pid_case(args, i, j, mini))
 			return (NULL);
 	} */
-	if (args->arg[*i + 1] == '"' || args->arg[*i + 1] == '\'') // $" or $' case
-		(*i)++;
-	else if (args->arg[*i + 1] == '?') // $$ = ERRNO EXIT RETURN
+	/* if ((args->arg[*i + 1] == '"' || args->arg[*i + 1] == '\'') && !in_double_quotes) // $" or $' case
+		(*i)++; */
+	if (args->arg[*i + 1] == '?') // $$ = ERRNO EXIT RETURN
 	{
 		if (!errno_case(args, i, j, mini))
 			return (NULL);
@@ -213,6 +213,9 @@ char *expander(t_args *args, t_mini *mini)
 		if ((args->arg[i] == '\'' && !in_double_quotes)
 			|| (args->arg[i] == '"' && !args->in_single_quote))
 			check_quotes(args, &i, &in_double_quotes);
+		if ((args->arg[i + 1] == '"' || args->arg[i + 1] == '\'')
+			&& !in_double_quotes && !args->in_single_quote) // $" or $' case
+			i++;
 		else if (args->arg[i] == '$' && !args->in_single_quote)
 		{
 			if (!expand_vars(args, &i, &j, mini))
