@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/02 00:46:08 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:45:13 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*realloc_plain_text(t_args *args, size_t *i, size_t *j)
 	return (args->result);
 }
 
-static char	*pid_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
+/* static char	*pid_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
 {
 	int		env_len;
 	char	*new_result;
@@ -82,7 +82,7 @@ static char	*pid_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
 	}
 	*i += 2;
 	return (args->result);  // Indica éxito
-}
+} */
 
 static char	*errno_case(t_args *args, size_t *i, size_t *j, t_mini *mini)
 {
@@ -171,11 +171,13 @@ static char	*next_is_number_or_valid(t_args *args, size_t *i, size_t *j)
 
 static char *expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini)
 {
-	if (args->arg[*i + 1] == '$') // $$ = PID
+	/* if (args->arg[*i + 1] == '$') // $$ = PID
 	{
 		if (!pid_case(args, i, j, mini))
 			return (NULL);
-	}
+	} */
+	if (args->arg[*i + 1] == '"' || args->arg[*i + 1] == '\'') // $" or $' case
+		(*i)++;
 	else if (args->arg[*i + 1] == '?') // $$ = ERRNO EXIT RETURN
 	{
 		if (!errno_case(args, i, j, mini))
