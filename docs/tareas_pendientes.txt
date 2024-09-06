@@ -30,6 +30,10 @@ unset:
 $_:
 	- Devuelve el último parámetro ✅
 
+$": ✅
+	- $"" Devuelve NULL ✅
+	- $"USER" Devuelve USER ✅
+
 $$:
 	- Devuelve el PID o no devuelve nada (prohibido usar getpid()) ✅
 
