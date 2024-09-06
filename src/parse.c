@@ -63,6 +63,7 @@ int	parse(t_args *args, t_mini *mini)
 	if (redirector(args, mini) == 1)
 		return (ERR);
 	executor(args);
+	//unlink("temp.txt"); cerrar los fds 
 	printf("Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
