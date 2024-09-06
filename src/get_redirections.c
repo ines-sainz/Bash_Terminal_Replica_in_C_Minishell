@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_redirections.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:33:21 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/03 11:33:23 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:51:02 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_redirections(t_args *args, t_mini *mini)
 {
 	t_params	*iter_params;
 	t_pipes		*iter_pipes;
-	int			*here_doc_fds;
+	//int			*here_doc_fds; //////////// Inés, he comentado esto para poder compilar
 
 	//iter_params = args->params;
 	//here_doc_fds = get_here_doc(iter_params, args);

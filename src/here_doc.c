@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/05 12:25:21 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:53:14 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	*get_here_doc(t_params *iter_params, t_args *args, t_mini *mini)
 
 void	set_here_doc(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 {
+	(void)iter_params; //////////// Inés, he añadido esto para poder compilar
 	//primero abre here_doc luego escribe que se ha roto
 	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
 		return ;
@@ -99,7 +100,9 @@ void	set_here_doc(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 	iter_pipes->inf_pipe = open("temp.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (iter_pipes->inf_pipe < 0)
 	{
-		printf("minishell: Error opening here_doc\n", iter_params->content);
+		//////////// Inés, he comentado esto para poder compilar
+		//printf("minishell: Error opening here_doc\n", iter_params->content);
+		printf("minishell: Error opening here_doc\n");
 		ft_export_env("?=1", mini);
 	}
 }
