@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/03 13:49:12 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:58:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,10 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 		if ((ft_isspace(*input_ptr) || *input_ptr == '|' || *input_ptr == '<'
 				|| *input_ptr == '>')
 			&& !args->in_single_quote && !args->in_double_quote)
-			{
-				if (out_of_quotes(&input_ptr, args, argc, mini) == ERR)
+		{
+			if (out_of_quotes(&input_ptr, args, argc, mini) == ERR)
 				return (ERR);
-			}
+		}
 		else if (*input_ptr == '$' && !args->in_single_quote)
 			next_is_a_number(&input_ptr, args);
 		else
