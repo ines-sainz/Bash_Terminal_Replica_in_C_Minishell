@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/04 21:55:10 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:02:04 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_export_env(char *new_env, t_mini *mini)
 {
 	t_env	*new_node;
 
+	// SERÍA INTERESANTE COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
 	new_node = env_new(new_env);
 	if (!new_node)
 	{
@@ -74,6 +75,7 @@ void	ft_export_env(char *new_env, t_mini *mini)
 		if (!ft_strncmp(new_node->variable, mini->env_iter->variable,
 				ft_strlen(mini->env_iter->variable)))
 		{
+			free(mini->env_iter->content);
 			mini->env_iter->content = ft_strdup(new_node->content);
 			free(new_node->content);
 			free(new_node->variable);
