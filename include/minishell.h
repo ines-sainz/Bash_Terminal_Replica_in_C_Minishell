@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 19:06:26 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:22:29 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_env
 {
 	char			*variable;
 	char			*content;
+	int				nbr_nodes;
 	int				order;
 	struct s_env	*next;
 }			t_env;
