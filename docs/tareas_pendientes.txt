@@ -4,7 +4,7 @@ ablanco-
 cd:
 	- Debe funcionar con rutas absolutas
 
-export:
+export: ✅
 	- Exportar variables vacías (export a, export a=, export a="")
 		> export a no le crea contenido y sólo es visible desde export
 		> export a= lo crea con un '\0' y es visible desde export y env
@@ -13,7 +13,7 @@ export:
 	- REVISAR: ¡¡Problema grave al tratar de exportar una variable con contenido NULL
 		cuando ya existe la misma variable con contenido!! ⚠️❓
 
-echo -n:  ✅
+echo -n: ✅
 	- echo -n -n -n hola (= que echo -n hola)
 	- echo -n -n hola -n -n (devuelve hola -n -n)
 	Interrumpir detección de flags cuando recibo algo que no empieza por '-'
