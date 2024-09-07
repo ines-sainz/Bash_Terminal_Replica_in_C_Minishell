@@ -24,6 +24,7 @@ echo -n:  ✅
 
 unset:
 	- No unset $_ ✅
+	- Cuidado al liberar variables cuyo content sea NULL
 
 
 <<:
