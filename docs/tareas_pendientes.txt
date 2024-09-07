@@ -10,6 +10,8 @@ export:
 		> export a= lo crea con un '\0' y es visible desde export y env
 		> export a="" lo crea con un '\0' y es visible desde export y env
 	- export (a secas) devuelve el contenido listado por valor ascii
+	- REVISAR: ¡¡Problema grave al tratar de exportar una variable con contenido NULL
+		cuando ya existe la misma variable con contenido!! ⚠️❓
 
 echo -n:  ✅
 	- echo -n -n -n hola (= que echo -n hola)
