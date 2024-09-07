@@ -28,10 +28,19 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-/*int	main(void)
+/* int	main(void)
 {
-	char	str1[] = "abz";
-	char	str2[] = "abc";
+	char	str1[] = "abc";
+	char	str2[] = "abz";
+	int		cmp = ft_strcmp(str1, str2);
 
-	printf("%i", ft_strcmp(str1, str2));
-}*/
+	printf("%i\n", cmp);
+	if (cmp < 0)
+		printf("%s es más pequeño que %s\n", str1, str2);
+	else if (cmp > 0)
+		printf("%s es más grande que %s\n", str1, str2);
+	else
+		printf("%s y %s son iguales\n", str1, str2);
+	
+	return (0);
+} */
