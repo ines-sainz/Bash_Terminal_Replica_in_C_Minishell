@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/07 22:02:04 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:25:09 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_export_env(char *new_env, t_mini *mini)
 	while (mini->env_iter != NULL)
 	{
 		if (!ft_strncmp(new_node->variable, mini->env_iter->variable,
-				ft_strlen(mini->env_iter->variable)))
+				ft_strlen(mini->env_iter->variable)) && new_node->content)
 		{
 			free(mini->env_iter->content);
 			mini->env_iter->content = ft_strdup(new_node->content);
