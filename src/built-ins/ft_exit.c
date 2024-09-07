@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/06 19:40:28 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:54:03 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	multiple_args(t_args *args, int argc, t_mini *mini)
 
 	if (its_only_numbers(args->args[1]) == ERR)
 	{
+		printf("minishell: exit: %s: numeric argument required\n",
+			args->args[1]);
 		free_at_exit(args);
 		exit(2);
 	}
