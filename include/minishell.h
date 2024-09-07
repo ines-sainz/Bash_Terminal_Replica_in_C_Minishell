@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 19:25:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:31:50 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,4 +270,5 @@ void		print_pipes(t_mini *mini);
 //				GET_REDIRECTIONS.C					//
 //////////////////////////////////////////////////////
 void		get_redirections(t_args *args, t_mini *mini);
-void		set_here_doc(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini);
+void		set_here_doc(t_params *iter_params, t_pipes *iter_pipes,
+				t_mini *mini);
