@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 21:57:08 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:21:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_print_env(t_mini *mini)
 	mini->env_iter = mini->env_first_node;
 	while (mini->env_iter != NULL)
 	{
-		printf("%s=%s\n", mini->env_iter->variable, mini->env_iter->content);
+		if (mini->env_iter->content)
+			printf("%s=%s\n", mini->env_iter->variable, mini->env_iter->content);
 		mini->env_iter = mini->env_iter->next;
 	}
 }
