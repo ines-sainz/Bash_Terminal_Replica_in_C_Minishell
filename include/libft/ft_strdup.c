@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:05:53 by danjimen          #+#    #+#             */
-/*   Updated: 2024/05/27 15:10:44 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 21:59:55 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strdup(const char *s)
 	char	*dest;
 	char	*principio;
 
+	if (s == NULL)
+		return (NULL);
 	dest = (char *)malloc(ft_strlen(s) + 1);
 	if (dest == NULL)
 		return (NULL);

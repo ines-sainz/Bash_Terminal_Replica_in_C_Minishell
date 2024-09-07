@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:06:38 by danjimen          #+#    #+#             */
-/*   Updated: 2024/01/29 09:39:41 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:00:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	unsigned char	u_s2;
 
 	i = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (0);
 	while ((s1[i] != '\0' || s2[i] != '\0') && i < n)
 	{
 		u_s1 = (unsigned char)s1[i];
