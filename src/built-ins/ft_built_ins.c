@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/06 19:37:52 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:04:14 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,16 +182,16 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 		ft_built_echo(args);
 		ft_export_env("?=0", mini);
 	}
-	/* else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
-		ft_built_cd(args, mini);
-	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
-		ft_built_pwd(args);
+	// else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
+	// 	ft_built_cd(args, mini);
+	// else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
+	// 	ft_built_pwd(args);
 	else if (ft_strncmp(args->args[0], "export", arg0_len) == 0 && arg0_len == 6)
 		ft_built_export(args, mini);
-	else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
-		ft_built_unset(args, mini);
-	else if (args->argc == 1 && ft_strncmp(args->args[0], "env", arg0_len) == 0 && arg0_len == 3)
-		ft_print_env(mini); */
+	// else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
+	// 	ft_built_unset(args, mini);
+	// else if (args->argc == 1 && ft_strncmp(args->args[0], "env", arg0_len) == 0 && arg0_len == 3)
+	// 	ft_print_env(mini);
 	else if (ft_strncmp(args->args[0], "exit", arg0_len) == 0 && arg0_len == 4)
 		ft_built_exit(args, mini);
 	return (0);
