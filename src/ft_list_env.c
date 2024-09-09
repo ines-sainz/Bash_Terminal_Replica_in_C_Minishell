@@ -81,8 +81,8 @@ t_env	*env_new(char *env)
 	node = (t_env *)malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
-	printf("LLEGUÉ AQUÍ\n");
-	printf("env ==> %s\n", env);
+//	printf("LLEGUÉ AQUÍ\n");
+//	printf("env ==> %s\n", env);
 	while (env[i])
 	{
 		if (env[i] == '=' && pos_equal == 0)
@@ -91,17 +91,17 @@ t_env	*env_new(char *env)
 	}
 	if (pos_equal != 0)
 	{
-		printf("Entré en el if!\n");
+	//	printf("Entré en el if!\n");
 		node->variable = ft_substr(env, 0, pos_equal);
 		node->content = ft_substr(env, pos_equal + 1, ft_strlen(env) - pos_equal);
 	}
 	else
 	{
-		printf("Entré en el else!\n");
+	//	printf("Entré en el else!\n");
 		node->variable = ft_substr(env, 0, ft_strlen(env));
-		printf("Añadí como nombre: %s\n", node->variable);
+	//	printf("Añadí como nombre: %s\n", node->variable);
 		node->content = NULL;
-		printf("Añadí como contenido: %s\n", node->content);
+	//	printf("Añadí como contenido: %s\n", node->content);
 	}
 	node->next = NULL;
 	return (node);
