@@ -6,11 +6,22 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:28:19 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/09 19:00:44 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:10:21 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	print_echo_args(char **args, int i, int argc)
+{
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i][0] != '\0' && i != argc - 1)
+			printf(" ");
+		i++;
+	}
+}
 
 static void	detect_and_count_flag(char **args, int *i, int	*n_flag)
 {
@@ -61,13 +72,7 @@ void	ft_built_echo(char **args)
 	printf("echo devuelve: "); //Eliminar
 	if ((n_flag + 1) == argc)
 		return ;
-	while (args[i])
-	{
-		printf("%s", args[i]);
-		if (args[i][0] != '\0' && i != argc - 1)
-			printf(" ");
-		i++;
-	}
+	print_echo_args(args, i, argc);
 	if (n_flag == 0)
 		printf("\n");
 }
