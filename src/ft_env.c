@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/07 22:25:09 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:12:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void	ft_export_env(char *new_env, t_mini *mini)
 	mini->env_iter = mini->env_first_node;
 	while (mini->env_iter != NULL)
 	{
-		if (!ft_strncmp(new_node->variable, mini->env_iter->variable,
-				ft_strlen(mini->env_iter->variable)) && new_node->content)
+		//Necesario comprobar a=55 aa=55 // aa=55 a=55
+		// if (!ft_strncmp(new_node->variable, mini->env_iter->variable,
+		// 		ft_strlen(new_node->variable)) && new_node->content)
+		if ((ft_strcmp(new_node->variable, mini->env_iter->variable) == 0)
+			&& new_node->content)
 		{
 			free(mini->env_iter->content);
 			mini->env_iter->content = ft_strdup(new_node->content);
