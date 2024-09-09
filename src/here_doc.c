@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-/*char	*ft_get_eof(char *eof)
+char	*ft_get_eof(char *eof)
 {
 	char	*eof_fin;
 
@@ -46,35 +46,40 @@ int	ft_write_temp(int fd, char *eof, char *buffer)
 	return (0);
 }
 
-int	ft_here_doc(int i, int * here_doc_fds, t_params *param, t_args *args)
+int	ft_here_doc(int i, t_params *param)
 {
 	char	buffer[1024];
-	int		status;
+	int		fd;
 	char	*file_num;
 	char	*file_name;
 
 	file_num = ft_itoa(i);
 	file_name = ft_strjoin(file_num, ".txt");
 	free(file_num);
-	here_doc_fds[i] = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (here_doc_fds[i] < 0)
+	fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	if (fd < 0)
 		return (ERR);
-	if (ft_write_temp(here_doc_fds[i], param->content, buffer) == 1)
+	if (ft_write_temp(fd, param->content, buffer) == 1)
 		return (ERR);
-	close (here_doc_fds[i]);
-	here_doc_fds[i] = open(file_name, O_RDONLY, 0777);
+	close (fd);
+	fd = open(file_name, O_RDONLY, 0777);
 	free(file_name);
+	return (fd);
 }
 
-int	*get_here_doc(t_params *iter_params, t_args *args, t_mini *mini)
+int	*get_here_doc(t_params *iter_params, t_args *args)
 {
 	int	i;
 	int	*here_doc_fds;
 
+	write(1, "a\n", 2);
 	i = 0;
 	while (iter_params != NULL)
+	{
 		if (iter_params->type == HERE_DOC)
 			i++;
+		iter_params = iter_params->next;
+	}
 	here_doc_fds = malloc(i + 1 * sizeof(int *));
 	i = 0;
 	iter_params = args->params;
@@ -82,22 +87,26 @@ int	*get_here_doc(t_params *iter_params, t_args *args, t_mini *mini)
 	{
 		if (iter_params->type == HERE_DOC)
 		{
-			ft_here_doc(i, here_doc_fds, iter_params->next, args);
+			here_doc_fds[i] = ft_here_doc(i, iter_params->next);
 			i++;
 		}
 		iter_params = iter_params->next;
 	}
-}*/
+	return (here_doc_fds);
+}
 
-void	set_here_doc(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
+void	set_here_doc(int fd, t_pipes *iter_pipes, t_mini *mini)
 {
-	(void)iter_params; //////////// Inés, he añadido esto para poder compilar
+	//////////// Inés, he añadido esto para poder compilar
 	//primero abre here_doc luego escribe que se ha roto
 	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
+	{
+		close(fd);
 		return ;
+	}
 	if (iter_pipes->inf_pipe != 0)
 		close(iter_pipes->inf_pipe);
-	iter_pipes->inf_pipe = open("temp.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	iter_pipes->inf_pipe = fd;
 	if (iter_pipes->inf_pipe < 0)
 	{
 		//////////// Inés, he comentado esto para poder compilar
