@@ -6,17 +6,11 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 22:19:25 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:58:18 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* static void	ft_built_exit(t_args *args)
-{
-	free_at_exit(args);
-	exit(0);
-} */
 
 /* void	ft_built_unset(t_args *args, t_mini *mini)
 {
@@ -28,30 +22,6 @@
 	while (args->args[i])
 	{
 		ft_unset_env(args->args[i], mini);
-		i++;
-	}
-} */
-
-/* void	ft_built_export(t_args *args, t_mini *mini)
-{
-	int	i;
-
-	if (args->argc == 1)
-	{
-		mini->env_iter = mini->env_first_node;
-		while (mini->env_iter != NULL)
-		{
-			printf("declare -x %s=\"%s\"\n", mini->env_iter->variable,
-				mini->env_iter->content);
-			mini->env_iter = mini->env_iter->next;
-		}
-		return ;
-	}
-	i = 1;
-	while (args->args[i])
-	{
-		if (ft_strchr(args->args[i], '='))
-			ft_export_env(args->args[i], mini);
 		i++;
 	}
 } */
@@ -115,60 +85,6 @@
 	free(output);
 } */
 
-/* void	ft_built_echo(t_args *args)
-{
-	int	i;
-	int	j;
-	int	flag;
-	int	argc;
-	int	n_flag;
-
-	flag = 0;
-	argc = 0;
-	n_flag = 0;
-	i = 0;
-	while (args->args[i++])
-		argc++;
-	printf("echo argc = %i\n", argc);
-	if (argc == 1)
-	{
-		printf("echo devuelve:\n");
-		printf("\n");
-		return ;
-	}
-	i = 1;
-	while (args->args[i] && ft_strlen(args->args[i]) >= 2)
-	{
-		if (args->args[i][0] != '-')
-			break ;
-		else
-		{
-			j = 1;
-			while (args->args[i][j])
-			{
-				if (args->args[i][j] != 'n')
-					flag++;
-				j++;
-			}
-			if (flag == 0)
-				n_flag++;
-			else
-				break ;
-		}
-		i++;
-	}
-	printf("echo devuelve: ");
-	while (args->args[i])
-	{
-		printf("%s", args->args[i]);
-		if (i != argc - 1)
-			printf(" ");
-		i++;
-	}
-	if (n_flag == 0)
-		printf("\n");
-} */
-
 int	ft_built_ins(t_args *args, t_mini *mini)
 {
 	//int		flag;
@@ -179,7 +95,7 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 	//if (args->argc > 1 && ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
 	if (ft_strncmp(args->args[0], "echo", arg0_len) == 0 && arg0_len == 4)
 	{
-		ft_built_echo(args);
+		ft_built_echo(args->args);
 		ft_export_env("?=0", mini);
 	}
 	// else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
