@@ -47,3 +47,46 @@ SIGQUIT:
 
 $:
 	Si solo recibo $ como único argumento, no debe dar segfault
+
+
+****TAREAS INÉS****
+- comprobar el echo	✅->funciona bien (mirar echo -n -nnnnnnnnnnnnnnnnnnnnnnnn -n)
+- comillas dobles y simples: ✅
+	- ✅ $"USER"
+	- ✅ "$"USER""
+- Norminette
+- Comprobar env 
+	- las variables vacías no se imprimen
+	- ❌ _=... se están actualizando los ... a la última palabra y tiene que ser /usr/bin/env
+	- ❌ _=/usr/bin/env tiene que imprimirse si o si en env
+	- ❌ ?=0 habíamos dicho que no lo ibamos a imprimer
+
+- comprobar export
+	- ✅ export	
+	- ✅ export INES=35
+	- ✅ export INES=37
+	- ✅ export INES=	->devuelve un string vacío
+	- ❌ export INES	->deve ser nulo (al imprimirse tiiene que salir solo ines no ines=)
+	- ❌ no imprime la variable _="env"
+	- ❌ la variable _=export que tiene env no se a donde se ha ido (se modifica no se por que)
+	- ✅ export INES=42
+	- ✅ export INES	->si ya tenía algo no lo cambia a nulo
+	- ❌ si haces export a=56
+	- ❌ export aA=65 no se exportan!!!!!
+	- ❌ export ab=89 no se exportan!!!!!
+- comprobar exit
+	- ✅ exit
+	- ❌isainz-r@minishell> exit 98
+		You entered: exit 98
+		argc ==> 2
+		exit argc = 2
+		Resources freed successfully.
+		make: *** [Makefile:61: r] Error 98
+	- ❌You entered: exit t
+		argc ==> 2
+		exit argc = 2
+		minishell: exit: t: numeric argument required
+		Resources freed successfully.
+		make: *** [Makefile:61: r] Error 2
+- ectualizar el $?
+- unset ver si va con o sin parámetros va sin opciones pero con argumentos
