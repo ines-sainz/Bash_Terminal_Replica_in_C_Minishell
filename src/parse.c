@@ -32,6 +32,21 @@ static int	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 	return (OK);
 }
 
+void	close_fds(t_mini *mini)
+{
+	t_pipes	*pipe_iter;
+
+	pipe_iter = mini->first_pipe;
+	while (pipe_iter != NULL)
+	{
+		if (pipe_iter->inf_pipe > 0)
+			close(pipe_iter->inf_pipe);
+		if (pipe_iter->outf_pipe > 1)
+			close(pipe_iter->outf_pipe);
+		pipe_iter = pipe_iter->next;
+	}
+}
+
 int	parse(t_args *args, t_mini *mini)
 {
 	int			i;
@@ -63,6 +78,7 @@ int	parse(t_args *args, t_mini *mini)
 	if (redirector(args, mini) == 1)
 		return (ERR);
 	executor(args);
+	close_fds(mini);
 	//unlink("temp.txt"); cerrar los fds 
 	printf("Parsed arguments:\n");
 	temp = args->params;
