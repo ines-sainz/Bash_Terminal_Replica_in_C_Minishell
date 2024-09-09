@@ -64,18 +64,23 @@ void	get_redirections(t_args *args, t_mini *mini)
 {
 	t_params	*iter_params;
 	t_pipes		*iter_pipes;
-	//int			*here_doc_fds; //////////// Inés, he comentado esto para poder compilar
+	int			*here_doc_fds; //////////// Inés, he comentado esto para poder compilar
+	int			n_here_doc;
 
-	//iter_params = args->params;
-	//here_doc_fds = get_here_doc(iter_params, args);
+	iter_params = args->params;
+	here_doc_fds = get_here_doc(iter_params, args);
 	iter_params = args->params;
 	iter_pipes = mini->first_pipe;
+	n_here_doc = 0;
 	while (iter_params != NULL)
 	{
 		if (iter_params->type == INFILE)
 			set_infile(iter_params->next, iter_pipes, mini);
 		else if (iter_params->type == HERE_DOC)  /////tiene  que hacerse primero
-			set_here_doc(iter_params->next, iter_pipes, mini);
+		{
+			set_here_doc(here_doc_fds[n_here_doc], iter_pipes, mini);
+			n_here_doc++;
+		}
 		else if (iter_params->type == APPEND)
 			set_append(iter_params->next, iter_pipes, mini);
 		else if (iter_params->type == OUTFILE)
