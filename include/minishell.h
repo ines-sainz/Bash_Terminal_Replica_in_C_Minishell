@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/09 19:01:01 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:13:05 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,8 @@ void		ft_built_exit(t_args *args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_EXPORT.C						//
 //////////////////////////////////////////////////////
-void		ft_built_export(t_args *args, t_mini *mini);
+//void		ft_built_export(t_args *args, t_mini *mini);
+void		ft_built_export(char **args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					EXECUTOR FOLDER
