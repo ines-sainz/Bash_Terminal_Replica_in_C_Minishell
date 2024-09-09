@@ -12,6 +12,17 @@ export: ✅
 	- export (a secas) devuelve el contenido listado por valor ascii
 	- REVISAR: ¡¡Problema grave al tratar de exportar una variable con contenido NULL
 		cuando ya existe la misma variable con contenido!! ⚠️❓
+	ejemplo: export d@ni char@mail=enf _yo -tu= 1gato=raio raio=g@to gato2=meiga my-var=test my_var=test2
+		Not = case
+		minishell: export: `d@ni': not a valid identifier
+		Name=Content case
+		minishell: export: `char@mail=enf': not a valid identifier
+		First letter error
+		minishell: export: `-tu=': not a valid identifier
+		First letter error
+		minishell: export: `1gato=raio': not a valid identifier
+		Name=Content case
+		minishell: export: `my-var=test': not a valid identifier
 
 echo -n: ✅
 	- echo -n -n -n hola (= que echo -n hola)
@@ -50,43 +61,53 @@ $:
 
 
 ****TAREAS INÉS****
-- comprobar el echo	✅->funciona bien (mirar echo -n -nnnnnnnnnnnnnnnnnnnnnnnn -n)
+- comprobar el echo	✅->funciona bien (mirar echo -n -nnnnnnnnnnnnnnnnnnnnnnnn -n) ✅
+
 - comillas dobles y simples: ✅
 	- ✅ $"USER"
 	- ✅ "$"USER""
+
 - Norminette
+
 - Comprobar env 
-	- las variables vacías no se imprimen
+	- las variables vacías no se imprimen ✅
 	- ❌ _=... se están actualizando los ... a la última palabra y tiene que ser /usr/bin/env
+		-> Habrá que ver si el mejor actualizarlo durante la ejecución,
+		según el path del último comando (en caso de no tener argumentos)
 	- ❌ _=/usr/bin/env tiene que imprimirse si o si en env
-	- ❌ ?=0 habíamos dicho que no lo ibamos a imprimer
+	- ✅ ?=0 habíamos dicho que no lo ibamos a imprimer
 
 - comprobar export
 	- ✅ export	
 	- ✅ export INES=35
 	- ✅ export INES=37
 	- ✅ export INES=	->devuelve un string vacío
-	- ❌ export INES	->deve ser nulo (al imprimirse tiiene que salir solo ines no ines=)
+	- ✅ export INES	->deve ser nulo (al imprimirse tiene que salir solo ines no ines=)
 	- ❌ no imprime la variable _="env"
+		-> Devuelve el último argumento con valor propio ✅
 	- ❌ la variable _=export que tiene env no se a donde se ha ido (se modifica no se por que)
+		-> Debe devolver el último argumento con valor propio ✅
 	- ✅ export INES=42
 	- ✅ export INES	->si ya tenía algo no lo cambia a nulo
-	- ❌ si haces export a=56
-	- ❌ export aA=65 no se exportan!!!!!
-	- ❌ export ab=89 no se exportan!!!!!
+	- ✅ si haces export a=56
+	- ✅ export aA=65 no se exportan!!!!!
+	- ✅ export ab=89 no se exportan!!!!!
+	- ?=0 habíamos dicho que no lo ibamos a imprimer
+
 - comprobar exit
 	- ✅ exit
-	- ❌isainz-r@minishell> exit 98
+	- ✅ isainz-r@minishell> exit 98
 		You entered: exit 98
 		argc ==> 2
 		exit argc = 2
 		Resources freed successfully.
 		make: *** [Makefile:61: r] Error 98
-	- ❌You entered: exit t
+	- ✅ You entered: exit t
 		argc ==> 2
 		exit argc = 2
 		minishell: exit: t: numeric argument required
 		Resources freed successfully.
 		make: *** [Makefile:61: r] Error 2
-- ectualizar el $?
+- ✅ actualizar el $?
+
 - unset ver si va con o sin parámetros va sin opciones pero con argumentos
