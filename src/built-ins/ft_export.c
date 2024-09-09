@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 21:32:50 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/09 22:52:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ static void	print_list(t_mini *mini)
 		{
 			if (mini->env_iter->order == i)
 			{
-				//printf("%s order = %i\n", mini->env_iter->variable, mini->env_iter->order);
 				if (mini->env_iter->content)
 					printf("declare -x %s=\"%s\"\n", mini->env_iter->variable,
 						mini->env_iter->content);
 				else
-					printf("declare -x %s=\n", mini->env_iter->variable);
+					printf("declare -x %s\n", mini->env_iter->variable);
 				break ;
 			}
 			mini->env_iter = mini->env_iter->next;
@@ -71,28 +70,21 @@ static void	count_nodes(t_mini *mini)
 	}
 }
 
-void	ft_built_export(t_args *args, t_mini *mini)
+void	ft_built_export(char **args, t_mini *mini)
 {
-	int	i;
 	int	argc;
 
 	argc = 0;
-	while (args->args[argc])
+	while (args[argc])
 		argc++;
 	if (argc == 1)
 	{
 		count_nodes(mini);
 		printf("Number of nodes: %i\n", mini->nbr_env_nodes);
 		create_nodes_order(mini);
-		//printf(">>VAMOS A IMPRIMIR LA LISTA<<\n");
 		print_list(mini);
-		return ;
+		ft_export_env("?=0", mini);
 	}
-	i = 1;
-	while (args->args[i])
-	{
-		//if (ft_strchr(args->args[i], '='))
-		ft_export_env(args->args[i], mini);
-		i++;
-	}
+	else
+		export_args(args, mini);
 }
