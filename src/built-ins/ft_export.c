@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/10 11:09:44 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ static void	print_list(t_mini *mini)
 	while (i <= mini->nbr_env_nodes)
 	{
 		mini->env_iter = mini->env_first_node;
-		while (mini->env_iter != NULL)
+		while (mini->env_iter != NULL )
 		{
 			if (mini->env_iter->order == i)
 			{
-				if (mini->env_iter->content)
+				if (ft_strlen(mini->env_iter->variable) == 1
+					&& (mini->env_iter->variable[0] == '_'
+						|| mini->env_iter->variable[0] == '?'))
+					break ;
+				else if (mini->env_iter->content)
 					printf("declare -x %s=\"%s\"\n", mini->env_iter->variable,
 						mini->env_iter->content);
 				else
