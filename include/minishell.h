@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/10 10:11:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/10 12:36:28 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,11 @@ int			handle_first_letter(char **args, t_mini *mini, int *i);
 int			find_equal(char **args, int *i, int *j);
 void		not_equal_case(char **args, int *i, t_mini *mini);
 void		equal_case(char **args, int *i, t_mini *mini, int *pos_equal);
+
+//////////////////////////////////////////////////////
+//					FT_UNSET.C						//
+//////////////////////////////////////////////////////
+void		ft_built_unset(char **args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					EXECUTOR FOLDER
