@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/09 22:56:32 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:10:58 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 void	export_args(char **args, t_mini *mini)
 {
-	int	i;
-	int	j;
-	int	pos_equal;
+	int		i;
+	int		j;
+	int		pos_equal;
 
 	i = 1;
 	j = 0;
 	pos_equal = 0;
 	while (args[i])
 	{
-		if (handle_first_letter(args, mini, &i) == ERR)
-			continue ;
-		pos_equal = find_equal(args, &i, &j);
-		j = 1;
-		if (pos_equal == 0)
-			not_equal_case(args, &i, mini);
-		else
-			equal_case(args, &i, mini, &pos_equal);
+		if (args[i][0] != '\0')
+		{
+			if (handle_first_letter(args, mini, &i) == ERR)
+				continue ;
+			pos_equal = find_equal(args, &i, &j);
+			j = 1;
+			if (pos_equal == 0)
+				not_equal_case(args, &i, mini);
+			else
+				equal_case(args, &i, mini, &pos_equal);
+		}
 		i++;
 	}
 }
