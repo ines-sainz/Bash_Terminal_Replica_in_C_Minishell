@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_built_ins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/09 22:10:40 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:35:50 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 	// 	ft_built_pwd(args);
 	else if (ft_strncmp(args->args[0], "export", arg0_len) == 0 && arg0_len == 6)
 		ft_built_export(args->args, mini);
-	// else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
-	// 	ft_built_unset(args, mini);
+	else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)
+		ft_built_unset(args->args, mini);
 	else if (ft_strncmp(args->args[0], "env", arg0_len) == 0 && arg0_len == 3)
 		ft_print_env(mini);
 	else if (ft_strncmp(args->args[0], "exit", arg0_len) == 0 && arg0_len == 4)
