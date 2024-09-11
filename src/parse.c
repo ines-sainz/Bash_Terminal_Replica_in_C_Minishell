@@ -35,6 +35,7 @@ static int	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 void	close_fds(t_mini *mini)
 {
 	t_pipes	*pipe_iter;
+	t_list	*temp_here_doc;
 
 	pipe_iter = mini->first_pipe;
 	while (pipe_iter != NULL)
@@ -45,6 +46,13 @@ void	close_fds(t_mini *mini)
 			close(pipe_iter->outf_pipe);
 		pipe_iter = pipe_iter->next;
 	}
+	temp_here_doc = mini->here_doc_files;
+	while (temp_here_doc != NULL)
+	{
+		unlink(temp_here_doc->content);
+		temp_here_doc = temp_here_doc->next;
+	}
+	ft_lstclear(&mini->here_doc_files, free);
 }
 
 int	parse(t_args *args, t_mini *mini)
