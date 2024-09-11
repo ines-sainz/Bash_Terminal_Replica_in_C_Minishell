@@ -58,28 +58,39 @@ void	set_append(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 }
 
 /*void	set_pipe(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
-{}*/
+{
+	int	pipe_fds[2];
+
+	pipe(pipe_fds);
+	if (iter_pipes->outf_pipe < 0)
+	{}
+	if (iter_pipes->outf_pipe != 1)
+		close(pipe_fds[1]);
+	iter_pipes = iter_pipes->next;
+	if (iter_pipes->inf_pipe < 0)
+	{}
+	iter_pipes->outf_pipe = pipe_fds[0];
+}*/
 
 void	get_redirections(t_args *args, t_mini *mini)
 {
 	t_params	*iter_params;
 	t_pipes		*iter_pipes;
-	int			*here_doc_fds; //////////// Inés, he comentado esto para poder compilar
-	int			n_here_doc;
+	int			*here_doc_fds;
 
 	iter_params = args->params;
 	here_doc_fds = get_here_doc(iter_params, args);
 	iter_params = args->params;
 	iter_pipes = mini->first_pipe;
-	n_here_doc = 0;
+	mini->n_here_docs = 0;
 	while (iter_params != NULL)
 	{
 		if (iter_params->type == INFILE)
 			set_infile(iter_params->next, iter_pipes, mini);
 		else if (iter_params->type == HERE_DOC)  /////tiene  que hacerse primero
 		{
-			set_here_doc(here_doc_fds[n_here_doc], iter_pipes, mini);
-			n_here_doc++;
+			set_here_doc(here_doc_fds[mini->n_here_docs], iter_pipes, mini);
+			mini->n_here_docs++;
 		}
 		else if (iter_params->type == APPEND)
 			set_append(iter_params->next, iter_pipes, mini);
@@ -93,3 +104,7 @@ void	get_redirections(t_args *args, t_mini *mini)
 		iter_params = iter_params->next;
 	}
 }
+
+/*
+pipe redir
+*/
