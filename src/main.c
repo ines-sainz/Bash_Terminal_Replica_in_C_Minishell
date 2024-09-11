@@ -173,8 +173,7 @@ int	main(int argc, char **argv, char **env)
 //	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
 //	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
 //	printf("cd: %s\n", buit_ins("cd", "..", &mini));
-//	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
-//	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
+
 	//GET $$ = PID
 	// char	*itoa_pid;
 	// char	*pid_env;
@@ -221,8 +220,8 @@ int	main(int argc, char **argv, char **env)
 		}
 		//IMPORTANTE actualizar el estado de las redirecciones
 		//Cuento que en este momento esté todo cerrado
-		mini.in_out.inf = 0;
-		mini.in_out.outf = 1;
+		//dup2(0, 0);
+		//dup2(1, 1);
 
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
