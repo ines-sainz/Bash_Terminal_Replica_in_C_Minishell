@@ -93,9 +93,9 @@ $:
 	- ✅ export aA=65 no se exportan!!!!!
 	- ✅ export ab=89 no se exportan!!!!!
 	- ?=0 habíamos dicho que no lo ibamos a imprimer
-	- export cmd="ls -la"
+	- ❌ export cmd="ls -la"
 		$cmd (debría hacer ls -la)
-	- export a="export a=b"
+	- ❌ export a="export a=b"
 		$a (debería actualizar a=b)
 
 - comprobar exit
