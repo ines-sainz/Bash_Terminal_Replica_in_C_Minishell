@@ -109,11 +109,11 @@ typedef enum s_bool
 	t_true,
 }	t_bool;
 
-typedef struct s_fd
+/*typedef struct s_fd
 {
 	int	inf;
 	int	outf;
-}	t_fd;
+}	t_fd;*/
 
 typedef struct s_pipes
 {
@@ -127,7 +127,9 @@ typedef struct s_mini
 {
 	char	*user_prompt;
 	t_pipes	*first_pipe;
-	t_fd	in_out;
+	int		n_here_docs;
+	t_list	*here_doc_files;
+	//t_fd	in_out;
 	int		nbr_env_nodes;
 	t_env	*env_first_node;
 	t_env	*env_iter;
