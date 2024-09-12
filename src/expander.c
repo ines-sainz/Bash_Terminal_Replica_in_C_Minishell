@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/06 22:11:54 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:57:37 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ char *expander(t_args *args, t_mini *mini)
 		// if (args->arg[i] == '$' && (args->arg[i + 1] == '"' || args->arg[i + 1] == '\'')
 		// 	&& !in_double_quotes && !args->in_single_quote) // $" or $' case
 		// 	i++;
-		else if (args->arg[i] == '$' && !args->in_single_quote)
+		else if (args->arg[i] == '$' && !args->in_single_quote && !args->in_heredoc)
 		{
 			if (args->arg[i + 1] == '"' || args->arg[i + 1] == '\'') // $" or $' case
 			{
@@ -227,8 +227,12 @@ char *expander(t_args *args, t_mini *mini)
 			else if (!expand_vars(args, &i, &j, mini))
 				return (NULL);
 		}
-		else // Copy character unless it's a quote
+		else // Copy character unless it's a quote´
+		{
 			args->result[j++] = args->arg[i++];
+			if (args->in_heredoc)
+				args->in_heredoc = t_false;
+		}
 	}
 	args->result[j] = '\0';
 	return (args->result);
