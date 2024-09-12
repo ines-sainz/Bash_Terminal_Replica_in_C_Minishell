@@ -57,20 +57,21 @@ void	set_append(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 	}
 }
 
-/*void	set_pipe(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
+void	set_pipe(t_pipes *iter_pipes)
 {
 	int	pipe_fds[2];
 
 	pipe(pipe_fds);
-	if (iter_pipes->outf_pipe < 0)
-	{}
-	if (iter_pipes->outf_pipe != 1)
+	if (iter_pipes->outf_pipe < 0 || iter_pipes->outf_pipe != 1)
 		close(pipe_fds[1]);
+	else
+		iter_pipes->outf_pipe = pipe_fds[1];
 	iter_pipes = iter_pipes->next;
-	if (iter_pipes->inf_pipe < 0)
-	{}
-	iter_pipes->outf_pipe = pipe_fds[0];
-}*/
+	if (iter_pipes->inf_pipe < 0 || iter_pipes->inf_pipe != 0)
+		close(pipe_fds[0]);
+	else
+		iter_pipes->inf_pipe = pipe_fds[0];
+}
 
 void	get_redirections(t_args *args, t_mini *mini)
 {
@@ -98,7 +99,7 @@ void	get_redirections(t_args *args, t_mini *mini)
 			set_outfile(iter_params->next, iter_pipes, mini);
 		else if (iter_params->type == PIPE)  ///////por hacerr
 		{			
-			//set_pipe(iter_params, iter_pipes, mini);
+			set_pipe(iter_pipes);
 			iter_pipes = iter_pipes->next;
 		}
 		iter_params = iter_params->next;
