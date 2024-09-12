@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 22:42:01 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:37:57 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,22 @@ static t_bool	is_builtin_command(const char *arg)
 	return (t_false);
 }
 
-static t_param_type	classify_argument(t_args *args, int *argc)
+static t_param_type	classify_argument(t_args *args, int *argc, t_bool *heredoc_found)
 {
-	// printf("args->args[%i] ==> %s\n", *argc, args->args[(*argc)]);
-	// printf("args->quotes[%i] ==> %i\n", *argc, args->quotes[(*argc)]);
+	if (*heredoc_found == t_true)
+		return (*heredoc_found = t_false, DELIMITER);
 	if (ft_strcmp(args->args[*argc], "|") == 0 && args->quotes[*argc] == t_false)
 		return (PIPE);
 	else if (ft_strcmp(args->args[*argc], "<") == 0  && args->quotes[*argc] == t_false)
 		return (INFILE);
 	else if (ft_strcmp(args->args[*argc], "<<") == 0  && args->quotes[*argc] == t_false)
-		return (HERE_DOC);
+		return (*heredoc_found = t_true, HERE_DOC);
 	else if (ft_strcmp(args->args[*argc], ">") == 0  && args->quotes[*argc] == t_false)
 		return (OUTFILE);
 	else if (ft_strcmp(args->args[*argc], ">>") == 0  && args->quotes[*argc] == t_false)
 		return (APPEND);
 	else if (is_builtin_command(args->args[*argc]) && args->quotes[*argc] == t_false)
 		return (BUILTING);
-	//else if (access(args->args[*argc], X_OK) == 0  && args->quotes[*argc] == t_false)
 	else if (access(args->args[*argc], X_OK) == 0)
 		return (CMD);
 	else
@@ -125,7 +124,7 @@ static t_param_type	classify_argument(t_args *args, int *argc)
 		return (PARAMS); // Se considera un parámetro adicional
 } */
 
-t_params *add_argument_to_list(t_args *args, int *argc)
+t_params *add_argument_to_list(t_args *args, int *argc, t_bool *heredoc_found)
 {
 	t_params *new_node;
 	t_params *temp;
@@ -135,7 +134,7 @@ t_params *add_argument_to_list(t_args *args, int *argc)
 		return (NULL);
 	new_node->content = ft_strdup(args->args[*argc]); // Copia el contenido del argumento
 	new_node->argc = *argc; // Asigna el número de argumentos
-	new_node->type = classify_argument(args, argc); // Clasifica el argumento
+	new_node->type = classify_argument(args, argc, heredoc_found); // Clasifica el argumento
 	new_node->quotes = args->quotes[*argc];
 	new_node->next = NULL;
 
