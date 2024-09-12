@@ -6,13 +6,13 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:29:43 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/12 14:23:34 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 15:01:13 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_built_pwd(char **args)
+void	ft_built_pwd(char **args, t_mini *mini)
 {
 	char	*cwd;
 	int		argc;
@@ -25,7 +25,14 @@ void	ft_built_pwd(char **args)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		perror("getcwd");
+		if (ft_find_env(mini, "PWD"))
+		{
+			cwd = ft_strdup(ft_find_env(mini, "PWD"));
+			printf("%s\n", cwd);
+			free (cwd);
+			return ;
+		}
+		perror("minishell: getcwd");
 		return ;
 	}
 	printf("%s\n", cwd);

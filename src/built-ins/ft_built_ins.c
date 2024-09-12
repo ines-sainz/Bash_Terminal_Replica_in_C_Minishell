@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 14:25:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 14:48:51 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 	else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
 		ft_built_cd(args->args, mini);
 	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
-		ft_built_pwd(args->args);
+		ft_built_pwd(args->args, mini);
 	else if (ft_strncmp(args->args[0], "export", arg0_len) == 0 && arg0_len == 6)
 		ft_built_export(args->args, mini);
 	else if (ft_strncmp(args->args[0], "unset", arg0_len) == 0 && arg0_len == 5)

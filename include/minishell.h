@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 14:26:04 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 14:50:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,10 +267,11 @@ void		ft_built_unset(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_PWD.C						//
 //////////////////////////////////////////////////////
-void		ft_built_pwd(char **args);
+//void		ft_built_pwd(char **args);
+void		ft_built_pwd(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
-//					FT_PWD.C						//
+//					FT_CD.C							//
 //////////////////////////////////////////////////////
 void		ft_built_cd(char **args, t_mini *mini);
 
