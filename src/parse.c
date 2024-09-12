@@ -6,13 +6,27 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 22:26:20 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:39:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-#define MAX_ARGS 100
+/* static void	switch_to_delimiter(t_args *args)
+{
+	t_params	*temp;
+
+	temp = args->params;
+	while (temp != NULL)
+	{
+		if (temp->type == HERE_DOC && temp->next)
+		{
+			temp->next->type = DELIMITER;
+			temp = temp->next;
+		}
+		temp = temp->next;
+	}
+} */
 
 static int	ft_tokenize(t_args *args, int *argc, t_mini *mini)
 {
@@ -59,7 +73,9 @@ int	parse(t_args *args, t_mini *mini)
 {
 	int			i;
 	t_params	*temp;
+	t_bool		heredoc_found;
 
+	heredoc_found = t_false;
 	printf("You entered: %s\n", args->input);
 	if (ft_tokenize(args, &args->argc, mini) == ERR)
 		return (ERR);
@@ -74,7 +90,7 @@ int	parse(t_args *args, t_mini *mini)
 			//printf("arg[%d]: %s\n", i, args->args[i]);
 			// printf("args->args[%i] ==> %s\n", i, args->args[i]);
 			// printf("args->quotes[%i] ==> %i\n", i, args->quotes[i]);
-			add_argument_to_list(args, &i);
+			add_argument_to_list(args, &i, &heredoc_found);
 			free(args->args[i]);
 			args->args[i] = NULL;
 			args->quotes[i] = t_false;
@@ -82,6 +98,7 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
+	//switch_to_delimiter(args);
 	update_last_command_env_var(args);
 	if (redirector(args, mini) == 1)
 		return (ERR);
@@ -102,6 +119,7 @@ int	parse(t_args *args, t_mini *mini)
 		else if (temp->type == PIPE){printf("\ttype: %s", "PIPE");}
 		else if (temp->type == PARAMS){printf("\ttype: %s", "PARAMS");}
 		else if (temp->type == BUILTING){printf("\ttype: %s", "BUILTING");}
+		else if (temp->type == DELIMITER){printf("\ttype: %s", "DELIMITER");}
 		if (temp->quotes == t_true){printf("\tquotes: %s\n", "TRUE");}
 		else if (temp->quotes == t_false){printf("\tquotes: %s\n", "FALSE");}
 		temp = temp->next;
