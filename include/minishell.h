@@ -129,6 +129,7 @@ typedef struct s_mini
 	t_pipes	*first_pipe;
 	int		n_here_docs;
 	t_list	*here_doc_files;
+	int		n_commands;
 	//t_fd	in_out;
 	int		nbr_env_nodes;
 	t_env	*env_first_node;
@@ -283,6 +284,7 @@ void		ft_built_cd(char **args, t_mini *mini);
 //					EXECUTOR.C						//
 //////////////////////////////////////////////////////
 void		executor(t_args *args);
+void		execute(char **command, t_args *args, int num_command, pid_t *num_fork);
 
 //////////////////////////////////////////////////////
 //					REDIRECTOR.C					//
