@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:29:43 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/12 14:21:39 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 14:23:34 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	ft_built_pwd(char **args)
 {
 	char	*cwd;
-	int		i;
+	int		argc;
 
-	i = 0;
-	while (args[i])
-		i++;
-	if (i > 1)
+	argc = 0;
+	while (args[argc])
+		argc++;
+	if (argc > 1)
 		return ;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
