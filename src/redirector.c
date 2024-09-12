@@ -66,8 +66,8 @@ int	redirector(t_args *args, t_mini *mini)
 //	t_params	*iter;
 	int			n_command;
 
-//	(void)mini;
 	n_command = get_number_commands(args);
+	mini->n_commands = n_command;
 	if (n_command == -1)
 		return (1);
 	create_pipes(n_command, mini);
