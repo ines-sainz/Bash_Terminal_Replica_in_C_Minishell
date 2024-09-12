@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/06 15:04:26 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 22:28:06 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		if (expanded_arg)
 		{
 			args->args[(*argc)++] = expanded_arg;
-			//free(expanded_arg);
+			//free(expanded_arg); // DESCOMENTAR??
 			//expanded_arg = NULL;
 		}
 		args->arg_ptr = args->arg;
@@ -64,6 +64,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
 	{
 		args->args[(*argc)++] = ft_strdup("<<");
+		args->in_heredoc = t_true; // Marcar que estamos en un heredoc
 		(*input_ptr)++;
 	}
 	else if (**input_ptr == '<')
@@ -166,7 +167,7 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 		if (expander_arg)
 		{
 			args->args[(*argc)++] = expander_arg;
-			//free (expander_arg);
+			//free (expander_arg); // DESCOMENTAR??
 			//expander_arg = NULL;
 		}
 	}
