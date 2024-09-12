@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 14:50:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 22:52:04 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ typedef struct s_args
 	char		*arg_ptr;
 	t_bool		in_single_quote;
 	t_bool		in_double_quote;
+	t_bool		in_heredoc;
+	//char		*heredoc_delimiter;
 	t_params	*params;
 }	t_args;
 
