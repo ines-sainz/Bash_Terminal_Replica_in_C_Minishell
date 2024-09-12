@@ -77,10 +77,12 @@ void	executor(t_args *args)
 {
 	t_params	*iter;
 	char		**param_matrix;
-	int			i;
+	pid_t		*num_fork;
+	int			i;//no necesario
 	int			num_command;
 
 	num_command = 1;
+	num_fork = malloc(args->mini->n_commands * sizeof(pid_t));
 	iter = args->params;
 	while (iter != NULL)
 	{
@@ -94,10 +96,9 @@ void	executor(t_args *args)
 				printf("command = %s\n", param_matrix[i]);
 				i++;
 			}
+			//execute(param_matrix, args, num_command, num_fork);
 			num_command++;
 		}
-		//get_the_infile_and_outfile();
-		//execute_command(param_matrix, args, mini);
 		if (iter)
 			iter = iter->next;
 	}
