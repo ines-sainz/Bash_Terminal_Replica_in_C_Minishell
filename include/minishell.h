@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 22:52:04 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:39:55 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef enum e_param_type
 	CMD,
 	INFILE,
 	HERE_DOC,
+	DELIMITER,
 	OUTFILE,
 	APPEND,
 	PIPE,
@@ -161,7 +162,6 @@ typedef struct s_args
 	t_bool		in_single_quote;
 	t_bool		in_double_quote;
 	t_bool		in_heredoc;
-	//char		*heredoc_delimiter;
 	t_params	*params;
 }	t_args;
 
@@ -204,7 +204,7 @@ char		*expander(t_args *args, t_mini *mini);
 //////////////////////////////////////////////////////
 void		update_last_command_env_var(t_args *args);
 void		del_params(t_args *args);
-t_params	*add_argument_to_list(t_args *args, int *argc);
+t_params 	*add_argument_to_list(t_args *args, int *argc, t_bool *heredoc_found);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					ENV FOLDER
@@ -239,7 +239,6 @@ int			ft_built_ins(t_args *args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_ECHO.C						//
 //////////////////////////////////////////////////////
-//void		ft_built_echo(t_args *args);
 void		ft_built_echo(char **args);
 
 //////////////////////////////////////////////////////
@@ -250,7 +249,6 @@ void		ft_built_exit(t_args *args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_EXPORT.C						//
 //////////////////////////////////////////////////////
-//void		ft_built_export(t_args *args, t_mini *mini);
 void		ft_built_export(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
@@ -270,7 +268,6 @@ void		ft_built_unset(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_PWD.C						//
 //////////////////////////////////////////////////////
-//void		ft_built_pwd(char **args);
 void		ft_built_pwd(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
