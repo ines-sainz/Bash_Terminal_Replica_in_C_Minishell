@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 09:23:18 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/08/30 10:45:46 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 20:40:32 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void	executor(t_args *args)
 {
 	t_params	*iter;
 	char		**param_matrix;
-	pid_t		*num_fork;
+	//pid_t		*num_fork; //INES
 	int			i;//no necesario
 	int			num_command;
 
 	num_command = 1;
-	num_fork = malloc(args->mini->n_commands * sizeof(pid_t));
+	//num_fork = malloc(args->mini->n_commands * sizeof(pid_t)); //INES
 	iter = args->params;
 	while (iter != NULL)
 	{
