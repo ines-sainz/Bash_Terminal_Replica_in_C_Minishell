@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/12 13:49:07 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/12 14:25:43 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(BUILTINS_DIR)/ft_export.c \
 					$(BUILTINS_DIR)/ft_export_utils.c \
 					$(BUILTINS_DIR)/ft_unset.c \
-					$(BUILTINS_DIR)/ft_pwd.c
+					$(BUILTINS_DIR)/ft_pwd.c \
+					$(BUILTINS_DIR)/ft_cd.c
 
 OBJ				=	$(SRC:.c=.o)
 

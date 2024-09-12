@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 10:39:15 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 10:43:40 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/12 14:25:00 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	ft_built_ins(t_args *args, t_mini *mini)
 		ft_built_echo(args->args);
 		ft_export_env("?=0", mini);
 	}
-	// else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
-	// 	ft_built_cd(args, mini);
+	else if (ft_strncmp(args->args[0], "cd", arg0_len) == 0 && arg0_len == 2)
+		ft_built_cd(args->args, mini);
 	else if (ft_strncmp(args->args[0], "pwd", arg0_len) == 0 && arg0_len == 3)
 		ft_built_pwd(args->args);
 	else if (ft_strncmp(args->args[0], "export", arg0_len) == 0 && arg0_len == 6)
