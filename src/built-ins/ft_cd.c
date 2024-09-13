@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/13 15:23:29 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/13 19:56:18 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	cd_arg(char **args, t_mini *mini)
 {
 	char	*output;
 	char	*path;
+	char	*buffer;
 
 	if (chdir(args[1]) == -1)
 	{
@@ -25,15 +26,17 @@ static void	cd_arg(char **args, t_mini *mini)
 	}
 	else
 	{
-		if (((ft_strcmp(ft_find_env(mini, "OLDPWD"), "/") != 0) && ft_strcmp(args[1], "..") != 0) || ft_strcmp(args[1], "..") == 0)
+		buffer = getcwd(NULL, 0);
+		if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
 		{
 			output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
 			printf("%s\n", output);
 			ft_export_env(output, mini);
 			free(output);
 		}
-
-		if (((ft_strcmp(ft_find_env(mini, "PWD"), "/") != 0) && ft_strcmp(args[1], "..") != 0) || ft_strcmp(args[1], "..") == 0)
+		free(buffer);
+		buffer = getcwd(NULL, 0);
+		if (ft_strcmp(ft_find_env(mini, "PWD"), buffer) != 0)
 		{
 			path = getcwd(NULL, 0);
 			output = ft_strjoin("PWD=", path);
@@ -41,11 +44,13 @@ static void	cd_arg(char **args, t_mini *mini)
 			printf("%s\n", output);
 			ft_export_env(output, mini);
 			free(output);
-			output = NULL;
-			path = NULL;
+			free(buffer);
+			//output = NULL;
+			//path = NULL;
 			//ft_export_env("?=0", mini); // ELIMINAR ??
 			return ;
 		}
+		free(buffer);
 	}
 }
 
@@ -72,8 +77,8 @@ static void	cd_home(t_mini *mini)
 		printf("PWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
-		output = NULL;
-		path = NULL;
+		//output = NULL;
+		//path = NULL;
 		//ft_export_env("?=0", mini); // ELIMINAR ??
 		return ;
 	}
@@ -81,10 +86,7 @@ static void	cd_home(t_mini *mini)
 
 void	ft_built_cd(char **args, t_mini *mini)
 {
-	//char	*output;
-	//char	*temp;
-	int		argc;
-	//char	*path;
+	int	argc;
 
 	argc = 0;
 	while (args[argc])
@@ -99,19 +101,4 @@ void	ft_built_cd(char **args, t_mini *mini)
 		cd_home(mini);
 	else if (argc == 2)
 		cd_arg(args, mini);
-	/* path = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-	ft_export_env(path, mini);
-	free(path);
-	output = getcwd(NULL, 0);
-	//if (!output)
-	temp = ft_strjoin(output, "/");
-	free(output);
-	output = ft_strjoin(temp, args[1]);
-	free(temp);
-	if (chdir(output) == -1)
-		printf("minishell: cd: %s: No such file or directory\n", args[1]);
-	output = getcwd(NULL, 0);
-	//if (!output)
-	ft_export_env(ft_strjoin("PWD=", output), mini);
-	free(output); */
 }
