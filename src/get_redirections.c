@@ -12,6 +12,24 @@
 
 #include "../include/minishell.h"
 
+/*void	set_here_doc(int fd, t_pipes *iter_pipes, t_mini *mini)
+{
+	//primero abre here_doc luego escribe que se ha roto
+	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
+	{
+		close(fd);
+		return ;
+	}
+	if (iter_pipes->inf_pipe != 0)
+		close(iter_pipes->inf_pipe);
+	iter_pipes->inf_pipe = fd;
+	if (iter_pipes->inf_pipe < 0)
+	{
+		printf("minishell: Error opening here_doc\n");
+		ft_export_env("?=1", mini);
+	}
+}
+
 void	set_infile(t_params *iter_params, t_pipes *iter_pipes, t_mini *mini)
 {
 	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
@@ -104,7 +122,7 @@ void	get_redirections(t_args *args, t_mini *mini)
 		}
 		iter_params = iter_params->next;
 	}
-}
+}*/
 
 /*
 pipe redir

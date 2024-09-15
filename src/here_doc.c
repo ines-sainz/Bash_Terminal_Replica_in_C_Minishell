@@ -185,21 +185,3 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 	}
 	return (here_doc_fds);
 }
-
-void	set_here_doc(int fd, t_pipes *iter_pipes, t_mini *mini)
-{
-	//primero abre here_doc luego escribe que se ha roto
-	if (iter_pipes->inf_pipe < 0 || iter_pipes->outf_pipe < 0)
-	{
-		close(fd);
-		return ;
-	}
-	if (iter_pipes->inf_pipe != 0)
-		close(iter_pipes->inf_pipe);
-	iter_pipes->inf_pipe = fd;
-	if (iter_pipes->inf_pipe < 0)
-	{
-		printf("minishell: Error opening here_doc\n");
-		ft_export_env("?=1", mini);
-	}
-}
