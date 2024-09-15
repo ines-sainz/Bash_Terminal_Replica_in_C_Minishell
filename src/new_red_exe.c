@@ -200,15 +200,22 @@ void	fill_pipe(t_execution *iter_exe)
 	int	pipe_fds[2];
 
 	pipe(pipe_fds);
-	if (iter_exe->outf_pipe < 0 || iter_exe->outf_pipe != 1)
-		close(pipe_fds[1]);
-	else
+	printf("inf %i, outf %i", pipe_fds[0], pipe_fds[1]);
+	if (iter_exe->outf_pipe == 1)
 		iter_exe->outf_pipe = pipe_fds[1];
+	else if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe > 0)
+	{
+		close(pipe_fds[1]);
+		iter_exe->outf_pipe = pipe_fds[1];
+	}
 	iter_exe = iter_exe->next;
-	if (iter_exe->inf_pipe < 0 || iter_exe->inf_pipe != 0)
-		close(pipe_fds[0]);
-	else
+	if (iter_exe->inf_pipe == 0)
 		iter_exe->inf_pipe = pipe_fds[0];
+	if (iter_exe->inf_pipe > 0)
+	{
+		close(pipe_fds[0]);
+		iter_exe->inf_pipe = pipe_fds[0];
+	}
 }
 
 void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini)
@@ -257,18 +264,26 @@ int	red(t_args *args, t_mini *mini)
 	return (0);
 }
 
-int	len_matrix(t_params *iter_params)
+/*int	len_matrix(t_params *iter_params)
 {
-	int	len;
+	int			len; //es el número de el comando más todo lo que hay detrás
 
 	len = 0;
-	while (iter_params != NULL && iter_params->type != PIPE)
+	while (iter_params != NULL)
 	{
-		if (iter_params->type == BUILTING || iter_params->type == CMD || iter_params->type == PARAMS)
-			len++;
-		iter_params = iter_params->next;
+		if (temp->type == PIPE)
+			break ;
+		if (temp->type == BUILTING || temp->type == CMD
+			|| temp->type == PARAMS)
+		{
+			n_commands++;
+		}
+		else if (temp)
+			temp = temp->next;
+		if (temp)
+			temp = temp->next;
 	}
-	return (len);
+	return (n_commands);
 }
 
 void	fill_exe_command(t_params *iter_params, t_execution *iter_exe)
@@ -279,18 +294,101 @@ void	fill_exe_command(t_params *iter_params, t_execution *iter_exe)
 	{
 		i = 0;
 		iter_exe->command = malloc((len_matrix(iter_params) + 1) * sizeof(char *));
-		iter_exe->type = iter_params->type;
-		while (iter_params != NULL && iter_params->type != PIPE)
+		while (iter_params != NULL)
 		{
-			if (iter_params->type == BUILTING || iter_params->type == CMD || iter_params->type == PARAMS)
+			if (iter_params->type == INFILE || iter_params->type == OUTFILE || iter_params->type == APPEND
+				|| iter_params->type == HERE_DOC)
 			{
+				iter_params = iter_params->next;
+				iter_params = iter_params->next;
+			}
+			if (iter_params->type == PIPE)
+				break ;
+			if (iter_params)
+			{
+				iter_exe->type = iter_params->type;
 				iter_exe->command[i] = ft_strdup(iter_params->content);
 				i++;
+				iter_params = iter_params->next;
 			}
-			iter_params = iter_params->next;
 		}
 		iter_exe->command[i] = NULL;
-		iter_exe = iter_exe->next;
+		if (iter_params)
+			iter_params = iter_params->next;
+	}
+}
+*/
+
+int	get_len_matrix(t_params *iter)
+{
+	t_params	*temp;
+	int			n_commands; //es el número de el comando más todo lo que hay detrás
+
+	temp = iter;
+	n_commands = 0;
+	while (temp != NULL)
+	{
+		if (temp->type == PIPE)
+			break ;
+		if (temp->type == BUILTING || temp->type == CMD
+			|| temp->type == PARAMS)
+		{
+			n_commands++;
+		}
+		else if (temp)
+			temp = temp->next;
+		if (temp)
+			temp = temp->next;
+	}
+	return (n_commands);
+}
+
+
+char	**make_param_matrix(t_params **iter, int i)
+{
+	char		**param_matrix;
+	int			j;
+
+	param_matrix = ft_calloc((get_len_matrix(*iter) + 1), sizeof(char *));
+	if (!param_matrix)
+		return (0);
+	while (*iter != NULL)
+	{
+		if ((*iter)->type == PIPE)
+			break ;
+		if ((*iter)->type == BUILTING || (*iter)->type == CMD
+			|| (*iter)->type == PARAMS)
+		{
+			param_matrix[i] = ft_calloc((ft_strlen((*iter)->content) + 1), 1);
+			if (!param_matrix[i])
+				return (0);
+			j = 0;
+			while ((*iter)->content[j])
+			{
+				param_matrix[i][j] = (*iter)->content[j];
+				j++;
+			}
+			i++;
+		}
+		else
+			(*iter) = (*iter)->next;
+		(*iter) = (*iter)->next;
+	}
+	return (param_matrix);
+}
+
+void	fill_exe(t_params *iter_params, t_execution *iter_exe)
+{
+	int	i;
+
+	while (iter_params != NULL)
+	{
+		if (iter_params->type != PIPE)
+		{
+			i = 0;
+			iter_exe->command = make_param_matrix(&iter_params, i);
+			iter_exe = iter_exe->next;
+		}
 		if (iter_params)
 			iter_params = iter_params->next;
 	}
@@ -303,7 +401,8 @@ void	exe(t_args *args, t_mini *mini)
 
 	iter_exe = mini->exe_command;
 	iter_params = args->params;
-	fill_exe_command(iter_params, iter_exe);
+	fill_exe(iter_params, iter_exe);
+	//fill_exe_command(iter_params, iter_exe);
 }
 
 void	close_inf_outf(t_mini *mini)
@@ -351,6 +450,5 @@ int	new_red_exe(t_args *args, t_mini *mini)
 		iter = iter->next;
 	}
 	//ejecutar aquí en medio
-	close_inf_outf(mini);
 	return (0);
 }
