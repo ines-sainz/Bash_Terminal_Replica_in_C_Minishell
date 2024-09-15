@@ -116,18 +116,29 @@ typedef enum s_bool
 	int	outf;
 }	t_fd;*/
 
-typedef struct s_pipes
+typedef struct s_pipes//
 {
 	int				num_command;
 	int				inf_pipe;
 	int				outf_pipe;
 	struct s_pipes	*next;
-}		t_pipes;
+}		t_pipes;//
+
+typedef struct	s_execution
+{
+	int					n_command;
+	char				**command;
+	t_param_type		type;
+	int					inf_pipe;
+	int					outf_pipe;
+	struct s_execution	*next;
+}						t_execution;
 
 typedef struct s_mini
 {
 	char	*user_prompt;
-	t_pipes	*first_pipe;
+	t_execution	*exe_command;
+	t_pipes	*first_pipe;//
 	int		n_here_docs;
 	t_list	*here_doc_files;
 	int		n_commands;
@@ -291,6 +302,7 @@ void		execute(char **command, t_args *args, int num_command, pid_t *num_fork);
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
 int			redirector(t_args *args, t_mini *mini);
+int	new_red_exe(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					CREATE_PIPES.C					//
