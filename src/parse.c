@@ -46,7 +46,7 @@ int	ft_tokenize(t_args *args, t_mini *mini)
 	return (OK);
 }
 
-void	close_fds(t_mini *mini)
+/*void	close_fds(t_mini *mini)
 {
 	t_pipes	*pipe_iter;
 	t_list	*temp_here_doc;
@@ -67,7 +67,7 @@ void	close_fds(t_mini *mini)
 		temp_here_doc = temp_here_doc->next;
 	}
 	ft_lstclear(&mini->here_doc_files, free);
-}
+}*/
 
 int	parse(t_args *args, t_mini *mini)
 {
@@ -100,11 +100,12 @@ int	parse(t_args *args, t_mini *mini)
 	}
 	//switch_to_delimiter(args);
 	update_last_command_env_var(args);
-	if (redirector(args, mini) == 1)
+	new_red_exe(args, mini);
+	/*if (redirector(args, mini) == 1)
 		return (ERR);
 	executor(args);
 	close_fds(mini);
-	//unlink("temp.txt"); cerrar los fds 
+	//unlink("temp.txt"); cerrar los fds */
 	printf("Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
