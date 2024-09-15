@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	get_len_matrix(t_params *iter)
+/*int	get_len_matrix(t_params *iter)
 {
 	t_params	*temp;
 	int			n_commands; //es el número de el comando más todo lo que hay detrás
@@ -79,6 +79,7 @@ void	executor(t_args *args)
 	char		**param_matrix;
 	//pid_t		*num_fork; //INES
 	int			i;//no necesario
+	//int		status;
 	int			num_command;
 
 	num_command = 1;
@@ -102,7 +103,10 @@ void	executor(t_args *args)
 		if (iter)
 			iter = iter->next;
 	}
-}
+	//	while (waitpid(-1, &status, 0) != -1)
+//		continue ;
+//	status = WEXITSTATUS(status);
+}*/
 
 /*
 cat <hola.txt  > /dev/stdout -e
