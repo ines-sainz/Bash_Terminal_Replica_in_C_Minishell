@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/04 21:51:56 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:07:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	signal_sigint(int sig)
 	//(void)sig;
 	g_signal_received = sig;
 	//printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
-	printf("\n");
+	//printf("\n");
+	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -194,6 +195,7 @@ int	main(int argc, char **argv, char **env)
 	// Bucle principal del shell
 	while (1)
 	{
+		g_signal_received = 0;
 		args.input = readline(mini.user_prompt);
 		if (!args.input)
 		{
