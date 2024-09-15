@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/12 22:57:37 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:57:35 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,12 @@ static char	*next_is_number_or_valid(t_args *args, size_t *i, size_t *j)
 	char	next_char;
 	int		start;
 
-	// Check if the next character is a special character or digit
 	next_char = args->arg[*i];
-	if (!ft_isalpha(next_char) && next_char != '_')
+	// Check if the next character is a number or *
+	if (ft_isdigit(next_char) || next_char == '*')
+		(*i)++;
+	// Check if the next character is a special character or digit
+	else if (!ft_isalpha(next_char) && next_char != '_')
 	{
 		args->result[(*j)++] = '$'; // Keep the $ symbol as a literal
 		args->result[(*j)++] = next_char; // Keep the special character
