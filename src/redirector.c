@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static int	redirector_syntax_errors(int i, char *red_content, t_args *args)
+/*static int	redirector_syntax_errors(int i, char *red_content, t_args *args)
 {
 	if (i == 1)
 		printf("minishell: syntax error near unexpected token `|'\n"); //es el 2 $?
@@ -23,7 +23,7 @@ static int	redirector_syntax_errors(int i, char *red_content, t_args *args)
 	else if (i == 4)
 		printf("minishell: syntax error near unexpected token `%s'\n", red_content);
 	//actualizar el $? con el numerro
-	ft_export_env("?=1", args->mini);
+	ft_export_env("?=2", args->mini);
 	return (ERR);
 }
 
@@ -75,9 +75,10 @@ int	redirector(t_args *args, t_mini *mini)
 	get_redirections(args, mini);
 	printf("after redirections:\n");
 	print_pipes(mini);
-	/*if (n_command == 1)
-		execute_one();
-	else
-		execute_pipex();*/
+	//if (n_command == 1)
+	//	execute_one();
+	//else
+	//	execute_pipex();
 	return (0);
 }
+*/
