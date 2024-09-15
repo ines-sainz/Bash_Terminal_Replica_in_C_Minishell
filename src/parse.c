@@ -101,6 +101,7 @@ int	parse(t_args *args, t_mini *mini)
 	//switch_to_delimiter(args);
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
+	close_inf_outf(mini);
 	/*if (redirector(args, mini) == 1)
 		return (ERR);
 	executor(args);
