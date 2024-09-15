@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/15 08:21:11 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:17:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,113 @@ char	*ft_get_eof(char *eof)
 	return (eof_fin);
 }
 
+/* void signal_here_doc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\nHere-doc interrupted (Ctrl-C)\n");
+		rl_replace_line("", 0);  // Limpiar la línea actual
+		close(STDIN_FILENO);     // Cerrar stdin para interrumpir el here_doc
+	}
+} */
+
+void signal_here_doc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_signal_received = SIGINT;
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		rl_done = 1;
+	}
+}
+
 int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
+{
+	t_args	here_doc;
+
+	(void)buffer;
+	ft_bzero(&here_doc, sizeof(t_args));
+	here_doc.mini = mini;
+	signal(SIGINT, signal_here_doc);
+	g_signal_received = 0;
+	while (1)
+	{
+		// Verificar si se recibió SIGINT
+		if (g_signal_received == SIGINT)
+			break ;
+		//write(1, ">", 1);
+		here_doc.arg = readline("> ");
+		if (g_signal_received == SIGINT)
+		{
+			free(here_doc.arg);
+			break ;
+		}
+		if (!ft_strncmp(ft_get_eof(eof), here_doc.arg, ft_strlen(here_doc.arg)))
+		{
+			free(here_doc.arg);
+			break ;
+		}
+		//aqui hay que expandir despues de comparar
+		expander(&here_doc, mini);
+		printf("expanded_arg => %s\n", here_doc.result);
+		write(fd, here_doc.result, ft_strlen(here_doc.result)); //aqui hay que cambiaar n_bytes por el len de la expansion
+		write(fd, "\n", 1); //aqui hay que cambiaar n_bytes por el len de la expansion
+		free(here_doc.arg);
+		free(here_doc.result);
+	}
+	signal(SIGINT, signal_sigint);
+	if (g_signal_received == SIGINT)
+		return (1);
+	return (0);
+}
+
+/* int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 {
 	int		n_bytes;
 	t_args	here_doc;
-	//char	*expanded_arg;
 
+	// Guardar los manejadores de señales originales
+	// void (*old_sigint_handler)(int);
+	// void (*old_sigquit_handler)(int);
+
+	// Configurar los nuevos manejadores
+	// old_sigint_handler = signal(SIGINT, signal_here_doc);  // Cambiar SIGINT para el here_doc
+	// old_sigquit_handler = signal(SIGQUIT, SIG_IGN);  // Ignorar SIGQUIT
 	ft_bzero(&here_doc, sizeof(t_args));
 	here_doc.mini = mini;
-	(void)mini;
+	signal(SIGINT, signal_here_doc);
+	g_signal_received = 0;
 	while (1)
 	{
+		// Verificar si se recibió SIGINT
+		if (g_signal_received == SIGINT)
+			break;
 		write(1, ">", 1);
 		n_bytes = read(STDIN_FILENO, buffer, 1024);
-		if (n_bytes == 0)
-			break ;
-		else if (n_bytes < 0)
+		if (n_bytes < 0)
 		{
-			close(fd);
-			return (1);
+			if (errno == EINTR && g_signal_received == SIGINT)
+			{
+				// Si read() fue interrumpido por SIGINT, salir del bucle
+				break;
+			}
+			else
+			{
+				// Otro error en read(), salir con error
+				perror("read error");
+				break;
+			}
 		}
+		// if (n_bytes == 0)
+		// 	break ;
+		// else if (n_bytes < 0)
+		// {
+		// 	close(fd);
+		// 	return (1);
+		// }
 		buffer[n_bytes] = '\0';
 		if (!ft_strncmp(ft_get_eof(eof), buffer, n_bytes))
 			break ;
@@ -61,8 +148,15 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 		write(fd, here_doc.result, ft_strlen(here_doc.result)); //aqui hay que cambiaar n_bytes por el len de la expansion
 		free(here_doc.result);
 	}
+	// Restaurar los manejadores de señales originales
+	// signal(SIGINT, old_sigint_handler);
+	// signal(SIGQUIT, old_sigquit_handler);
+	// Si se recibió SIGINT, retorna un error
+	signal(SIGINT, signal_sigint);
+	if (g_signal_received == SIGINT)
+		return (1);
 	return (0);
-}
+} */
 
 /* int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 {
