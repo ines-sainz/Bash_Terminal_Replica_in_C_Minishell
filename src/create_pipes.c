@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	print_pipes(t_mini *mini)
+/*void	print_pipes(t_mini *mini)
 {
 	t_pipes	*iter;
 
@@ -88,3 +88,4 @@ void	create_pipes(int n_command, t_mini *mini)
 		i++;
 	}
 }
+*/
