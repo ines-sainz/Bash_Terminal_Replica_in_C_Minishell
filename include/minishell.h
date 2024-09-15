@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/14 21:19:42 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:23:17 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ typedef struct s_args
 //////////////////////////////////////////////////////
 //						MAIN.C						//
 //////////////////////////////////////////////////////
+void		signal_sigint(int sig);
 void		free_at_exit(t_args *args);
 //int		main(void);
 
