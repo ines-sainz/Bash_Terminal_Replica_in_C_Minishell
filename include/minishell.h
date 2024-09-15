@@ -303,6 +303,7 @@ void		execute(char **command, t_args *args, int num_command, pid_t *num_fork);
 //////////////////////////////////////////////////////
 int			redirector(t_args *args, t_mini *mini);
 int	new_red_exe(t_args *args, t_mini *mini);
+void	close_inf_outf(t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					CREATE_PIPES.C					//
