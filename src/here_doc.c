@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/06 19:53:14 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/15 08:21:11 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ char	*ft_get_eof(char *eof)
 
 int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 {
-	int	n_bytes;
+	int		n_bytes;
+	t_args	here_doc;
+	//char	*expanded_arg;
 
+	ft_bzero(&here_doc, sizeof(t_args));
+	here_doc.mini = mini;
 	(void)mini;
 	while (1)
 	{
@@ -43,10 +47,70 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 		if (!ft_strncmp(ft_get_eof(eof), buffer, n_bytes))
 			break ;
 		//aqui hay que expandir despues de comparar
-		write(fd, buffer, n_bytes); //aqui hay que cambiaar n_bytes por el len de la expansion
+		here_doc.arg = ft_strdup(buffer);
+		//here_doc.args[0] = ft_strdup(buffer);
+		//here_doc.args[1] = NULL;
+		//here_doc.input = ft_strdup(buffer);
+		//here_doc.in_single_quote = t_false;
+		// expanded_arg = expander(&here_doc, mini);
+		// printf("expanded_arg => %s\n", expanded_arg);
+		// write(fd, expanded_arg, ft_strlen(expanded_arg)); //aqui hay que cambiaar n_bytes por el len de la expansion
+		// free(expanded_arg);
+		expander(&here_doc, mini);
+		printf("expanded_arg => %s\n", here_doc.result);
+		write(fd, here_doc.result, ft_strlen(here_doc.result)); //aqui hay que cambiaar n_bytes por el len de la expansion
+		free(here_doc.result);
 	}
 	return (0);
 }
+
+/* int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
+{
+	int		n_bytes;
+	t_args	here_doc;
+	int		i;
+
+	ft_bzero(&here_doc, sizeof(t_args));
+	here_doc.mini = mini;
+	(void)mini;
+	while (1)
+	{
+		write(1, ">", 1);
+		n_bytes = read(STDIN_FILENO, buffer, 1024);
+		if (n_bytes == 0)
+			break ;
+		else if (n_bytes < 0)
+		{
+			close(fd);
+			return (1);
+		}
+		buffer[n_bytes] = '\0';
+		if (!ft_strncmp(ft_get_eof(eof), buffer, n_bytes))
+			break ;
+		//aqui hay que expandir despues de comparar
+		here_doc.input = ft_strdup(buffer);
+		if (ft_tokenize(&here_doc, mini) == ERR)
+			return (ERR);
+		printf("here_doc.argc ==> %i\n", here_doc.argc);
+		i = 0;
+		while (i < here_doc.argc)
+		{
+			if (here_doc.args[i])
+			{
+				printf("arg[%d]: %s\n", i, here_doc.args[i]);
+				printf("here_doc.args[%i] ==> %s\n", i, here_doc.args[i]);
+				printf("here_doc.quotes[%i] ==> %i\n", i,here_doc.quotes[i]);
+				free(here_doc.args[i]);
+				here_doc.args[i] = NULL;
+				here_doc.quotes[i] = t_false;
+
+			}
+			i++;
+		}
+		write(fd, buffer, n_bytes); //aqui hay que cambiaar n_bytes por el len de la expansion
+	}
+	return (0);
+} */
 
 char	*get_here_doc_file_name()
 {
