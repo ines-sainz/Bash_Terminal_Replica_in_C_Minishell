@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/12 23:39:55 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:19:42 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,8 @@ void		free_at_exit(t_args *args);
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
+//int			ft_tokenize(t_args *args, int *argc, t_mini *mini);
+int			ft_tokenize(t_args *args, t_mini *mini);
 int			parse(t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
