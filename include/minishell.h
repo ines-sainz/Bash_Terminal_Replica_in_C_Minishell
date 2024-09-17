@@ -116,14 +116,6 @@ typedef enum s_bool
 	int	outf;
 }	t_fd;*/
 
-typedef struct s_pipes//
-{
-	int				num_command;
-	int				inf_pipe;
-	int				outf_pipe;
-	struct s_pipes	*next;
-}		t_pipes;//
-
 typedef struct	s_execution
 {
 	int					n_command;
@@ -138,7 +130,6 @@ typedef struct s_mini
 {
 	char	*user_prompt;
 	t_execution	*exe_command;
-	t_pipes	*first_pipe;//
 	int		n_here_docs;
 	t_list	*here_doc_files;
 	int		n_commands;
@@ -294,27 +285,23 @@ void		ft_built_cd(char **args, t_mini *mini);
 // ╚═════════════════════════════════════════════.✵.═╝
 
 //////////////////////////////////////////////////////
-//					EXECUTOR.C						//
-//////////////////////////////////////////////////////
-void		executor(t_args *args);
-void		execute(char **command, t_args *args, int num_command, pid_t *num_fork);
-
-//////////////////////////////////////////////////////
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
-int			redirector(t_args *args, t_mini *mini);
 int	new_red_exe(t_args *args, t_mini *mini);
 void	close_inf_outf(t_mini *mini);
+int	create_execution_struct(t_mini *mini);
+void	fill_exe(t_params *iter_params, t_execution *iter_exe);
+void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini);
+int	errors_and_n_commands(t_params *iter, t_mini *mini);
 
-//////////////////////////////////////////////////////
-//					CREATE_PIPES.C					//
-//////////////////////////////////////////////////////
-void		create_pipes(int n_command, t_mini *mini);
-void		print_pipes(t_mini *mini);
+void	fill_pipe(t_execution *iter_exe);
+void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
+void	fill_append(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
+void	fill_here_doc(int fd, t_execution *iter_exe, t_mini *mini);
+void	fill_infile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //				GET_REDIRECTIONS.C					//
 //////////////////////////////////////////////////////
 void		get_redirections(t_args *args, t_mini *mini);
-void		set_here_doc(int fd, t_pipes *iter_pipes, t_mini *mini);
 int			*get_here_doc(t_params *iter_params, t_args *args);
