@@ -40,12 +40,12 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/ft_list_env.c \
 					$(SRC_DIR)/expander.c \
 					$(SRC_DIR)/list_of_params.c \
-					$(SRC_DIR)/executor.c \
-					$(SRC_DIR)/redirector.c \
-					$(SRC_DIR)/create_pipes.c \
-					$(SRC_DIR)/get_redirections.c \
 					$(SRC_DIR)/here_doc.c \
 					$(SRC_DIR)/new_red_exe.c \
+					$(SRC_DIR)/find_redirections.c \
+					$(SRC_DIR)/execution_matrix.c \
+					$(SRC_DIR)/execution_structure.c \
+					$(SRC_DIR)/redirector.c \
 					$(BUILTINS_DIR)/ft_built_ins.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c \
