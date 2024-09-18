@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/10 12:55:38 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/18 14:54:59 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*ft_find_env(t_mini *mini, char *find)
 {

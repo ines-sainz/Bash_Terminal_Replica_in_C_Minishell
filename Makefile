@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/18 14:43:23 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/18 15:02:07 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,8 @@ READFLAG		=	-lreadline
 SRC_DIR			=	src
 BUILTINS_DIR	=	src/built-ins
 PARSE_DIR		=	src/parse
+ENV_DIR			=	src/env
 SRC				=	$(SRC_DIR)/main.c \
-					$(SRC_DIR)/ft_env.c \
-					$(SRC_DIR)/ft_list_env.c \
 					$(SRC_DIR)/list_of_params.c \
 					$(SRC_DIR)/here_doc.c \
 					$(SRC_DIR)/new_red_exe.c \
@@ -54,7 +53,9 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(BUILTINS_DIR)/ft_cd.c \
 					$(PARSE_DIR)/parse.c \
 					$(PARSE_DIR)/ft_tokenize.c \
-					$(PARSE_DIR)/expander.c
+					$(PARSE_DIR)/expander.c \
+					$(ENV_DIR)/ft_env.c \
+					$(ENV_DIR)/ft_list_env.c
 
 OBJ				=	$(SRC:.c=.o)
 
