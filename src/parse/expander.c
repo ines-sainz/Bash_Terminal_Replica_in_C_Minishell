@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/15 16:57:35 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:43:09 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static char	*initilize_vars(t_args *args, t_bool *in_double_quotes, size_t *i, size_t *j)
 {
