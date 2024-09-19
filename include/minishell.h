@@ -133,6 +133,7 @@ typedef struct s_mini
 	int		n_here_docs;
 	t_list	*here_doc_files;
 	int		n_commands;
+	char	**env;
 	//t_fd	in_out;
 	int		nbr_env_nodes;
 	t_env	*env_first_node;
@@ -293,6 +294,7 @@ int	create_execution_struct(t_mini *mini);
 void	fill_exe(t_params *iter_params, t_execution *iter_exe);
 void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini);
 int	errors_and_n_commands(t_params *iter, t_mini *mini);
+int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args);
 
 void	fill_pipe(t_execution *iter_exe);
 void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
