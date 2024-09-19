@@ -186,6 +186,7 @@ int	main(int argc, char **argv, char **env)
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
+	mini.env = env;
 
 	//Get SHLVL
 	/* ft_export_env("MY_SHLVL=0", &mini);
