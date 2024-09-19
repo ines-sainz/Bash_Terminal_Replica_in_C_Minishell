@@ -43,6 +43,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/execution_matrix.c \
 					$(SRC_DIR)/execution_structure.c \
 					$(SRC_DIR)/redirector.c \
+					$(SRC_DIR)/start_executing.c \
 					$(BUILTINS_DIR)/ft_built_ins.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c \
