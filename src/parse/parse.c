@@ -80,8 +80,8 @@ int	parse(t_args *args, t_mini *mini)
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
 	printf("argc ==> %i\n", args->argc);
-	if (ft_built_ins(args, mini) == 1)
-		return (OK);
+//	if (ft_built_ins(args, mini) == 1)
+//		return (OK);
 	i = 0;
 	while (i < args->argc)
 	{
@@ -102,11 +102,6 @@ int	parse(t_args *args, t_mini *mini)
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
-	/*if (redirector(args, mini) == 1)
-		return (ERR);
-	executor(args);
-	close_fds(mini);
-	//unlink("temp.txt"); cerrar los fds */
 	printf("Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
