@@ -84,6 +84,7 @@ int	new_red_exe(t_args *args, t_mini *mini)
 		}
 		iter = iter->next;
 	}
-	//ejecutar aquí en medio
+	iter = mini->exe_command;
+	start_executing(iter, mini, args);
 	return (0);
 }
