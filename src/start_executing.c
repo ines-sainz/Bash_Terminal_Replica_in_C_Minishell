@@ -69,12 +69,48 @@ char	*get_path_command(char **kid, char **env, char *path_mid)
 	return (free(path_list), NULL);
 }
 
+void	create_env_matrix(t_mini *mini)
+{
+	char	*temp;
+	char	*var_temp;
+	char	*env_one_line;
+	int		i;
+
+	i = 0;
+	if (mini->env)
+	{
+		while (mini->env[i])
+		{
+			free(mini->env[i]);
+			i++;
+		}
+		free(mini->env);
+	}
+	env_one_line = NULL;
+	mini->env_iter = mini->env_first_node;
+	while (mini->env_iter != NULL)
+	{
+		temp = ft_strjoin(mini->env_iter->variable, "=");
+		var_temp = ft_strjoin(temp, mini->env_iter->content);
+		free(temp);
+		temp = ft_strjoin(var_temp, "\n");
+		free(var_temp);
+		var_temp = ft_strjoin(env_one_line, temp);
+		free(temp);
+		env_one_line = var_temp;
+		mini->env_iter = mini->env_iter->next;
+	}
+	mini->env = ft_split(env_one_line, '\n');
+	free(env_one_line);
+}
+
 int	execute(t_execution *iter_exe, t_mini *mini)
 {
 	char	*path_mid;
 	char	*path_command;
 	int		i;
 
+	create_env_matrix(mini);
 	if (iter_exe->inf_pipe != 0)
 	{
 		dup2(iter_exe->inf_pipe, 0);
@@ -140,7 +176,7 @@ int	check_built_ins(char **command, t_mini *mini, t_args *args)
 	}
 	if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
 	{
-		ft_built_exit(args, mini);
+		ft_built_exit(args, command, mini);
 		return (1);
 	}
 	return (0);
@@ -165,14 +201,16 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 			if (check_built_ins(iter_exe->command, mini, args) == 0)
 				execute(iter_exe, mini);
 			else
-			{
-				printf("sali del built_in\n");
 				exit (0);
-			}
 		}
+		if (iter_exe->inf_pipe != 0)
+			close(iter_exe->inf_pipe);
+		if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+			close(iter_exe->outf_pipe);
 		iter_exe = iter_exe->next;
 	}
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
+	// ft_export_env("?=55", mini); Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
