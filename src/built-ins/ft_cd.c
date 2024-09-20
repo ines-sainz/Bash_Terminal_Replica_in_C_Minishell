@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/13 19:56:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/19 09:50:30 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	cd_arg(char **args, t_mini *mini)
 			ft_export_env(output, mini);
 			free(output);
 			free(buffer);
-			//output = NULL;
-			//path = NULL;
 			//ft_export_env("?=0", mini); // ELIMINAR ??
 			return ;
 		}
@@ -77,8 +75,6 @@ static void	cd_home(t_mini *mini)
 		printf("PWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
-		//output = NULL;
-		//path = NULL;
 		//ft_export_env("?=0", mini); // ELIMINAR ??
 		return ;
 	}
