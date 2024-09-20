@@ -27,6 +27,7 @@ void	ft_built_pwd(char **args, t_mini *mini)
 	{
 		if (ft_find_env(mini, "PWD"))
 		{
+			printf("estoy en una carpeta que no existe\n");
 			cwd = ft_strdup(ft_find_env(mini, "PWD"));
 			printf("%s\n", cwd);
 			free (cwd);
