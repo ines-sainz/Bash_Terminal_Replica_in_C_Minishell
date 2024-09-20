@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/15 20:23:17 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:15:19 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,8 @@ void		ft_built_echo(char **args);
 //////////////////////////////////////////////////////
 //					FT_EXIT.C						//
 //////////////////////////////////////////////////////
-void		ft_built_exit(t_args *args, t_mini *mini);
+//void		ft_built_exit(t_args *args, t_mini *mini);
+void		ft_built_exit(t_args *args, char **exit_args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FT_EXPORT.C						//
