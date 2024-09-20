@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:24:26 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/10 13:02:11 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/19 08:56:38 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_built_unset(char **args, t_mini *mini)
 	argc = 0;
 	while (args[argc])
 		argc++;
-	if (argc == 1) //MIRAR
+	if (argc == 1)
 		return ;
 	i = 1;
 	while (args[i])
