@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/18 12:13:16 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/09/21 07:15:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 {
 	char	*path_mid;
 	char	*path_command;
-	int		i;
+	//int		i;
 
 	create_env_matrix(mini);
 	if (iter_exe->inf_pipe != 0)
@@ -123,18 +123,31 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 	}
 	path_mid = NULL;
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
-	if (path_command)
+	if (path_command && access(path_command, X_OK) == 0)
 	{
 		printf("execve-> path_command: %s\n", path_command);
+		execve(path_command, iter_exe->command, mini->env);
 	}
-	i = 0;
+	else
+	{
+		if (access(path_command, X_OK) != 0)
+		{
+			write(2, "minishell: Command: Permission denied\n", 39);
+			exit (127);
+		}
+		else
+		{
+			printf("minishell: Command: Not a directory\n");
+			exit (127);
+		}
+	}
+	/* i = 0;
 	while (iter_exe->command[i])
 	{
 		printf("execve com: %s\n", iter_exe->command[i]);
 		i++;
-	}
-	i = 0;
-	execve(path_command, iter_exe->command, mini->env);
+	} */
+	//i = 0;
 	//returns y frees
 	return (127);
 }
