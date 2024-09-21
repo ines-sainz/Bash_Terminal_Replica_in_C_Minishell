@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/21 19:14:49 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:52:45 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,10 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 		pids[i++] = pid; // Guardar el PID en el array
 		if (pid == 0)
 		{
+			/* if (iter_exe->inf_pipe != 0)
+				close(iter_exe->inf_pipe);
+			if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+				close(iter_exe->outf_pipe); */
 			if (check_built_ins(iter_exe->command, mini, args) == 0)
 				execute(iter_exe, mini);
 			else
