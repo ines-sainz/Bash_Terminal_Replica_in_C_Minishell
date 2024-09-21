@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/15 20:17:15 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/21 08:47:04 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			free(here_doc.arg);
 			break ;
 		}
-		if (!ft_strncmp(ft_get_eof(eof), here_doc.arg, ft_strlen(here_doc.arg)))
+		if (!ft_strncmp(ft_get_eof(eof), here_doc.arg, ft_strlen(here_doc.arg))
+			&& ft_strlen(here_doc.arg) > 0)
 		{
 			free(here_doc.arg);
 			break ;
