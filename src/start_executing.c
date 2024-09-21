@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/21 07:15:54 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:12:05 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,10 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	pid_t	pid;
 	int		status;
+	pid_t	pids[mini->n_commands]; // Array para almacenar los PID de cada proceso
+	int		i;
 
+	i = 0;
 	while (iter_exe != NULL)
 	{
 		if (mini->n_commands == 1)
@@ -208,22 +211,39 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 				return (0);
 		}
 		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork failed");
+			exit(EXIT_FAILURE);
+		}
 		printf("pid: %i\n", pid);
+		pids[i++] = pid; // Guardar el PID en el array
 		if (pid == 0)
 		{
+			if (iter_exe->inf_pipe != 0)
+				close(iter_exe->inf_pipe);
+			if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+				close(iter_exe->outf_pipe);
 			if (check_built_ins(iter_exe->command, mini, args) == 0)
 				execute(iter_exe, mini);
 			else
 				exit (0);
 		}
-		if (iter_exe->inf_pipe != 0)
+		/* if (iter_exe->inf_pipe != 0)
 			close(iter_exe->inf_pipe);
 		if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-			close(iter_exe->outf_pipe);
+			close(iter_exe->outf_pipe); */
 		iter_exe = iter_exe->next;
 	}
-	while (waitpid(-1, &status, 0) != -1)
-		continue ;
+	i = 0;
+	while(i < mini->n_commands)
+	{
+		if (waitpid(pids[i], &status, 0) == -1)
+			perror("waitpid failed");
+		i++;
+	}
+	/* while (waitpid(-1, &status, 0) != -1)
+		continue ; */
 	// ft_export_env("?=55", mini); Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
