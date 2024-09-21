@@ -33,6 +33,11 @@ char	*ft_get_eof(char *eof)
 	}
 } */
 
+int	event(void)
+{
+	return (0);
+}
+
 void signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
@@ -57,10 +62,10 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	g_signal_received = 0;
 	while (1)
 	{
+		rl_event_hook=event;
 		// Verificar si se recibió SIGINT
 		if (g_signal_received == SIGINT)
 			break ;
-		//write(1, ">", 1);
 		here_doc.arg = readline("> ");
 		if (g_signal_received == SIGINT)
 		{
