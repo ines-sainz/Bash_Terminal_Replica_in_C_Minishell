@@ -47,8 +47,11 @@ char	*get_path_command(char **kid, char **env, char *path_mid)
 	char	**path_list;
 
 	if (ft_strchr(kid[0], '/'))
+	{
 		if (access(kid[0], X_OK) == 0)
 			return (ft_strdup(kid[0]));
+		return (0);
+	}
 	i = -1;
 	while (env[++i])
 	{
@@ -116,7 +119,7 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 		dup2(iter_exe->inf_pipe, 0);
 		close(iter_exe->inf_pipe);
 	}
-	if (iter_exe->outf_pipe != 1)
+	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
 	{
 		dup2(iter_exe->outf_pipe, 1);
 		close(iter_exe->outf_pipe);
@@ -152,46 +155,56 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 	return (127);
 }
 
-int	check_built_ins(char **command, t_mini *mini, t_args *args)
+void	check_built_ins(char **command, t_execution *iter_exe, t_mini *mini, t_args *args)
+{
+	int	len;
+
+	if (iter_exe->inf_pipe != 0)
+	{
+		dup2(iter_exe->inf_pipe, 0);
+		close(iter_exe->inf_pipe);
+	}
+	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+	{
+		dup2(iter_exe->outf_pipe, 1);
+		close(iter_exe->outf_pipe);
+	}
+	len = ft_strlen(command[0]);
+	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
+		ft_built_echo(command);
+	else if (ft_strncmp(command[0], "cd", len) == 0 && len == 2)
+		ft_built_cd(command, mini);
+	else if (ft_strncmp(command[0], "pwd", len) == 0 && len == 3)
+		ft_built_pwd(command, mini);
+	else if (ft_strncmp(command[0], "export", len) == 0 && len == 6)
+		ft_built_export(command, mini);
+	else if (ft_strncmp(command[0], "unset", len) == 0 && len == 5)
+		ft_built_unset(command, mini);
+	else if (ft_strncmp(command[0], "env", len) == 0 && len == 3)
+		ft_print_env(mini);
+	else if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
+		ft_built_exit(args, command, mini);
+}
+
+int	be_built_ins(char **command)
 {
 	int	len;
 
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
-	{
-		ft_built_echo(command);
 		return (1);
-	}
-	if (ft_strncmp(command[0], "cd", len) == 0 && len == 2)
-	{
-		ft_built_cd(command, mini);
+	else if (ft_strncmp(command[0], "cd", len) == 0 && len == 2)
 		return (1);
-	}
-	if (ft_strncmp(command[0], "pwd", len) == 0 && len == 3)
-	{
-		ft_built_pwd(command, mini);
+	else if (ft_strncmp(command[0], "pwd", len) == 0 && len == 3)
 		return (1);
-	}
-	if (ft_strncmp(command[0], "export", len) == 0 && len == 6)
-	{
-		ft_built_export(command, mini);
-		return(1);
-	}
-	if (ft_strncmp(command[0], "unset", len) == 0 && len == 5)
-	{
-		ft_built_unset(command, mini);
+	else if (ft_strncmp(command[0], "export", len) == 0 && len == 6)
 		return (1);
-	}
-	if (ft_strncmp(command[0], "env", len) == 0 && len == 3)
-	{
-		ft_print_env(mini);
+	else if (ft_strncmp(command[0], "unset", len) == 0 && len == 5)
 		return (1);
-	}
-	if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
-	{
-		ft_built_exit(args, command, mini);
+	else if (ft_strncmp(command[0], "env", len) == 0 && len == 3)
 		return (1);
-	}
+	else if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
+		return (1);
 	return (0);
 }
 
@@ -207,8 +220,13 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 	{
 		if (mini->n_commands == 1)
 		{
-			if (check_built_ins(iter_exe->command, mini, args) == 1)
+			if (be_built_ins(iter_exe->command) == 1)
+			{
+				check_built_ins(iter_exe->command, iter_exe, mini, args);
+				dup2(0, STDIN_FILENO);
+				dup2(1, STDOUT_FILENO);
 				return (0);
+			}
 		}
 		pid = fork();
 		if (pid == -1)
@@ -220,14 +238,13 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 		pids[i++] = pid; // Guardar el PID en el array
 		if (pid == 0)
 		{
-			/* if (iter_exe->inf_pipe != 0)
-				close(iter_exe->inf_pipe);
-			if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-				close(iter_exe->outf_pipe); */
-			if (check_built_ins(iter_exe->command, mini, args) == 0)
-				execute(iter_exe, mini);
-			else
+			if (be_built_ins(iter_exe->command) == 1)
+			{
+				check_built_ins(iter_exe->command, iter_exe, mini, args);
 				exit (0);
+			}
+			else
+				execute(iter_exe, mini);
 		}
 		if (iter_exe->inf_pipe != 0)
 			close(iter_exe->inf_pipe);
