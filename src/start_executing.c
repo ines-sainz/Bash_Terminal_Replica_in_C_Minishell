@@ -218,13 +218,20 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 	i = 0;
 	while (iter_exe != NULL)
 	{
+		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
+		{
+			if (iter_exe->inf_pipe > 0)
+				close(iter_exe->inf_pipe);
+			if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+				close(iter_exe->outf_pipe);
+			iter_exe = iter_exe->next;
+			continue ;
+		}
 		if (mini->n_commands == 1)
 		{
 			if (be_built_ins(iter_exe->command) == 1)
 			{
 				check_built_ins(iter_exe->command, iter_exe, mini, args);
-				dup2(0, STDIN_FILENO);
-				dup2(1, STDOUT_FILENO);
 				return (0);
 			}
 		}
