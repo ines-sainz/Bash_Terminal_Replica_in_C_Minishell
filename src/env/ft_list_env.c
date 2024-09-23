@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/18 14:54:59 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/23 14:31:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	ft_print_env(t_mini *mini)
 			continue ;
 		}
 		if (mini->env_iter->content)
-			printf("%s=%s\n", mini->env_iter->variable, mini->env_iter->content);
+			printf("%s=%s\n", mini->env_iter->variable,
+				mini->env_iter->content);
 		mini->env_iter = mini->env_iter->next;
 	}
 }
@@ -80,24 +81,24 @@ t_env	*env_new(char *env)
 {
 	t_env	*node;
 	int		i;
-	int		pos_equal;
+	int		equal;
 
 	i = 0;
-	pos_equal = 0;
+	equal = 0;
 	node = (t_env *)malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
 	while (env[i])
 	{
-		if (env[i] == '=' && pos_equal == 0)
-			pos_equal = i;
+		if (env[i] == '=' && equal == 0)
+			equal = i;
 		i++;
 	}
 	node->content = NULL;
-	if (pos_equal != 0)
+	if (equal != 0)
 	{
-		node->variable = ft_substr(env, 0, pos_equal);
-		node->content = ft_substr(env, pos_equal + 1, ft_strlen(env) - pos_equal + 1);
+		node->variable = ft_substr(env, 0, equal);
+		node->content = ft_substr(env, equal + 1, ft_strlen(env) - equal + 1);
 	}
 	else
 		node->variable = ft_substr(env, 0, ft_strlen(env));
