@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/20 11:15:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/23 13:45:36 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	its_only_numbers(char *str)
 	return (OK);
 }
 
-static void	multiple_args(t_args *args, char **exit_args, int argc, t_mini *mini)
+static void	multiple_args(t_args *args, char **exit_args,
+	int argc, t_mini *mini)
 {
 	int	nbr_atoi;
 	int	modulus;
