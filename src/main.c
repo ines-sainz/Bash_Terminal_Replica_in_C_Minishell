@@ -138,6 +138,7 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	//char	*user_prompt;
 	t_mini	mini;
+	int		standard_fds[2];
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -192,9 +193,14 @@ int	main(int argc, char **argv, char **env)
 	if (!ft_strcmp(getenv("SHLVL"), ft_find_env(&mini, "MY_SHLVL")));
 		ft_export_env("MY_SHLVL=1", &mini); */
 
+	//SET_STANDARD_FDS
+	standard_fds[0] = dup(STDIN_FILENO);
+	standard_fds[1] = dup(STDOUT_FILENO);
+
 	// Bucle principal del shell
 	while (1)
 	{
+		(dup2(standard_fds[0], STDIN_FILENO), dup2(standard_fds[1], STDOUT_FILENO));
 		g_signal_received = 0;
 		args.input = readline(mini.user_prompt);
 		if (!args.input)
