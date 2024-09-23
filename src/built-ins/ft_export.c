@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/10 11:11:26 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/23 14:24:23 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	ft_built_export(char **args, t_mini *mini)
 	if (argc == 1 || flag == 1)
 	{
 		count_nodes(mini);
-		printf("Number of nodes: %i\n", mini->nbr_env_nodes); // ELIMINAR
 		create_nodes_order(mini);
 		print_list(mini);
 		ft_export_env("?=0", mini);

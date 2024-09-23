@@ -6,18 +6,52 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/19 09:50:30 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/23 14:23:48 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
+{
+	buffer = getcwd(NULL, 0);
+	if (ft_strcmp(ft_find_env(mini, "PWD"), buffer) != 0)
+	{
+		path = getcwd(NULL, 0);
+		output = ft_strjoin("PWD=", path);
+		free(path);
+		printf("%s\n", output);
+		ft_export_env(output, mini);
+		free(output);
+		free(buffer);
+		ft_export_env("?=0", mini);
+		return ;
+	}
+	free(buffer);
+}
+
+static void	update_oldpwd(char *buffer, char *output, t_mini *mini)
+{
+	buffer = getcwd(NULL, 0);
+	if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
+	{
+		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
+		printf("%s\n", output);
+		ft_export_env(output, mini);
+		free(output);
+	}
+	free(buffer);
+}
+
 static void	cd_arg(char **args, t_mini *mini)
 {
+	char	*buffer;
 	char	*output;
 	char	*path;
-	char	*buffer;
 
+	buffer = NULL;
+	output = NULL;
+	path = NULL;
 	if (chdir(args[1]) == -1)
 	{
 		perror("minishell: cd");
@@ -26,29 +60,8 @@ static void	cd_arg(char **args, t_mini *mini)
 	}
 	else
 	{
-		buffer = getcwd(NULL, 0);
-		if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
-		{
-			output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-			printf("%s\n", output);
-			ft_export_env(output, mini);
-			free(output);
-		}
-		free(buffer);
-		buffer = getcwd(NULL, 0);
-		if (ft_strcmp(ft_find_env(mini, "PWD"), buffer) != 0)
-		{
-			path = getcwd(NULL, 0);
-			output = ft_strjoin("PWD=", path);
-			free(path);
-			printf("%s\n", output);
-			ft_export_env(output, mini);
-			free(output);
-			free(buffer);
-			//ft_export_env("?=0", mini); // ELIMINAR ??
-			return ;
-		}
-		free(buffer);
+		update_oldpwd(buffer, output, mini);
+		update_pwd(buffer, output, path, mini);
 	}
 }
 
@@ -75,7 +88,7 @@ static void	cd_home(t_mini *mini)
 		printf("PWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
-		//ft_export_env("?=0", mini); // ELIMINAR ??
+		ft_export_env("?=0", mini);
 		return ;
 	}
 }
