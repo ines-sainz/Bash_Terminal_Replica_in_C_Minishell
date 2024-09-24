@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/24 10:59:42 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/24 15:17:54 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ clean:
 	$(call print_green, "Cleaned minishell objects")
 
 fclean: clean
-	@rm -f $(LIBFT)
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
+#	@rm -f $(LIBFT)
 	@rm -f $(NAME)
 	$(call print_green, "Cleaned the library libft.a")
 	$(call print_green, "Cleaned minishell executable")
