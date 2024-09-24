@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
+#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/24 15:16:14 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/24 21:47:13 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,35 +75,31 @@ SRC			=	ft_isalpha.c \
 				ft_strcmp.c \
 				ft_strstr.c \
 				ft_isspace.c \
-				ft_strchr_int.c
+				ft_strchr_int.c \
+				ft_printf.c \
+				ft_dprintf.c \
+				ft_conversions.c \
+				ft_printf_utils.c
 #				ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)
 
-PRINTF_DIR	=	printf
-PRINTF		=	$(PRINTF_DIR)/libftprintf.a
-
 all: $(NAME)
 
-$(PRINTF):
-	@$(MAKE) -C $(PRINTF_DIR)
-
-$(NAME): $(OBJ) $(PRINTF) libft.h
-	@ar rc $(NAME) $(OBJ) $(PRINTF)
+$(NAME): $(OBJ) libft.h
+	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	$(call print_cyan,"Compiled libft")
 
 %.o: %.c libft.h
 #	@echo "Compilando $<..."
-	@$(CC) $(CFLAGS) -I$(PRINTF_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(MAKE) -C $(PRINTF_DIR) clean
 	@rm -f $(OBJ)
 	$(call print_green,"Cleaned object files of libft")
 
 fclean: clean
-	@$(MAKE) -C $(PRINTF_DIR) fclean
 	@rm -f $(NAME)
 	$(call print_green,"Cleaned the library libft.a")
 
