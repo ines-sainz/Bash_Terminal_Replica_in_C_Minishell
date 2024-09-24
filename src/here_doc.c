@@ -38,7 +38,7 @@ int	event(void)
 	return (0);
 }
 
-void signal_here_doc(int sig)
+void	signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -62,7 +62,7 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	g_signal_received = 0;
 	while (1)
 	{
-		rl_event_hook=event;
+		rl_event_hook = event;
 		// Verificar si se recibió SIGINT
 		if (g_signal_received == SIGINT)
 			break ;
@@ -78,11 +78,10 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			free(here_doc.arg);
 			break ;
 		}
-		//aqui hay que expandir despues de comparar
 		expander(&here_doc, mini);
-		printf("expanded_arg => %s\n", here_doc.result);
-		write(fd, here_doc.result, ft_strlen(here_doc.result)); //aqui hay que cambiaar n_bytes por el len de la expansion
-		write(fd, "\n", 1); //aqui hay que cambiaar n_bytes por el len de la expansion
+		printf("DB: expanded_arg => %s\n", here_doc.result);//
+		write(fd, here_doc.result, ft_strlen(here_doc.result));
+		write(fd, "\n", 1);
 		free(here_doc.arg);
 		free(here_doc.result);
 	}
@@ -102,8 +101,8 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	// void (*old_sigquit_handler)(int);
 
 	// Configurar los nuevos manejadores
-	// old_sigint_handler = signal(SIGINT, signal_here_doc);  // Cambiar SIGINT para el here_doc
-	// old_sigquit_handler = signal(SIGQUIT, SIG_IGN);  // Ignorar SIGQUIT
+	// old_sigint_handler = signal(SIGINT, signal_here_doc);//Cambiar SIGINT para el here_doc
+	// old_sigquit_handler = signal(SIGQUIT, SIG_IGN);//Ignorar SIGQUIT
 	ft_bzero(&here_doc, sizeof(t_args));
 	here_doc.mini = mini;
 	signal(SIGINT, signal_here_doc);
@@ -147,11 +146,11 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 		//here_doc.in_single_quote = t_false;
 		// expanded_arg = expander(&here_doc, mini);
 		// printf("expanded_arg => %s\n", expanded_arg);
-		// write(fd, expanded_arg, ft_strlen(expanded_arg)); //aqui hay que cambiaar n_bytes por el len de la expansion
+		// write(fd, expanded_arg, ft_strlen(expanded_arg));
 		// free(expanded_arg);
 		expander(&here_doc, mini);
 		printf("expanded_arg => %s\n", here_doc.result);
-		write(fd, here_doc.result, ft_strlen(here_doc.result)); //aqui hay que cambiaar n_bytes por el len de la expansion
+		write(fd, here_doc.result, ft_strlen(here_doc.result));
 		free(here_doc.result);
 	}
 	// Restaurar los manejadores de señales originales
