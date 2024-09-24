@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:28:19 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/23 14:24:52 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/24 11:35:18 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,12 @@ void	ft_built_echo(char **args)
 		argc++;
 	if (argc == 1)
 	{
-		printf("DB: echo devuelve:\n"); //Eliminar
 		printf("\n");
 		return ;
 	}
 	i = 1;
 	n_flag = 0;
 	detect_and_count_flag(args, &i, &n_flag);
-	printf("DB: echo devuelve: "); //Eliminar
 	if ((n_flag + 1) == argc)
 		return ;
 	print_echo_args(args, i, argc);
