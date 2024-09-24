@@ -6,22 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/18 14:42:57 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/24 14:29:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* static void	next_is_a_number(char **input_ptr, t_args *args)
-{
-	char	*next_char;
-
-	next_char = *input_ptr + 1;
-	if (ft_isdigit(*next_char) || *next_char == '*')
-		*input_ptr = next_char;
-	else
-		*args->arg_ptr++ = **input_ptr;
-} */
 
 static int	out_of_quotes(char **input_ptr, t_args *args,
 	int *argc, t_mini *mini)
@@ -33,11 +22,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		*args->arg_ptr = '\0';
 		expanded_arg = expander(args, mini);
 		if (expanded_arg)
-		{
 			args->args[(*argc)++] = expanded_arg;
-			//free(expanded_arg); // DESCOMENTAR??
-			//expanded_arg = NULL;
-		}
 		args->arg_ptr = args->arg;
 	}
 	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
@@ -89,7 +74,6 @@ static void	control_quotes(char *input_ptr, t_args *args, int *flag)
 {
 	if (*input_ptr == '\'' && !args->in_double_quote)
 	{
-		//printf("Entre comilla simple\n");
 		args->in_single_quote = !args->in_single_quote;
 		(*flag)++;
 		if (*flag % 2 != 0)
@@ -97,29 +81,12 @@ static void	control_quotes(char *input_ptr, t_args *args, int *flag)
 	}
 	else if (*input_ptr == '\"' && !args->in_single_quote)
 	{
-		//printf("Entre comilla doble\n");
 		args->in_double_quote = !args->in_double_quote;
 		(*flag)++;
 		if (*flag % 2 != 0)
 			args->quotes[args->argc] = !args->quotes[args->argc];
 	}
-	// printf("flag = %i\n", *flag);
-	// printf("args->quotes[%i] ==> %i\n", args->argc, args->quotes[args->argc]);
 }
-
-/* static void	verify_closed_quotes(t_args *args)
-{
-	if (args->in_single_quote)
-	{
-		*args->arg_ptr++ = '\'';
-		args->in_single_quote = t_false;
-	}
-	if (args->in_double_quote)
-	{
-		*args->arg_ptr++ = '\"';
-		args->in_double_quote = t_false;
-	}
-} */
 
 static int	verify_closed_quotes(t_args *args)
 {
@@ -133,15 +100,13 @@ static int	verify_closed_quotes(t_args *args)
 	return (OK);
 }
 
-int	add_to_args(t_args *args, int *argc, t_mini *mini)
+static int	loop_through_string(t_args *args, int *argc, t_mini *mini)
 {
 	char	*input_ptr;
-	char	*expander_arg;
 	int		flag;
 
-	flag = 0;
-	args->quotes[args->argc] = t_false;
 	input_ptr = args->input;
+	flag = 0;
 	while (*input_ptr)
 	{
 		control_quotes(input_ptr, args, &flag);
@@ -152,12 +117,20 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 			if (out_of_quotes(&input_ptr, args, argc, mini) == ERR)
 				return (ERR);
 		}
-		/* else if (*input_ptr == '$' && !args->in_single_quote)
-			next_is_a_number(&input_ptr, args); */
 		else
 			*args->arg_ptr++ = *input_ptr;
 		input_ptr++;
 	}
+	return (OK);
+}
+
+int	add_to_args(t_args *args, int *argc, t_mini *mini)
+{
+	char	*expander_arg;
+
+	args->quotes[args->argc] = t_false;
+	if (loop_through_string(args, argc, mini) == ERR)
+		return (ERR);
 	if (verify_closed_quotes(args) == ERR)
 		return (ERR);
 	if (args->arg_ptr != args->arg)
