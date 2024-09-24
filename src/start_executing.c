@@ -12,72 +12,9 @@
 
 #include "../include/minishell.h"
 
-char	*check_command(char **path_list, char *path_mid, char *kid)
+void	free_last_env(t_mini *mini)
 {
-	int		j;
-	int		i;
-	char	*path_fin;
-
-	j = -1;
-	while (path_list[++j])
-	{
-		path_mid = ft_strjoin(path_list[j], "/");
-		path_fin = ft_strjoin(path_mid, kid);
-		free(path_mid);
-		if (access(path_fin, X_OK) == 0)
-		{
-			i = 0;
-			while (path_list[i])
-			{
-				free(path_list[i]);
-				i++;
-			}
-			free(path_list);
-			return (path_fin);
-		}
-		free(path_fin);
-	}
-	return (NULL);
-}
-
-char	*get_path_command(char **kid, char **env, char *path_mid)
-{
-	int		i;
-	char	*path;
-	char	**path_list;
-
-	if (ft_strchr(kid[0], '/'))
-	{
-		if (access(kid[0], X_OK) == 0)
-			return (ft_strdup(kid[0]));
-		return (0);
-	}
-	i = -1;
-	while (env[++i])
-	{
-		if (!ft_strncmp("PATH=", env[i], 5))
-		{
-			path_list = ft_split(env[i], ':');
-			path = check_command(path_list, path_mid, kid[0]);
-			if (path)
-				return (path);
-		}
-	}
-	i = 0;
-	while (path_list[i])
-	{
-		free(path_list[i]);
-		i++;
-	}
-	return (free(path_list), NULL);
-}
-
-void	create_env_matrix(t_mini *mini)
-{
-	char	*temp;
-	char	*var_temp;
-	char	*env_one_line;
-	int		i;
+	int	i;
 
 	i = 0;
 	if (mini->env)
@@ -88,7 +25,17 @@ void	create_env_matrix(t_mini *mini)
 			i++;
 		}
 		free(mini->env);
+		mini->env = NULL;
 	}
+}
+
+void	create_env_matrix(t_mini *mini)
+{
+	char	*temp;
+	char	*var_temp;
+	char	*env_one_line;
+
+	free_last_env(mini);
 	env_one_line = NULL;
 	mini->env_iter = mini->env_first_node;
 	while (mini->env_iter != NULL)
@@ -107,13 +54,8 @@ void	create_env_matrix(t_mini *mini)
 	free(env_one_line);
 }
 
-int	execute(t_execution *iter_exe, t_mini *mini)
+void	dup_redirections(t_execution *iter_exe)
 {
-	char	*path_mid;
-	char	*path_command;
-	//int		i;
-
-	create_env_matrix(mini);
 	if (iter_exe->inf_pipe != 0)
 	{
 		dup2(iter_exe->inf_pipe, 0);
@@ -124,13 +66,19 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 		dup2(iter_exe->outf_pipe, 1);
 		close(iter_exe->outf_pipe);
 	}
+}
+
+int	execute(t_execution *iter_exe, t_mini *mini)
+{
+	char	*path_mid;
+	char	*path_command;
+
+	create_env_matrix(mini);
+	dup_redirections(iter_exe);
 	path_mid = NULL;
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
 	if (path_command && access(path_command, X_OK) == 0)
-	{
-		printf("execve-> path_command: %s\n", path_command);
 		execve(path_command, iter_exe->command, mini->env);
-	}
 	else
 	{
 		if (access(path_command, X_OK) != 0)
@@ -144,31 +92,16 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 			exit (127);
 		}
 	}
-	/* i = 0;
-	while (iter_exe->command[i])
-	{
-		printf("execve com: %s\n", iter_exe->command[i]);
-		i++;
-	} */
-	//i = 0;
 	//returns y frees
 	return (127);
 }
 
-void	check_built_ins(char **command, t_execution *iter_exe, t_mini *mini, t_args *args)
+int	check_built_ins(char **command, t_execution *iter_exe,
+	t_mini *mini, t_args *args)
 {
 	int	len;
 
-	if (iter_exe->inf_pipe != 0)
-	{
-		dup2(iter_exe->inf_pipe, 0);
-		close(iter_exe->inf_pipe);
-	}
-	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-	{
-		dup2(iter_exe->outf_pipe, 1);
-		close(iter_exe->outf_pipe);
-	}
+	dup_redirections(iter_exe);
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
 		ft_built_echo(command);
@@ -184,6 +117,7 @@ void	check_built_ins(char **command, t_execution *iter_exe, t_mini *mini, t_args
 		ft_print_env(mini);
 	else if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
 		ft_built_exit(args, command, mini);
+	return (0);
 }
 
 int	be_built_ins(char **command)
@@ -208,41 +142,38 @@ int	be_built_ins(char **command)
 	return (0);
 }
 
+t_execution	*close_redirections(t_execution *iter_exe)
+{
+	if (iter_exe->inf_pipe > 0)
+		close(iter_exe->inf_pipe);
+	if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+		close(iter_exe->outf_pipe);
+	return (iter_exe->next);
+}
+
+
+
 int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	pid_t	pid;
 	int		status;
-	pid_t	pids[mini->n_commands]; // Array para almacenar los PID de cada proceso
-	int		i;
 
-	i = 0;
 	while (iter_exe != NULL)
 	{
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
 		{
-			if (iter_exe->inf_pipe > 0)
-				close(iter_exe->inf_pipe);
-			if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-				close(iter_exe->outf_pipe);
-			iter_exe = iter_exe->next;
+			iter_exe = close_redirections(iter_exe);
 			continue ;
 		}
 		if (mini->n_commands == 1)
-		{
 			if (be_built_ins(iter_exe->command) == 1)
-			{
-				check_built_ins(iter_exe->command, iter_exe, mini, args);
-				return (0);
-			}
-		}
+				return (check_built_ins(iter_exe->command, iter_exe, mini, args));
 		pid = fork();
 		if (pid == -1)
 		{
 			perror("fork failed");
 			exit(EXIT_FAILURE);
 		}
-		printf("pid: %i\n", pid);
-		pids[i++] = pid; // Guardar el PID en el array
 		if (pid == 0)
 		{
 			if (be_built_ins(iter_exe->command) == 1)
@@ -253,21 +184,10 @@ int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args)
 			else
 				execute(iter_exe, mini);
 		}
-		if (iter_exe->inf_pipe != 0)
-			close(iter_exe->inf_pipe);
-		if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-			close(iter_exe->outf_pipe);
-		iter_exe = iter_exe->next;
+		iter_exe = close_redirections(iter_exe);
 	}
-	i = 0;
-	while(i < mini->n_commands)
-	{
-		if (waitpid(pids[i], &status, 0) == -1)
-			perror("waitpid failed");
-		i++;
-	}
-	/* while (waitpid(-1, &status, 0) != -1)
-		continue ; */
+	while (waitpid(-1, &status, 0) != -1)
+			continue ;
 	// ft_export_env("?=55", mini); Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
