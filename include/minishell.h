@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/20 11:15:19 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/24 10:59:48 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,12 @@ int			add_to_args(t_args *args, int *argc, t_mini *mini);
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
 char		*expander(t_args *args, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//				EXPANDER_UTILS.C					//
+//////////////////////////////////////////////////////
+char		*expand_vars(t_args *args, size_t *i, size_t *j, t_mini *mini);
+void		copy_chars_unless_its_quote(t_args *args, size_t *i, size_t *j);
 
 //////////////////////////////////////////////////////
 //				LIST_OF_PARAMS.C					//
