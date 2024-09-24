@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/18 15:02:07 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/24 10:59:42 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(PARSE_DIR)/parse.c \
 					$(PARSE_DIR)/ft_tokenize.c \
 					$(PARSE_DIR)/expander.c \
+					$(PARSE_DIR)/expander_utils.c \
 					$(ENV_DIR)/ft_env.c \
 					$(ENV_DIR)/ft_list_env.c
 
