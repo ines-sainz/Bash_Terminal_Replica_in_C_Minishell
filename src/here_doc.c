@@ -206,12 +206,12 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			}
 			i++;
 		}
-		write(fd, buffer, n_bytes); //aqui hay que cambiaar n_bytes por el len de la expansion
+		write(fd, buffer, n_bytes);
 	}
 	return (0);
 } */
 
-char	*get_here_doc_file_name()
+char	*get_here_doc_file_name(void)
 {
 	int		i;
 	char	*file_num;
