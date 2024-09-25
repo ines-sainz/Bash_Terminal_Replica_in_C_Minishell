@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:59:20 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/25 08:32:17 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/25 08:45:44 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <strings.h>
 # include <unistd.h>
 # include "printf/ft_printf.h"
+
+//va_list, va_start, va_arg, va_end
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -79,5 +82,29 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(char *haystack, char *needle);
 //size_t	*ft_strcspn(const char *s, const char *reject);
 int		ft_strchr_int(const char *s, int c);
+
+/****************************************/
+/*				ft_printf				*/
+/****************************************/
+int	ft_printf(char const *format, ...);
+
+/****************************************/
+/*				ft_dprintf				*/
+/****************************************/
+int	ft_dprintf(int fd, char const *format, ...);
+
+/****************************************/
+/*			ft_conversions.c			*/
+/****************************************/
+int	ft_conversions(va_list args, char *format, size_t *ctr, int fd);
+
+/****************************************/
+/*			ft_printf_utils.c			*/
+/****************************************/
+int	ft_putchar_printf(char c, size_t *ctr, int fd);
+int	ft_putnbr_printf(int n, size_t *ctr, int fd);
+int	ft_putstr_printf(char *str, size_t *ctr, int fd);
+int	ft_putunbr_printf(unsigned int n, size_t *ctr, int fd);
+int	ft_tohex_printf(unsigned long n, char *format, size_t *ctr, int fd);
 
 #endif

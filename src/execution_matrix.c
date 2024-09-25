@@ -15,7 +15,7 @@
 int	get_len_matrix(t_params *iter)
 {
 	t_params	*temp;
-	int			n_commands; //es el número de el comando más todo lo que hay detrás
+	int			n_commands;
 
 	temp = iter;
 	n_commands = 0;
@@ -36,11 +36,9 @@ int	get_len_matrix(t_params *iter)
 	return (n_commands);
 }
 
-
 char	**make_param_matrix(t_params **iter, int i)
 {
 	char		**param_matrix;
-	int			j;
 
 	param_matrix = ft_calloc((get_len_matrix(*iter) + 1), sizeof(char *));
 	if (!param_matrix)
@@ -52,15 +50,9 @@ char	**make_param_matrix(t_params **iter, int i)
 		if ((*iter)->type == BUILTING || (*iter)->type == CMD
 			|| (*iter)->type == PARAMS)
 		{
-			param_matrix[i] = ft_calloc((ft_strlen((*iter)->content) + 1), 1);
+			param_matrix[i] = ft_strdup((*iter)->content);
 			if (!param_matrix[i])
 				return (0);
-			j = 0;
-			while ((*iter)->content[j])
-			{
-				param_matrix[i][j] = (*iter)->content[j];
-				j++;
-			}
 			i++;
 		}
 		else

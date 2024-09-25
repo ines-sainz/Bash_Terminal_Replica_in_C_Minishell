@@ -302,6 +302,7 @@ void	fill_exe(t_params *iter_params, t_execution *iter_exe);
 void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini);
 int	errors_and_n_commands(t_params *iter, t_mini *mini);
 int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args);
+char	*get_path_command(char **kid, char **env, char *path_mid);
 
 void	fill_pipe(t_execution *iter_exe);
 void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);

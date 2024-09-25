@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_converions.c                                    :+:      :+:    :+:   */
+/*   ft_conversions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 17:00:02 by danjimen          #+#    #+#             */
-/*   Updated: 2024/04/06 17:00:02 by danjimen         ###   ########.fr       */
+/*   Created: 2024/09/24 21:43:04 by danjimen          #+#    #+#             */
+/*   Updated: 2024/09/24 21:43:04 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_conversions(va_list args, char *format, size_t *ctr, int fd)
 {

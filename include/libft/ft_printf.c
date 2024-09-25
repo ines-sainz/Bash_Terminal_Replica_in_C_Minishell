@@ -6,11 +6,11 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:17:43 by danjimen          #+#    #+#             */
-/*   Updated: 2024/04/06 17:29:02 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:46:04 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_printf(char const *format, ...)
 {

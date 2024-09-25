@@ -20,7 +20,6 @@ void	exe(t_args *args, t_mini *mini)
 	iter_exe = mini->exe_command;
 	iter_params = args->params;
 	fill_exe(iter_params, iter_exe);
-	//fill_exe_command(iter_params, iter_exe);
 }
 
 int	red(t_args *args, t_mini *mini)
@@ -54,7 +53,7 @@ void	close_inf_outf(t_mini *mini)
 			close(iter->outf_pipe);
 		iter = iter->next;
 	}
-		temp_here_doc = mini->here_doc_files;
+	temp_here_doc = mini->here_doc_files;
 	while (temp_here_doc != NULL)
 	{
 		unlink(temp_here_doc->content);
