@@ -66,6 +66,7 @@ int	new_red_exe(t_args *args, t_mini *mini)
 {
 	t_execution	*iter;
 	int			i;
+	int			status;
 
 	if (red(args, mini) == ERR)
 		return (ERR);
@@ -73,17 +74,18 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	iter = mini->exe_command;
 	while (iter != NULL)
 	{
-		printf("n_command: %i   inf: %i   outf: %i   type: %i\n",
+		printf("DB: n_command: %i   inf: %i   outf: %i   type: %i\n",
 			iter->n_command, iter->inf_pipe, iter->outf_pipe, iter->type);
 		i = 0;
 		while (iter->command[i])
 		{
-			printf("command = %s\n", iter->command[i]);
+			printf("DB: command = %s\n", iter->command[i]);
 			i++;
 		}
 		iter = iter->next;
 	}
 	iter = mini->exe_command;
-	start_executing(iter, mini, args);
+	status = 0;
+	start_executing(iter, status, mini, args);
 	return (0);
 }
