@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_conversions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 21:43:04 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/24 21:43:04 by danjimen         ###   ########.fr       */
+/*   Created: 2024/09/25 08:54:52 by danjimen &        #+#    #+#             */
+/*   Updated: 2024/09/25 08:54:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_conversions(va_list args, char *format, size_t *ctr, int fd)
 {
