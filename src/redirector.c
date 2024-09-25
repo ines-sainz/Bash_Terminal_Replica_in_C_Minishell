@@ -29,7 +29,7 @@ int	syntax_errors(int i, char *redir_content, t_mini *mini)
 int	errors_and_n_commands(t_params *iter, t_mini *mini)
 {
 	if (iter->type == '|')
-		return(syntax_errors(1, iter->content, mini));
+		return (syntax_errors(1, iter->content, mini));
 	while (iter != NULL)
 	{
 		if (iter->type == INFILE || iter->type == OUTFILE
@@ -55,7 +55,8 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 	return (0);
 }
 
-void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini)
+void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
+	t_args *args, t_mini *mini)
 {
 	int			*here_doc_fds;
 
