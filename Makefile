@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/24 15:24:32 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/25 08:33:27 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) -I$(LIBFT_DIR)/printf $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
+	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
 	$(call print_cyan, "Compiled minishell")
 
 %.o: %.c
