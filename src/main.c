@@ -23,13 +23,13 @@ void	free_at_exit(t_args *args)
 		free (args->input);
 		args->input = NULL;
 	}
-	// i = 0;
-	// if (args->args[i])
-	// {
-	// 	while (args->args[i])
-	// 		free (args->args[i++]);
-	// 	//free (args->args);
-	// }
+	/* i = 0;
+	if (args->args[i])
+	{
+		while (args->args[i])
+			free (args->args[i++]);
+		//free (args->args);
+	}*/
 	if (args->arg)
 	{
 		free (args->arg);
@@ -83,8 +83,8 @@ void	signal_sigint(int sig)
 {
 	//(void)sig;
 	g_signal_received = sig;
-	//printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
-	//printf("\n");
+	/*printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
+	printf("\n");*/
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -125,7 +125,7 @@ void	signal_sigquit(int sig)
 }
 
 // Manejo del EOF
-void handle_eof(void)
+void	handle_eof(void)
 {
 	g_signal_received = -1; // Usamos -1 para indicar EOF
 }
@@ -133,12 +133,12 @@ void handle_eof(void)
 // cc signals.c -lreadline
 int	main(int argc, char **argv, char **env)
 {
-	//char	*input;
 	t_args	args;
 	char	*entry;
-	//char	*user_prompt;
 	t_mini	mini;
 	int		standard_fds[2];
+	//char	*input;
+	//char	*user_prompt;
 
 	//Inicializar la estructura y el environment
 	ft_bzero(&args, sizeof(t_args));
@@ -170,12 +170,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, signal_sigquit);
 
-	//Built-ins
-	//printf("%s\n", expander("$INES"));
-//	printf("pwd: %s\n", buit_ins("pwd", "", &mini)); //funciona
-//	printf("env: %s\n", buit_ins("env", "", &mini)); //funciona
-//	printf("cd: %s\n", buit_ins("cd", "..", &mini));
-
 	//GET $$ = PID
 	// char	*itoa_pid;
 	// char	*pid_env;
@@ -200,7 +194,8 @@ int	main(int argc, char **argv, char **env)
 	// Bucle principal del shell
 	while (1)
 	{
-		(dup2(standard_fds[0], STDIN_FILENO), dup2(standard_fds[1], STDOUT_FILENO));
+		dup2(standard_fds[0], STDIN_FILENO);
+		dup2(standard_fds[1], STDOUT_FILENO);
 		g_signal_received = 0;
 		args.input = readline(mini.user_prompt);
 		if (!args.input)
@@ -226,11 +221,6 @@ int	main(int argc, char **argv, char **env)
 			args.last_history = ft_strdup(args.input);
 			add_history(args.input);
 		}
-		//IMPORTANTE actualizar el estado de las redirecciones
-		//Cuento que en este momento esté todo cerrado
-		//dup2(0, 0);
-		//dup2(1, 1);
-
 		// Procesar la entrada del usuario
 		// OJO: ft_strtrim utiliza malloc!!!!!
 		args.input_trimed = ft_strtrim(args.input, " \t\n\r\f\v");
@@ -246,7 +236,6 @@ int	main(int argc, char **argv, char **env)
 			if (parse(&args, &mini) == ERR)
 				free_at_exit(&args);
 		} */
-
 		free(args.input); // Liberar la memoria asignada por readline
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
