@@ -110,13 +110,7 @@ typedef enum s_bool
 	t_true,
 }	t_bool;
 
-/*typedef struct s_fd
-{
-	int	inf;
-	int	outf;
-}	t_fd;*/
-
-typedef struct	s_execution
+typedef struct s_execution
 {
 	int					n_command;
 	char				**command;
@@ -128,17 +122,16 @@ typedef struct	s_execution
 
 typedef struct s_mini
 {
-	char	*user_prompt;
+	char		*user_prompt;
 	t_execution	*exe_command;
-	int		n_here_docs;
-	t_list	*here_doc_files;
-	int		n_commands;
-	char	**env;
-	//t_fd	in_out;
-	int		nbr_env_nodes;
-	t_env	*env_first_node;
-	t_env	*env_iter;
-}	t_mini;
+	int			n_here_docs;
+	t_list		*here_doc_files;
+	int			n_commands;
+	char		**env;
+	int			nbr_env_nodes;
+	t_env		*env_first_node;
+	t_env		*env_iter;
+}				t_mini;
 
 typedef struct s_params
 {
@@ -216,7 +209,8 @@ void		copy_chars_unless_its_quote(t_args *args, size_t *i, size_t *j);
 //////////////////////////////////////////////////////
 void		update_last_command_env_var(t_args *args);
 void		del_params(t_args *args);
-t_params 	*add_argument_to_list(t_args *args, int *argc, t_bool *heredoc_found);
+t_params 	*add_argument_to_list(t_args *args, int *argc,
+				t_bool *heredoc_found);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					ENV FOLDER
@@ -289,29 +283,62 @@ void		ft_built_pwd(char **args, t_mini *mini);
 void		ft_built_cd(char **args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
-// 					EXECUTOR FOLDER
+//					REDIRECTOR FOLDER
 // ╚═════════════════════════════════════════════.✵.═╝
+
+//////////////////////////////////////////////////////
+//					NEW_RED_EXE.C					//
+//////////////////////////////////////////////////////
+int			new_red_exe(t_args *args, t_mini *mini);
+void		close_inf_outf(t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
-int	new_red_exe(t_args *args, t_mini *mini);
-void	close_inf_outf(t_mini *mini);
-int	create_execution_struct(t_mini *mini);
-void	fill_exe(t_params *iter_params, t_execution *iter_exe);
-void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe, t_args *args, t_mini *mini);
-int	errors_and_n_commands(t_params *iter, t_mini *mini);
-int	start_executing(t_execution *iter_exe, t_mini *mini, t_args *args);
-char	*get_path_command(char **kid, char **env, char *path_mid);
-
-void	fill_pipe(t_execution *iter_exe);
-void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
-void	fill_append(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
-void	fill_here_doc(int fd, t_execution *iter_exe, t_mini *mini);
-void	fill_infile(t_params *iter_params, t_execution *iter_exe, t_mini *mini);
+int			errors_and_n_commands(t_params *iter, t_mini *mini);
+void		fill_exe_redirections(t_params *iter_params,
+				t_execution *iter_exe, t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
-//				GET_REDIRECTIONS.C					//
+//				EXECUTION_STRUCTURE.C				//
 //////////////////////////////////////////////////////
-void		get_redirections(t_args *args, t_mini *mini);
+int			create_execution_struct(t_mini *mini);
+
+//////////////////////////////////////////////////////
+//						HERE_DOC.C					//
+//////////////////////////////////////////////////////
 int			*get_here_doc(t_params *iter_params, t_args *args);
+
+//////////////////////////////////////////////////////
+//				FIND_REDIRECTIONS.C					//
+//////////////////////////////////////////////////////
+void		fill_infile(t_params *iter_params,
+				t_execution *iter_exe, t_mini *mini);
+void		fill_here_doc(int fd, t_execution *iter_exe, t_mini *mini);
+void		fill_append(t_params *iter_params,
+				t_execution *iter_exe, t_mini *mini);
+void		fill_outfile(t_params *iter_params,
+				t_execution *iter_exe, t_mini *mini);
+void		fill_pipe(t_execution *iter_exe);
+
+//////////////////////////////////////////////////////
+//				START_EXECUTING.C					//
+//////////////////////////////////////////////////////
+int			start_executing(t_execution *iter_exe, int status,
+				t_mini *mini, t_args *args);
+
+//////////////////////////////////////////////////////
+//				EXECUTE_COMMANDS.C					//
+//////////////////////////////////////////////////////
+int			execute(t_execution *iter_exe, t_mini *mini);
+void		dup_redirections(t_execution *iter_exe);
+
+//////////////////////////////////////////////////////
+//					FIND_PATH.C						//
+//////////////////////////////////////////////////////
+char		*get_path_command(char **kid, char **env, char *path_mid);
+
+//////////////////////////////////////////////////////
+//					FIND_PATH.C						//
+//////////////////////////////////////////////////////
+void		fill_exe(t_params *iter_params, t_execution *iter_exe);
