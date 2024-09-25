@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/24 14:29:52 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/25 12:19:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	}
 	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
 	{
-		printf("minishell: syntax error: || it's not allowed\n");
+		ft_dprintf(2, "minishell: syntax error: || it's not allowed\n");
 		ft_export_env("?=2", mini);
 		return (ERR);
 	}
@@ -35,14 +35,14 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		args->args[(*argc)++] = ft_strdup("|");
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<' && *(*input_ptr + 2) == '<')
 	{
-		printf("minishell: syntax error near unexpected token `<'\n");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `<'\n");
 		ft_export_env("?=2", mini);
 		return (ERR);
 	}
 	else if ((**input_ptr == '<' && *(*input_ptr + 1) == '>')
 			|| (**input_ptr == '>' && *(*input_ptr + 1) == '<'))
 	{
-		printf("minishell: syntax error: forbidden token '<>' or '><'\n");
+		ft_dprintf(2, "minishell: syntax error: forbidden token '<>' or '><'\n");
 		ft_export_env("?=2", mini);
 		return (ERR);
 	}
@@ -56,7 +56,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 		args->args[(*argc)++] = ft_strdup("<");
 	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>' && *(*input_ptr + 2) == '>')
 	{
-		printf("minishell: syntax error near unexpected token `>'\n");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `>'\n");
 		ft_export_env("?=2", mini);
 		return (ERR);
 	}
@@ -92,7 +92,7 @@ static int	verify_closed_quotes(t_args *args)
 {
 	if (args->in_single_quote || args->in_double_quote)
 	{
-		printf("minishell: syntax error: missing closed quotes\n");
+		ft_dprintf(2, "minishell: syntax error: missing closed quotes\n");
 		ft_export_env("?=2", args->mini);
 		//free_at_exit(args);
 		return (ERR);

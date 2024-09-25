@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:01:59 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/16 15:02:03 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:18:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int	syntax_errors(int i, char *redir_content, t_mini *mini)
 {
 	if (i == 1)
-		printf("minishell: syntax error near unexpected token `|'\n");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `|'\n");
 	else if (i == 2)
-		printf("minishell: syntax error near unexpected token `newline'\n");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `newline'\n");
 	else if (i == 3)
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			redir_content);
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", redir_content);
 	else if (i == 4)
-			printf("minishell: syntax error: | at the end of the commands\n");
+		ft_dprintf(2, "minishell: syntax error: | at the end of the commands\n");
 	ft_export_env("?=2", mini);
 	return (ERR);
 }
