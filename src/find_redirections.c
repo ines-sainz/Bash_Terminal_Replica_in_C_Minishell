@@ -63,7 +63,7 @@ void	fill_append(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 		close(iter_exe->outf_pipe);
 	}
 	iter_exe->outf_pipe = open(iter_params->content, O_WRONLY | O_CREAT
-		| O_APPEND, 0777);
+			| O_APPEND, 0777);
 	//printf("DB: 7 append open: %i\n", iter_exe->outf_pipe);//
 	if (iter_exe->outf_pipe < 0)
 	{
@@ -82,7 +82,7 @@ void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 		close(iter_exe->outf_pipe);
 	}
 	iter_exe->outf_pipe = open(iter_params->content, O_RDWR | O_CREAT
-		| O_TRUNC, 0777);
+			| O_TRUNC, 0777);
 	//printf("DB: 9 outf open: %i\n", iter_exe->outf_pipe);
 	if (iter_exe->outf_pipe < 0)
 	{
@@ -106,7 +106,6 @@ void	fill_pipe(t_execution *iter_exe)
 	{
 		//printf("DB: 12 pipe outf close: %i\n", pipe_fds[1]);
 		close(pipe_fds[1]);
-		//printf("DB: 13 out_still: %i\n", iter_exe->outf_pipe);
 	}
 	iter_exe = iter_exe->next;
 	if (iter_exe->inf_pipe == 0)
@@ -118,6 +117,5 @@ void	fill_pipe(t_execution *iter_exe)
 	{
 		//printf("DB: 15 inf close: %i\n", pipe_fds[0]);
 		close(pipe_fds[0]);
-		//printf("DB: 16 inf_still: %i\n", iter_exe->inf_pipe);
 	}
 }
