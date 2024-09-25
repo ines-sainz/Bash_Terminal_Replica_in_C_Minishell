@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/25 09:06:10 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/25 09:23:51 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ endef
 NAME		=	libft.a
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
+
+PRINTF_DIR	=	printf
+
 SRC			=	ft_isalpha.c \
 				ft_isdigit.c \
 				ft_isalnum.c \
@@ -76,19 +79,17 @@ SRC			=	ft_isalpha.c \
 				ft_strstr.c \
 				ft_isspace.c \
 				ft_strchr_int.c \
+				$(PRINTF_DIR)/ft_printf.c \
+				$(PRINTF_DIR)/ft_dprintf.c \
+				$(PRINTF_DIR)/ft_printf_utils.c \
+				$(PRINTF_DIR)/ft_conversions.c
 #				ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)
 
-PRINTF_DIR	=	printf
-PRINTF		=	$(PRINTF_DIR)/libftprintf.a
+all: $(NAME)
 
-all: $(NAME) $(PRINTF)
-
-$(PRINTF):
-	@$(MAKE) -C $(PRINTF_DIR)
-
-$(NAME): $(OBJ) $(PRINTF) libft.h
+$(NAME): $(OBJ) libft.h
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	$(call print_cyan,"Compiled libft")
@@ -98,12 +99,10 @@ $(NAME): $(OBJ) $(PRINTF) libft.h
 	@$(CC) $(CFLAGS) -I$(PRINTF_DIR) -c $< -o $@
 
 clean:
-	@$(MAKE) -C $(PRINTF_DIR) clean
 	@rm -f $(OBJ)
 	$(call print_green,"Cleaned object files of libft")
 
 fclean: clean
-	@$(MAKE) -C $(PRINTF_DIR) fclean
 	@rm -f $(NAME)
 	$(call print_green,"Cleaned the library libft.a")
 
