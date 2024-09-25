@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/25 09:09:38 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/09/25 09:30:40 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) -I$(LIBFT_DIR) $(OBJ) $(LIBFT) $(READFLAG) -o $(NAME)
-	$(call print_cyan, "Compiled minishell")
+	$(call print_cyan,"Compiled minishell")
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -83,13 +83,13 @@ $(NAME): $(LIBFT) $(OBJ)
 clean:
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 	@rm -f $(OBJ)
-	$(call print_green, "Cleaned minishell objects")
+	$(call print_green,"Cleaned minishell objects")
 
 fclean: clean
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
-	$(call print_green, "Cleaned the library libft.a")
-	$(call print_green, "Cleaned minishell executable")
+	$(call print_green,"Cleaned the library libft.a")
+	$(call print_green,"Cleaned minishell executable")
 
 re: fclean all
 
