@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/26 08:44:05 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 08:58:06 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ int	parse(t_args *args, t_mini *mini)
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
-	printf("Parsed arguments:\n");
+	printf("DB: Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
 	{
 		//printf("arg[%d]: %s,\t\ttype: %d,\t\tquotes: %i\n", temp->argc, temp->content, temp->type, temp->quotes);
-		printf("arg[%d]: %s", temp->argc, temp->content);
+		printf("DB: arg[%d]: %s", temp->argc, temp->content);
 		if (temp->type == CMD){printf("\ttype: %s", "CMD");}
 		else if (temp->type == INFILE){printf("\ttype: %s", "INFILE");}
 		else if (temp->type == HERE_DOC){printf("\ttype: %s", "HERE_DOC");}
