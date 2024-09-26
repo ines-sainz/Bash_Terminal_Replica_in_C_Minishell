@@ -6,11 +6,73 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/25 12:19:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 12:01:58 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/* static int	handle_pipes(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini)
+{
+	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
+	{
+		ft_dprintf(2, "minishell: syntax error: || it's not allowed\n");
+		ft_export_env("?=2", mini);
+		return (ERR);
+	}
+	else if (**input_ptr == '|')
+		args->args[(*argc)++] = ft_strdup("|");
+	return (OK);
+}
+
+static int	handle_infiles(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini)
+{
+	if (**input_ptr == '<' && *(*input_ptr + 1) == '<'
+		&& (*(*input_ptr + 2) == '<' || *(*input_ptr + 2) == '>'))
+	{
+		ft_dprintf(2, "minishell: syntax error near unexpected token `<'\n");
+		ft_export_env("?=2", mini);
+		return (ERR);
+	}
+	else if ((**input_ptr == '<' && *(*input_ptr + 1) == '>')
+		|| (**input_ptr == '>' && *(*input_ptr + 1) == '<'))
+	{
+		ft_dprintf(2,
+			"minishell: syntax error: forbidden token '<>' or '><'\n");
+		ft_export_env("?=2", mini);
+		return (ERR);
+	}
+	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
+	{
+		args->args[(*argc)++] = ft_strdup("<<");
+		args->in_heredoc = t_true; // Marcar que estamos en un heredoc
+		(*input_ptr)++;
+	}
+	else if (**input_ptr == '<')
+		args->args[(*argc)++] = ft_strdup("<");
+	return (OK);
+}
+
+static int	handle_outfiles(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini)
+{
+	if (**input_ptr == '>' && *(*input_ptr + 1) == '>' && *(*input_ptr + 2) == '>')
+	{
+		ft_dprintf(2, "minishell: syntax error near unexpected token `>'\n");
+		ft_export_env("?=2", mini);
+		return (ERR);
+	}
+	else if (**input_ptr == '>' && *(*input_ptr + 1) == '>')
+	{
+		args->args[(*argc)++] = ft_strdup(">>");
+		(*input_ptr)++;
+	}
+	else if (**input_ptr == '>')
+		args->args[(*argc)++] = ft_strdup(">");
+	return (OK);
+}
 
 static int	out_of_quotes(char **input_ptr, t_args *args,
 	int *argc, t_mini *mini)
@@ -25,7 +87,29 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 			args->args[(*argc)++] = expanded_arg;
 		args->arg_ptr = args->arg;
 	}
-	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
+	if (handle_pipes(input_ptr, args, argc, mini) == ERR)
+		return (ERR);
+	if (handle_infiles(input_ptr, args, argc, mini) == ERR)
+		return (ERR);
+	if (handle_outputs(input_ptr, args, argc, mini) == ERR)
+		return (ERR);
+	return (OK);
+} */
+
+/* static int	out_of_quotes(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini)
+{
+	char	*expanded_arg;
+
+	if (args->arg_ptr != args->arg)
+	{
+		*args->arg_ptr = '\0';
+		expanded_arg = expander(args, mini);
+		if (expanded_arg)
+			args->args[(*argc)++] = expanded_arg;
+		args->arg_ptr = args->arg;
+	}
+	else if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
 	{
 		ft_dprintf(2, "minishell: syntax error: || it's not allowed\n");
 		ft_export_env("?=2", mini);
@@ -68,7 +152,7 @@ static int	out_of_quotes(char **input_ptr, t_args *args,
 	else if (**input_ptr == '>')
 		args->args[(*argc)++] = ft_strdup(">");
 	return (OK);
-}
+} */
 
 static void	control_quotes(char *input_ptr, t_args *args, int *flag)
 {

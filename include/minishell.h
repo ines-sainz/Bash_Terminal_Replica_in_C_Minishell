@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/24 10:59:48 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 14:39:08 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,12 @@ int			parse(t_args *args, t_mini *mini);
 //					FT_TOKENIZE.C					//
 //////////////////////////////////////////////////////
 int			add_to_args(t_args *args, int *argc, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//				TOKENIZE_OUT_OF_QUOTES.C			//
+//////////////////////////////////////////////////////
+int	out_of_quotes(char **input_ptr, t_args *args,
+	int *argc, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
