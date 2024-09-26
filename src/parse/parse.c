@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/26 08:58:06 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 21:42:01 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+// Comprobar a la hora de marcar el delimitador si comienza por <, >, ;, & o | y no está entre comillas
+int	check_delimiter(t_args *args)
+{
+	t_params	*current;
+	t_params	*next;
+
+	current = args->params;
+	if (args->params != NULL)
+	{
+		while (current != NULL)
+		{
+			next = current->next;
+			if (current->type == DELIMITER && current->quotes == t_false
+				&& (current->content[0] == '<' || current->content[0] == '>'
+				|| current->content[0] == ';' || current->content[0] == '&'
+				|| current->content[0] == '|'))
+				return (ERR);
+			current = next;
+		}
+	}
+	return (OK);
+}
 
 int	ft_tokenize(t_args *args, t_mini *mini)
 {
@@ -50,6 +72,11 @@ int	ft_tokenize(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
+	if (check_delimiter(args) == ERR)
+	{
+		ft_dprintf(2, "minishell: incorrect here_doc delimiter\n");
+		return (del_params(args), ERR);
+	}
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
@@ -86,6 +113,11 @@ int	parse(t_args *args, t_mini *mini)
 		i++;
 	}
 	//switch_to_delimiter(args);
+	if (check_delimiter(args) == ERR)
+	{
+		ft_dprintf(2, "minishell: incorrect here_doc delimiter\n");
+		return (del_params(args), ERR);
+	}
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
