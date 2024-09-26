@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/24 11:08:59 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 15:18:18 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*realloc_plain_text(t_args *args, size_t *i, size_t *j)
 		if (!new_result)
 		{
 			free(args->result);
+			args->result = NULL;
 			return (NULL);
 		}
 		ft_memcpy(new_result, args->result, *j);
