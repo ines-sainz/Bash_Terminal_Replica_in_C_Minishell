@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/15 20:07:48 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/26 08:47:38 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_at_exit(t_args *args)
 	/* if (args->arg_ptr)
 		free (args->arg_ptr); */
 	del_params(args);
-	printf("Resources freed successfully.\n");
+	printf("DB: Resources freed successfully.\n");
 	clear_history();
 	//exit(i);
 }
@@ -245,7 +245,7 @@ int	main(int argc, char **argv, char **env)
 	//free(mini.user_prompt);
 	//free (last_history);
 	//clear_history();
-	printf("\n¡¡EXCLUSIVO PARA CTRL + D!!\n");
+	printf("\nDB: ¡¡EXCLUSIVO PARA CTRL + D!!\n");
 	free_at_exit(&args);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/24 15:18:29 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 08:44:05 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	parse(t_args *args, t_mini *mini)
 	t_bool		heredoc_found;
 
 	heredoc_found = t_false;
-	printf("You entered: %s\n", args->input);
+	printf("DB: You entered: %s\n", args->input);
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
-	printf("argc ==> %i\n", args->argc);
+	printf("DB: argc ==> %i\n", args->argc);
 //	if (ft_built_ins(args, mini) == 1)
 //		return (OK);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/23 13:45:36 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 08:45:12 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_built_exit(t_args *args, char **exit_args, t_mini *mini)
 	argc = 0;
 	while (exit_args[argc])
 		argc++;
-	printf("exit argc = %i\n", argc);
+	printf("DB: exit argc = %i\n", argc);
 	if (argc == 1)
 	{
 		free_at_exit(args);
