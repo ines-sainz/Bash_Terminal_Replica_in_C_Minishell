@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/26 08:47:38 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/26 21:47:09 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	t_mini	mini;
 	int		standard_fds[2];
+	int		i;
 	//char	*input;
 	//char	*user_prompt;
 
@@ -236,6 +237,17 @@ int	main(int argc, char **argv, char **env)
 			if (parse(&args, &mini) == ERR)
 				free_at_exit(&args);
 		} */
+		i = 0; // En caso de que haya un error de sintaxis
+		if (args.args[i]) // Podría ponerse si parse() devuelve ERR
+		{
+			while (args.args[i])
+			{
+				printf("Libero %s por syntax error\n", args.args[i]);
+				free(args.args[i]);
+				args.args[i] = NULL;
+				i++;
+			}
+		}
 		free(args.input); // Liberar la memoria asignada por readline
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
