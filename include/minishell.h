@@ -131,6 +131,7 @@ typedef struct s_mini
 	int			nbr_env_nodes;
 	t_env		*env_first_node;
 	t_env		*env_iter;
+	int			standard_fds[2];
 }				t_mini;
 
 typedef struct s_params
@@ -328,15 +329,16 @@ void		fill_outfile(t_params *iter_params,
 void		fill_pipe(t_execution *iter_exe);
 
 //////////////////////////////////////////////////////
-//				START_EXECUTING.C					//
+//					START_EXECUTING.C				//
 //////////////////////////////////////////////////////
 int			start_executing(t_execution *iter_exe, int status,
 				t_mini *mini, t_args *args);
+void		close_fds(t_execution *iter_exe);
 
 //////////////////////////////////////////////////////
 //				EXECUTE_COMMANDS.C					//
 //////////////////////////////////////////////////////
-int			execute(t_execution *iter_exe, t_mini *mini);
+int			execute(t_execution *iter_exe, t_mini *mini, t_args *args);
 void		dup_redirections(t_execution *iter_exe);
 
 //////////////////////////////////////////////////////
