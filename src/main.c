@@ -18,6 +18,8 @@ void	free_at_exit(t_args *args)
 {
 	// int	i;
 
+	close(args->mini->standard_fds[0]);
+	close(args->mini->standard_fds[1]);
 	if (args->input)
 	{
 		free (args->input);
@@ -136,7 +138,6 @@ int	main(int argc, char **argv, char **env)
 	t_args	args;
 	char	*entry;
 	t_mini	mini;
-	int		standard_fds[2];
 	int		i;
 	//char	*input;
 	//char	*user_prompt;
@@ -189,14 +190,14 @@ int	main(int argc, char **argv, char **env)
 		ft_export_env("MY_SHLVL=1", &mini); */
 
 	//SET_STANDARD_FDS
-	standard_fds[0] = dup(STDIN_FILENO);
-	standard_fds[1] = dup(STDOUT_FILENO);
+	mini.standard_fds[0] = dup(STDIN_FILENO);
+	mini.standard_fds[1] = dup(STDOUT_FILENO);
 
 	// Bucle principal del shell
 	while (1)
 	{
-		dup2(standard_fds[0], STDIN_FILENO);
-		dup2(standard_fds[1], STDOUT_FILENO);
+		dup2(mini.standard_fds[0], STDIN_FILENO);
+		dup2(mini.standard_fds[1], STDOUT_FILENO);
 		g_signal_received = 0;
 		args.input = readline(mini.user_prompt);
 		if (!args.input)
