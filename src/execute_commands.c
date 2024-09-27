@@ -110,7 +110,7 @@ void	free_and_close_all(t_mini *mini, t_args *args, char *path_command, t_execut
 	(void)args;
 }
 
-int	execute(t_execution *iter_exe, t_mini *mini)
+int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	char	*path_mid;
 	char	*path_command;
@@ -121,21 +121,17 @@ int	execute(t_execution *iter_exe, t_mini *mini)
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
 	if (path_command && access(path_command, X_OK) == 0)
 	{
-	//	free_and_close_to_execve(mini->exe_command);
+		close_restant_fds(mini->exe_command, mini);
 		execve(path_command, iter_exe->command, mini->env);
 	}
 	else
 	{
+		free_and_close_all(mini, args, path_command, iter_exe);
 		if (access(path_command, X_OK) != 0)
-		{
 			write(2, "minishell: Command: Permission denied\n", 39);
-			exit (127);
-		}
 		else
-		{
 			printf("minishell: Command: Not a directory\n");
-			exit (127);
-		}
+		exit (127);
 	}
 	//returns y frees
 	return (127);
