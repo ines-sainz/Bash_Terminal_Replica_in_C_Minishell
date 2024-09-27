@@ -70,13 +70,16 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 	}
 	if (pid == 0)
 	{
+		//	free_and_close_to_execve(mini->exe_command);
 		if (be_built_ins(iter_exe->command) == 1)
 		{
 			check_built_ins(iter_exe->command, iter_exe, mini, args);
+			close(mini->standard_fds[0]);
+			close(mini->standard_fds[1]);
 			exit (0);
 		}
 		else
-			execute(iter_exe, mini);
+			execute(iter_exe, mini, args);
 	}
 }
 
