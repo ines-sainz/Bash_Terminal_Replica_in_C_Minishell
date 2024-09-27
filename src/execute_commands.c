@@ -68,14 +68,47 @@ void	dup_redirections(t_execution *iter_exe)
 	}
 }
 
-/*void	free_and_close_to_execve(t_execution *exe_command)
+void	close_restant_fds(t_execution *exe_command, t_mini *mini)
 {
 	t_execution *iter_exe;
 
+	close(mini->standard_fds[0]);
+	close(mini->standard_fds[1]);
 	iter_exe = exe_command;
-	while ()
-}*/
+	while (iter_exe != NULL)
+	{
+		if (iter_exe->n_command != exe_command->n_command)
+			close_fds(iter_exe);
+		iter_exe = iter_exe->next;
+	}
+}
 
+void	free_and_close_all(t_mini *mini, t_args *args, char *path_command, t_execution *exe_comamnd)
+{
+	t_execution	*iter_exe;
+	int			i;
+
+	if (path_command)
+		free(path_command);
+	free(mini->user_prompt);
+	iter_exe = mini->exe_command;
+	while (iter_exe != NULL)
+	{
+		i = 0;
+		if (iter_exe->n_command != exe_comamnd->n_command)
+		{
+			while (iter_exe->command[i])
+				free(iter_exe->command[i++]);
+			free(iter_exe->command);
+		}
+		iter_exe = iter_exe->next;
+	}
+	ft_lstclear(&mini->here_doc_files, free);
+	free_last_env(mini);
+	free_env(mini);
+	free(mini);
+	(void)args;
+}
 
 int	execute(t_execution *iter_exe, t_mini *mini)
 {
