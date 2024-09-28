@@ -39,7 +39,7 @@ void	free_at_exit(t_args *args)
 	}
 	if (args->result)//esto no se ha liberado en arg->args?
 	{
-		free (args->result); //creo q como args->args[i] no se puede liberar
+		free (args->result); //creo q como args->args[i] no se puede liberar, al entrar en args>result ,como args->args tiene cosas no funciona
 		args->result = NULL;
 	}
 	if (args->mini->user_prompt)
