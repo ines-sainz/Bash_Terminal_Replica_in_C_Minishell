@@ -106,7 +106,6 @@ void	free_and_close_all(t_mini *mini, t_args *args, char *path_command, t_execut
 	ft_lstclear(&mini->here_doc_files, free);
 	free_last_env(mini);
 	free_env(mini);
-	free(mini);
 	(void)args;
 }
 
@@ -127,6 +126,8 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	else
 	{
 		free_and_close_all(mini, args, path_command, iter_exe);
+		close(mini->standard_fds[0]);
+		close(mini->standard_fds[1]);
 		if (access(path_command, X_OK) != 0)
 			write(2, "minishell: Command: Permission denied\n", 39);
 		else
