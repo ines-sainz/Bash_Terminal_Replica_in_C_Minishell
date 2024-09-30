@@ -1,63 +1,32 @@
 TAREAS:
-ablanco-
 
-cd:
-	- Debe funcionar con rutas absolutas
-
-export: ✅
-	- Exportar variables vacías (export a, export a=, export a="")
-		> export a no le crea contenido y sólo es visible desde export
-		> export a= lo crea con un '\0' y es visible desde export y env
-		> export a="" lo crea con un '\0' y es visible desde export y env
-	- export (a secas) devuelve el contenido listado por valor ascii
-	- REVISAR: ¡¡Problema grave al tratar de exportar una variable con contenido NULL
-		cuando ya existe la misma variable con contenido!! ⚠️❓
-	ejemplo: export d@ni char@mail=enf _yo -tu= 1gato=raio raio=g@to gato2=meiga my-var=test my_var=test2
-		Not = case
-		minishell: export: `d@ni': not a valid identifier
-		Name=Content case
-		minishell: export: `char@mail=enf': not a valid identifier
-		First letter error
-		minishell: export: `-tu=': not a valid identifier
-		First letter error
-		minishell: export: `1gato=raio': not a valid identifier
-		Name=Content case
-		minishell: export: `my-var=test': not a valid identifier
-
-echo -n: ✅
-	- echo -n -n -n hola (= que echo -n hola)
-	- echo -n -n hola -n -n (devuelve hola -n -n)
-	Interrumpir detección de flags cuando recibo algo que no empieza por '-'
-	- echo -nnnnnnnnnnnn hola (= que echo -n hola)
-	- echo -nada hola (devuelve "-nada hola")
-	- echo 123 $USER 456 $MAIL 789 $$ 000 $,.-USER 123 $123MAIL $
-		Como $MAIL no existe me devuelve 2 espacios seguidos: 123 bishopvk 456  789 $$ 000 $,.-USER 123 23MAIL $
-
-unset:
+unset: ✅
 	- No unset $_ ✅
 	- Cuidado al liberar variables cuyo content sea NULL
+	- Si se exportan varias veces variables vaćias, nos pide unsetearlas varias veces. ❌
 
 
 <<:
 	- Las signals deben seguir funcionando
-	- Las expansiones deben funcionar dentro del here_doc
-	- No debería expandirse el delimitador (<<$USER cerrará con $USER no con danjimen)
+		> ctrl + C = Cerrar la ejecución completa y devolver control al usuario
+		> ctrl + d = Cerrar here_doc y continuar la ejecución
+			>> Tenemos un Seg Fault ❌
+	- Las expansiones deben funcionar dentro del here_doc ✅
+	- No debería expandirse el delimitador (<<$USER cerrará con $USER no con danjimen) ✅
 
-$_:
-	- Devuelve el último parámetro ✅
+$_: ✅
+	- Devuelve el último parámetro
 
 $": ✅
 	- $"" Devuelve NULL ✅
 	- $"USER" Devuelve USER ✅
 
-$$:
-	- Devuelve el PID o no devuelve nada (prohibido usar getpid()) ✅
-
-SIGQUIT:
-	- No hace nada ✅
+SIGQUIT:  ✅
+	- No hace nada
 
 $:
-	Si solo recibo $ como único argumento, no debe dar segfault
+	- Si solo recibo $ como único argumento, no debe dar segfault
+	- Estamos recibiendo double free ❌
 
 
 ****TAREAS INÉS****
@@ -75,7 +44,7 @@ $:
 		-> Habrá que ver si el mejor actualizarlo durante la ejecución,
 		según el path del último comando (en caso de no tener argumentos)
 	- ❌ _=/usr/bin/env tiene que imprimirse si o si en env
-	- ✅ ?=0 habíamos dicho que no lo ibamos a imprimer
+	- ✅ ?=0 habíamos dicho que no lo ibamos a imprimir
 
 - comprobar export
 	- ✅ export	
