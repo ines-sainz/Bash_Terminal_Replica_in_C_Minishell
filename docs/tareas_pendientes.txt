@@ -8,9 +8,8 @@ unset: ✅
 
 <<:
 	- Las signals deben seguir funcionando
-		> ctrl + C = Cerrar la ejecución completa y devolver control al usuario
-		> ctrl + d = Cerrar here_doc y continuar la ejecución
-			>> Tenemos un Seg Fault ❌
+		> ctrl + C = Cerrar la ejecución completa y devolver control al usuario ❌
+		> ctrl + d = Cerrar here_doc y continuar la ejecución ✅
 	- Las expansiones deben funcionar dentro del here_doc ✅
 	- No debería expandirse el delimitador (<<$USER cerrará con $USER no con danjimen) ✅
 
