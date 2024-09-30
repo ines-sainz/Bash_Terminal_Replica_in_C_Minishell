@@ -6,37 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:58 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/09/30 15:49:44 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	export_args(char **args, t_mini *mini)
-{
-	int		i;
-	int		j;
-	int		pos_equal;
-
-	i = 1;
-	j = 0;
-	pos_equal = 0;
-	while (args[i])
-	{
-		if (args[i][0] != '\0')
-		{
-			if (handle_first_letter(args, mini, &i) == ERR)
-				continue ;
-			pos_equal = find_equal(args, &i, &j);
-			j = 1;
-			if (pos_equal == 0)
-				not_equal_case(args, &i, mini);
-			else
-				equal_case(args, &i, mini, &pos_equal);
-		}
-		i++;
-	}
-}
 
 int	handle_first_letter(char **args, t_mini *mini, int *i)
 {
@@ -105,5 +79,36 @@ void	equal_case(char **args, int *i, t_mini *mini, int *pos_equal)
 	{
 		ft_export_env(args[*i], mini);
 		ft_export_env("?=0", mini);
+	}
+}
+
+void	export_args(char **args, t_mini *mini)
+{
+	int		i;
+	int		j;
+	int		pos_equal;
+
+	i = 1;
+	j = 0;
+	pos_equal = 0;
+	while (args[i])
+	{
+		if (args[i][0] != '\0')
+		{
+			if (handle_first_letter(args, mini, &i) == ERR)
+				continue ;
+			pos_equal = find_equal(args, &i, &j);
+			j = 1;
+			if (pos_equal == 0)
+				not_equal_case(args, &i, mini);
+			else
+				equal_case(args, &i, mini, &pos_equal);
+		}
+		/* else
+		{
+			ft_dprintf(2, "minishell: export: `': not a valid identifier\n");
+			ft_export_env("?=1", mini);
+		} */
+		i++;
 	}
 }
