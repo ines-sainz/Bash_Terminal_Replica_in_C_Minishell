@@ -350,3 +350,7 @@ char		*get_path_command(char **kid, char **env, char *path_mid);
 //					FIND_PATH.C						//
 //////////////////////////////////////////////////////
 void		fill_exe(t_params *iter_params, t_execution *iter_exe);
+
+
+
+void	exe_struct_free(t_mini *mini);

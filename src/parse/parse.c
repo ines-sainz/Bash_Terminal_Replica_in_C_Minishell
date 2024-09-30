@@ -121,6 +121,7 @@ int	parse(t_args *args, t_mini *mini)
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
+	exe_struct_free(mini);
 	printf("DB: Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)

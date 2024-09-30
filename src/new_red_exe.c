@@ -48,9 +48,15 @@ void	close_inf_outf(t_mini *mini)
 	while (iter != NULL)
 	{
 		if (iter->inf_pipe > 0)
+		{
+//			printf("he cerrado el inf: %i\n", iter->inf_pipe);
 			close(iter->inf_pipe);
+		}
 		if (iter->outf_pipe > 1)
+		{
+//			printf("he cerrado el outf: %i\n", iter->outf_pipe);
 			close(iter->outf_pipe);
+		}
 		iter = iter->next;
 	}
 	temp_here_doc = mini->here_doc_files;

@@ -84,3 +84,16 @@ $:
 - ✅ actualizar el $?
 
 - unset ver si va con o sin parámetros va sin opciones pero con argumentos
+
+
+LEAKS
+
+FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1720616== Open file descriptor 5:
+==1720616==    at 0x49DA07D: pipe (pipe.c:29)
+==1720616==    by 0x402D34: fill_pipe (find_redirections.c:98)
+==1720616==    by 0x403668: fill_exe_redirections (redirector.c:81)
+==1720616==    by 0x402879: red (new_red_exe.c:38)
+==1720616==    by 0x40296C: new_red_exe (new_red_exe.c:71)
+==1720616==    by 0x405B71: parse (parse.c:122)
+==1720616==    by 0x4019EE: main (main.c:235)

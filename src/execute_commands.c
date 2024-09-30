@@ -47,6 +47,8 @@ void	create_env_matrix(t_mini *mini)
 		free(var_temp);
 		var_temp = ft_strjoin(env_one_line, temp);
 		free(temp);
+		if (env_one_line)
+			free(env_one_line);
 		env_one_line = var_temp;
 		mini->env_iter = mini->env_iter->next;
 	}
@@ -118,22 +120,25 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	dup_redirections(iter_exe);
 	path_mid = NULL;
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
-	if (path_command && access(path_command, X_OK) == 0)
+	if (path_command)
 	{
-		close_restant_fds(mini->exe_command, mini);
-		execve(path_command, iter_exe->command, mini->env);
+		if (access(path_command, X_OK) == 0)
+		{
+			close_restant_fds(mini->exe_command, mini);
+			execve(path_command, iter_exe->command, mini->env);
+		}
+		else
+			write(2, "minishell: Command: Permission denied\n", 39);
+		free(path_command);
 	}
 	else
 	{
 		free_and_close_all(mini, args, path_command, iter_exe);
 		close(mini->standard_fds[0]);
 		close(mini->standard_fds[1]);
-		if (access(path_command, X_OK) != 0)
-			write(2, "minishell: Command: Permission denied\n", 39);
-		else
-			printf("minishell: Command: Not a directory\n");
-		exit (127);
+		printf("minishell: Command: Not a directory\n");
 	}
+	exit(127);
 	//returns y frees
 	return (127);
 }
