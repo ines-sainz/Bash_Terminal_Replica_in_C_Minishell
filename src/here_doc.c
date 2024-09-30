@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/21 08:47:04 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:08:47 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,22 @@ char	*ft_get_eof(char *eof)
 	}
 } */
 
-int	event(void)
+/* int	event(void)
 {
 	return (0);
-}
+} */
 
 void	signal_here_doc(int sig)
 {
 	if (sig == SIGINT)
 	{
 		g_signal_received = SIGINT;
-		write(STDOUT_FILENO, "\n", 1);
+		//write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		rl_done = 1;
+		rl_replace_line("", 1);
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		//rl_redisplay();
+		//rl_done = 1;
 	}
 }
 
@@ -62,11 +63,17 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	g_signal_received = 0;
 	while (1)
 	{
-		rl_event_hook = event;
+		//rl_event_hook = event;
 		// Verificar si se recibió SIGINT
 		if (g_signal_received == SIGINT)
 			break ;
 		here_doc.arg = readline("> ");
+		if (!here_doc.arg)
+		{
+			ft_dprintf(2, "minishell: warning: here-document delimited by end-of-file (wanted `EOF')\n");
+			// Detectar Ctrl-D (EOF)
+			break ;
+		}
 		if (g_signal_received == SIGINT)
 		{
 			free(here_doc.arg);
@@ -79,7 +86,7 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			break ;
 		}
 		expander(&here_doc, mini);
-		printf("DB: expanded_arg => %s\n", here_doc.result);//
+		printf("DB: expanded_arg => %s\n", here_doc.result);
 		write(fd, here_doc.result, ft_strlen(here_doc.result));
 		write(fd, "\n", 1);
 		free(here_doc.arg);
@@ -87,8 +94,11 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	}
 	signal(SIGINT, signal_sigint);
 	if (g_signal_received == SIGINT)
-		return (1);
-	return (0);
+	{
+		g_signal_received = 0;
+		return (-2);
+	}
+	return (OK);
 }
 
 /* int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
@@ -249,8 +259,8 @@ int	ft_here_doc(t_params *param, t_mini *mini, int fd)
 		return (ERR);
 	}
 	ft_lstadd_back(&mini->here_doc_files, temp_here_doc);
-	if (ft_write_temp(fd, param->content, buffer, mini) == 1)
-		return (ERR);
+	if (ft_write_temp(fd, param->content, buffer, mini) == -2)
+		return (-2);
 	close (fd);
 	fd = open(file_name, O_RDONLY, 0777);
 	return (fd);
