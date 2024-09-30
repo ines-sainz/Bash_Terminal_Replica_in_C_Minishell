@@ -269,7 +269,8 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 			i++;
 		iter_params = iter_params->next;
 	}
-	here_doc_fds = malloc(i * sizeof(int *));
+	if (i < 0)
+		here_doc_fds = malloc(i * sizeof(int *));
 	i = 0;
 	iter_params = args->params;
 	while (iter_params != NULL)
@@ -277,8 +278,7 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 		if (iter_params->type == HERE_DOC)
 		{
 			fd = 0;
-			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, fd);
-			i++;
+			here_doc_fds[i++] = ft_here_doc(iter_params->next, args->mini, fd);
 		}
 		iter_params = iter_params->next;
 	}
