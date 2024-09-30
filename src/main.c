@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/26 21:47:09 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:02:08 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			// Detectar Ctrl-D (EOF)
 			handle_eof();
-			printf("\nCaught EOF (Ctrl-D). Exiting...\n");
+			printf("\nDB: Caught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
 		/* if (g_signal_received == SIGQUIT)
@@ -243,7 +243,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			while (args.args[i])
 			{
-				printf("Libero %s por syntax error\n", args.args[i]);
+				printf("DB: Libero %s por syntax error\n", args.args[i]);
 				free(args.args[i]);
 				args.args[i] = NULL;
 				i++;
