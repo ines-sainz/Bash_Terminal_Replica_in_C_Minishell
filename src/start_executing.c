@@ -96,6 +96,11 @@ int	start_executing(t_execution *iter_exe, int status,
 {
 	while (iter_exe != NULL)
 	{
+		if (args->last_history)
+		{
+			free(args->last_history);
+			args->last_history = NULL;
+		}
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
 		{
 			close_fds(iter_exe);
