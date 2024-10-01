@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/23 14:24:23 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/01 14:21:12 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,11 @@ static void	count_nodes(t_mini *mini)
 void	ft_built_export(char **args, t_mini *mini)
 {
 	int	argc;
-	int	flag;
 
 	argc = 0;
-	flag = 0;
 	while (args[argc])
-	{
-		if (args[argc][0] != '\0')
-			flag++;
 		argc++;
-	}
-	if (argc == 1 || flag == 1)
+	if (argc == 1)
 	{
 		count_nodes(mini);
 		create_nodes_order(mini);
