@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/01 14:25:45 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/01 15:47:18 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_export_env(char *new_env, t_mini *mini)
 	if (ft_existing_node(new_env, mini) == OK)
 		return ;
 	// SERÍA INTERESANTE COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
-	//printf("DB: new_env ==> %s\n", new_env);
 	new_node = env_new(new_env);
 	if (!new_node)
 	{
