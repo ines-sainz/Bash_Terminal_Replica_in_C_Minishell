@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/30 10:02:08 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/01 21:20:46 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void	free_at_exit(t_args *args)
 		free (args->arg_ptr); */
 	del_params(args);
 	printf("DB: Resources freed successfully.\n");
-	clear_history();
-	//exit(i);
+	//clear_history();
+	rl_clear_history();
+	//exit(i);1
 }
 
 static void	error_mini_use(int argc, char **argv)
