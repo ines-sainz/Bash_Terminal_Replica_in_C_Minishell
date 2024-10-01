@@ -37,11 +37,14 @@ void	free_at_exit(t_args *args)
 		free (args->arg);
 		args->arg = NULL;
 	}
-	if (args->result)//esto no se ha liberado en arg->args?
-	{
-		free (args->result); //creo q como args->args[i] no se puede liberar, al entrar en args>result ,como args->args tiene cosas no funciona
-		args->result = NULL;
-	}
+	/* TODO: check seg fault if decomment */
+	// if (args->result)//esto no se ha liberado en arg->args?
+	// {
+	// 	printf("{%s}\n", args->result);
+	// 	printf("[%p]\n", args->result);
+	// 	free (args->result); //creo q como args->args[i] no se puede liberar, al entrar en args>result ,como args->args tiene cosas no funciona
+	// 	args->result = NULL;
+	// }
 	if (args->mini->user_prompt)
 	{
 		free (args->mini->user_prompt);
