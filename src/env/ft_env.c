@@ -80,15 +80,20 @@ int	ft_existing_node(char *new_env, t_mini *mini)
 	while (mini->env_iter != NULL)
 	{
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal == 0)
+		{
+			free(name);
 			return (OK);
+		}
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal != 0)
 		{
+			free(name);
 			free(mini->env_iter->content);
 			mini->env_iter->content = ft_substr(new_env, equal + 1, ft_strlen(new_env) - equal + 1);
 			return (OK);
 		}
 		mini->env_iter = mini->env_iter->next;
 	}
+	free(name);
 	return (ERR);
 }
 
