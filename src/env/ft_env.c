@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:42:02 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/23 14:29:33 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/01 14:25:45 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,48 @@ void	ft_unset_env(char *unset, t_mini *mini)
 	}
 }
 
+int	ft_existing_node(char *new_env, t_mini *mini)
+{
+	int		i;
+	int		equal;
+	char	*name;
+
+	i = 0;
+	equal = 0;
+	while (new_env[i])
+	{
+		if (new_env[i] == '=' && equal == 0)
+			equal = i;
+		i++;
+	}
+	if (equal != 0)
+		name = ft_substr(new_env, 0, equal);
+	else
+		name = ft_substr(new_env, 0, ft_strlen(new_env));
+	mini->env_iter = mini->env_first_node;
+	while (mini->env_iter != NULL)
+	{
+		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal == 0)
+			return (OK);
+		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal != 0)
+		{
+			free(mini->env_iter->content);
+			mini->env_iter->content = ft_substr(new_env, equal + 1, ft_strlen(new_env) - equal + 1);
+			return (OK);
+		}
+		mini->env_iter = mini->env_iter->next;
+	}
+	return (ERR);
+}
+
 void	ft_export_env(char *new_env, t_mini *mini)
 {
 	t_env	*new_node;
 
+	if (ft_existing_node(new_env, mini) == OK)
+		return ;
 	// SERÍA INTERESANTE COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
+	//printf("DB: new_env ==> %s\n", new_env);
 	new_node = env_new(new_env);
 	if (!new_node)
 	{
