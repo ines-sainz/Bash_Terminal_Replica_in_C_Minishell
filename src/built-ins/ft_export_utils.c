@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/30 15:49:44 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/01 08:55:10 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,15 @@ void	equal_case(char **args, int *i, t_mini *mini, int *pos_equal)
 
 void	export_args(char **args, t_mini *mini)
 {
-	int		i;
-	int		j;
-	int		pos_equal;
+	int	i;
+	int	j;
+	int	pos_equal;
+	int	void_arg;
 
 	i = 1;
 	j = 0;
 	pos_equal = 0;
+	void_arg = 0;
 	while (args[i])
 	{
 		if (args[i][0] != '\0')
@@ -104,11 +106,13 @@ void	export_args(char **args, t_mini *mini)
 			else
 				equal_case(args, &i, mini, &pos_equal);
 		}
-		/* else
+		else
 		{
 			ft_dprintf(2, "minishell: export: `': not a valid identifier\n");
-			ft_export_env("?=1", mini);
-		} */
+			void_arg++;
+		}
 		i++;
 	}
+	if (void_arg != 0)
+		ft_export_env("?=1", mini);
 }
