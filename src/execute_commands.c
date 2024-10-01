@@ -133,6 +133,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	}
 	else
 	{
+		close_inf_outf(mini);
 		free_and_close_all(mini, args, path_command, iter_exe);
 		close(mini->standard_fds[0]);
 		close(mini->standard_fds[1]);
