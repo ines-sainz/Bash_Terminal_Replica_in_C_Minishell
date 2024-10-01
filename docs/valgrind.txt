@@ -1,0 +1,53 @@
+Opciones de Valgrind:
+
+--leak-check=full:		Verifica completamente si hay fugas de memoria.
+--show-leak-kinds=all:	Muestra todos los tipos de fugas (definitivas, indirectas, etc.).
+-s:						Muestra un resumen detallado de errores y advertencias.
+--trace-children=yes:	Rastrea también a los procesos hijos, importante si estás utilizando fork() y execve().
+--track-fds=yes:		Rastrea el uso de fds para detectar posibles fugas de descriptores abiertos.
+--track-origins=yes:	Esta opción te ayuda a rastrear el origen de valores no inicializados,
+						lo cual puede ser útil si Valgrind detecta errores de uso de memoria sin inicializar.
+
+EVITAR QUE VALGRIND MUESTRE LOS "LEAKS" PRODUCIDOS POR READLINE U OTRAS BIBLIOTECAS EXTERNAS UTILIZANDO SUPRESSIONS FileDescriptor
+
+
+Sí, puedes evitar que Valgrind muestre los "leaks" producidos por readline u otras bibliotecas externas utilizando un suppressions file. Este archivo le dice a Valgrind que ignore ciertos tipos de mensajes relacionados con fugas de memoria en bibliotecas conocidas.
+
+Aquí te explico cómo hacerlo:
+
+1. Crear un archivo de supresión
+Primero, ejecuta Valgrind para generar los mensajes actuales, incluidos los de readline. Luego, puedes crear un archivo de supresión basado en esos mensajes.
+
+Ejecuta Valgrind con la opción --gen-suppressions=all para generar las supresiones:
+
+bash
+Copiar código
+valgrind --leak-check=full --gen-suppressions=all ./tu_programa
+Cuando Valgrind muestre un "leak" relacionado con readline, verás un bloque de supresión sugerido. Copia el bloque entero.
+
+Crea un archivo llamado, por ejemplo, valgrind_suppressions.supp, y pega dentro los bloques de supresión generados. Por ejemplo, un bloque de supresión podría verse así:
+
+txt
+Copiar código
+{
+   readline_leak
+   Memcheck:Leak
+   fun:_rl_init_terminal_io
+   fun:readline
+}
+2. Usar el archivo de supresión con Valgrind
+Una vez que tienes el archivo de supresión, puedes decirle a Valgrind que lo use para ignorar los leaks de readline:
+
+bash
+Copiar código
+valgrind --leak-check=full --suppressions=valgrind_suppressions.supp ./tu_programa
+3. Alternativa: Supresiones predefinidas de Valgrind
+Valgrind ya incluye algunas supresiones predefinidas para ciertas bibliotecas comunes. Si quieres usar estas, puedes ejecutar Valgrind con la opción --suppressions apuntando al archivo de supresiones global que viene con Valgrind:
+
+bash
+Copiar código
+valgrind --leak-check=full --suppressions=/usr/lib/valgrind/default.supp ./tu_programa
+Este archivo ya contiene supresiones para muchas bibliotecas, aunque podrías necesitar agregar una supresión específica para readline si no está incluida.
+
+Conclusión
+Utilizando un archivo de supresión personalizado o aprovechando las supresiones predefinidas de Valgrind, puedes ocultar los mensajes de "leaks" relacionados con readline para que Valgrind se concentre en posibles problemas reales en tu código.
