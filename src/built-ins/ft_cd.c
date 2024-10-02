@@ -69,8 +69,10 @@ static void	cd_home(t_mini *mini)
 {
 	char	*output;
 	char	*path;
+	char	*home;
 
-	if (chdir(ft_find_env(mini, "HOME")) == -1)
+	home = ft_find_env(mini, "HOME");
+	if (home != NULL && chdir(home) == -1)
 	{
 		perror("minishell: cd");
 		ft_export_env("?=1", mini);
@@ -79,13 +81,14 @@ static void	cd_home(t_mini *mini)
 	else
 	{
 		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-		printf("OLDPWD => %s\n", output);
+		printf("DB: OLDPWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
-		path = ft_find_env(mini, "HOME");
+		path = ft_strdup(ft_find_env(mini, "HOME"));
 		output = ft_strjoin("PWD=", path);
 		free(path);
-		printf("PWD => %s\n", output);
+		path = NULL;
+		printf("DB: PWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
 		ft_export_env("?=0", mini);
