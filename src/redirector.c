@@ -17,11 +17,14 @@ int	syntax_errors(int i, char *redir_content, t_mini *mini)
 	if (i == 1)
 		ft_dprintf(2, "minishell: syntax error near unexpected token `|'\n");
 	else if (i == 2)
-		ft_dprintf(2, "minishell: syntax error near unexpected token `newline'\n");
+		ft_dprintf(2,
+			"minishell: syntax error near unexpected token `newline'\n");
 	else if (i == 3)
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", redir_content);
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n",
+			redir_content);
 	else if (i == 4)
-		ft_dprintf(2, "minishell: syntax error: | at the end of the commands\n");
+		ft_dprintf(2,
+			"minishell: syntax error: | at the end of the commands\n");
 	ft_export_env("?=2", mini);
 	return (ERR);
 }
@@ -55,23 +58,47 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 	return (0);
 }
 
-void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
+int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
+{
+	t_params *iter;
+	int			n_here_doc;
+
+	n_here_doc = 0;
+	iter = args->params;
+	while (iter != NULL)
+	{
+		if (iter->type == HERE_DOC)
+		{
+			ft_dprintf(2, "hereeeee%i\n", here_doc_fds[n_here_doc]);
+			if (here_doc_fds[n_here_doc] == -2)
+			{
+				if (here_doc_fds)
+				{
+					free(here_doc_fds);
+					here_doc_fds = NULL;
+				}
+				return (1);
+			}
+		}
+		iter = iter->next;
+	}
+	return (0);
+}
+
+int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 	t_args *args, t_mini *mini)
 {
 	int			*here_doc_fds;
 
 	here_doc_fds = get_here_doc(iter_params, args);
-	iter_params = args->params;
-	mini->n_here_docs = 0;
+	if (if_error_in_here_doc(args, here_doc_fds) == 1)
+		return (ERR);
 	while (iter_params)
 	{
 		if (iter_params->type == INFILE)
 			fill_infile(iter_params->next, iter_exe, mini);
 		else if (iter_params->type == HERE_DOC)
-		{
 			fill_here_doc(here_doc_fds[mini->n_here_docs], iter_exe, mini);
-			mini->n_here_docs++;
-		}
 		else if (iter_params->type == APPEND)
 			fill_append(iter_params->next, iter_exe, mini);
 		else if (iter_params->type == OUTFILE)
@@ -83,4 +110,7 @@ void	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 		}
 		iter_params = iter_params->next;
 	}
+	if (here_doc_fds != NULL)
+		free(here_doc_fds);
+	return (0);
 }
