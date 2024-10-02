@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/01 21:20:46 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:18:51 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ int	main(int argc, char **argv, char **env)
 		args.input_trimed = NULL;
 		/* if (ft_strcmp(args.input, "exit") == 0)
 			exit (0); */
-		if (args.input[0] != '\0')
+		if (args.input != NULL && args.input[0] != '\0')
 			parse(&args, &mini);
 		/* if (args.input[0] != '\0')
 		{
