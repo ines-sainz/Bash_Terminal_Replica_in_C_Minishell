@@ -298,12 +298,13 @@ void		ft_built_cd(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 int			new_red_exe(t_args *args, t_mini *mini);
 void		close_inf_outf(t_mini *mini);
+void		dup_redirections(t_execution *iter_exe);
 
 //////////////////////////////////////////////////////
 //					REDIRECTOR.C					//
 //////////////////////////////////////////////////////
 int			errors_and_n_commands(t_params *iter, t_mini *mini);
-void		fill_exe_redirections(t_params *iter_params,
+int			fill_exe_redirections(t_params *iter_params,
 				t_execution *iter_exe, t_args *args, t_mini *mini);
 
 //////////////////////////////////////////////////////
@@ -339,7 +340,7 @@ void		close_fds(t_execution *iter_exe);
 //				EXECUTE_COMMANDS.C					//
 //////////////////////////////////////////////////////
 int			execute(t_execution *iter_exe, t_mini *mini, t_args *args);
-void		dup_redirections(t_execution *iter_exe);
+void		close_restant_fds(t_execution *exe_command, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FIND_PATH.C						//
