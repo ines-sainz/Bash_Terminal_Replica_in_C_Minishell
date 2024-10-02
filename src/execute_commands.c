@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/02 12:12:37 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/02 15:38:04 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,9 @@ void	create_env_matrix(t_mini *mini)
 	free(env_one_line);
 }
 
-void	dup_redirections(t_execution *iter_exe)
-{
-	if (iter_exe->inf_pipe != 0)
-	{
-		dup2(iter_exe->inf_pipe, 0);
-		close(iter_exe->inf_pipe);
-	}
-	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
-	{
-		dup2(iter_exe->outf_pipe, 1);
-		close(iter_exe->outf_pipe);
-	}
-}
-
 void	close_restant_fds(t_execution *exe_command, t_mini *mini)
 {
-	t_execution *iter_exe;
+	t_execution	*iter_exe;
 
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
@@ -85,11 +71,16 @@ void	close_restant_fds(t_execution *exe_command, t_mini *mini)
 	}
 }
 
-void	free_and_close_all(t_mini *mini, t_args *args, char *path_command, t_execution *exe_comamnd)
+void	free_and_close_all(t_mini *mini, char *path_command,
+	t_execution *exe_comamnd)
 {
 	t_execution	*iter_exe;
 	int			i;
 
+	close_inf_outf(mini);
+	close(mini->standard_fds[0]);
+	close(mini->standard_fds[1]);
+	printf("minishell: Command: Not a directory\n");
 	if (path_command)
 		free(path_command);
 	free(mini->user_prompt);
@@ -108,7 +99,6 @@ void	free_and_close_all(t_mini *mini, t_args *args, char *path_command, t_execut
 	ft_lstclear(&mini->here_doc_files, free);
 	free_last_env(mini);
 	free_env(mini);
-	(void)args;
 }
 
 int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
@@ -116,7 +106,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	char	*path_mid;
 	char	*path_command;
 
-	create_env_matrix(mini);
+	create_env_matrix(args->mini);
 	dup_redirections(iter_exe);
 	path_mid = NULL;
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
@@ -132,14 +122,8 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 		free(path_command);
 	}
 	else
-	{
-		close_inf_outf(mini);
-		free_and_close_all(mini, args, path_command, iter_exe);
-		//free (args->input); // NECESARIO??
-		close(mini->standard_fds[0]);
-		close(mini->standard_fds[1]);
-		ft_dprintf(2, "minishell: Command: Not a directory\n");
-	}
+		free_and_close_all(mini, path_command, iter_exe);
+
 	exit(127);
 	//returns y frees
 	return (127);
