@@ -18,6 +18,7 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 	int	len;
 
 	dup_redirections(iter_exe);
+	close_restant_fds(iter_exe, mini);
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
 		ft_built_echo(command);
@@ -70,11 +71,9 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 	}
 	if (pid == 0)
 	{
-		//	free_and_close_to_execve(mini->exe_command);
 		if (be_built_ins(iter_exe->command) == 1)
 		{
 			check_built_ins(iter_exe->command, iter_exe, mini, args);
-//			printf("close std fds %i %i\n", mini->standard_fds[0], mini->standard_fds[1]);
 			close(mini->standard_fds[0]);
 			close(mini->standard_fds[1]);
 			exit (0);
@@ -87,15 +86,9 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 void	close_fds(t_execution *iter_exe)
 {
 	if (iter_exe->inf_pipe > 0)
-	{
-//		ft_dprintf(2, "2 he cerrado el inf: %i\n", iter_exe->inf_pipe);
 		close(iter_exe->inf_pipe);
-	}
 	if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1)
-	{
-//		ft_dprintf(2, "1 he cerrado el outf: %i\n", iter_exe->outf_pipe);
 		close(iter_exe->outf_pipe);
-	}
 }
 
 int	start_executing(t_execution *iter_exe, int status,
@@ -103,11 +96,6 @@ int	start_executing(t_execution *iter_exe, int status,
 {
 	while (iter_exe != NULL)
 	{
-		if (args->last_history)
-		{
-			free(args->last_history);
-			args->last_history = NULL;
-		}
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
 		{
 			close_fds(iter_exe);
