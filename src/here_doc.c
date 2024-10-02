@@ -16,10 +16,11 @@ char	*ft_get_eof(char *eof)
 {
 	char	*eof_fin;
 
-	eof_fin = (char *)malloc(ft_strlen(eof + 2));
+	eof_fin = (char *)malloc(ft_strlen(eof) + 2);
 	ft_strlcpy(eof_fin, eof, ft_strlen(eof) + 1);
 	eof_fin[ft_strlen(eof)] = '\n';
 	eof_fin[ft_strlen(eof) + 1] = '\0';
+	//free(eof);
 	return (eof_fin);
 }
 
@@ -55,6 +56,7 @@ void	signal_here_doc(int sig)
 int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 {
 	t_args	here_doc;
+	char	*eof_fin;
 
 	(void)buffer;
 	ft_bzero(&here_doc, sizeof(t_args));
@@ -79,10 +81,12 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			free(here_doc.arg);
 			break ;
 		}
-		if (!ft_strncmp(ft_get_eof(eof), here_doc.arg, ft_strlen(here_doc.arg))
+		eof_fin = ft_get_eof(eof);
+		if (!ft_strncmp(eof_fin, here_doc.arg, ft_strlen(here_doc.arg))
 			&& ft_strlen(here_doc.arg) > 0)
 		{
 			free(here_doc.arg);
+			free(eof_fin);
 			break ;
 		}
 		expander(&here_doc, mini);
@@ -91,6 +95,8 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 		write(fd, "\n", 1);
 		free(here_doc.arg);
 		free(here_doc.result);
+		free(eof_fin);
+
 	}
 	signal(SIGINT, signal_sigint);
 	if (g_signal_received == SIGINT)
@@ -273,13 +279,14 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 	int	fd;
 
 	i = 0;
+	here_doc_fds = NULL;
 	while (iter_params != NULL)
 	{
 		if (iter_params->type == HERE_DOC)
 			i++;
 		iter_params = iter_params->next;
 	}
-	if (i < 0)
+	if (i > 0)
 		here_doc_fds = malloc(i * sizeof(int *));
 	i = 0;
 	iter_params = args->params;
