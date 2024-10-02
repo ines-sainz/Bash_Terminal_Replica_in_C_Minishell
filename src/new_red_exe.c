@@ -35,7 +35,8 @@ int	red(t_args *args, t_mini *mini)
 		return (ERR);
 	iter_params = args->params;
 	iter_exe = mini->exe_command;
-	fill_exe_redirections(iter_params, iter_exe, args, mini);
+	if (fill_exe_redirections(iter_params, iter_exe, args, mini) == ERR)
+		return (ERR);
 	return (0);
 }
 
@@ -62,6 +63,20 @@ void	close_inf_outf(t_mini *mini)
 	ft_lstclear(&mini->here_doc_files, free);
 }
 
+void	dup_redirections(t_execution *iter_exe)
+{
+	if (iter_exe->inf_pipe != 0)
+	{
+		dup2(iter_exe->inf_pipe, 0);
+		close(iter_exe->inf_pipe);
+	}
+	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
+	{
+		dup2(iter_exe->outf_pipe, 1);
+		close(iter_exe->outf_pipe);
+	}
+}
+
 int	new_red_exe(t_args *args, t_mini *mini)
 {
 	t_execution	*iter;
@@ -86,6 +101,11 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	}
 	iter = mini->exe_command;
 	status = 0;
+	if (args->last_history)
+	{
+		free(args->last_history);
+		args->last_history = NULL;
+	}
 	start_executing(iter, status, mini, args);
 	return (0);
 }
