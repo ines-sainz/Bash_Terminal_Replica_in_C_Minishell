@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/25 12:50:11 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:12:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,10 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	{
 		close_inf_outf(mini);
 		free_and_close_all(mini, args, path_command, iter_exe);
+		//free (args->input); // NECESARIO??
 		close(mini->standard_fds[0]);
 		close(mini->standard_fds[1]);
-		printf("minishell: Command: Not a directory\n");
+		ft_dprintf(2, "minishell: Command: Not a directory\n");
 	}
 	exit(127);
 	//returns y frees
