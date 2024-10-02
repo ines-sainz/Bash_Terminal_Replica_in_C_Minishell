@@ -1,5 +1,8 @@
 Opciones de Valgrind:
 
+Uso recomendado:
+valgrind --leak-check=full --trace-children=yes --track-fds=yes ./minishell
+
 --leak-check=full:		Verifica completamente si hay fugas de memoria.
 --show-leak-kinds=all:	Muestra todos los tipos de fugas (definitivas, indirectas, etc.).
 -s:							Muestra un resumen detallado de errores y advertencias.
