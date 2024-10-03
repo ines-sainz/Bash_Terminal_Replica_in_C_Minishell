@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/01 08:55:10 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 21:49:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	handle_first_letter(char **args, t_mini *mini, int *i)
+static int	handle_first_letter(char **args, int *i, int *exit_status)
 {
 	if ((ft_isalpha(args[*i][0]) == 0 || args[*i][0] == '=')
 		&& args[*i][0] != '_')
 	{
 		printf("minishell: export: `%s': not a valid identifier\n", args[*i]);
-		ft_export_env("?=1", mini);
+		*exit_status = 1;
 		(*i)++;
 		return (ERR);
 	}
 	return (OK);
 }
 
-int	find_equal(char **args, int *i, int *j)
+static int	find_equal(char **args, int *i, int *j)
 {
 	*j = -1;
 	while (args[*i][++(*j)])
@@ -36,7 +36,7 @@ int	find_equal(char **args, int *i, int *j)
 	return (0);
 }
 
-void	not_equal_case(char **args, int *i, t_mini *mini)
+static void	not_equal_case(char **args, int *i, t_mini *mini, int *exit_status)
 {
 	int	j;
 
@@ -47,7 +47,7 @@ void	not_equal_case(char **args, int *i, t_mini *mini)
 		{
 			printf("minishell: export: `%s': not a valid identifier\n",
 				args[*i]);
-			ft_export_env("?=1", mini);
+			*exit_status = 1;
 			break ;
 		}
 		j++;
@@ -55,22 +55,24 @@ void	not_equal_case(char **args, int *i, t_mini *mini)
 	if (j == (int)ft_strlen(args[*i]))
 	{
 		ft_export_env(args[*i], mini);
-		ft_export_env("?=0", mini);
+		*exit_status = 0;
 	}
 }
 
-void	equal_case(char **args, int *i, t_mini *mini, int *pos_equal)
+static int	equal_case(char **args, int *i, t_mini *mini, int *pos_equal)
 {
 	int	j;
+	int	exit_status;
 
 	j = 1;
+	exit_status = 0;
 	while (args[*i][j] && j < *pos_equal)
 	{
 		if (ft_isalnum(args[*i][j]) == 0 && args[*i][j] != '_')
 		{
 			printf("minishell: export: `%s': not a valid identifier\n",
 				args[*i]);
-			ft_export_env("?=1", mini);
+			exit_status = 1;
 			break ;
 		}
 		j++;
@@ -78,11 +80,12 @@ void	equal_case(char **args, int *i, t_mini *mini, int *pos_equal)
 	if (j == *pos_equal)
 	{
 		ft_export_env(args[*i], mini);
-		ft_export_env("?=0", mini);
+		exit_status = 0;
 	}
+	return (exit_status);
 }
 
-void	export_args(char **args, t_mini *mini)
+void	export_args(char **args, t_mini *mini, int *exit_status)
 {
 	int	i;
 	int	j;
@@ -97,14 +100,14 @@ void	export_args(char **args, t_mini *mini)
 	{
 		if (args[i][0] != '\0')
 		{
-			if (handle_first_letter(args, mini, &i) == ERR)
+			if (handle_first_letter(args, &i, exit_status) == ERR)
 				continue ;
 			pos_equal = find_equal(args, &i, &j);
 			j = 1;
 			if (pos_equal == 0)
-				not_equal_case(args, &i, mini);
+				not_equal_case(args, &i, mini, exit_status);
 			else
-				equal_case(args, &i, mini, &pos_equal);
+				*exit_status = equal_case(args, &i, mini, &pos_equal);
 		}
 		else
 		{
@@ -114,5 +117,5 @@ void	export_args(char **args, t_mini *mini)
 		i++;
 	}
 	if (void_arg != 0)
-		ft_export_env("?=1", mini);
+		*exit_status = 1;
 }
