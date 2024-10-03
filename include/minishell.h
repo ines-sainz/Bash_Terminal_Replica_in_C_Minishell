@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 21:51:47 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:14:42 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@
 // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 #include <curses.h>
 #include <term.h>
+
+// errno
+#include <errno.h>
 
 // DEFINES
 #define MAX_ARGS 1024
@@ -218,7 +221,7 @@ t_params 	*add_argument_to_list(t_args *args, int *argc,
 //					FT_LIST_ENV.C					//
 //////////////////////////////////////////////////////
 char		*ft_find_env(t_mini *mini, char *find);
-void		ft_print_env(t_mini *mini);
+//void		ft_print_env(t_mini *mini);
 void		free_env(t_mini *mini);
 int			add_back_env(t_env *node, t_mini *mini);
 t_env		*env_new(char *env);
@@ -269,6 +272,11 @@ void		ft_built_pwd(char **args, t_mini *mini);
 //					FT_CD.C							//
 //////////////////////////////////////////////////////
 int			ft_built_cd(char **args, t_mini *mini);
+
+//////////////////////////////////////////////////////
+//					FT_ENV.C						//
+//////////////////////////////////////////////////////
+int			ft_built_env(char **args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 //					REDIRECTOR FOLDER
