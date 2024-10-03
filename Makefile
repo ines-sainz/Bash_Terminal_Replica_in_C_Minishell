@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/26 14:37:44 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/03 09:14:29 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/start_executing.c \
 					$(SRC_DIR)/find_path.c \
 					$(SRC_DIR)/execute_commands.c \
-					$(BUILTINS_DIR)/ft_built_ins.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c \
 					$(BUILTINS_DIR)/ft_export.c \
