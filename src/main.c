@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/02 12:18:51 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 11:55:13 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ volatile sig_atomic_t	g_signal_received = 0;
 
 void	free_at_exit(t_args *args)
 {
-	// int	i;
-
 	close(args->mini->standard_fds[0]);
 	close(args->mini->standard_fds[1]);
 	if (args->input)
@@ -25,26 +23,11 @@ void	free_at_exit(t_args *args)
 		free (args->input);
 		args->input = NULL;
 	}
-	/* i = 0;
-	if (args->args[i])
-	{
-		while (args->args[i])
-			free (args->args[i++]);
-		//free (args->args);
-	}*/
 	if (args->arg)
 	{
 		free (args->arg);
 		args->arg = NULL;
 	}
-	/* TODO: check seg fault if decomment */
-	// if (args->result)//esto no se ha liberado en arg->args?
-	// {
-	// 	printf("{%s}\n", args->result);
-	// 	printf("[%p]\n", args->result);
-	// 	free (args->result); //creo q como args->args[i] no se puede liberar, al entrar en args>result ,como args->args tiene cosas no funciona
-	// 	args->result = NULL;
-	// }
 	if (args->mini->user_prompt)
 	{
 		free (args->mini->user_prompt);
@@ -56,13 +39,9 @@ void	free_at_exit(t_args *args)
 		args->last_history = NULL;
 	}
 	free_env(args->mini);
-	/* if (args->arg_ptr)
-		free (args->arg_ptr); */
 	del_params(args);
 	printf("DB: Resources freed successfully.\n");
-	//clear_history();
 	rl_clear_history();
-	//exit(i);1
 }
 
 static void	error_mini_use(int argc, char **argv)
@@ -95,26 +74,8 @@ void	signal_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_signal_received = 0;
 }
-
-// Manejador de la señal SIGQUIT (Ctrl-\)
-/* void	signal_sigquit(int sig)
-{
-	printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
-	clear_history();
-	signal(sig, SIG_DFL); // Restaurar el comportamiento por defecto
-	kill(getpid(), sig); // Enviar la señal nuevamente
-} */
-
-// Manejador de la señal SIGQUIT (Ctrl-\)
-/* void	signal_sigquit(int sig)
-{
-	//(void)sig;
-	printf("XD\n");
-	g_signal_received = sig;
-	//exit(0);
-	//signal(SIGQUIT, SIG_IGN);
-} */
 
 // Manejador de la señal SIGQUIT (Ctrl-\)
 void	signal_sigquit(int sig)
@@ -125,6 +86,7 @@ void	signal_sigquit(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_signal_received = 0;
 	//clear_history();
 	//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
 	//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
@@ -208,7 +170,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			// Detectar Ctrl-D (EOF)
 			handle_eof();
-			printf("\nDB: Caught EOF (Ctrl-D). Exiting...\n");
+			//printf("\nDB: Caught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
 		/* if (g_signal_received == SIGQUIT)
@@ -257,12 +219,7 @@ int	main(int argc, char **argv, char **env)
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
 	}
-	// Esto solo se ejecuta cuando recibamos Ctrl-D
-	//free(entry);
-	//free(mini.user_prompt);
-	//free (last_history);
-	//clear_history();
-	printf("\nDB: ¡¡EXCLUSIVO PARA CTRL + D!!\n");
+	printf("exit\n");
 	free_at_exit(&args);
 	return (0);
 }
