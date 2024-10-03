@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/03 21:18:41 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:14:46 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 	else if (ft_strncmp(command[0], "unset", len) == 0 && len == 5)
 		ft_built_unset(command, mini);
 	else if (ft_strncmp(command[0], "env", len) == 0 && len == 3)
-		ft_print_env(mini);
+		exit_status = ft_built_env(command, mini);
 	else if (ft_strncmp(command[0], "exit", len) == 0 && len == 4)
 		exit_status = ft_built_exit(args, command);
 	return (exit_status);
