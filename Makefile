@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
+#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/03 09:14:29 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/03 22:09:54 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(BUILTINS_DIR)/ft_unset.c \
 					$(BUILTINS_DIR)/ft_pwd.c \
 					$(BUILTINS_DIR)/ft_cd.c \
+					$(BUILTINS_DIR)/ft_env.c \
 					$(PARSE_DIR)/parse.c \
 					$(PARSE_DIR)/ft_tokenize.c \
 					$(PARSE_DIR)/tokenize_out_of_quotes.c \
