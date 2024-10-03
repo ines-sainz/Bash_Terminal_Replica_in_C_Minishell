@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 22:14:42 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:35:18 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ typedef struct s_args
 //////////////////////////////////////////////////////
 void		signal_sigint(int sig);
 void		free_at_exit(t_args *args);
-//int		main(void);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					PARSE FOLDER
@@ -179,7 +178,6 @@ void		free_at_exit(t_args *args);
 //////////////////////////////////////////////////////
 //						PARSE.C						//
 //////////////////////////////////////////////////////
-//int			ft_tokenize(t_args *args, int *argc, t_mini *mini);
 int			ft_tokenize(t_args *args, t_mini *mini);
 int			parse(t_args *args, t_mini *mini);
 
@@ -210,7 +208,7 @@ void		copy_chars_unless_its_quote(t_args *args, size_t *i, size_t *j);
 //////////////////////////////////////////////////////
 void		update_last_command_env_var(t_args *args);
 void		del_params(t_args *args);
-t_params 	*add_argument_to_list(t_args *args, int *argc,
+t_params	*add_argument_to_list(t_args *args, int *argc,
 				t_bool *heredoc_found);
 
 // ╔═.✵.═════════════════════════════════════════════╗
@@ -221,7 +219,6 @@ t_params 	*add_argument_to_list(t_args *args, int *argc,
 //					FT_LIST_ENV.C					//
 //////////////////////////////////////////////////////
 char		*ft_find_env(t_mini *mini, char *find);
-//void		ft_print_env(t_mini *mini);
 void		free_env(t_mini *mini);
 int			add_back_env(t_env *node, t_mini *mini);
 t_env		*env_new(char *env);
@@ -241,17 +238,17 @@ int			ft_set_env(char **env, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_ECHO.C						//
 //////////////////////////////////////////////////////
-int		ft_built_echo(char **args);
+int			ft_built_echo(char **args);
 
 //////////////////////////////////////////////////////
 //					FT_EXIT.C						//
 //////////////////////////////////////////////////////
-int		ft_built_exit(t_args *args, char **exit_args);
+int			ft_built_exit(t_args *args, char **exit_args);
 
 //////////////////////////////////////////////////////
 //					FT_EXPORT.C						//
 //////////////////////////////////////////////////////
-int		ft_built_export(char **args, t_mini *mini);
+int			ft_built_export(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //				FT_EXPORT_UTILS.C					//
@@ -266,7 +263,7 @@ void		ft_built_unset(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_PWD.C						//
 //////////////////////////////////////////////////////
-void		ft_built_pwd(char **args, t_mini *mini);
+int			ft_built_pwd(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FT_CD.C							//
@@ -342,5 +339,5 @@ char		*get_path_command(char **kid, char **env, char *path_mid);
 void		fill_exe(t_params *iter_params, t_execution *iter_exe);
 
 
-
-void	exe_struct_free(t_mini *mini);
+// ?¿?¿? //
+void		exe_struct_free(t_mini *mini);
