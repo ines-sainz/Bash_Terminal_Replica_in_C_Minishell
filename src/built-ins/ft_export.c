@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/01 14:21:12 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 21:47:29 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ static void	count_nodes(t_mini *mini)
 	}
 }
 
-void	ft_built_export(char **args, t_mini *mini)
+int	ft_built_export(char **args, t_mini *mini)
 {
 	int	argc;
+	int	exit_status;
 
 	argc = 0;
+	exit_status = 0;
 	while (args[argc])
 		argc++;
 	if (argc == 1)
@@ -86,8 +88,9 @@ void	ft_built_export(char **args, t_mini *mini)
 		count_nodes(mini);
 		create_nodes_order(mini);
 		print_list(mini);
-		ft_export_env("?=0", mini);
+		return (exit_status);
 	}
 	else
-		export_args(args, mini);
+		export_args(args, mini, &exit_status);
+	return (exit_status);
 }
