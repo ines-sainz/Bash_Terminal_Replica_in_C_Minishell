@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/26 08:45:12 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 21:12:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static int	its_only_numbers(char *str)
 	return (OK);
 }
 
-static void	multiple_args(t_args *args, char **exit_args,
-	int argc, t_mini *mini)
+static int	multiple_args(t_args *args, char **exit_args, int argc)
 {
 	int	nbr_atoi;
 	int	modulus;
@@ -49,14 +48,18 @@ static void	multiple_args(t_args *args, char **exit_args,
 		exit(modulus);
 	}
 	else if (its_only_numbers(exit_args[1]) == OK && argc > 2)
-		ft_export_env("?=1", mini);
+		return (1);
+		//ft_export_env("?=1", mini);
+	return (0);
 }
 
-void	ft_built_exit(t_args *args, char **exit_args, t_mini *mini)
+int	ft_built_exit(t_args *args, char **exit_args)
 {
 	int	argc;
+	int	exit_status;
 
 	argc = 0;
+	exit_status = 0;
 	while (exit_args[argc])
 		argc++;
 	printf("DB: exit argc = %i\n", argc);
@@ -66,5 +69,6 @@ void	ft_built_exit(t_args *args, char **exit_args, t_mini *mini)
 		exit(0);
 	}
 	if (argc >= 2)
-		multiple_args(args, exit_args, argc, mini);
+		exit_status = multiple_args(args, exit_args, argc);
+	return (exit_status);
 }
