@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 22:35:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:43:16 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ void		export_args(char **args, t_mini *mini, int *exit_status);
 //////////////////////////////////////////////////////
 //					FT_UNSET.C						//
 //////////////////////////////////////////////////////
-void		ft_built_unset(char **args, t_mini *mini);
+int			ft_built_unset(char **args, t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FT_PWD.C						//
