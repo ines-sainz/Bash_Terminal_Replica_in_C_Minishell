@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 09:14:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 11:41:42 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 #include <term.h>
 
 // DEFINES
-#define MAX_ARGS 100
+#define MAX_ARGS 1024
 
 // ANSI escape sequences for colors
 #define RESET "\001\033[0m\002"
@@ -73,15 +73,6 @@
 
 // GLOBAL VARIABLES
 extern volatile sig_atomic_t	g_signal_received;
-
-// STRUCTURES
-/* typedef enum e_file_type
-{
-	INFILE,
-	HERE_DOC,
-	TRUNC,
-	APPEND
-}	t_file_type; */
 
 typedef enum e_param_type
 {
@@ -282,7 +273,7 @@ void		ft_built_pwd(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 //					FT_CD.C							//
 //////////////////////////////////////////////////////
-void		ft_built_cd(char **args, t_mini *mini);
+int			ft_built_cd(char **args, t_mini *mini);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 //					REDIRECTOR FOLDER
