@@ -58,9 +58,9 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 	return (0);
 }
 
-int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
+int	if_error_in_here_doc(t_args *args, int *here_doc_fds, t_mini *mini)
 {
-	t_params *iter;
+	t_params	*iter;
 	int			n_here_doc;
 
 	n_here_doc = 0;
@@ -77,6 +77,7 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 					free(here_doc_fds);
 					here_doc_fds = NULL;
 				}
+				close_inf_outf(mini);
 				return (1);
 			}
 		}
@@ -91,7 +92,7 @@ int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 	int			*here_doc_fds;
 
 	here_doc_fds = get_here_doc(iter_params, args);
-	if (if_error_in_here_doc(args, here_doc_fds) == 1)
+	if (if_error_in_here_doc(args, here_doc_fds, mini) == 1)
 		return (ERR);
 	while (iter_params)
 	{
