@@ -102,6 +102,7 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	if (g_signal_received == SIGINT)
 	{
 		g_signal_received = 0;
+		close(fd);
 		return (-2);
 	}
 	return (OK);
