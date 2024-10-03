@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 12:30:06 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/23 14:31:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 22:25:43 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,6 @@ char	*ft_find_env(t_mini *mini, char *find)
 		mini->env_iter = mini->env_iter->next;
 	}
 	return (NULL);
-}
-
-void	ft_print_env(t_mini *mini)
-{
-	ft_export_env("_=/usr/bin/env", mini);
-	mini->env_iter = mini->env_first_node;
-	while (mini->env_iter != NULL)
-	{
-		if (ft_strcmp(mini->env_iter->variable, "?") == 0)
-		{
-			mini->env_iter = mini->env_iter->next;
-			continue ;
-		}
-		if (mini->env_iter->content)
-			printf("%s=%s\n", mini->env_iter->variable,
-				mini->env_iter->content);
-		mini->env_iter = mini->env_iter->next;
-	}
 }
 
 void	free_env(t_mini *mini)
