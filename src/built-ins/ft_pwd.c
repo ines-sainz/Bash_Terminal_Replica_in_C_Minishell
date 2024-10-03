@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:29:43 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/12 15:01:13 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/03 22:37:54 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_built_pwd(char **args, t_mini *mini)
+int	ft_built_pwd(char **args, t_mini *mini)
 {
 	char	*cwd;
 	int		argc;
@@ -21,21 +21,21 @@ void	ft_built_pwd(char **args, t_mini *mini)
 	while (args[argc])
 		argc++;
 	if (argc > 1)
-		return ;
+		return (ft_dprintf(2, "minishell: pwd: Args not allowed\n"), 1);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
 		if (ft_find_env(mini, "PWD"))
 		{
-			printf("estoy en una carpeta que no existe\n");
 			cwd = ft_strdup(ft_find_env(mini, "PWD"));
 			printf("%s\n", cwd);
 			free (cwd);
-			return ;
+			return (0);
 		}
 		perror("minishell: getcwd");
-		return ;
+		return (1);
 	}
 	printf("%s\n", cwd);
 	free(cwd);
+	return (0);
 }
