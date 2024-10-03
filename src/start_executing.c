@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/03 22:14:46 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:33:30 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 	else if (ft_strncmp(command[0], "cd", len) == 0 && len == 2)
 		exit_status = ft_built_cd(command, mini);
 	else if (ft_strncmp(command[0], "pwd", len) == 0 && len == 3)
-		ft_built_pwd(command, mini);
+		exit_status = ft_built_pwd(command, mini);
 	else if (ft_strncmp(command[0], "export", len) == 0 && len == 6)
 		exit_status = ft_built_export(command, mini);
 	else if (ft_strncmp(command[0], "unset", len) == 0 && len == 5)
