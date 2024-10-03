@@ -58,10 +58,11 @@ void	ft_unset_env(char *unset, t_mini *mini)
 	}
 }
 
-int	look_for_equal(char *new_env)
+int	ft_existing_node(char *new_env, t_mini *mini)
 {
 	int		i;
 	int		equal;
+	char	*name;
 
 	i = 0;
 	equal = 0;
@@ -71,15 +72,6 @@ int	look_for_equal(char *new_env)
 			equal = i;
 		i++;
 	}
-	return (equal);
-}
-
-int	ft_existing_node(char *new_env, t_mini *mini)
-{
-	int		equal;
-	char	*name;
-
-	equal = look_for_equal(new_env);
 	if (equal != 0)
 		name = ft_substr(new_env, 0, equal);
 	else
@@ -88,7 +80,10 @@ int	ft_existing_node(char *new_env, t_mini *mini)
 	while (mini->env_iter != NULL)
 	{
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal == 0)
-			return (free(name), OK);
+		{
+			free(name);
+			return (OK);
+		}
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal != 0)
 		{
 			free(name);
@@ -102,20 +97,13 @@ int	ft_existing_node(char *new_env, t_mini *mini)
 	return (ERR);
 }
 
-void	frees_in_export_env(t_env *new_node)
-{
-	free(new_node->content);
-	free(new_node->variable);
-	free(new_node);
-}
-
 void	ft_export_env(char *new_env, t_mini *mini)
 {
 	t_env	*new_node;
 
 	if (ft_existing_node(new_env, mini) == OK)
 		return ;
-	// COMPROBAR EL CONTENIDO POR SI YA EXISTE ANTES DE CREAR EL NODO
+	// SERÍA INTERESANTE COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
 	new_node = env_new(new_env);
 	if (!new_node)
 	{
@@ -130,7 +118,9 @@ void	ft_export_env(char *new_env, t_mini *mini)
 		{
 			free(mini->env_iter->content);
 			mini->env_iter->content = ft_strdup(new_node->content);
-			frees_in_export_env(new_node);
+			free(new_node->content);
+			free(new_node->variable);
+			free(new_node);
 			return ;
 		}
 		mini->env_iter = mini->env_iter->next;

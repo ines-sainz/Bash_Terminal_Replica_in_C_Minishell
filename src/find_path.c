@@ -53,6 +53,7 @@ char	*get_path_command(char **kid, char **env, char *path_mid)
 	char	*path;
 	char	**path_list;
 
+	//ft_dprintf(2, "kid ==> %s")
 	if (kid[0] != NULL && ft_strchr(kid[0], '/'))
 		return (path_included(kid));
 	i = -1;
