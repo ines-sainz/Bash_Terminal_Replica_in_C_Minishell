@@ -16,6 +16,8 @@ volatile sig_atomic_t	g_signal_received = 0;
 
 void	free_at_exit(t_args *args)
 {
+	//int	i;
+
 	close(args->mini->standard_fds[0]);
 	close(args->mini->standard_fds[1]);
 	if (args->input)
@@ -23,6 +25,13 @@ void	free_at_exit(t_args *args)
 		free (args->input);
 		args->input = NULL;
 	}
+	/* i = 0;
+	if (args->args[i])
+	{
+		while (args->args[i])
+			free(args->args[i++]);
+		//free(args->args);
+	}*/
 	if (args->arg)
 	{
 		free (args->arg);
@@ -39,9 +48,12 @@ void	free_at_exit(t_args *args)
 		args->last_history = NULL;
 	}
 	free_env(args->mini);
+	/* if (args->arg_ptr)
+		free(args->arg_ptr);*/
 	del_params(args);
 	printf("DB: Resources freed successfully.\n");
 	rl_clear_history();
+	//exit(i);1
 }
 
 static void	error_mini_use(int argc, char **argv)
@@ -113,7 +125,6 @@ int	main(int argc, char **argv, char **env)
 	ft_bzero(&mini, sizeof(t_mini));
 	ft_set_env(env, &mini);
 	args.mini = &mini;
-	//ft_print_env(&mini);
 	//environment
 	error_mini_use(argc, argv);
 	if (getenv("USER") == NULL)
