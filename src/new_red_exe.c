@@ -105,7 +105,7 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	{
 		free(args->last_history);
 		args->last_history = NULL;
-	}/*ELIMINARR*/
+	}/*ELIMINAR*/
 	start_executing(iter, status, mini, args);
 	return (0);
 }
