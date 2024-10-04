@@ -80,10 +80,7 @@ int	ft_existing_node(char *new_env, t_mini *mini)
 	while (mini->env_iter != NULL)
 	{
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal == 0)
-		{
-			free(name);
-			return (OK);
-		}
+			return (free(name), OK);
 		if (ft_strcmp(name, mini->env_iter->variable) == 0 && equal != 0)
 		{
 			free(name);
@@ -93,8 +90,7 @@ int	ft_existing_node(char *new_env, t_mini *mini)
 		}
 		mini->env_iter = mini->env_iter->next;
 	}
-	free(name);
-	return (ERR);
+	return (free(name), ERR);
 }
 
 void	ft_export_env(char *new_env, t_mini *mini)
@@ -103,7 +99,7 @@ void	ft_export_env(char *new_env, t_mini *mini)
 
 	if (ft_existing_node(new_env, mini) == OK)
 		return ;
-	// SERÍA INTERESANTE COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
+	//COMPROBAR EL CONTENIDO, POR SI YA EXISTE, ANTES DE CREAR EL NODO
 	new_node = env_new(new_env);
 	if (!new_node)
 	{
@@ -158,35 +154,3 @@ int	ft_set_env(char **env, t_mini *mini)
 	}
 	return (0);
 }
-
-/* int	main(int argc, char **argv, char **env)
-{
-	t_mini	mini;
-
-	(void)argv;
-	if (argc != 1)
-		return (1);
-	printf("///////////////////\n       STETEA EL ENV\n///////////////////\n");
-	ft_set_env(env, &mini);
-	printf("///////////////////\n       IMPRIME EL ENV\n///////////////////\n");
-	ft_print_env(&mini);
-	printf("//////////////////\n       BUSCA LA VARIABLE\n//////////////////\n");
-	printf("Devuelve: %s\n", ft_get_env("USER", &mini));
-	printf("/////////////////\n       EXPORTA LA VARIABLE\n/////////////////\n");
-	ft_export_env("INES=ines", &mini);
-	printf("///////////////////\n       IMPRIME EL ENV\n///////////////////\n");
-	ft_print_env(&mini);
-	printf("////////////////\nCAMBIA CONTENIDO DE VARIABLE\n////////////////\n");
-	ft_export_env("INES=iines", &mini);
-	printf("///////////////////\n       IMPRIME EL ENV\n///////////////////\n");
-	ft_print_env(&mini);
-	printf("/////////////////\n    DESSTETEA LA VARIABLE\n/////////////////\n");
-	ft_unset_env("INES", &mini);
-	printf("///////////////////\n       IMPRIME EL ENV\n///////////////////\n");
-	ft_print_env(&mini);
-}
-$ echo $VAR
-$var=
-$ echo $VAR
-$
-*/
