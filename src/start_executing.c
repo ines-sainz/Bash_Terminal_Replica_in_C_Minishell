@@ -131,6 +131,6 @@ int	start_executing(t_execution *iter_exe, int status,
 	}
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
-	//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
+	//ft_export_env("?=55", mini); Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
