@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/03 22:43:46 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:34:57 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 	int		exit_status;
 
 	pid = fork();
+	exit_status = 0;
 	if (pid == -1)
 	{
 		perror("fork failed");
@@ -74,12 +75,14 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 	}
 	if (pid == 0)
 	{
+		ft_dprintf(2, "DB: (1) exit_status value: %i\n", exit_status);
 		if (be_built_ins(iter_exe->command) == 1)
 		{
 			exit_status = check_built_ins(iter_exe->command,
 					iter_exe, mini, args);
 			close(mini->standard_fds[0]);
 			close(mini->standard_fds[1]);
+			ft_dprintf(2, "DB: (2) exit_status value: %i\n", exit_status);
 			exit (exit_status);
 		}
 		else
@@ -122,10 +125,12 @@ int	start_executing(t_execution *iter_exe, int status,
 				free(exit_status_itoa);
 				ft_export_env(exit_status_str, mini);
 				free(exit_status_str);
+				// Comprobar si el built-in es exit, y hacer un exit con el valor de return
 				return (0);
 			}
 		}
 		create_fork(iter_exe, mini, args);
+		//ft_export_env("?=55", mini); Actualizar para Built-ins y execves
 		close_fds(iter_exe);
 		iter_exe = iter_exe->next;
 	}
