@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/08 15:41:40 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/08 21:24:27 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	start_executing(t_execution *iter_exe, int status,
 				ft_export_env(exit_status_str, mini);
 				free(exit_status_str);
 				// Comprobar si el built-in es exit, y hacer un exit con el valor de return
+				ft_dprintf(2, "DB: 1 built-in status value: %i\n", exit_status);
 				if (ft_strncmp(iter_exe->command[0], "exit", ft_strlen(iter_exe->command[0])) == 0 && ft_strlen(iter_exe->command[0]) == 4 && exit_status != -1)
 				{
 					free_at_exit(args);
@@ -142,12 +143,15 @@ int	start_executing(t_execution *iter_exe, int status,
 		iter_exe = iter_exe->next;
 	}
 	while (waitpid(-1, &status, 0) != -1)
+	{
+		ft_dprintf(2, "DB: waitpid status value: %i\n", WEXITSTATUS(status));
 		continue ;
-	/* exit_status_itoa = ft_itoa(status);
+	}
+	exit_status_itoa = ft_itoa(WEXITSTATUS(status));
 	exit_status_str = ft_strjoin("?=", exit_status_itoa);
 	free(exit_status_itoa);
 	ft_export_env(exit_status_str, mini);
-	free(exit_status_str); */
+	free(exit_status_str);
 	//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
