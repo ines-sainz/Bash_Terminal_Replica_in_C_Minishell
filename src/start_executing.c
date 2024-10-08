@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/07 09:34:57 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/08 15:41:40 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,28 @@ int	start_executing(t_execution *iter_exe, int status,
 				ft_export_env(exit_status_str, mini);
 				free(exit_status_str);
 				// Comprobar si el built-in es exit, y hacer un exit con el valor de return
+				if (ft_strncmp(iter_exe->command[0], "exit", ft_strlen(iter_exe->command[0])) == 0 && ft_strlen(iter_exe->command[0]) == 4 && exit_status != -1)
+				{
+					free_at_exit(args);
+					exit(exit_status);
+				}
+				else if ((ft_strncmp(iter_exe->command[0], "exit", ft_strlen(iter_exe->command[0])) == 0 && ft_strlen(iter_exe->command[0]) == 4 && exit_status == -1))
+					ft_export_env("?=1", mini);
 				return (0);
 			}
 		}
 		create_fork(iter_exe, mini, args);
-		//ft_export_env("?=55", mini); Actualizar para Built-ins y execves
+		//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
 		close_fds(iter_exe);
 		iter_exe = iter_exe->next;
 	}
 	while (waitpid(-1, &status, 0) != -1)
 		continue ;
-	//ft_export_env("?=55", mini); Actualizar para Built-ins y execves
+	/* exit_status_itoa = ft_itoa(status);
+	exit_status_str = ft_strjoin("?=", exit_status_itoa);
+	free(exit_status_itoa);
+	ft_export_env(exit_status_str, mini);
+	free(exit_status_str); */
+	//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
 	return (WEXITSTATUS(status));
 }
