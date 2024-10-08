@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/08 21:24:27 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/08 22:11:18 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	be_built_ins(char **command)
 	return (0);
 }
 
-void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
+int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	pid_t	pid;
 	int		exit_status;
@@ -88,6 +88,7 @@ void	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 		else
 			execute(iter_exe, mini, args);
 	}
+	return (pid);
 }
 
 void	close_fds(t_execution *iter_exe)
@@ -104,8 +105,13 @@ int	start_executing(t_execution *iter_exe, int status,
 	int		exit_status;
 	char	*exit_status_itoa;
 	char	*exit_status_str;
+	pid_t	last_pid;
+	pid_t	pid;
+	int		last_status;
+	t_execution *iter_exe_cpy; // 7 Variables!!!
 
 	exit_status = 0;
+	iter_exe_cpy = iter_exe;
 	while (iter_exe != NULL)
 	{
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
@@ -137,21 +143,34 @@ int	start_executing(t_execution *iter_exe, int status,
 				return (0);
 			}
 		}
-		create_fork(iter_exe, mini, args);
-		//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
+		last_pid = create_fork(iter_exe, mini, args);
 		close_fds(iter_exe);
 		iter_exe = iter_exe->next;
 	}
-	while (waitpid(-1, &status, 0) != -1)
+	pid = waitpid(-1, &status, 0);
+	while (pid != -1)
 	{
-		ft_dprintf(2, "DB: waitpid status value: %i\n", WEXITSTATUS(status));
-		continue ;
+		ft_dprintf(2, "DB: PID %i finish whit status: %i\n", pid, WEXITSTATUS(status));
+		if (pid == last_pid)
+			last_status = WEXITSTATUS(status);
+		pid = waitpid(-1, &status, 0);
 	}
-	exit_status_itoa = ft_itoa(WEXITSTATUS(status));
+	exit_status_itoa = ft_itoa(last_status);
 	exit_status_str = ft_strjoin("?=", exit_status_itoa);
 	free(exit_status_itoa);
 	ft_export_env(exit_status_str, mini);
 	free(exit_status_str);
+	while (iter_exe_cpy != NULL)
+	{
+		ft_dprintf(2, "DB: iter_exe->command[0] = %s\n", iter_exe_cpy->command[0]);
+		ft_dprintf(2, "DB: ft_strlen(iter_exe_cpy->command[0]) = %i\n", ft_strlen(iter_exe_cpy->command[0]));
+		ft_dprintf(2, "last_status = %i\n", last_status);
+		ft_dprintf(2, "status = %i\n", status);
+		// Caso especial en el que exit devuelve -1, pero debe actualizar $? a 1
+		if ((ft_strncmp(iter_exe_cpy->command[0], "exit", ft_strlen(iter_exe_cpy->command[0])) == 0 && ft_strlen(iter_exe_cpy->command[0]) == 4 && last_status == -1))
+			ft_export_env("?=1", mini);
+		iter_exe_cpy = iter_exe_cpy->next;
+	}
 	//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
-	return (WEXITSTATUS(status));
+	return (last_status);
 }
