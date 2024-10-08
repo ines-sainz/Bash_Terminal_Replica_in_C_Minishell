@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/03 21:12:56 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:39:58 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,25 @@ static int	multiple_args(t_args *args, char **exit_args, int argc)
 	int	nbr_atoi;
 	int	modulus;
 
+	(void)args;
 	if (its_only_numbers(exit_args[1]) == ERR)
 	{
 		printf("minishell: exit: %s: numeric argument required\n",
 			exit_args[1]);
-		free_at_exit(args);
-		exit(2);
+		//free_at_exit(args);
+		//exit(2);
+		return (2);
 	}
 	else if (its_only_numbers(exit_args[1]) == OK && argc == 2)
 	{
 		nbr_atoi = ft_atoi(exit_args[1]);
 		modulus = (nbr_atoi % 256);
-		free_at_exit(args);
-		exit(modulus);
+		//free_at_exit(args);
+		//exit(modulus);
+		return (modulus);
 	}
 	else if (its_only_numbers(exit_args[1]) == OK && argc > 2)
-		return (1);
+		return (-1);
 		//ft_export_env("?=1", mini);
 	return (0);
 }
@@ -65,8 +68,9 @@ int	ft_built_exit(t_args *args, char **exit_args)
 	printf("DB: exit argc = %i\n", argc);
 	if (argc == 1)
 	{
-		free_at_exit(args);
-		exit(0);
+		//free_at_exit(args);
+		//exit(0);
+		return (0);
 	}
 	if (argc >= 2)
 		exit_status = multiple_args(args, exit_args, argc);
