@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 11:55:13 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/09 15:33:36 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	signal_sigint(int sig)
 }
 
 // Manejador de la señal SIGQUIT (Ctrl-\)
-void	signal_sigquit(int sig)
+/* void	signal_sigquit(int sig)
 {
 	//printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
 	g_signal_received = sig;
@@ -102,7 +102,7 @@ void	signal_sigquit(int sig)
 	//clear_history();
 	//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
 	//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
-}
+} */
 
 // Manejo del EOF
 void	handle_eof(void)
@@ -147,7 +147,8 @@ int	main(int argc, char **argv, char **env)
 
 	// Configurar los manejadores de señal
 	signal(SIGINT, signal_sigint);
-	signal(SIGQUIT, signal_sigquit);
+	//signal(SIGQUIT, signal_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 
 	//GET $$ = PID
 	// char	*itoa_pid;
@@ -229,6 +230,9 @@ int	main(int argc, char **argv, char **env)
 		free(args.input); // Liberar la memoria asignada por readline
 		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
+		// Cerrar descriptores originales
+		/* close(mini.standard_fds[0]);
+		close(mini.standard_fds[1]); */
 	}
 	printf("exit\n");
 	free_at_exit(&args);
