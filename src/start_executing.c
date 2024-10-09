@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/08 22:11:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/09 08:04:18 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,12 @@ int	start_executing(t_execution *iter_exe, int status,
 	{
 		ft_dprintf(2, "DB: iter_exe->command[0] = %s\n", iter_exe_cpy->command[0]);
 		ft_dprintf(2, "DB: ft_strlen(iter_exe_cpy->command[0]) = %i\n", ft_strlen(iter_exe_cpy->command[0]));
-		ft_dprintf(2, "last_status = %i\n", last_status);
-		ft_dprintf(2, "status = %i\n", status);
+		ft_dprintf(2, "DB: last_status = %i\n", last_status);
+		ft_dprintf(2, "DB: status = %i\n", status);
+		ft_dprintf(2, "DB: WEXITSTATUS(status) = %i\n", WEXITSTATUS(status));
 		// Caso especial en el que exit devuelve -1, pero debe actualizar $? a 1
-		if ((ft_strncmp(iter_exe_cpy->command[0], "exit", ft_strlen(iter_exe_cpy->command[0])) == 0 && ft_strlen(iter_exe_cpy->command[0]) == 4 && last_status == -1))
+		//if ((ft_strncmp(iter_exe_cpy->command[0], "exit", ft_strlen(iter_exe_cpy->command[0])) == 0 && ft_strlen(iter_exe_cpy->command[0]) == 4 && last_status == -1))
+		if (ft_strncmp(iter_exe_cpy->command[0], "exit", ft_strlen(iter_exe_cpy->command[0])) == 0 && ft_strlen(iter_exe_cpy->command[0]) == 4 && last_status == 255 && iter_exe_cpy->command[2] != NULL)
 			ft_export_env("?=1", mini);
 		iter_exe_cpy = iter_exe_cpy->next;
 	}
