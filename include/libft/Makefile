@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/09/25 09:23:51 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/09 09:32:39 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC			=	ft_isalpha.c \
 				ft_strstr.c \
 				ft_isspace.c \
 				ft_strchr_int.c \
+				ft_custom_atoll.c \
 				$(PRINTF_DIR)/ft_printf.c \
 				$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_printf_utils.c \
