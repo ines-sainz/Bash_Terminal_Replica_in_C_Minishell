@@ -6,26 +6,49 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:59:20 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/25 09:20:48 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/09 09:30:54 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <ctype.h>
-# include <fcntl.h>
-# include <stddef.h>
-# include <stdio.h>
+//isascii, isalnum, tolower, toupper...
+//# include <ctype.h>
+
+//O_RDONLY, O_WRONLY, O_CREAT, O_TRUNC...
+//# include <fcntl.h>
+
+//NULL, size_t
+//# include <stddef.h>
+
+//ft_printf
+//# include <stdio.h>
+
+//int8_t, int16_t, int32_t, uint8_t, uint16_t, uint32_t.
+//Limits of: size_t, sig_atomic_t...
 # include <stdint.h>
+
+//malloc, calloc, free
 # include <stdlib.h>
-# include <string.h>
-# include <strings.h>
-# include <unistd.h>
+
+//atoi, memcpy, strchr...
+//# include <string.h>
+
+//bzero
+//# include <strings.h>
+
+//close, read, write
+//# include <unistd.h>
+
+//INT_MAX, INT_MIN, LLONG_MAX, LLONG_MIN
+//# include <limits.h>
+
+// ft_printf, ft_dprintf
 # include "printf/ft_printf.h"
 
 //va_list, va_start, va_arg, va_end
-# include <stdarg.h>
+//# include <stdarg.h>
 
 typedef struct s_list
 {
