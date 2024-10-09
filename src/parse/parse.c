@@ -120,6 +120,7 @@ int	parse(t_args *args, t_mini *mini)
 	}
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
+	//printf("IN: cerrar todos los fds y here-doc en el parse\n");
 	close_inf_outf(mini);
 	exe_struct_free(mini);
 	printf("DB: Parsed arguments:\n");

@@ -35,6 +35,7 @@ int	red(t_args *args, t_mini *mini)
 		return (ERR);
 	iter_params = args->params;
 	iter_exe = mini->exe_command;
+	//printf("IN: llenar las redirecciones\n");
 	if (fill_exe_redirections(iter_params, iter_exe, args, mini) == ERR)
 		return (ERR);
 	return (0);
@@ -49,12 +50,19 @@ void	close_inf_outf(t_mini *mini)
 	while (iter != NULL)
 	{
 		if (iter->inf_pipe > 0)
+		{
+			//printf("IN: cerrar el inf fd %i de close-inf-outf", iter->inf_pipe);//
 			close(iter->inf_pipe);
+		}
 		if (iter->outf_pipe > 1)
+		{
+			//printf("IN: cerrar el outf fd %i de close-inf-outf", iter->outf_pipe);//
 			close(iter->outf_pipe);
+		}
 		iter = iter->next;
 	}
 	temp_here_doc = mini->here_doc_files;
+	//printf("IN: cerrar los archivos del here-doc de close inf outf\n");//
 	while (temp_here_doc != NULL)
 	{
 		unlink(temp_here_doc->content);
@@ -68,11 +76,13 @@ void	dup_redirections(t_execution *iter_exe)
 	if (iter_exe->inf_pipe != 0)
 	{
 		dup2(iter_exe->inf_pipe, 0);
+		//printf("IN: dup inf fd %i ", iter_exe->inf_pipe);//
 		close(iter_exe->inf_pipe);
 	}
 	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
 	{
 		dup2(iter_exe->outf_pipe, 1);
+		//printf("IN: dup outf fd %i de dup-redirectons\n", iter_exe->outf_pipe);//
 		close(iter_exe->outf_pipe);
 	}
 }

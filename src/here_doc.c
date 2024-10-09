@@ -102,6 +102,7 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 	if (g_signal_received == SIGINT)
 	{
 		g_signal_received = 0;
+		//printf("IN: close fd %i if ctrl + C in here-doc from write-temp\n", fd);
 		close(fd);
 		return (-2);
 	}
@@ -257,19 +258,25 @@ int	ft_here_doc(t_params *param, t_mini *mini, int fd)
 
 	file_name = get_here_doc_file_name();
 	fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	//	printf("IN: open fd %i in here-doc\n", fd);
 	if (fd < 0)
 		return (free(file_name), ERR);
 	temp_here_doc = ft_lstnew(file_name);
 	if (temp_here_doc == NULL)
 	{
+		unlink(file_name);
+		//printf("IN: close fd %i if here-doc name not in list\n", fd);
 		ft_lstclear(&mini->here_doc_files, free);
+		close(fd);
 		return (ERR);
 	}
 	ft_lstadd_back(&mini->here_doc_files, temp_here_doc);
 	if (ft_write_temp(fd, param->content, buffer, mini) == -2)
 		return (-2);
+	//printf("IN: cerrar el fd %i", fd);
 	close (fd);
 	fd = open(file_name, O_RDONLY, 0777);
+	//printf(" para después abrirlo %i\n", fd);
 	return (fd);
 }
 
@@ -296,7 +303,9 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 		if (iter_params->type == HERE_DOC)
 		{
 			fd = 0;
-			here_doc_fds[i++] = ft_here_doc(iter_params->next, args->mini, fd);
+			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, fd);
+			//printf("IN: poner el fd %i en la posicion del here-doc %i\n", fd, i);
+			i++;
 		}
 		iter_params = iter_params->next;
 	}

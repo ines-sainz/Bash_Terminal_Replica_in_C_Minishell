@@ -60,13 +60,17 @@ void	close_restant_fds(t_execution *exe_command, t_mini *mini)
 {
 	t_execution	*iter_exe;
 
+	//printf("IN: close standard fdds from restant fds\n");
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
 	iter_exe = exe_command;
 	while (iter_exe != NULL)
 	{
 		if (iter_exe->n_command != exe_command->n_command)
+		{
+	//		printf("IN: close fds from restant fds command %i\n", exe_command->n_command);
 			close_fds(iter_exe);
+		}
 		iter_exe = iter_exe->next;
 	}
 }
@@ -77,7 +81,9 @@ void	free_and_close_all(t_mini *mini, char *path_command,
 	t_execution	*iter_exe;
 	int			i;
 
+	printf("IN: closing from non commands\n");
 	close_inf_outf(mini);
+	printf("IN: close standard fds from nonexisting commands\n");
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
 	printf("minishell: Command: Not a directory\n");
@@ -107,6 +113,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	char	*path_command;
 
 	create_env_matrix(args->mini);
+	//printf("IN: dup redir en el hijoo execute\n");
 	dup_redirections(iter_exe);
 	path_mid = NULL;
 	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
@@ -121,6 +128,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 			write(2, "minishell: Command: Permission denied\n", 39);
 		free(path_command);
 	}
+	//printf("IN: free and close all in execute\n");
 	free_and_close_all(mini, path_command, iter_exe);
 	exit(127);
 	//returns y frees

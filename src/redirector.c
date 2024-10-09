@@ -76,6 +76,7 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 					free(here_doc_fds);
 					here_doc_fds = NULL;
 				}
+				//printf("IN: close inf-outf if error in here-doc\n");//
 				close_inf_outf(args->mini);
 				write(1, "> ^C\n", 6);
 				return (1);
@@ -112,6 +113,9 @@ int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 		iter_params = iter_params->next;
 	}
 	if (here_doc_fds != NULL)
+	{
+		//printf("IN: eliminar el *de los fds del herre-doc\n");//
 		free(here_doc_fds);
+	}
 	return (0);
 }

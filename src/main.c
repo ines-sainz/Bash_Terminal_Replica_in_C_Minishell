@@ -18,6 +18,7 @@ void	free_at_exit(t_args *args)
 {
 	//int	i;
 
+	//printf("IN: close standar fds in exit\n");
 	close(args->mini->standard_fds[0]);
 	close(args->mini->standard_fds[1]);
 	if (args->input)
@@ -168,12 +169,14 @@ int	main(int argc, char **argv, char **env)
 		ft_export_env("MY_SHLVL=1", &mini); */
 
 	//SET_STANDARD_FDS
+	//printf("IN: crear fds estandar\n");
 	mini.standard_fds[0] = dup(STDIN_FILENO);
 	mini.standard_fds[1] = dup(STDOUT_FILENO);
 
 	// Bucle principal del shell
 	while (1)
 	{
+		//printf("IN: dup de los fds estándar\n");
 		dup2(mini.standard_fds[0], STDIN_FILENO);
 		dup2(mini.standard_fds[1], STDOUT_FILENO);
 		g_signal_received = 0;
