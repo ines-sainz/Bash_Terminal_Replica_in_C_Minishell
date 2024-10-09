@@ -121,9 +121,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 			write(2, "minishell: Command: Permission denied\n", 39);
 		free(path_command);
 	}
-	else
-		free_and_close_all(mini, path_command, iter_exe);
-
+	free_and_close_all(mini, path_command, iter_exe);
 	exit(127);
 	//returns y frees
 	return (127);
