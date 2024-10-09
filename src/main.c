@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/09 15:33:36 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/09 15:36:54 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int	main(int argc, char **argv, char **env)
 			exit (0); */
 		if (args.input != NULL && args.input[0] != '\0')
 			parse(&args, &mini);
+		signal(SIGINT, signal_sigint);
 		/* if (args.input[0] != '\0')
 		{
 			if (parse(&args, &mini) == ERR)
