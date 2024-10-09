@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/09 08:04:18 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/09 15:34:52 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 	}
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		ft_dprintf(2, "DB: (1) exit_status value: %i\n", exit_status);
 		if (be_built_ins(iter_exe->command) == 1)
 		{
@@ -88,6 +89,9 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 		else
 			execute(iter_exe, mini, args);
 	}
+	// Comprobar que esto es correcto (ctrl + c en una minishell dentro de una minishell)
+	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+		perror("signal");
 	return (pid);
 }
 
@@ -152,7 +156,10 @@ int	start_executing(t_execution *iter_exe, int status,
 	{
 		ft_dprintf(2, "DB: PID %i finish whit status: %i\n", pid, WEXITSTATUS(status));
 		if (pid == last_pid)
+		{
 			last_status = WEXITSTATUS(status);
+			last_status = WIFSIGNALED(status) + 128; // Revisar para señales
+		}
 		pid = waitpid(-1, &status, 0);
 	}
 	exit_status_itoa = ft_itoa(last_status);
