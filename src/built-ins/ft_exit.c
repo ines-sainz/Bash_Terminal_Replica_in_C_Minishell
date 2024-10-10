@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/09 15:32:10 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/10 11:22:03 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	is_valid_number(const char *str, long long int *result)
 	if (negative)
 		value = -value;
 	// Comprobar límites
-	if (value < LLONG_MIN || value > LLONG_MAX)
+	if (value <= LLONG_MIN || value >= LLONG_MAX)
 		return (ERR); // Fuera de límites
 	*result = value;
 	return (OK); // Éxito
@@ -65,7 +65,7 @@ static int	its_only_numbers(char *str)
 		i++;
 	}
 	// LLONG_MAX 9223372036854775808 LLONG_MIN -9223372036854775809
-	if (!is_valid_number(str, &num_not_valid))
+	if (is_valid_number(str, &num_not_valid) == ERR)
 		return (ERR);
 	/* num_not_valid = ft_custom_atoll(str);
 	if ((unsigned long long int)num_not_valid == ULLONG_MAX)
