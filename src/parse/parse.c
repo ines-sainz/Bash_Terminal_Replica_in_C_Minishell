@@ -123,6 +123,9 @@ int	parse(t_args *args, t_mini *mini)
 	//printf("IN: cerrar todos los fds y here-doc en el parse\n");
 	close_inf_outf(mini);
 	exe_struct_free(mini);
+	mini->n_here_docs = 0;
+	mini->n_commands = 0;
+	free_last_env(mini);
 	printf("DB: Parsed arguments:\n");
 	temp = args->params;
 	while (temp != NULL)
