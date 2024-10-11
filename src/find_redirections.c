@@ -39,7 +39,7 @@ void	fill_here_doc(int fd, t_execution *iter_exe, t_mini *mini)
 	mini->n_here_docs++;
 	if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
 	{
-		//printf("IN: wrong fd, closing here-doc fd fom fill_herre-doc\n");
+		//printf("IN: wrong fd, closing here-doc fd fom fill_here-doc\n");
 		close(fd);
 		return ;
 	}
@@ -106,10 +106,10 @@ void	fill_pipe(t_execution *iter_exe)
 	int	pipe_fds[2];
 
 	pipe(pipe_fds);
-	//printf("IN: open pipe fds. inf: %i outf: %i", pipe_fds[0], pipe_fds[1]);
+	//printf("IN: open pipe fds. inf: %i outf: %i\n", pipe_fds[0], pipe_fds[1]);
 	if (iter_exe->outf_pipe == 1)
 	{
-		//printf("IN: put outf pipe %i\n", iter_exe->outf_pipe);
+		//printf("IN: put outf pipe %i\n", pipe_fds[1]);
 		iter_exe->outf_pipe = pipe_fds[1];
 	}
 	else if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe > 0)
@@ -120,7 +120,7 @@ void	fill_pipe(t_execution *iter_exe)
 	iter_exe = iter_exe->next;
 	if (iter_exe->inf_pipe == 0)
 	{
-		//printf("IN: put inf pipe %i\n", iter_exe->inf_pipe);
+		printf("IN: put inf pipe %i\n", pipe_fds[0]);
 		iter_exe->inf_pipe = pipe_fds[0];
 	}
 	else if (iter_exe->inf_pipe > 0)
