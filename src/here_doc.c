@@ -304,7 +304,7 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 		{
 			fd = 0;
 			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, fd);
-			//printf("IN: poner el fd %i en la posicion del here-doc %i\n", fd, i);
+			//printf("IN: poner el fd %i en la posicion del here-doc %i\n", here_doc_fds[i], i);
 			i++;
 		}
 		iter_params = iter_params->next;
