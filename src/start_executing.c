@@ -102,12 +102,12 @@ void	close_fds(t_execution *iter_exe)
 {
 	if (iter_exe->inf_pipe > 0)
 	{
-		//printf("IN: cerrar el inf fd %i en close fds ", iter_exe->inf_pipe);
+		//printf("IN: cerrar el inf fd %i en close fds\n", iter_exe->inf_pipe);
 		close(iter_exe->inf_pipe);
 	}
 	if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1)
 	{
-		//printf("IN: cerrar el outf fd %i en close fds ", iter_exe->outf_pipe);
+		//printf("IN: cerrar el outf fd %i en close fds\n", iter_exe->outf_pipe);
 		close(iter_exe->outf_pipe);
 	}
 }
