@@ -51,12 +51,12 @@ void	close_inf_outf(t_mini *mini)
 	{
 		if (iter->inf_pipe > 0)
 		{
-			//printf("IN: cerrar el inf fd %i de close-inf-outf", iter->inf_pipe);//
+			//printf("IN: cerrar el inf fd %i de close-inf-outf\n", iter->inf_pipe);//
 			close(iter->inf_pipe);
 		}
 		if (iter->outf_pipe > 1)
 		{
-			//printf("IN: cerrar el outf fd %i de close-inf-outf", iter->outf_pipe);//
+			//printf("IN: cerrar el outf fd %i de close-inf-outf\n", iter->outf_pipe);//
 			close(iter->outf_pipe);
 		}
 		iter = iter->next;
@@ -69,6 +69,7 @@ void	close_inf_outf(t_mini *mini)
 		temp_here_doc = temp_here_doc->next;
 	}
 	ft_lstclear(&mini->here_doc_files, free);
+	mini->here_doc_files = NULL;
 }
 
 void	dup_redirections(t_execution *iter_exe)
@@ -76,7 +77,7 @@ void	dup_redirections(t_execution *iter_exe)
 	if (iter_exe->inf_pipe != 0)
 	{
 		dup2(iter_exe->inf_pipe, 0);
-		//printf("IN: dup inf fd %i ", iter_exe->inf_pipe);//
+		//printf("IN: dup inf fd %i de dup-redirectons\n", iter_exe->inf_pipe);//
 		close(iter_exe->inf_pipe);
 	}
 	if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe != 2)
