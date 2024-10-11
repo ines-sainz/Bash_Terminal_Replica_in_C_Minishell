@@ -94,8 +94,6 @@ int	parse(t_args *args, t_mini *mini)
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
 	printf("DB: argc ==> %i\n", args->argc);
-//	if (ft_built_ins(args, mini) == 1)
-//		return (OK);
 	i = 0;
 	while (i < args->argc)
 	{
@@ -120,7 +118,6 @@ int	parse(t_args *args, t_mini *mini)
 	}
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
-	//printf("IN: cerrar todos los fds y here-doc en el parse\n");
 	close_inf_outf(mini);
 	exe_struct_free(mini);
 	mini->n_here_docs = 0;

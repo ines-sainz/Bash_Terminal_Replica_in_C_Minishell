@@ -19,9 +19,7 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 	int		exit_status;
 
 	exit_status = 0;
-	//printf("IN: dup redirections en check-built-ins\n");
 	dup_redirections(iter_exe);
-	//printf("IN: close redirections en check-built-ins\n");
 	close_restant_fds(iter_exe, mini);
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
@@ -83,7 +81,6 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 		{
 			exit_status = check_built_ins(iter_exe->command,
 					iter_exe, mini, args);
-			//printf("IN: cerrar los fds estándar en el hijo si builtins\n");
 			close(mini->standard_fds[0]);
 			close(mini->standard_fds[1]);
 			ft_dprintf(2, "DB: (2) exit_status value: %i\n", exit_status);
@@ -102,12 +99,10 @@ void	close_fds(t_execution *iter_exe)
 {
 	if (iter_exe->inf_pipe > 0)
 	{
-		//printf("IN: cerrar el inf fd %i en close fds\n", iter_exe->inf_pipe);
 		close(iter_exe->inf_pipe);
 	}
 	if (iter_exe->outf_pipe > 0 && iter_exe->outf_pipe != 1)
 	{
-		//printf("IN: cerrar el outf fd %i en close fds\n", iter_exe->outf_pipe);
 		close(iter_exe->outf_pipe);
 	}
 }
@@ -129,7 +124,6 @@ int	start_executing(t_execution *iter_exe, int status,
 	{
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
 		{
-			//printf("IN: cerrar los fds del comando si no existe\n");
 			close_fds(iter_exe);
 			iter_exe = iter_exe->next;
 			continue ;
@@ -158,7 +152,6 @@ int	start_executing(t_execution *iter_exe, int status,
 			}
 		}
 		last_pid = create_fork(iter_exe, mini, args);
-		//printf("IN: cerrar fds del comando en el padre al acaber de ejecutar\n");
 		close_fds(iter_exe);
 		iter_exe = iter_exe->next;
 	}
