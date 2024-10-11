@@ -327,6 +327,7 @@ void		close_fds(t_execution *iter_exe);
 //////////////////////////////////////////////////////
 int			execute(t_execution *iter_exe, t_mini *mini, t_args *args);
 void		close_restant_fds(t_execution *exe_command, t_mini *mini);
+void		free_last_env(t_mini *mini);
 
 //////////////////////////////////////////////////////
 //					FIND_PATH.C						//
