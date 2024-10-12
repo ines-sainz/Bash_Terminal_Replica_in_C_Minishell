@@ -95,13 +95,11 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 		free(here_doc.arg);
 		free(here_doc.result);
 		free(eof_fin);
-
 	}
 	signal(SIGINT, signal_sigint);
 	if (g_signal_received == SIGINT)
 	{
 		g_signal_received = 0;
-		//printf("IN: close fd %i if ctrl + C in here-doc from write-temp\n", fd);
 		close(fd);
 		return (-2);
 	}
@@ -279,7 +277,6 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 {
 	int	i;
 	int	*here_doc_fds;
-	int	fd;
 
 	i = 0;
 	here_doc_fds = NULL;
@@ -297,8 +294,7 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 	{
 		if (iter_params->type == HERE_DOC)
 		{
-			fd = 0;
-			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, fd);
+			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, 0);
 			i++;
 		}
 		iter_params = iter_params->next;

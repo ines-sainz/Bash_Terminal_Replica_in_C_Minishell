@@ -25,8 +25,8 @@ int	check_delimiter(t_args *args)
 			next = current->next;
 			if (current->type == DELIMITER && current->quotes == t_false
 				&& (current->content[0] == '<' || current->content[0] == '>'
-				|| current->content[0] == ';' || current->content[0] == '&'
-				|| current->content[0] == '|'))
+					|| current->content[0] == ';' || current->content[0] == '&'
+					|| current->content[0] == '|'))
 				return (ERR);
 			current = next;
 		}
@@ -99,14 +99,13 @@ int	parse(t_args *args, t_mini *mini)
 	{
 		if (args->args[i])
 		{
-			//printf("arg[%d]: %s\n", i, args->args[i]);
+			/*printf("arg[%d]: %s\n", i, args->args[i]);
 			// printf("args->args[%i] ==> %s\n", i, args->args[i]);
-			// printf("args->quotes[%i] ==> %i\n", i, args->quotes[i]);
+			// printf("args->quotes[%i] ==> %i\n", i, args->quotes[i]);*/
 			add_argument_to_list(args, &i, &heredoc_found);
 			free(args->args[i]);
 			args->args[i] = NULL;
 			args->quotes[i] = t_false;
-
 		}
 		i++;
 	}
@@ -129,17 +128,28 @@ int	parse(t_args *args, t_mini *mini)
 	{
 		//printf("arg[%d]: %s,\t\ttype: %d,\t\tquotes: %i\n", temp->argc, temp->content, temp->type, temp->quotes);
 		printf("DB: arg[%d]: %s", temp->argc, temp->content);
-		if (temp->type == CMD){printf("\ttype: %s", "CMD");}
-		else if (temp->type == INFILE){printf("\ttype: %s", "INFILE");}
-		else if (temp->type == HERE_DOC){printf("\ttype: %s", "HERE_DOC");}
-		else if (temp->type == OUTFILE){printf("\ttype: %s", "OUTFILE");}
-		else if (temp->type == APPEND){printf("\ttype: %s", "APPEND");}
-		else if (temp->type == PIPE){printf("\ttype: %s", "PIPE");}
-		else if (temp->type == PARAMS){printf("\ttype: %s", "PARAMS");}
-		else if (temp->type == BUILTING){printf("\ttype: %s", "BUILTING");}
-		else if (temp->type == DELIMITER){printf("\ttype: %s", "DELIMITER");}
-		if (temp->quotes == t_true){printf("\tquotes: %s\n", "TRUE");}
-		else if (temp->quotes == t_false){printf("\tquotes: %s\n", "FALSE");}
+		if (temp->type == CMD)
+			printf("\ttype: %s", "CMD");
+		else if (temp->type == INFILE)
+			printf("\ttype: %s", "INFILE");
+		else if (temp->type == HERE_DOC)
+			printf("\ttype: %s", "HERE_DOC");
+		else if (temp->type == OUTFILE)
+			printf("\ttype: %s", "OUTFILE");
+		else if (temp->type == APPEND)
+			printf("\ttype: %s", "APPEND");
+		else if (temp->type == PIPE)
+			printf("\ttype: %s", "PIPE");
+		else if (temp->type == PARAMS)
+			printf("\ttype: %s", "PARAMS");
+		else if (temp->type == BUILTING)
+			printf("\ttype: %s", "BUILTING");
+		else if (temp->type == DELIMITER)
+			printf("\ttype: %s", "DELIMITER");
+		if (temp->quotes == t_true)
+			printf("\tquotes: %s\n", "TRUE");
+		else if (temp->quotes == t_false)
+			printf("\tquotes: %s\n", "FALSE");
 		temp = temp->next;
 	}
 	return (OK);

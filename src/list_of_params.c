@@ -137,7 +137,6 @@ t_params	*add_argument_to_list(t_args *args, int *argc, t_bool *heredoc_found)
 	new_node->type = classify_argument(args, argc, heredoc_found); // Clasifica el argumento
 	new_node->quotes = args->quotes[*argc];
 	new_node->next = NULL;
-
 	// Añadir el nuevo nodo al final de la lista
 	if (args->params == NULL)
 		args->params = new_node;

@@ -154,10 +154,10 @@ int	main(int argc, char **argv, char **env)
 	// char	*itoa_pid;
 	// char	*pid_env;
 
-	// itoa_pid = ft_itoa(getenv());
-	// pid_env = ft_strjoin("$=", itoa_pid);
-	// ft_export_env(pid_env, &mini);
-	// free(pid_env);
+	/* itoa_pid = ft_itoa(getenv());
+	   pid_env = ft_strjoin("$=", itoa_pid);
+	   ft_export_env(pid_env, &mini);
+	   free(pid_env);*/
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
@@ -167,7 +167,6 @@ int	main(int argc, char **argv, char **env)
 	if (!ft_strcmp(getenv("SHLVL"), ft_find_env(&mini, "MY_SHLVL")));
 		ft_export_env("MY_SHLVL=1", &mini); */
 
-	//SET_STANDARD_FDS
 	mini.standard_fds[0] = dup(STDIN_FILENO);
 	mini.standard_fds[1] = dup(STDOUT_FILENO);
 
