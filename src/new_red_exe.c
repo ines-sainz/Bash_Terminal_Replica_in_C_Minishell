@@ -106,11 +106,6 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	}
 	iter = mini->exe_command;
 	status = 0;
-	/**/if (args->last_history)
-	{
-		free(args->last_history);
-		args->last_history = NULL;
-	}/*ELIMINAR*/
 	start_executing(iter, status, mini, args);
 	return (0);
 }
