@@ -60,7 +60,7 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 
 int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 {
-	t_params 	*iter;
+	t_params	*iter;
 	int			n_here_doc;
 
 	n_here_doc = 0;
@@ -77,7 +77,6 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 					here_doc_fds = NULL;
 				}
 				close_inf_outf(args->mini);
-				write(1, "> ^C\n", 6);
 				return (1);
 			}
 		}
@@ -112,8 +111,6 @@ int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 		iter_params = iter_params->next;
 	}
 	if (here_doc_fds != NULL)
-	{
 		free(here_doc_fds);
-	}
 	return (0);
 }
