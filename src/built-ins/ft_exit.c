@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/10 11:22:03 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/13 23:59:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	is_valid_number(const char *str, long long int *result)
 {
-	int			negative;
-	long long	value;
-	int			digit;
+	int					negative;
+	unsigned long long	value;
+	int					digit;
 
 	negative = 0;
 	value = 0;
@@ -33,18 +33,25 @@ int	is_valid_number(const char *str, long long int *result)
 			return ERR; // No es un número válido
 		digit = *str - '0';
 		// Comprobar desbordamiento
-		if (value > (LLONG_MAX - digit) / 10)
-			return (ERR); // Desbordamiento
+		if (value > LLONG_MAX / 10
+			|| (value == LLONG_MAX / 10 && digit > LLONG_MAX % 10 + negative))
+				return (ERR); // Desbordamiento
 		value = value * 10 + digit;
 		str++;
 	}
 	// Aplicar signo
 	if (negative)
-		value = -value;
-	// Comprobar límites
-	if (value <= LLONG_MIN || value >= LLONG_MAX)
-		return (ERR); // Fuera de límites
-	*result = value;
+	{
+		if (value > (unsigned long long)LLONG_MAX + 1)
+			return (ERR);
+		*result = -(long long)value;
+	}
+	else
+	{
+		if (value > LLONG_MAX)
+			return (ERR); // Fuera de rango para positivos
+		*result = (long long)value;
+	}
 	return (OK); // Éxito
 }
 
@@ -75,8 +82,8 @@ static int	its_only_numbers(char *str)
 
 static int	multiple_args(t_args *args, char **exit_args, int argc)
 {
-	int	nbr_atoi;
-	int	modulus;
+	long long	nbr_atoll;
+	int			modulus;
 
 	(void)args;
 	if (its_only_numbers(exit_args[1]) == ERR)
@@ -89,8 +96,9 @@ static int	multiple_args(t_args *args, char **exit_args, int argc)
 	}
 	else if (its_only_numbers(exit_args[1]) == OK && argc == 2)
 	{
-		nbr_atoi = ft_atoi(exit_args[1]);
-		modulus = (nbr_atoi % 256);
+		is_valid_number(exit_args[1], &nbr_atoll);
+		//nbr_atoi = ft_atoi(exit_args[1]);
+		modulus = (nbr_atoll % 256);
 		//free_at_exit(args);
 		//exit(modulus);
 		return (modulus);
