@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/09 15:36:54 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/14 09:19:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ volatile sig_atomic_t	g_signal_received = 0;
 
 void	free_at_exit(t_args *args)
 {
-	//int	i;
-
 	close(args->mini->standard_fds[0]);
 	close(args->mini->standard_fds[1]);
 	if (args->input)
@@ -25,13 +23,6 @@ void	free_at_exit(t_args *args)
 		free (args->input);
 		args->input = NULL;
 	}
-	/* i = 0;
-	if (args->args[i])
-	{
-		while (args->args[i])
-			free(args->args[i++]);
-		//free(args->args);
-	}*/
 	if (args->arg)
 	{
 		free (args->arg);
@@ -42,18 +33,20 @@ void	free_at_exit(t_args *args)
 		free (args->mini->user_prompt);
 		args->mini->user_prompt = NULL;
 	}
+	if (args->mini->exe_command)
+	{
+		exe_struct_free (args->mini);
+		args->mini->exe_command = NULL;
+	}
 	if (args->last_history)
 	{
 		free(args->last_history);
 		args->last_history = NULL;
 	}
 	free_env(args->mini);
-	/* if (args->arg_ptr)
-		free(args->arg_ptr);*/
 	del_params(args);
 	printf("DB: Resources freed successfully.\n");
 	rl_clear_history();
-	//exit(i);1
 }
 
 static void	error_mini_use(int argc, char **argv)
