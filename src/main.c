@@ -82,21 +82,6 @@ void	signal_sigint(int sig)
 	g_signal_received = 0;
 }
 
-// Manejador de la señal SIGQUIT (Ctrl-\)
-/* void	signal_sigquit(int sig)
-{
-	//printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", sig);
-	g_signal_received = sig;
-	//printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_signal_received = 0;
-	//clear_history();
-	//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
-	//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
-} */
-
 // Manejo del EOF
 void	handle_eof(void)
 {
@@ -142,15 +127,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, signal_sigint);
 	//signal(SIGQUIT, signal_sigquit);
 	signal(SIGQUIT, SIG_IGN);
-
-	//GET $$ = PID
-	// char	*itoa_pid;
-	// char	*pid_env;
-
-	/* itoa_pid = ft_itoa(getenv());
-	   pid_env = ft_strjoin("$=", itoa_pid);
-	   ft_export_env(pid_env, &mini);
-	   free(pid_env);*/
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);

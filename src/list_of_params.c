@@ -80,21 +80,28 @@ static t_bool	is_builtin_command(const char *arg)
 	return (t_false);
 }
 
-static t_param_type	classify_argument(t_args *args, int *argc, t_bool *heredoc_found)
+static t_param_type	classify_argument(t_args *args, int *argc,
+	t_bool *heredoc_found)
 {
 	if (*heredoc_found == t_true)
 		return (*heredoc_found = t_false, DELIMITER);
-	if (ft_strcmp(args->args[*argc], "|") == 0 && args->quotes[*argc] == t_false)
+	if (ft_strcmp(args->args[*argc], "|") == 0
+		&& args->quotes[*argc] == t_false)
 		return (PIPE);
-	else if (ft_strcmp(args->args[*argc], "<") == 0 && args->quotes[*argc] == t_false)
+	else if (ft_strcmp(args->args[*argc], "<") == 0
+		&& args->quotes[*argc] == t_false)
 		return (INFILE);
-	else if (ft_strcmp(args->args[*argc], "<<") == 0 && args->quotes[*argc] == t_false)
+	else if (ft_strcmp(args->args[*argc], "<<") == 0
+		&& args->quotes[*argc] == t_false)
 		return (*heredoc_found = t_true, HERE_DOC);
-	else if (ft_strcmp(args->args[*argc], ">") == 0 && args->quotes[*argc] == t_false)
+	else if (ft_strcmp(args->args[*argc], ">") == 0
+		&& args->quotes[*argc] == t_false)
 		return (OUTFILE);
-	else if (ft_strcmp(args->args[*argc], ">>") == 0 && args->quotes[*argc] == t_false)
+	else if (ft_strcmp(args->args[*argc], ">>") == 0
+		&& args->quotes[*argc] == t_false)
 		return (APPEND);
-	else if (is_builtin_command(args->args[*argc]) && args->quotes[*argc] == t_false)
+	else if (is_builtin_command(args->args[*argc])
+		&& args->quotes[*argc] == t_false)
 		return (BUILTING);
 	else if (access(args->args[*argc], X_OK) == 0)
 		return (CMD);
@@ -124,7 +131,8 @@ static t_param_type	classify_argument(t_args *args, int *argc, t_bool *heredoc_f
 		return (PARAMS); // Se considera un parámetro adicional
 } */
 
-t_params	*add_argument_to_list(t_args *args, int *argc, t_bool *heredoc_found)
+t_params	*add_argument_to_list(t_args *args, int *argc,
+	t_bool *heredoc_found)
 {
 	t_params	*new_node;
 	t_params	*temp;
