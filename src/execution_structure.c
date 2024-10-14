@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_structure.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:39:43 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/16 14:39:45 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/10/14 09:11:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,25 @@ void	exe_struct_free(t_mini *mini)
 	t_execution	*next;
 	int			i;
 
-	while (mini->exe_command != NULL)
+	if (mini->exe_command)
 	{
-		next = mini->exe_command->next;
-		i = 0;
-		if (mini->exe_command->command)
+		while (mini->exe_command != NULL)
 		{
-			while (mini->exe_command->command[i])
+			next = mini->exe_command->next;
+			i = 0;
+			if (mini->exe_command->command)
 			{
-				free(mini->exe_command->command[i]);
-				i++;
+				while (mini->exe_command->command[i])
+				{
+					free(mini->exe_command->command[i]);
+					i++;
+				}
+				free(mini->exe_command->command);
+				mini->exe_command->command = NULL;
 			}
-			free(mini->exe_command->command);
-			mini->exe_command->command = NULL;
+			free(mini->exe_command);
+			mini->exe_command = next;
 		}
-		free(mini->exe_command);
-		mini->exe_command = next;
 	}
 	mini->exe_command = NULL;
 }
