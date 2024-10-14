@@ -1,5 +1,14 @@
 TAREAS:
 
+PWD: ✅
+	- La variable PWD tiene que expandirse siempre
+
+HERE_DOC:
+	- Cuando cierras here_doc con la señas CTRL + C da un warning de que ioctl no está inicializado (la primera vez)
+		==4106948== Warning: noted but unhandled ioctl 0x5412 with no size/direction hints.
+		==4106948==    This could cause spurious value errors to appear.
+		==4106948==    See README_MISSING_SYSCALL_OR_IOCTL for guidance on writing a proper wrapper.
+
 unset: ✅
 	- No unset $_ ✅
 	- Cuidado al liberar variables cuyo content sea NULL
