@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 08:24:37 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/14 08:24:57 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/14 09:25:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_unset_env(char *unset, t_mini *mini)
 	t_env	*prev;
 
 	mini->env_iter = mini->env_first_node;
-	if (ft_strcmp(unset, "_") == 0 || ft_strcmp(unset, "?") == 0)
+	if (ft_strcmp(unset, "_") == 0 || ft_strcmp(unset, "?") == 0
+		|| ft_strcmp(unset, "PWD") == 0)
 		return ;
 	while (mini->env_iter != NULL)
 	{
