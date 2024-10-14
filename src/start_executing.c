@@ -61,13 +61,12 @@ int	be_built_ins(char **command)
 	return (0);
 }
 
-int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
+int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args,
+	int exit_status)
 {
 	pid_t	pid;
-	int		exit_status;
 
 	pid = fork();
-	exit_status = 0;
 	if (pid == -1)
 	{
 		perror("fork failed");
@@ -89,7 +88,6 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args)
 		else
 			execute(iter_exe, mini, args);
 	}
-	// Comprobar que esto es correcto (ctrl + c en una minishell dentro de una minishell)
 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 		perror("signal");
 	return (pid);
@@ -151,7 +149,7 @@ int	start_executing(t_execution *iter_exe, int status,
 				return (0);
 			}
 		}
-		last_pid = create_fork(iter_exe, mini, args);
+		last_pid = create_fork(iter_exe, mini, args, 0);
 		close_fds(iter_exe);
 		iter_exe = iter_exe->next;
 	}
