@@ -1,5 +1,9 @@
 TAREAS:
 
+
+CAPTURAR VALOR DE RETORNO SI HEMOS SALIDO CON UNA SEÑAL:
+	- //last_status = WIFSIGNALED(status) + 128; // Revisar para señales
+
 PWD: ✅
 	- La variable PWD tiene que expandirse siempre
 
