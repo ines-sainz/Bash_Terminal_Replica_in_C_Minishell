@@ -3,7 +3,7 @@ TAREAS:
 PWD: ✅
 	- La variable PWD tiene que expandirse siempre
 
-HERE_DOC:
+HERE_DOC: ✅ (Es un detalle de la emulación de Valgrind)
 	- Cuando cierras here_doc con la señas CTRL + C da un warning de que ioctl no está inicializado (la primera vez)
 		==4106948== Warning: noted but unhandled ioctl 0x5412 with no size/direction hints.
 		==4106948==    This could cause spurious value errors to appear.
