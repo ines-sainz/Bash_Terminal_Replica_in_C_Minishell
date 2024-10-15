@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/26 21:42:01 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:20:09 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ int	parse(t_args *args, t_mini *mini)
 
 	heredoc_found = t_false;
 	printf("DB: You entered: %s\n", args->input);
+
+	// Trying to EXPAND before tokenize:
+	t_args	input_expanded;
+	ft_bzero(&input_expanded, sizeof(t_args));
+	input_expanded.mini = mini;
+	input_expanded.arg = args->input;
+	expander(&input_expanded, mini);
+	printf("DB: expanded_arg => %s\n", input_expanded.result);
+	//END OF EXPAND
+
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
 	printf("DB: argc ==> %i\n", args->argc);
