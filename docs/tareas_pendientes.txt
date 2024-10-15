@@ -3,6 +3,12 @@ TAREAS:
 
 CAPTURAR VALOR DE RETORNO SI HEMOS SALIDO CON UNA SEÑAL:
 	- //last_status = WIFSIGNALED(status) + 128; // Revisar para señales
+		- ¿Usar la variable global para diferenciar??
+
+expand a="expand a=b"
+	- Cambiar el orden expandir/tokenizar??
+	- Realizar un split por espacio antes de execve de los parametros
+	  que tengan espacio pero no estén entre comillas
 
 PWD: ✅
 	- La variable PWD tiene que expandirse siempre
