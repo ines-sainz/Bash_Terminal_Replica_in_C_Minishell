@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/09 15:34:52 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/15 16:05:23 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int	start_executing(t_execution *iter_exe, int status,
 		if (pid == last_pid)
 		{
 			last_status = WEXITSTATUS(status);
-			last_status = WIFSIGNALED(status) + 128; // Revisar para señales
+			//last_status = WIFSIGNALED(status) + 128; // Revisar para señales
 		}
 		pid = waitpid(-1, &status, 0);
 	}
