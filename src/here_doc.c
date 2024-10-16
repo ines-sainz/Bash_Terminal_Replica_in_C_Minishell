@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/30 14:08:47 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/16 09:40:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ void	signal_here_doc(int sig)
 	}
 }
 
-int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
+//int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
+int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
 {
 	t_args	here_doc;
+	char	*eof;
 	char	*eof_fin;
 
 	(void)buffer;
+	eof = param->content;
 	ft_bzero(&here_doc, sizeof(t_args));
 	here_doc.mini = mini;
 	signal(SIGINT, signal_here_doc);
@@ -81,20 +84,31 @@ int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 			break ;
 		}
 		eof_fin = ft_get_eof(eof);
-		if (!ft_strncmp(eof_fin, here_doc.arg, ft_strlen(here_doc.arg))
-			&& ft_strlen(here_doc.arg) > 0)
+		if ((eof[0] == '\0' && here_doc.arg[0] == '\0')
+			|| (!ft_strncmp(eof_fin, here_doc.arg, ft_strlen(here_doc.arg))
+			&& ft_strlen(here_doc.arg) > 0))
 		{
 			free(here_doc.arg);
 			free(eof_fin);
 			break ;
 		}
-		expander(&here_doc, mini);
-		printf("DB: expanded_arg => %s\n", here_doc.result);
-		write(fd, here_doc.result, ft_strlen(here_doc.result));
-		write(fd, "\n", 1);
-		free(here_doc.arg);
-		free(here_doc.result);
-		free(eof_fin);
+		if (param->quotes == t_false)
+		{
+			expander(&here_doc, mini);
+			printf("DB: expanded_arg => %s\n", here_doc.result);
+			write(fd, here_doc.result, ft_strlen(here_doc.result));
+			write(fd, "\n", 1);
+			free(here_doc.arg);
+			free(here_doc.result);
+			free(eof_fin);
+		}
+		else
+		{
+			write(fd, here_doc.arg, ft_strlen(here_doc.arg));
+			write(fd, "\n", 1);
+			free(here_doc.arg);
+			free(eof_fin);
+		}
 	}
 	signal(SIGINT, signal_sigint);
 	if (g_signal_received == SIGINT)
@@ -146,7 +160,7 @@ int	ft_here_doc(t_params *param, t_mini *mini, int fd)
 		return (ERR);
 	}
 	ft_lstadd_back(&mini->here_doc_files, temp_here_doc);
-	if (ft_write_temp(fd, param->content, buffer, mini) == -2)
+	if (ft_write_temp(fd, param, buffer, mini) == -2)
 		return (-2);
 	close (fd);
 	fd = open(file_name, O_RDONLY, 0777);
