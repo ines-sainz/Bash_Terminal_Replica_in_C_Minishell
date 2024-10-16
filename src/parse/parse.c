@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/15 15:20:09 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/16 09:11:00 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ int	parse(t_args *args, t_mini *mini)
 	printf("DB: You entered: %s\n", args->input);
 
 	// Trying to EXPAND before tokenize:
-	t_args	input_expanded;
+	/* t_args	input_expanded;
 	ft_bzero(&input_expanded, sizeof(t_args));
 	input_expanded.mini = mini;
 	input_expanded.arg = args->input;
 	expander(&input_expanded, mini);
-	printf("DB: expanded_arg => %s\n", input_expanded.result);
+	printf("DB: expanded_arg => %s\n", input_expanded.result); */
 	//END OF EXPAND
 
 	if (ft_tokenize(args, mini) == ERR)
