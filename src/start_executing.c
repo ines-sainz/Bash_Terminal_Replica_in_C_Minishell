@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/15 16:05:23 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/17 18:58:46 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args,
 			exit (exit_status);
 		}
 		else
-			execute(iter_exe, mini, args);
+		{
+			exit_status = execute(iter_exe, mini, args);
+			exit (exit_status);
+		}
 	}
 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 		perror("signal");
