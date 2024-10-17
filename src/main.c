@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 09:19:01 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/17 19:01:41 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_at_exit(t_args *args)
 	}
 	free_env(args->mini);
 	del_params(args);
-	printf("DB: Resources freed successfully.\n");
+	//printf("DB: Resources freed successfully.\n");
 	rl_clear_history();
 }
 
@@ -150,7 +150,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			// Detectar Ctrl-D (EOF)
 			handle_eof();
-			//printf("\nDB: Caught EOF (Ctrl-D). Exiting...\n");
+			//printf("DB: Caught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
 		/* if (g_signal_received == SIGQUIT)
@@ -203,7 +203,7 @@ int	main(int argc, char **argv, char **env)
 		/* close(mini.standard_fds[0]);
 		close(mini.standard_fds[1]); */
 	}
-	printf("exit\n");
+	//printf("exit\n");
 	free_at_exit(&args);
 	return (0);
 }
