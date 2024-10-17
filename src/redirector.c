@@ -69,16 +69,22 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 	{
 		if (iter->type == HERE_DOC)
 		{
-			if (here_doc_fds[n_here_doc] == -2)
+			if (here_doc_fds[n_here_doc] < 0)
 			{
+				while (n_here_doc >= 0)
+				{
+					n_here_doc--;
+					if (n_here_doc >= 0)
+						close(here_doc_fds[n_here_doc]);
+				}
 				if (here_doc_fds)
 				{
 					free(here_doc_fds);
 					here_doc_fds = NULL;
 				}
-				close_inf_outf(args->mini);
 				return (1);
 			}
+			n_here_doc++;
 		}
 		iter = iter->next;
 	}
@@ -90,7 +96,7 @@ int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 {
 	int			*here_doc_fds;
 
-	here_doc_fds = get_here_doc(iter_params, args);
+	here_doc_fds = get_here_doc(iter_params, args, 0);
 	if (if_error_in_here_doc(args, here_doc_fds) == 1)
 		return (ERR);
 	while (iter_params)
