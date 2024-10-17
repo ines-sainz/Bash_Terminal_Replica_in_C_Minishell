@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/02 15:38:04 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/17 18:58:51 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 		path_command = NULL;
 	}
 	free_and_close_all(mini, iter_exe);
-	exit(127);
+	//exit(127);
 	return (127);
 }
