@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/16 09:11:00 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/17 15:17:40 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
+	ft_retokenize(args->params);
 	//switch_to_delimiter(args);
 	if (check_delimiter(args) == ERR)
 	{
