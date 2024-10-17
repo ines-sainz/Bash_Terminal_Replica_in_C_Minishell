@@ -305,7 +305,7 @@ int			create_execution_struct(t_mini *mini);
 //////////////////////////////////////////////////////
 //						HERE_DOC.C					//
 //////////////////////////////////////////////////////
-int			*get_here_doc(t_params *iter_params, t_args *args);
+int			*get_here_doc(t_params *iter_params, t_args *args, int i);
 
 //////////////////////////////////////////////////////
 //				FIND_REDIRECTIONS.C					//
@@ -330,7 +330,7 @@ void		close_fds(t_execution *iter_exe);
 //				EXECUTE_COMMANDS.C					//
 //////////////////////////////////////////////////////
 int			execute(t_execution *iter_exe, t_mini *mini, t_args *args);
-void		close_restant_fds(t_execution *exe_command, t_mini *mini);
+void		close_restant_fds(t_execution *exe_command, t_mini *mini, int i);
 void		free_last_env(t_mini *mini);
 
 //////////////////////////////////////////////////////
