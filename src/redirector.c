@@ -58,10 +58,9 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 	return (0);
 }
 
-int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
+int	if_error_in_here_doc(t_args *args, int *here_doc_fds, int n_here_doc)
 {
 	t_params	*iter;
-	int			n_here_doc;
 
 	n_here_doc = 0;
 	iter = args->params;
@@ -71,12 +70,9 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds)
 		{
 			if (here_doc_fds[n_here_doc] < 0)
 			{
-				while (n_here_doc >= 0)
-				{
-					n_here_doc--;
+				while (--n_here_doc >= 0)
 					if (n_here_doc >= 0)
 						close(here_doc_fds[n_here_doc]);
-				}
 				if (here_doc_fds)
 				{
 					free(here_doc_fds);
@@ -97,7 +93,7 @@ int	fill_exe_redirections(t_params *iter_params, t_execution *iter_exe,
 	int			*here_doc_fds;
 
 	here_doc_fds = get_here_doc(iter_params, args, 0);
-	if (if_error_in_here_doc(args, here_doc_fds) == 1)
+	if (if_error_in_here_doc(args, here_doc_fds, 0) == 1)
 		return (ERR);
 	while (iter_params)
 	{
