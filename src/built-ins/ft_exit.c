@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/13 23:59:26 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:24:03 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +80,39 @@ static int	its_only_numbers(char *str)
 	return (OK);
 }
 
-static int	multiple_args(t_args *args, char **exit_args, int argc)
+static int	multiple_args(char **exit_args, int argc)
 {
 	long long	nbr_atoll;
 	int			modulus;
+	char		*arg_trimed;
 
-	(void)args;
-	if (its_only_numbers(exit_args[1]) == ERR)
+	arg_trimed = ft_strtrim(exit_args[1], " \f\r\n\t\v");
+	if (its_only_numbers(arg_trimed) == ERR)
 	{
-		printf("minishell: exit: %s: numeric argument required\n",
+		ft_dprintf(2, "minishell: exit: %s: numeric argument required\n",
 			exit_args[1]);
+		free (arg_trimed);
 		//free_at_exit(args);
 		//exit(2);
 		return (2);
 	}
-	else if (its_only_numbers(exit_args[1]) == OK && argc == 2)
+	else if (its_only_numbers(arg_trimed) == OK && argc == 2)
 	{
-		is_valid_number(exit_args[1], &nbr_atoll);
+		is_valid_number(arg_trimed, &nbr_atoll);
 		//nbr_atoi = ft_atoi(exit_args[1]);
 		modulus = (nbr_atoll % 256);
 		//free_at_exit(args);
 		//exit(modulus);
+		free (arg_trimed);
 		return (modulus);
 	}
-	else if (its_only_numbers(exit_args[1]) == OK && argc > 2)
+	else if (its_only_numbers(arg_trimed) == OK && argc > 2)
+	{
+		ft_dprintf(2, "minishell: exit: too many arguments\n");
+		free (arg_trimed);
 		return (-1);
 		//ft_export_env("?=1", mini);
+	}
 	return (0);
 }
 
@@ -114,6 +121,7 @@ int	ft_built_exit(t_args *args, char **exit_args)
 	int	argc;
 	int	exit_status;
 
+	(void)args;
 	argc = 0;
 	exit_status = 0;
 	while (exit_args[argc])
@@ -126,6 +134,6 @@ int	ft_built_exit(t_args *args, char **exit_args)
 		return (0);
 	}
 	if (argc >= 2)
-		exit_status = multiple_args(args, exit_args, argc);
+		exit_status = multiple_args(exit_args, argc);
 	return (exit_status);
 }
