@@ -167,12 +167,10 @@ int	ft_here_doc(t_params *param, t_mini *mini, int fd)
 	return (fd);
 }
 
-int	*get_here_doc(t_params *iter_params, t_args *args)
+int	*get_here_doc(t_params *iter_params, t_args *args, int i)
 {
-	int	i;
 	int	*here_doc_fds;
 
-	i = 0;
 	here_doc_fds = NULL;
 	while (iter_params != NULL)
 	{
@@ -189,6 +187,8 @@ int	*get_here_doc(t_params *iter_params, t_args *args)
 		if (iter_params->type == HERE_DOC)
 		{
 			here_doc_fds[i] = ft_here_doc(iter_params->next, args->mini, 0);
+			if (here_doc_fds[i] == -2)
+				return (here_doc_fds);
 			i++;
 		}
 		iter_params = iter_params->next;
