@@ -1,14 +1,27 @@
 TAREAS:
 
+echo hola >4 | ls | cat -e >5 | pwd | cat ❓
+
+EXIT:
+	- exit "    22   "		-> Debe hacer exit(22)
+	- exit "    23  5  "	-> Debe devolver: bash: exit:     23  5  : numeric argument required
+		· Trimear los argumentos??
+
+HERE_DOC:
+	- cat << ""			-> Debe salir con pulsar enter (enviar un '\0') ✅
+	- cat << $""		-> Debe salir con pulsar enter (enviar un '\0')
+	- cat << $"USER"	-> Debe salir con USER
+	- cat << "EOF"		-> Si el delimitador está entre comillas el here_doc no debe expandir variables ✅
 
 CAPTURAR VALOR DE RETORNO SI HEMOS SALIDO CON UNA SEÑAL:
 	- //last_status = WIFSIGNALED(status) + 128; // Revisar para señales
 		- ¿Usar la variable global para diferenciar??
 
-expand a="expand a=b"
+expand a="expand a=b" ✅
 	- Cambiar el orden expandir/tokenizar??
 	- Realizar un split por espacio antes de execve de los parametros
 	  que tengan espacio pero no estén entre comillas
+	- Volver a tokenizar despés de la expansión ✅
 
 PWD: ✅
 	- La variable PWD tiene que expandirse siempre
@@ -22,7 +35,7 @@ HERE_DOC: ✅ (Es un detalle de la emulación de Valgrind)
 unset: ✅
 	- No unset $_ ✅
 	- Cuidado al liberar variables cuyo content sea NULL
-	- Si se exportan varias veces variables vaćias, nos pide unsetearlas varias veces. ❌
+	- Si se exportan varias veces variables vacías, nos pide unsetearlas varias veces. ❌
 
 
 <<:
