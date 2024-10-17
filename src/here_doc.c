@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/16 09:40:01 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/17 20:58:45 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,15 @@ int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
 			free(here_doc.arg);
 			break ;
 		}
-		eof_fin = ft_get_eof(eof);
+		if (eof[0] == '$' && ft_strlen(eof) > 1 && param->quotes == t_true)
+			eof_fin = ft_substr(eof, 1, ft_strlen(eof));
+		else
+			eof_fin = ft_get_eof(eof);
 		if ((eof[0] == '\0' && here_doc.arg[0] == '\0')
 			|| (!ft_strncmp(eof_fin, here_doc.arg, ft_strlen(here_doc.arg))
-			&& ft_strlen(here_doc.arg) > 0))
+			&& ft_strlen(here_doc.arg) > 0) || (eof[0] == '$'
+			&& ft_strlen(eof) == 1 && param->quotes == t_true
+			&& here_doc.arg[0] == '\0'))
 		{
 			free(here_doc.arg);
 			free(eof_fin);
