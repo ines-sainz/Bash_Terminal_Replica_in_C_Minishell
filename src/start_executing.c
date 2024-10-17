@@ -20,7 +20,7 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 
 	exit_status = 0;
 	dup_redirections(iter_exe);
-	close_restant_fds(iter_exe, mini);
+	close_restant_fds(iter_exe, mini, 1);
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
 		exit_status = ft_built_echo(command);
