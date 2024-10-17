@@ -56,12 +56,15 @@ void	create_env_matrix(t_mini *mini)
 	free(env_one_line);
 }
 
-void	close_restant_fds(t_execution *exe_command, t_mini *mini)
+void	close_restant_fds(t_execution *exe_command, t_mini *mini, int i)
 {
 	t_execution	*iter_exe;
 
-	close(mini->standard_fds[0]);
-	close(mini->standard_fds[1]);
+	if (i == 0)
+	{
+		close(mini->standard_fds[0]);
+		close(mini->standard_fds[1]);
+	}
 	iter_exe = exe_command;
 	while (iter_exe != NULL)
 	{
@@ -113,7 +116,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 	{
 		if (access(path_command, X_OK) == 0)
 		{
-			close_restant_fds(mini->exe_command, mini);
+			close_restant_fds(mini->exe_command, mini, 0);
 			execve(path_command, iter_exe->command, mini->env);
 		}
 		else
