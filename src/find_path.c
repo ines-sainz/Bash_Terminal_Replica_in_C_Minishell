@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:28:17 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/24 11:28:19 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:51:28 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ char	*get_path_command(char **kid, char **env, char *path_mid)
 		}
 	}
 	i = 0;
-	while (path_list[i])
+	if (path_list)
 	{
-		free(path_list[i]);
-		i++;
+		while (path_list[i])
+			free(path_list[i++]);
+		free(path_list);
 	}
-	return (free(path_list), NULL);
+	return (NULL);
 }
