@@ -2,9 +2,9 @@ TAREAS:
 
 echo hola >4 | ls | cat -e >5 | pwd | cat ❓
 
-EXIT:
-	- exit "    22   "		-> Debe hacer exit(22)
-	- exit "    23  5  "	-> Debe devolver: bash: exit:     23  5  : numeric argument required
+EXIT: ✅
+	- exit "    22   "		-> Debe hacer exit(22) ✅
+	- exit "    23  5  "	-> Debe devolver: bash: exit:     23  5  : numeric argument required ✅
 		· Trimear los argumentos??
 
 HERE_DOC: ✅
@@ -14,7 +14,7 @@ HERE_DOC: ✅
 	- cat << $"USER"	-> Debe salir con USER ✅
 	- cat << "EOF"		-> Si el delimitador está entre comillas el here_doc no debe expandir variables ✅
 
-CAPTURAR VALOR DE RETORNO SI HEMOS SALIDO CON UNA SEÑAL:
+CAPTURAR VALOR DE RETORNO SI HEMOS SALIDO CON UNA SEÑAL: ❌
 	- //last_status = WIFSIGNALED(status) + 128; // Revisar para señales
 		- ¿Usar la variable global para diferenciar??
 
