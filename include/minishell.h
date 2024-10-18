@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/17 12:42:25 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/18 08:54:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,11 @@ int			out_of_quotes(char **input_ptr, t_args *args,
 				int *argc, t_mini *mini);
 
 //////////////////////////////////////////////////////
+//					FT_RETOKENIZE.C					//
+//////////////////////////////////////////////////////
+void		ft_retokenize(t_params *params);
+
+//////////////////////////////////////////////////////
 //					EXPANDER.C						//
 //////////////////////////////////////////////////////
 char		*expander(t_args *args, t_mini *mini);
@@ -346,4 +351,3 @@ void		fill_exe(t_params *iter_params, t_execution *iter_exe);
 
 // ?¿?¿? //
 void		exe_struct_free(t_mini *mini);
-void		ft_retokenize(t_params *params);
