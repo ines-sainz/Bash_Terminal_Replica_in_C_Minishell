@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/17 20:58:45 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:57:23 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
 			free(here_doc.arg);
 			break ;
 		}
-		if (eof[0] == '$' && ft_strlen(eof) > 1 && param->quotes == t_true)
+		if (eof[0] == '$' && ft_strlen(eof) >= 1 && param->quotes == t_true)
 			eof_fin = ft_substr(eof, 1, ft_strlen(eof));
 		else
 			eof_fin = ft_get_eof(eof);
