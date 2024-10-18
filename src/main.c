@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/18 09:11:57 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/18 13:06:04 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ int	main(int argc, char **argv, char **env)
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
+
+	//GET $PATH = Exit return
+	if (ft_find_env(&mini, "PATH") == NULL)
+		ft_export_env("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin/sbin"
+			":/bin:/usr/games:/usr/local/games:/snap/bin", &mini);
 
 	//Get SHLVL
 	/* ft_export_env("MY_SHLVL=0", &mini);
