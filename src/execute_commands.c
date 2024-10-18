@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/17 18:58:51 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:21:30 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
 	close_inf_outf(mini);
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
-	printf("minishell: Command: Not a directory\n");
+	ft_dprintf(2, "minishell: %s command not found\n", exe_comamnd->command[0]);
+	//ft_dprintf(2, "minishell: Command: Not a directory\n");
 	free(mini->user_prompt);
 	iter_exe = mini->exe_command;
 	while (iter_exe != NULL)
