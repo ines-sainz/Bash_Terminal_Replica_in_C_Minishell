@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/17 19:37:06 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:11:57 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int	main(int argc, char **argv, char **env)
 		// Cerrar descriptores originales
 		/* close(mini.standard_fds[0]);
 		close(mini.standard_fds[1]); */
-		g_signal_received = 0;
+		//g_signal_received = 0;
 	}
 	//printf("exit\n");
 	free_at_exit(&args);
