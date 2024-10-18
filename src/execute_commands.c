@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 09:21:30 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/18 14:52:07 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,10 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 			close_restant_fds(mini->exe_command, mini, 0);
 			execve(path_command, iter_exe->command, mini->env);
 		}
-		else
-			write(2, "minishell: Command: Permission denied\n", 39);
+		write(2, "minishell: Command: Permission denied\n", 39);
 		free(path_command);
 		path_command = NULL;
 	}
 	free_and_close_all(mini, iter_exe);
-	//exit(127);
 	return (127);
 }
