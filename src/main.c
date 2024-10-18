@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/18 14:19:17 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/18 15:14:49 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,13 @@ int	main(int argc, char **argv, char **env)
 
 	//GET $? = Exit return
 	ft_export_env("?=0", &mini);
+
+	//GET $PWD (CREAR SIEMPRE)
+	//	cwd = getcwd(NULL, 0);
+	//	Concatenar a "PWD="
+	//	ft_export_env
+	//	free (de lo concatenado)
+	//
 
 	//GET $PATH = Exit return
 	if (ft_find_env(&mini, "PATH") == NULL)
