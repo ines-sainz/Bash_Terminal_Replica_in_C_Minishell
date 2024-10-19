@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_retokenize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:35:25 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/17 15:23:28 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/19 11:29:34 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ static int	ft_count_elements(const char *s, char c)
 }
 
 // export a="export a=b"
-void	ft_retokenize(t_params *params)
+size_t	ft_retokenize(t_params *params)
 {
 	t_params	*temp;
 	int			n_commands;
 	char		**arg_splited;
 	int			i;
 	t_params	*new_node;
+	size_t		args_len;
 
 	//PRINT PARAMS
 	// temp = params;
@@ -96,7 +97,7 @@ void	ft_retokenize(t_params *params)
 				//printf("DDBB: ENTRÉ para crear un nodo!!\n");
 				new_node = malloc(sizeof(t_params));
 				if (!new_node)
-					return ;
+					return (-1);
 				new_node->content = ft_strdup(arg_splited[i]); // Copia el contenido del argumento
 				free (arg_splited[i]);
 				//new_node->type = classify_argument(args, argc, heredoc_found); // Clasifica el argumento
@@ -114,9 +115,11 @@ void	ft_retokenize(t_params *params)
 
 	//Recorrer la lista para actualizar argc
 	temp = params;
+	args_len = 0;
 	i = 0;
 	while (temp != NULL)
 	{
+		args_len += ft_strlen(temp->content);
 		temp->argc = i;
 		i++;
 		temp = temp->next;
@@ -153,4 +156,5 @@ void	ft_retokenize(t_params *params)
 	// 	temp = temp->next;
 	// }
 	//END OF PRINT PARAMS
+	return (args_len);
 }
