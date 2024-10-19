@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/17 15:17:40 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/19 09:43:30 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,11 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
-	ft_retokenize(args->params);
+	if (ft_retokenize(args->params) == 0)
+	{
+		ft_export_env("?=0", mini);
+		return (del_params(args), ERR);
+	}
 	//switch_to_delimiter(args);
 	if (check_delimiter(args) == ERR)
 	{
