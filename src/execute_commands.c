@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 14:52:07 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/19 12:02:25 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
 	close_inf_outf(mini);
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
-	ft_dprintf(2, "minishell: %s command not found\n", exe_comamnd->command[0]);
+	ft_dprintf(2, "minishell: '%s' command not found\n", exe_comamnd->command[0]);
 	//ft_dprintf(2, "minishell: Command: Not a directory\n");
 	free(mini->user_prompt);
 	iter_exe = mini->exe_command;
@@ -120,7 +120,7 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 			close_restant_fds(mini->exe_command, mini, 0);
 			execve(path_command, iter_exe->command, mini->env);
 		}
-		write(2, "minishell: Command: Permission denied\n", 39);
+		//write(2, "minishell: Command: Permission denied\n", 39);
 		free(path_command);
 		path_command = NULL;
 	}
