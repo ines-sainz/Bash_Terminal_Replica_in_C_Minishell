@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/19 09:40:06 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:10:03 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,7 @@ int			out_of_quotes(char **input_ptr, t_args *args,
 //////////////////////////////////////////////////////
 //					FT_RETOKENIZE.C					//
 //////////////////////////////////////////////////////
-//void		ft_retokenize(t_params *params);
-size_t		ft_retokenize(t_params *params);
+void		ft_retokenize(t_params *params);
 
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
