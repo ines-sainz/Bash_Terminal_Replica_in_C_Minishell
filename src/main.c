@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/18 15:14:49 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/19 09:19:57 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	signal_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_signal_received = 0;
+	//g_signal_received = 0;
 }
 
 // Manejo del EOF
@@ -157,6 +157,11 @@ int	main(int argc, char **argv, char **env)
 		dup2(mini.standard_fds[1], STDOUT_FILENO);
 		g_signal_received = 0;
 		args.input = readline(mini.user_prompt);
+		if (g_signal_received == SIGINT)
+		{
+			ft_export_env("?=130", &mini);
+			g_signal_received = 0;
+		}
 		if (!args.input)
 		{
 			// Detectar Ctrl-D (EOF)
@@ -213,7 +218,6 @@ int	main(int argc, char **argv, char **env)
 		// Cerrar descriptores originales
 		/* close(mini.standard_fds[0]);
 		close(mini.standard_fds[1]); */
-		//g_signal_received = 0;
 	}
 	//printf("exit\n");
 	free_at_exit(&args);
