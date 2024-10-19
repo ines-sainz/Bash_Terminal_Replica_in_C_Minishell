@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:01:59 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/25 12:18:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/19 09:22:39 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds, int n_here_doc)
 					free(here_doc_fds);
 					here_doc_fds = NULL;
 				}
+				ft_export_env("?=130", args->mini);
 				return (1);
 			}
 			n_here_doc++;
