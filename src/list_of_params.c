@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/19 10:58:24 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:50:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,28 +137,26 @@ t_params	*add_argument_to_list(t_args *args, int *argc,
 	t_params	*new_node;
 	t_params	*temp;
 
-	if (ft_strlen(args->args[*argc]) > 0)
+	if (ft_strlen(args->args[*argc]) == 0 && args->quotes[*argc] == t_false)
+		return (NULL);
+	new_node = malloc(sizeof(t_params));
+	if (!new_node)
+		return (NULL);
+	new_node->content = ft_strdup(args->args[*argc]); // Copia el contenido del argumento
+	new_node->argc = *argc; // Asigna el número de argumentos
+	new_node->type = classify_argument(args, argc, heredoc_found); // Clasifica el argumento
+	new_node->quotes = args->quotes[*argc];
+	new_node->next = NULL;
+	// Añadir el nuevo nodo al final de la lista
+	if (args->params == NULL)
+		args->params = new_node;
+	else
 	{
-		new_node = malloc(sizeof(t_params));
-		if (!new_node)
-			return (NULL);
-		new_node->content = ft_strdup(args->args[*argc]); // Copia el contenido del argumento
-		new_node->argc = *argc; // Asigna el número de argumentos
-		new_node->type = classify_argument(args, argc, heredoc_found); // Clasifica el argumento
-		new_node->quotes = args->quotes[*argc];
-		new_node->next = NULL;
-		// Añadir el nuevo nodo al final de la lista
-		if (args->params == NULL)
-			args->params = new_node;
-		else
-		{
-			temp = args->params;
-			while (temp->next != NULL)
-				temp = temp->next;
-			temp->next = new_node;
-		}
-		//printf("node = %s\n", args->params->content);
-		return (new_node);
+		temp = args->params;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new_node;
 	}
-	return (NULL);
+	//printf("node = %s\n", args->params->content);
+	return (new_node);
 }
