@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/17 18:58:46 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/19 08:45:48 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int	start_executing(t_execution *iter_exe, int status,
 		iter_exe = iter_exe->next;
 	}
 	pid = waitpid(-1, &status, 0);
+	printf("DB: >> g_signal_received %i\n", g_signal_received);
 	while (pid != -1)
 	{
 		ft_dprintf(2, "DB: PID %i finish whit status: %i\n", pid, WEXITSTATUS(status));
