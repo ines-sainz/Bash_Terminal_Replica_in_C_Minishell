@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/19 11:18:35 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:19:18 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,12 @@ int	parse(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
-	if (args->params == NULL)
+	//ft_retokenize(args->params);
+	if (ft_retokenize(args->params) == 0 && args->params == NULL)
 	{
-		printf("DB: La lista está vacía!\n");
 		ft_export_env("?=0", mini);
 		return (del_params(args), ERR);
 	}
-	ft_retokenize(args->params);
 	//switch_to_delimiter(args);
 	if (check_delimiter(args) == ERR)
 	{
