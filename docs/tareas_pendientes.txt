@@ -1,5 +1,8 @@
 TAREAS:
 
+SEGFAULT:
+	| ls (pipe en la primera posición) ✅
+
 echo hola >4 | ls | cat -e >5 | pwd | cat ❓
 
 ls "" -l "" -a ✅
