@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 22:14:41 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:29:16 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
 	close_inf_outf(mini);
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
+	// We need to diference all error types (directory, command not found, permission denied...)
 	ft_dprintf(2, "minishell: command not found\n"); // Fixed by syntax tester log
 	//ft_dprintf(2, "minishell: '%s' command not found\n", exe_comamnd->command[0]);
 	//ft_dprintf(2, "minishell: Command: Not a directory\n");
