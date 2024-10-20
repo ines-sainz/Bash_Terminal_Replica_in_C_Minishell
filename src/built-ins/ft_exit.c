@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 15:57:34 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:38:21 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	is_valid_number(const char *str, long long int *result)
 	while (*str)
 	{
 		if (!isdigit(*str))
-			return ERR; // No es un número válido
+			return (ERR); // No es un número válido
 		digit = *str - '0';
 		// Comprobar desbordamiento
 		if (value > LLONG_MAX / 10
 			|| (value == LLONG_MAX / 10 && digit > LLONG_MAX % 10 + negative))
-				return (ERR); // Desbordamiento
+			return (ERR); // Desbordamiento
 		value = value * 10 + digit;
 		str++;
 	}
@@ -92,28 +92,19 @@ static int	multiple_args(char **exit_args, int argc)
 		printf("exit\n");
 		ft_dprintf(2, "minishell: exit: %s: numeric argument required\n",
 			exit_args[1]);
-		free (arg_trimed);
-		//free_at_exit(args);
-		//exit(2);
-		return (2);
+		return (free (arg_trimed), 2);
 	}
 	else if (its_only_numbers(arg_trimed) == OK && argc == 2)
 	{
 		is_valid_number(arg_trimed, &nbr_atoll);
-		//nbr_atoi = ft_atoi(exit_args[1]);
 		modulus = (nbr_atoll % 256);
-		//free_at_exit(args);
-		//exit(modulus);
-		free (arg_trimed);
-		return (modulus);
+		return (free (arg_trimed), modulus);
 	}
 	else if (its_only_numbers(arg_trimed) == OK && argc > 2)
 	{
 		printf("exit\n");
 		ft_dprintf(2, "minishell: exit: too many arguments\n");
-		free (arg_trimed);
-		return (-1);
-		//ft_export_env("?=1", mini);
+		return (free (arg_trimed), -1);
 	}
 	return (0);
 }
