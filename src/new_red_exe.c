@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_red_exe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:40:54 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/03 12:45:46 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/20 14:04:25 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	while (iter != NULL)
 	{
 		printf("DB: n_command: %i   inf: %i   outf: %i   type: %i\n",
-			iter->n_command, iter->inf_pipe, iter->outf_pipe, iter->type);
+			iter->n_command, iter->inf_pipe, iter->outf_pipe, iter->type); //DB
 		i = 0;
 		while (iter->command[i])
 		{
