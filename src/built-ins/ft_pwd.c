@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 09:29:43 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/03 22:37:54 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:36:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_built_pwd(char **args, t_mini *mini)
 	argc = 0;
 	while (args[argc])
 		argc++;
-	if (argc > 1)
-		return (ft_dprintf(2, "minishell: pwd: Args not allowed\n"), 1);
+	/* if (argc > 1)
+		return (ft_dprintf(2, "minishell: pwd: Args not allowed\n"), 1); */
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
