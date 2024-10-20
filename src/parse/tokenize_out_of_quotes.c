@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_out_of_quotes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:51:37 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/09/26 15:14:17 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/20 21:59:09 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ static int	handle_pipes(char **input_ptr, t_args *args,
 	if (**input_ptr == '|' && *(*input_ptr + 1) == '|')
 	{
 		ft_dprintf(2, "minishell: syntax error: || it's not allowed\n");
+		ft_export_env("?=2", mini);
+		return (ERR);
+	}
+	else if (**input_ptr == '|' && *argc == 0)
+	{
+		ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
 		ft_export_env("?=2", mini);
 		return (ERR);
 	}
