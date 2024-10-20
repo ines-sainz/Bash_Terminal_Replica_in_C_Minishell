@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   find_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:24:53 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/16 10:24:55 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:42:50 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	fill_infile(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 	iter_exe->inf_pipe = open(iter_params->content, O_RDONLY);
 	if (iter_exe->inf_pipe < 0)
 	{
-		printf("minishell: %s: No such file or directory\n",
+		ft_dprintf(2, "minishell: %s: No such file or directory\n",
 			iter_params->content);
 		ft_export_env("?=1", mini);
 	}
@@ -46,7 +46,7 @@ void	fill_here_doc(int fd, t_execution *iter_exe, t_mini *mini)
 	iter_exe->inf_pipe = fd;
 	if (iter_exe->inf_pipe < 0)
 	{
-		printf("minishell: Error opening here_doc\n");
+		ft_dprintf(2, "minishell: Error opening here_doc\n");
 		ft_export_env("?=1", mini);
 	}
 }
@@ -65,7 +65,8 @@ void	fill_append(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 			| O_APPEND, 0777);
 	if (iter_exe->outf_pipe < 0)
 	{
-		printf("minishell: %s: Permission denied\n", iter_params->content);
+		ft_dprintf(2, "minishell: %s: Permission denied\n",
+			iter_params->content);
 		ft_export_env("?=1", mini);
 	}
 }
@@ -84,7 +85,8 @@ void	fill_outfile(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 			| O_TRUNC, 0777);
 	if (iter_exe->outf_pipe < 0)
 	{
-		printf("minishell: %s: Permission denied\n", iter_params->content);
+		ft_dprintf(2, "minishell: %s: Permission denied\n",
+			iter_params->content);
 		ft_export_env("?=1", mini);
 	}
 }
