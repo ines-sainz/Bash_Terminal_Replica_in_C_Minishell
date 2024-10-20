@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/17 21:24:03 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:21:53 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static int	multiple_args(char **exit_args, int argc)
 	}
 	else if (its_only_numbers(arg_trimed) == OK && argc > 2)
 	{
+		printf("exit\n");
 		ft_dprintf(2, "minishell: exit: too many arguments\n");
 		free (arg_trimed);
 		return (-1);
