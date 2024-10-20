@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 14:04:14 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:07:28 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_tokenize(t_args *args, t_mini *mini)
 int	parse(t_args *args, t_mini *mini)
 {
 	int			i;
-	t_params	*temp;
+	t_params	*temp; //DB
 	t_bool		heredoc_found;
 
 	heredoc_found = t_false;
