@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/19 12:19:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:04:14 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,14 @@ int	parse(t_args *args, t_mini *mini)
 	printf("DB: You entered: %s\n", args->input);
 
 	// Trying to EXPAND before tokenize:
-	/* t_args	input_expanded;
+	/*
+	t_args	input_expanded;
 	ft_bzero(&input_expanded, sizeof(t_args));
 	input_expanded.mini = mini;
 	input_expanded.arg = args->input;
 	expander(&input_expanded, mini);
-	printf("DB: expanded_arg => %s\n", input_expanded.result); */
+	printf("DB: expanded_arg => %s\n", input_expanded.result);
+	*/
 	//END OF EXPAND
 
 	if (ft_tokenize(args, mini) == ERR)
@@ -139,34 +141,33 @@ int	parse(t_args *args, t_mini *mini)
 	mini->n_commands = 0;
 	free_last_env(mini);
 	printf("DB: Parsed arguments:\n");
-	temp = args->params;
-	while (temp != NULL)
-	{
-		//printf("arg[%d]: %s,\t\ttype: %d,\t\tquotes: %i\n", temp->argc, temp->content, temp->type, temp->quotes);
+	temp = args->params; //DB
+	while (temp != NULL) //DB
+	{ //DB
 		printf("DB: arg[%d]: %s", temp->argc, temp->content);
-		if (temp->type == CMD)
-			printf("\ttype: %s", "CMD");
-		else if (temp->type == INFILE)
-			printf("\ttype: %s", "INFILE");
-		else if (temp->type == HERE_DOC)
-			printf("\ttype: %s", "HERE_DOC");
-		else if (temp->type == OUTFILE)
-			printf("\ttype: %s", "OUTFILE");
-		else if (temp->type == APPEND)
-			printf("\ttype: %s", "APPEND");
-		else if (temp->type == PIPE)
-			printf("\ttype: %s", "PIPE");
-		else if (temp->type == PARAMS)
-			printf("\ttype: %s", "PARAMS");
-		else if (temp->type == BUILTING)
-			printf("\ttype: %s", "BUILTING");
-		else if (temp->type == DELIMITER)
-			printf("\ttype: %s", "DELIMITER");
-		if (temp->quotes == t_true)
-			printf("\tquotes: %s\n", "TRUE");
-		else if (temp->quotes == t_false)
-			printf("\tquotes: %s\n", "FALSE");
-		temp = temp->next;
-	}
+		if (temp->type == CMD) //DB
+			printf("\ttype: %s", "CMD"); //DB
+		else if (temp->type == INFILE) //DB
+			printf("\ttype: %s", "INFILE"); //DB
+		else if (temp->type == HERE_DOC) //DB
+			printf("\ttype: %s", "HERE_DOC"); //DB
+		else if (temp->type == OUTFILE) //DB
+			printf("\ttype: %s", "OUTFILE"); //DB
+		else if (temp->type == APPEND) //DB
+			printf("\ttype: %s", "APPEND"); //DB
+		else if (temp->type == PIPE) //DB
+			printf("\ttype: %s", "PIPE"); //DB
+		else if (temp->type == PARAMS) //DB
+			printf("\ttype: %s", "PARAMS"); //DB
+		else if (temp->type == BUILTING) //DB
+			printf("\ttype: %s", "BUILTING"); //DB
+		else if (temp->type == DELIMITER) //DB
+			printf("\ttype: %s", "DELIMITER"); //DB
+		if (temp->quotes == t_true) //DB
+			printf("\tquotes: %s\n", "TRUE"); //DB
+		else if (temp->quotes == t_false) //DB
+			printf("\tquotes: %s\n", "FALSE"); //DB
+		temp = temp->next; //DB
+	} //DB
 	return (OK);
 }
