@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 14:57:10 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:57:34 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static int	multiple_args(char **exit_args, int argc)
 	arg_trimed = ft_strtrim(exit_args[1], " \f\r\n\t\v");
 	if (its_only_numbers(arg_trimed) == ERR)
 	{
+		printf("exit\n");
 		ft_dprintf(2, "minishell: exit: %s: numeric argument required\n",
 			exit_args[1]);
 		free (arg_trimed);
