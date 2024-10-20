@@ -2,6 +2,7 @@ Para sobreescribir los archivos originales eliminando las líneas que contienen 
 
 Para un solo archivo:
 
+	cd src/
 	sed -i '/DB/d' tu_archivo.c
 
 Este comando:
@@ -12,6 +13,7 @@ Modifica el archivo tu_archivo.c directamente, eliminando cualquier línea que c
 Para múltiples archivos:
 Si tienes varios archivos en los que quieres eliminar las líneas de debug, puedes hacer algo como esto:
 
+	cd src/
 	sed -i '/DB/d' *.c
 
 Esto:
@@ -22,7 +24,8 @@ Aplica el comando a todos los archivos con extensión .c en el directorio actual
 Opción recursiva:
 Si quieres realizar la operación en varios directorios recursivamente, puedes usar find:
 
-find . -name '*.c' -exec sed -i '/DB/d' {} \;
+	cd src/
+	find . -name '*.c' -exec sed -i '/DB/d' {} \;
 
 Esto:
 Encuentra todos los archivos .c dentro del directorio actual y sus subdirectorios.
