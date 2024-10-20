@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:59:20 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/09 09:37:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/20 13:22:15 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 // ft_printf, ft_dprintf
 # include "printf/ft_printf.h"
 
-//va_list, va_start, va_arg, va_end
-//# include <stdarg.h>
+// get_next_line
+# include "get_next_line/get_next_line.h"
 
 typedef struct s_list
 {

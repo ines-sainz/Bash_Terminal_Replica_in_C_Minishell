@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:09:47 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/25 08:56:47 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/20 13:23:06 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # include <unistd.h>
 
 /****************************************/
-/*				ft_printf				*/
+/*				ft_printf.c				*/
 /****************************************/
 int	ft_printf(char const *format, ...);
 
 /****************************************/
-/*				ft_dprintf				*/
+/*				ft_dprintf.c			*/
 /****************************************/
 int	ft_dprintf(int fd, char const *format, ...);
 

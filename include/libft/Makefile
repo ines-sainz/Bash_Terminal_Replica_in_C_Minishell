@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
+#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/29 08:22:03 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/09 09:32:39 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/20 13:21:46 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
 
 PRINTF_DIR	=	printf
+GNL_DIR		=	get_next_line
 
 SRC			=	ft_isalpha.c \
 				ft_isdigit.c \
@@ -83,7 +84,8 @@ SRC			=	ft_isalpha.c \
 				$(PRINTF_DIR)/ft_printf.c \
 				$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_printf_utils.c \
-				$(PRINTF_DIR)/ft_conversions.c
+				$(PRINTF_DIR)/ft_conversions.c \
+				$(GNL_DIR)/get_next_line.c
 #				ft_strcspn.c
 
 OBJ			=	$(SRC:.c=.o)
