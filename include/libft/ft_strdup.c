@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:05:53 by danjimen          #+#    #+#             */
-/*   Updated: 2024/09/07 21:59:55 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:00:20 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 char	*ft_strdup(const char *s)
 {
 	char	*dest;
-	char	*principio;
+	char	*start;
 
 	if (s == NULL)
 		return (NULL);
 	dest = (char *)malloc(ft_strlen(s) + 1);
 	if (dest == NULL)
 		return (NULL);
-	principio = dest;
+	start = dest;
 	while (*s != '\0')
 		*dest++ = *s++;
 	*dest = '\0';
-	return (principio);
+	return (start);
 }
 
 /* void ft_leaks(void)

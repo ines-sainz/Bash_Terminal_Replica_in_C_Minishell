@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:05:48 by danjimen          #+#    #+#             */
-/*   Updated: 2024/01/29 09:39:06 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 12:57:39 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 char	*ft_strchr(const char *s, int c)
 {
 	c = (unsigned char)c;
+	if (s == NULL)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == c)

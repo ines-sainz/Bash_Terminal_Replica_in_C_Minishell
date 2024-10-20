@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:06:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/01/29 09:37:49 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:02:33 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	size_t	src_len;
 	size_t	i;
 
+	if (src == NULL)
+		return (0);
 	src_len = ft_strlen(src);
 	if (size == 0)
 		return (src_len);
