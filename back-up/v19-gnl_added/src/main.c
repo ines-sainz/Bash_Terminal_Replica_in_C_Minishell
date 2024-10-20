@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 13:15:27 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:33:46 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **env)
 	char	*entry;
 	t_mini	mini;
 	int		i;
-	//int		is_piped;
+	int		is_piped;
 	//char	*input;
 	//char	*user_prompt;
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **env)
 	args.mini = &mini;
 	error_mini_use(argc, argv);
 
-	//is_piped = !isatty(STDIN_FILENO);
+	is_piped = !isatty(STDIN_FILENO);
 
 	//environment
 	if (getenv("USER") == NULL)
@@ -160,10 +160,10 @@ int	main(int argc, char **argv, char **env)
 		dup2(mini.standard_fds[0], STDIN_FILENO);
 		dup2(mini.standard_fds[1], STDOUT_FILENO);
 		g_signal_received = 0;
-		//if (!is_piped)
+		if (!is_piped)
 			args.input = readline(mini.user_prompt);
-		// else
-		// 	args.input = get_next_line(STDIN_FILENO, t_false);
+		else
+			args.input = get_next_line(STDIN_FILENO, t_false);
 		if (g_signal_received == SIGINT)
 		{
 			ft_export_env("?=130", &mini);
@@ -226,7 +226,8 @@ int	main(int argc, char **argv, char **env)
 		/* close(mini.standard_fds[0]);
 		close(mini.standard_fds[1]); */
 	}
-	//printf("exit\n");
+	if (!is_piped)
+		printf("exit\n");
 	free_at_exit(&args);
 	return (0);
 }
