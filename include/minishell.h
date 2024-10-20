@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 13:21:02 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:29:26 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,6 @@ typedef struct s_env
 	int				order;
 	struct s_env	*next;
 }			t_env;
-
-/* typedef enum s_bool
-{
-	t_false,
-	t_true,
-}	t_bool; */
 
 typedef struct s_execution
 {
