@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/03 21:49:56 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:42:58 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static int	handle_first_letter(char **args, int *i, int *exit_status)
 	if ((ft_isalpha(args[*i][0]) == 0 || args[*i][0] == '=')
 		&& args[*i][0] != '_')
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", args[*i]);
+		ft_dprintf("2, minishell: export: `%s': not a valid identifier\n",
+			args[*i]);
 		*exit_status = 1;
 		(*i)++;
 		return (ERR);
@@ -45,7 +46,7 @@ static void	not_equal_case(char **args, int *i, t_mini *mini, int *exit_status)
 	{
 		if (ft_isalnum(args[*i][j]) == 0 && args[*i][j] != '_')
 		{
-			printf("minishell: export: `%s': not a valid identifier\n",
+			ft_dprintf(2, "minishell: export: `%s': not a valid identifier\n",
 				args[*i]);
 			*exit_status = 1;
 			break ;
