@@ -1,0 +1,31 @@
+Para sobreescribir los archivos originales eliminando las líneas que contienen "DB:", puedes usar sed con la opción -i para modificar los archivos en su lugar. Aquí te dejo cómo hacerlo para un solo archivo o múltiples archivos:
+
+Para un solo archivo:
+
+	sed -i '/DB:/d' tu_archivo.c
+
+Este comando:
+Modifica el archivo tu_archivo.c directamente, eliminando cualquier línea que contenga "DB:".
+
+---------------------
+
+Para múltiples archivos:
+Si tienes varios archivos en los que quieres eliminar las líneas de debug, puedes hacer algo como esto:
+
+	sed -i '/DB:/d' *.c
+
+Esto:
+Aplica el comando a todos los archivos con extensión .c en el directorio actual.
+
+--------------------
+
+Opción recursiva:
+Si quieres realizar la operación en varios directorios recursivamente, puedes usar find:
+
+find . -name '*.c' -exec sed -i '/DB:/d' {} \;
+
+Esto:
+Encuentra todos los archivos .c dentro del directorio actual y sus subdirectorios.
+Aplica sed a cada archivo, eliminando las líneas que contienen "DB:".
+
+De esta manera, los archivos originales se sobrescribirán automáticamente sin dejar líneas vacías.
