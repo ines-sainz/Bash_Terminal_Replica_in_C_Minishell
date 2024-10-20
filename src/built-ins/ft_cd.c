@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 14:51:27 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:29:57 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
 
 static void	update_oldpwd(char *buffer, char *output, t_mini *mini)
 {
-	buffer = getcwd(NULL, 0);
-	if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
-	{
+	//buffer = getcwd(NULL, 0);
+	// if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
+	// {
 		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
 		printf("%s\n", output); //DB
 		ft_export_env(output, mini);
 		free(output);
-	}
-	free(buffer);
+	// }
+	//free(buffer);
 }
 
 static int	cd_arg(char **args, t_mini *mini)
@@ -54,7 +54,7 @@ static int	cd_arg(char **args, t_mini *mini)
 	path = NULL;
 	if (chdir(args[1]) == -1)
 	{
-		perror("minishell: cd");
+		perror("minishell: cd:");
 		//ft_export_env("?=1", mini);
 		return (1);
 	}
