@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/03 11:36:35 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/20 14:51:27 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
 		path = getcwd(NULL, 0);
 		output = ft_strjoin("PWD=", path);
 		free(path);
-		printf("%s\n", output);
+		printf("%s\n", output); //DB
 		ft_export_env(output, mini);
 		free(output);
 		free(buffer);
@@ -36,7 +36,7 @@ static void	update_oldpwd(char *buffer, char *output, t_mini *mini)
 	if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
 	{
 		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-		printf("%s\n", output);
+		printf("%s\n", output); //DB
 		ft_export_env(output, mini);
 		free(output);
 	}
@@ -108,7 +108,7 @@ int	ft_built_cd(char **args, t_mini *mini)
 		argc++;
 	if (argc > 2)
 	{
-		printf("minishell: cd: too many arguments\n");
+		ft_dprintf(2, "minishell: cd: too many arguments\n");
 		//ft_export_env("?=1", mini);
 		return (1);
 	}
