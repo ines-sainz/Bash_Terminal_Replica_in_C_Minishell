@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:01:59 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/19 09:22:39 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:10:40 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	syntax_errors(int i, char *redir_content, t_mini *mini)
 			redir_content);
 	else if (i == 4)
 		ft_dprintf(2,
-			"minishell: syntax error: | at the end of the commands\n");
+			"minishell: syntax error near unexpected token `|'\n");
+			//"minishell: syntax error: | at the end of the commands\n"); //Fixed by tester log
 	ft_export_env("?=2", mini);
 	return (ERR);
 }
