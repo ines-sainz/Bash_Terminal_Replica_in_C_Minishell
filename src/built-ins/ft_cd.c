@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:20:47 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 21:29:57 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:31:56 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,12 @@ static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
 	free(buffer);
 }
 
-static void	update_oldpwd(char *buffer, char *output, t_mini *mini)
+static void	update_oldpwd(char *output, t_mini *mini)
 {
-	//buffer = getcwd(NULL, 0);
-	// if (ft_strcmp(ft_find_env(mini, "OLDPWD"), buffer) != 0)
-	// {
-		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-		printf("%s\n", output); //DB
-		ft_export_env(output, mini);
-		free(output);
-	// }
-	//free(buffer);
+	output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
+	printf("%s\n", output); //DB
+	ft_export_env(output, mini);
+	free(output);
 }
 
 static int	cd_arg(char **args, t_mini *mini)
@@ -60,7 +55,7 @@ static int	cd_arg(char **args, t_mini *mini)
 	}
 	else
 	{
-		update_oldpwd(buffer, output, mini);
+		update_oldpwd(output, mini);
 		update_pwd(buffer, output, path, mini);
 	}
 	return (0);
