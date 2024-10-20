@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 13:29:26 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:05:59 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,11 @@ int			ft_built_export(char **args, t_mini *mini);
 //////////////////////////////////////////////////////
 //				FT_EXPORT_UTILS.C					//
 //////////////////////////////////////////////////////
-void		export_args(char **args, t_mini *mini, int *exit_status);
+//void		export_args(char **args, t_mini *mini, int *exit_status);
+int			handle_first_letter(char **args, int *i);
+int			find_equal(char **args, int *i, int *j);
+int			not_equal_case(char **args, int *i, t_mini *mini);
+int			equal_case(char **args, int *i, t_mini *mini, int *pos_equal);
 
 //////////////////////////////////////////////////////
 //					FT_UNSET.C						//
@@ -344,7 +348,6 @@ char		*get_path_command(char **kid, char **env, char *path_mid);
 //					FIND_PATH.C						//
 //////////////////////////////////////////////////////
 void		fill_exe(t_params *iter_params, t_execution *iter_exe);
-
 
 // ?¿?¿? //
 void		exe_struct_free(t_mini *mini);
