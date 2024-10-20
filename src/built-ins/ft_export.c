@@ -6,36 +6,25 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:03:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 23:06:30 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:24:43 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	export_args(char **args, t_mini *mini, int *exit_status)
+void	export_args(char **args, t_mini *mini, int *exit_status)
 {
 	int	i;
-	int	j;
-	int	pos_equal;
 	int	void_arg;
 
 	i = 1;
-	j = 0;
-	pos_equal = 0;
 	void_arg = 0;
 	while (args[i])
 	{
 		if (args[i][0] != '\0')
 		{
-			*exit_status = handle_first_letter(args, &i);
-			if (*exit_status == 1)
+			if (loop_args(args, mini, &i, exit_status) == -1)
 				break ;
-			pos_equal = find_equal(args, &i, &j);
-			j = 1;
-			if (pos_equal == 0)
-				*exit_status = not_equal_case(args, &i, mini);
-			else
-				*exit_status = equal_case(args, &i, mini, &pos_equal);
 		}
 		else
 		{
