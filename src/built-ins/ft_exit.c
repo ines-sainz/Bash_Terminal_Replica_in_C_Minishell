@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 14:21:53 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:57:10 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	its_only_numbers(char *str)
 		return (ERR);
 	while (str[i] != '\0')
 	{
-		if (i == 0 && str[i] == '-')
+		if (i == 0 && (str[i] == '-' || str[i] == '+'))
 			i++;
 		if (!ft_isdigit(str[i]))
 			return (ERR);
