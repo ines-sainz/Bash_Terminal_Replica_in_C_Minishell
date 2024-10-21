@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:40:54 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 11:14:45 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 11:19:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	iter = mini->exe_command;
 	status = 0;
 	del_params(args);
+	free (args->input);
+	args->input = NULL;
 	start_executing(iter, status, mini, args);
 	return (0);
 }
