@@ -73,7 +73,7 @@ danjimen@minishell> cat <<HERE | LS
 ==1344324==    by 0x4063B2: parse (parse.c:133)
 ==1344324==    by 0x401A89: main (main.c:202)
 
-==1344324== 17 bytes in 5 blocks are still reachable in loss record 16 of 73
+==1344324== 17 bytes in 5 blocks are still reachable in loss record 16 of 73 ✅
 ==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x408BDA: ft_strdup (in /home/danjimen/Desktop/minishell/minishell)
 ==1344324==    by 0x401E53: add_argument_to_list (list_of_params.c:145)
@@ -89,7 +89,7 @@ danjimen@minishell> cat <<HERE | LS
 ==1344324==    by 0x4063B2: parse (parse.c:133)
 ==1344324==    by 0x401A89: main (main.c:202)
 
-==1344324== 160 bytes in 5 blocks are still reachable in loss record 30 of 73
+==1344324== 160 bytes in 5 blocks are still reachable in loss record 30 of 73 ✅
 ==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x401E22: add_argument_to_list (list_of_params.c:142)
 ==1344324==    by 0x4062C7: parse (parse.c:113)
