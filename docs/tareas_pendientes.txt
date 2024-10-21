@@ -3,6 +3,16 @@ TAREAS:
 SEGFAULT:
 	| ls (pipe en la primera posición) ✅
 
+start_executing.C
+	- start_executing() (line 148)
+		· printf("exit\n");
+			> Si lo quitamos en tester da todo error
+			> Pero no debería ser necesario
+
+execute_commands.c
+	- execute() -> free_and_close_all() (line 87)
+		· Filtrar cada tipo de error y actualizar $? al valor correcto (126, 127)
+
 echo hola >4 | ls | cat -e >5 | pwd | cat ❓
 
 ls "" -l "" -a ✅
