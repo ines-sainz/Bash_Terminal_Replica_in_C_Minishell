@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 13:06:09 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 13:10:30 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,8 @@ void	close_restant_fds(t_execution *exe_command, t_mini *mini, int i)
 	}
 }
 
-void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
+void	free_and_close_all(t_mini *mini)
 {
-	t_execution	*iter_exe;
-	int			i;
-
 	close_inf_outf(mini);
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
@@ -89,18 +86,6 @@ void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
 	//ft_dprintf(2, "minishell: '%s' command not found\n", exe_comamnd->command[0]);
 	//ft_dprintf(2, "minishell: Command: Not a directory\n");
 	free(mini->user_prompt);
-	iter_exe = mini->exe_command;
-	while (iter_exe != NULL)
-	{
-		i = 0;
-		if (iter_exe->n_command != exe_comamnd->n_command)
-		{
-			while (iter_exe->command[i])
-				free(iter_exe->command[i++]);
-			free(iter_exe->command);
-		}
-		iter_exe = iter_exe->next;
-	}
 	ft_lstclear(&mini->here_doc_files, free);
 	free_last_env(mini);
 	exe_struct_free(mini);
@@ -127,6 +112,6 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 		free(path_command);
 		path_command = NULL;
 	}
-	free_and_close_all(mini, iter_exe);
+	free_and_close_all(mini);
 	return (127);
 }
