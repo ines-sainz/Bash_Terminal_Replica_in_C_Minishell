@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 22:29:16 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:06:09 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	free_and_close_all(t_mini *mini, t_execution *exe_comamnd)
 	}
 	ft_lstclear(&mini->here_doc_files, free);
 	free_last_env(mini);
+	exe_struct_free(mini);
 	free_env(mini);
 }
 

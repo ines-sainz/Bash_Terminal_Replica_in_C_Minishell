@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 12:27:13 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 13:05:17 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args,
 			close(mini->standard_fds[0]);
 			close(mini->standard_fds[1]);
 			ft_dprintf(2, "DB: (2) exit_status value: %i\n", exit_status);
+			exe_struct_free(mini);
 			exit (exit_status);
 		}
 		else
