@@ -1,0 +1,97 @@
+danjimen@minishell> cat <<HERE | LS
+> HERE
+
+==1344324== 3 bytes in 1 blocks are still reachable in loss record 1 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x48AABAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x48871E3: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4892CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x402453: ft_write_temp (here_doc.c:74)
+==1344324==    by 0x4028C1: ft_here_doc (here_doc.c:167)
+==1344324==    by 0x4029C1: get_here_doc (here_doc.c:193)
+==1344324==    by 0x403986: fill_exe_redirections (redirector.c:96)
+==1344324==    by 0x402AF9: red (new_red_exe.c:38)
+==1344324==    by 0x402C8C: new_red_exe (new_red_exe.c:91)
+==1344324==    by 0x4063B2: parse (parse.c:133)
+==1344324==    by 0x401A89: main (main.c:202)
+
+==1344324== 3 bytes in 1 blocks are still reachable in loss record 2 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x48AABAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x48975F2: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4897E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x48871BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4892CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x402453: ft_write_temp (here_doc.c:74)
+==1344324==    by 0x4028C1: ft_here_doc (here_doc.c:167)
+==1344324==    by 0x4029C1: get_here_doc (here_doc.c:193)
+==1344324==    by 0x403986: fill_exe_redirections (redirector.c:96)
+==1344324==    by 0x402AF9: red (new_red_exe.c:38)
+==1344324==    by 0x402C8C: new_red_exe (new_red_exe.c:91)
+
+==1344324== 3 bytes in 1 blocks are still reachable in loss record 3 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x408BDA: ft_strdup (in /home/danjimen/Desktop/minishell/minishell)
+==1344324==    by 0x403231: make_param_matrix (execution_matrix.c:123)
+==1344324==    by 0x4032EB: fill_exe (execution_matrix.c:189)
+==1344324==    by 0x402A57: exe (new_red_exe.c:22)
+==1344324==    by 0x402CAE: new_red_exe (new_red_exe.c:93)
+==1344324==    by 0x4063B2: parse (parse.c:133)
+==1344324==    by 0x401A89: main (main.c:202)
+
+==1344324== 8 bytes in 1 blocks are still reachable in loss record 5 of 73
+==1344324==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x48AB491: xrealloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4897626: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4897E0D: rl_expand_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x48871BF: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x4892CCF: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1344324==    by 0x402453: ft_write_temp (here_doc.c:74)
+==1344324==    by 0x4028C1: ft_here_doc (here_doc.c:167)
+==1344324==    by 0x4029C1: get_here_doc (here_doc.c:193)
+==1344324==    by 0x403986: fill_exe_redirections (redirector.c:96)
+==1344324==    by 0x402AF9: red (new_red_exe.c:38)
+==1344324==    by 0x402C8C: new_red_exe (new_red_exe.c:91)
+
+==1344324== 16 bytes in 1 blocks are still reachable in loss record 12 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x408BDA: ft_strdup (in /home/danjimen/Desktop/minishell/minishell)
+==1344324==    by 0x401A00: main (main.c:190)
+
+==1344324== 16 bytes in 1 blocks are still reachable in loss record 14 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x408F24: ft_strtrim (in /home/danjimen/Desktop/minishell/minishell)
+==1344324==    by 0x401A29: main (main.c:195)
+
+==1344324== 16 bytes in 1 blocks are still reachable in loss record 15 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x408B77: ft_calloc (in /home/danjimen/Desktop/minishell/minishell)
+==1344324==    by 0x4031AA: make_param_matrix (execution_matrix.c:113)
+==1344324==    by 0x4032EB: fill_exe (execution_matrix.c:189)
+==1344324==    by 0x402A57: exe (new_red_exe.c:22)
+==1344324==    by 0x402CAE: new_red_exe (new_red_exe.c:93)
+==1344324==    by 0x4063B2: parse (parse.c:133)
+==1344324==    by 0x401A89: main (main.c:202)
+
+==1344324== 17 bytes in 5 blocks are still reachable in loss record 16 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x408BDA: ft_strdup (in /home/danjimen/Desktop/minishell/minishell)
+==1344324==    by 0x401E53: add_argument_to_list (list_of_params.c:145)
+==1344324==    by 0x4062C7: parse (parse.c:113)
+==1344324==    by 0x401A89: main (main.c:202)
+
+==1344324== 80 bytes in 2 blocks are still reachable in loss record 25 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x403344: exe_struct_new (execution_structure.c:19)
+==1344324==    by 0x403566: create_execution_struct (execution_structure.c:83)
+==1344324==    by 0x402AB4: red (new_red_exe.c:34)
+==1344324==    by 0x402C8C: new_red_exe (new_red_exe.c:91)
+==1344324==    by 0x4063B2: parse (parse.c:133)
+==1344324==    by 0x401A89: main (main.c:202)
+
+==1344324== 160 bytes in 5 blocks are still reachable in loss record 30 of 73
+==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1344324==    by 0x401E22: add_argument_to_list (list_of_params.c:142)
+==1344324==    by 0x4062C7: parse (parse.c:113)
+==1344324==    by 0x401A89: main (main.c:202)
+
