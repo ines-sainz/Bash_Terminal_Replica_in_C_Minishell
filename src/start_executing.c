@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 16:04:59 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:56:50 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args,
 	}
 	if (pid == 0)
 	{
+		free (args->last_history);
 		signal(SIGQUIT, SIG_DFL);
 		ft_dprintf(2, "DB: (1) exit_status value: %i\n", exit_status);
 		if (be_built_ins(iter_exe->command) == 1)
