@@ -1,7 +1,7 @@
 danjimen@minishell> cat <<HERE | LS
 > HERE
 
-==1344324== 3 bytes in 1 blocks are still reachable in loss record 1 of 73
+==1344324== 3 bytes in 1 blocks are still reachable in loss record 1 of 73 ❓
 ==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x48AABAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
 ==1344324==    by 0x48871E3: rl_set_prompt (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
@@ -15,7 +15,7 @@ danjimen@minishell> cat <<HERE | LS
 ==1344324==    by 0x4063B2: parse (parse.c:133)
 ==1344324==    by 0x401A89: main (main.c:202)
 
-==1344324== 3 bytes in 1 blocks are still reachable in loss record 2 of 73
+==1344324== 3 bytes in 1 blocks are still reachable in loss record 2 of 73 ❓
 ==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x48AABAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
 ==1344324==    by 0x48975F2: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
@@ -39,7 +39,7 @@ danjimen@minishell> cat <<HERE | LS
 ==1344324==    by 0x4063B2: parse (parse.c:133)
 ==1344324==    by 0x401A89: main (main.c:202)
 
-==1344324== 8 bytes in 1 blocks are still reachable in loss record 5 of 73
+==1344324== 8 bytes in 1 blocks are still reachable in loss record 5 of 73 ❓
 ==1344324==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x48AB491: xrealloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
 ==1344324==    by 0x4897626: ??? (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
