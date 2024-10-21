@@ -92,6 +92,21 @@ void	free_and_close_all(t_mini *mini)
 	free_env(mini);
 }
 
+int	other_error(t_execution *iter_exe, t_mini *mini)
+{
+	if (ft_strchr(iter_exe->command[0], '/') != 0)
+	{
+		if (access(iter_exe->command[0], F_OK) != 0)
+		{
+			return (0);
+		}
+		write(2, "No such file or directory\n", 27);
+		free_and_close_all(mini);
+		return (1);
+	}
+	return (0);
+}
+
 int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	char	*path_mid;
@@ -112,6 +127,8 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 		free(path_command);
 		path_command = NULL;
 	}
+	if (other_error(iter_exe, mini) == 1)
+		return (126);
 	free_and_close_all(mini);
 	return (127);
 }

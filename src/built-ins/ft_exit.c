@@ -92,7 +92,7 @@ static int	multiple_args(char **exit_args, int argc)
 	arg_trimed = ft_strtrim(exit_args[1], " \f\r\n\t\v");
 	if (its_only_numbers(arg_trimed) == ERR)
 	{
-		printf("exit\n");
+		printf("exit\n"); //pasar al 2?
 		ft_dprintf(2, "minishell: exit: %s: numeric argument required\n",
 			exit_args[1]);
 		return (free (arg_trimed), 2);
@@ -105,7 +105,7 @@ static int	multiple_args(char **exit_args, int argc)
 	}
 	else if (its_only_numbers(arg_trimed) == OK && argc > 2)
 	{
-		printf("exit\n");
+		printf("exit\n"); //pasar al 2?
 		ft_dprintf(2, "minishell: exit: too many arguments\n");
 		return (free (arg_trimed), -1);
 	}

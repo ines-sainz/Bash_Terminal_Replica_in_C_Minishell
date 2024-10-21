@@ -13,6 +13,26 @@ execute_commands.c
 	- execute() -> free_and_close_all() (line 87)
 		· Filtrar cada tipo de error y actualizar $? al valor correcto (126, 127)
 
+ERRORES:
+	- /src ❌
+		· nuestra: minishell: command not found					->127 ✅
+		· bash: bash: /src: No such file or directory			->127 ✅
+	- ./src ❌
+		· nuestra: minishell: command not found					->127
+		· bash: bash: ./src/: Is a directory					->126
+	- ./no_existe ❌
+		· nuestra: minishell: command not found					->127
+		· bash: bash: ./no_existe: No such file or directory	->126
+	- iii ❌
+		· nuestra: minishell: command not found					->127 ✅
+		· bash: iii: command not found							->127 ✅
+	- ./no_existe ❌
+		· nuestra: minishell: command not found					->127 ✅
+		· bash: bash: ./p: No such file or directory			->127 ✅
+	- ./sin_permiso ❌
+		· nuestra: minishell: command not found					->127
+		· bash: bash: ./sin_permiso: Permission denied			->126
+
 echo hola >4 | ls | cat -e >5 | pwd | cat ❓
 
 ls "" -l "" -a ✅
