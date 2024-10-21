@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:40:06 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 23:38:21 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 08:23:54 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_valid_number(const char *str, long long int *result)
+static int	check_lloverflow(const char *str, unsigned long long *value,
+				int *negative)
 {
-	int					negative;
-	unsigned long long	value;
-	int					digit;
+	int	digit;
 
-	negative = 0;
-	value = 0;
 	if (*str == '-')
 	{
-		negative = 1;
+		*negative = 1;
 		str++;
 	}
 	else if (*str == '+')
@@ -30,16 +27,26 @@ int	is_valid_number(const char *str, long long int *result)
 	while (*str)
 	{
 		if (!isdigit(*str))
-			return (ERR); // No es un número válido
+			return (ERR);
 		digit = *str - '0';
-		// Comprobar desbordamiento
-		if (value > LLONG_MAX / 10
-			|| (value == LLONG_MAX / 10 && digit > LLONG_MAX % 10 + negative))
-			return (ERR); // Desbordamiento
-		value = value * 10 + digit;
+		if (*value > LLONG_MAX / 10
+			|| (*value == LLONG_MAX / 10 && digit > LLONG_MAX % 10 + *negative))
+			return (ERR);
+		*value = *value * 10 + digit;
 		str++;
 	}
-	// Aplicar signo
+	return (OK);
+}
+
+int	is_valid_number(const char *str, long long int *result)
+{
+	int					negative;
+	unsigned long long	value;
+
+	negative = 0;
+	value = 0;
+	if (check_lloverflow(str, &value, &negative) == ERR)
+		return (ERR);
 	if (negative)
 	{
 		if (value > (unsigned long long)LLONG_MAX + 1)
@@ -49,10 +56,10 @@ int	is_valid_number(const char *str, long long int *result)
 	else
 	{
 		if (value > LLONG_MAX)
-			return (ERR); // Fuera de rango para positivos
+			return (ERR);
 		*result = (long long)value;
 	}
-	return (OK); // Éxito
+	return (OK);
 }
 
 static int	its_only_numbers(char *str)
@@ -71,12 +78,8 @@ static int	its_only_numbers(char *str)
 			return (ERR);
 		i++;
 	}
-	// LLONG_MAX 9223372036854775808 LLONG_MIN -9223372036854775809
 	if (is_valid_number(str, &num_not_valid) == ERR)
 		return (ERR);
-	/* num_not_valid = ft_custom_atoll(str);
-	if ((unsigned long long int)num_not_valid == ULLONG_MAX)
-		return (ERR); */
 	return (OK);
 }
 
@@ -121,11 +124,7 @@ int	ft_built_exit(t_args *args, char **exit_args)
 		argc++;
 	printf("DB: exit argc = %i\n", argc);
 	if (argc == 1)
-	{
-		//free_at_exit(args);
-		//exit(0);
 		return (0);
-	}
 	if (argc >= 2)
 		exit_status = multiple_args(exit_args, argc);
 	return (exit_status);
