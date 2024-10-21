@@ -53,7 +53,7 @@ danjimen@minishell> cat <<HERE | LS
 ==1344324==    by 0x402AF9: red (new_red_exe.c:38)
 ==1344324==    by 0x402C8C: new_red_exe (new_red_exe.c:91)
 
-==1344324== 16 bytes in 1 blocks are still reachable in loss record 12 of 73
+==1344324== 16 bytes in 1 blocks are still reachable in loss record 12 of 73 ✅
 ==1344324==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
 ==1344324==    by 0x408BDA: ft_strdup (in /home/danjimen/Desktop/minishell/minishell)
 ==1344324==    by 0x401A00: main (main.c:190)
