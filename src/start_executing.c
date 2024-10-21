@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 11:56:50 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 12:27:13 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int	start_executing(t_execution *iter_exe, int status,
 				if (ft_strncmp(iter_exe->command[0], "exit", ft_strlen(iter_exe->command[0])) == 0 && ft_strlen(iter_exe->command[0]) == 4 && exit_status != -1)
 				{
 					free_at_exit(args);
-					printf("exit\n");
+					printf("exit\n"); // REMOVE BEFORE EVALUATIONS
 					exit(exit_status);
 				}
 				else if ((ft_strncmp(iter_exe->command[0], "exit", ft_strlen(iter_exe->command[0])) == 0 && ft_strlen(iter_exe->command[0]) == 4 && exit_status == -1))
