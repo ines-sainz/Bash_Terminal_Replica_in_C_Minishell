@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:40:54 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 11:19:37 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 12:10:59 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	dup_redirections(t_execution *iter_exe)
 int	new_red_exe(t_args *args, t_mini *mini)
 {
 	t_execution	*iter;
-	int			i;
+	int			i; //DB
 	int			status;
 
 	if (red(args, mini) == ERR)
