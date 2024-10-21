@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_red_exe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:40:54 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 14:04:25 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:14:45 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,22 @@ int	new_red_exe(t_args *args, t_mini *mini)
 	if (red(args, mini) == ERR)
 		return (ERR);
 	exe(args, mini);
-	iter = mini->exe_command;
-	while (iter != NULL)
-	{
+	iter = mini->exe_command; //DB
+	while (iter != NULL) //DB
+	{ //DB
 		printf("DB: n_command: %i   inf: %i   outf: %i   type: %i\n",
 			iter->n_command, iter->inf_pipe, iter->outf_pipe, iter->type); //DB
-		i = 0;
-		while (iter->command[i])
-		{
-			printf("DB: command = %s\n", iter->command[i]);
-			i++;
-		}
-		iter = iter->next;
-	}
+		i = 0; //DB
+		while (iter->command[i]) //DB
+		{ //DB
+			printf("DB: command = %s\n", iter->command[i]); //DB
+			i++; //DB
+		} //DB
+		iter = iter->next; //DB
+	} //DB
 	iter = mini->exe_command;
 	status = 0;
+	del_params(args);
 	start_executing(iter, status, mini, args);
 	return (0);
 }
