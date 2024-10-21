@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 12:49:02 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/03 11:43:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/21 08:28:19 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	verify_closed_quotes(t_args *args)
 	{
 		ft_dprintf(2, "minishell: syntax error: missing closed quotes\n");
 		ft_export_env("?=2", args->mini);
-		//free_at_exit(args);
 		return (ERR);
 	}
 	return (OK);
@@ -82,8 +81,6 @@ int	add_to_args(t_args *args, int *argc, t_mini *mini)
 		if (expander_arg)
 		{
 			args->args[(*argc)++] = expander_arg;
-			//free (expander_arg); // DESCOMENTAR??
-			//expander_arg = NULL;
 		}
 	}
 	return (OK);
