@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_out_of_quotes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 11:51:37 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/20 21:59:09 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 08:33:08 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,19 @@ static int	handle_infiles(char **input_ptr, t_args *args,
 	else if (**input_ptr == '<' && *(*input_ptr + 1) == '<')
 	{
 		args->args[(*argc)++] = ft_strdup("<<");
-		args->in_heredoc = t_true; // Marcar que estamos en un heredoc
+		args->in_heredoc = t_true;
 		(*input_ptr)++;
 	}
 	else if (**input_ptr == '<')
 		args->args[(*argc)++] = ft_strdup("<");
-	return (OK); // Comprobar a la hora de marcar el delimitador si comienza por <, >, ;, & o | y no está entre comillas
+	return (OK);
 }
 
 static int	handle_outfiles(char **input_ptr, t_args *args,
 	int *argc, t_mini *mini)
 {
-	if (**input_ptr == '>' && *(*input_ptr + 1) == '>' && *(*input_ptr + 2) == '>')
+	if (**input_ptr == '>' && *(*input_ptr + 1) == '>'
+		&& *(*input_ptr + 2) == '>')
 	{
 		ft_dprintf(2, "minishell: syntax error near unexpected token `>'\n");
 		ft_export_env("?=2", mini);
