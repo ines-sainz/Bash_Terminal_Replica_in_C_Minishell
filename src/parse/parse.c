@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 14:07:28 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:47:22 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ int	parse(t_args *args, t_mini *mini)
 	{
 		if (args->args[i])
 		{
-			/*printf("arg[%d]: %s\n", i, args->args[i]);
-			// printf("args->args[%i] ==> %s\n", i, args->args[i]);
-			// printf("args->quotes[%i] ==> %i\n", i, args->quotes[i]);*/
+			/*printf("DB: arg[%d]: %s\n", i, args->args[i]);
+			// printf("DB: args->args[%i] ==> %s\n", i, args->args[i]);
+			// printf("DB: args->quotes[%i] ==> %i\n", i, args->quotes[i]);*/
 			add_argument_to_list(args, &i, &heredoc_found);
 			free(args->args[i]);
 			args->args[i] = NULL;
