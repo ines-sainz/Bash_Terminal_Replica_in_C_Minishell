@@ -6,13 +6,13 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:07:57 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/09/26 15:18:18 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/22 14:03:36 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*initilize_vars(t_args *args, t_bool *in_double_quotes,
+static char	*initialize_vars(t_args *args, t_bool *in_double_quotes,
 	size_t *i, size_t *j)
 {
 	args->result_capacity = ft_strlen(args->arg) + 1;
@@ -75,7 +75,7 @@ char	*expander(t_args *args, t_mini *mini)
 	size_t	j;
 	t_bool	in_double_quotes;
 
-	if (!initilize_vars(args, &in_double_quotes, &i, &j))
+	if (!initialize_vars(args, &in_double_quotes, &i, &j))
 		return (NULL);
 	while (args->arg[i])
 	{
