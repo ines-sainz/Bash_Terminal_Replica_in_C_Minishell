@@ -82,7 +82,7 @@ void	free_and_close_all(t_mini *mini)
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
 	// We need to diference all error types (directory, command not found, permission denied...)
-	ft_dprintf(2, "minishell: command not found\n"); // Fixed by syntax tester log
+	//ft_dprintf(2, "minishell: command not found\n"); // Fixed by syntax tester log
 	//ft_dprintf(2, "minishell: '%s' command not found\n", exe_comamnd->command[0]);
 	//ft_dprintf(2, "minishell: Command: Not a directory\n");
 	free(mini->user_prompt);
@@ -98,12 +98,14 @@ int	other_error(t_execution *iter_exe, t_mini *mini)
 	{
 		if (access(iter_exe->command[0], F_OK) != 0)
 		{
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", iter_exe->command[0]);
 			return (0);
 		}
-		write(2, "No such file or directory\n", 27);
+		ft_dprintf(2, "minishell: %s: Is a directory or permission denied\n", iter_exe->command[0]);
 		free_and_close_all(mini);
 		return (1);
 	}
+	ft_dprintf(2, "minishell: %s: command not found\n", iter_exe->command[0]);
 	return (0);
 }
 
