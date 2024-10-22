@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/22 12:26:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/22 14:18:04 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	free_at_exit(t_args *args)
 	free_args_at_exit(args);
 	free_env(args->mini);
 	del_params(args);
-	//printf("DB: Resources freed successfully.\n");
 	rl_clear_history();
 }
 
@@ -73,24 +72,27 @@ static void	error_mini_use(int argc, char **argv)
 	}
 }
 
-// Manejador de la señal SIGINT (Ctrl-C)
 void	signal_sigint(int sig)
 {
-	//(void)sig;
 	g_signal_received = sig;
-	/*printf("\nCaught signal %d (Ctrl-C). Exiting...\n", sig);
-	printf("\n");*/
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	//g_signal_received = 0;
 }
 
 // Manejo del EOF
 void	handle_eof(void)
 {
-	g_signal_received = -1; // Usamos -1 para indicar EOF
+	g_signal_received = -1;
+}
+
+void	initialize_structs(t_args *args, t_mini *mini, char **env)
+{
+	ft_bzero(args, sizeof(t_args));
+	ft_bzero(mini, sizeof(t_mini));
+	ft_set_env(env, mini);
+	args->mini = mini;
 }
 
 // cc signals.c -lreadline
@@ -101,14 +103,8 @@ int	main(int argc, char **argv, char **env)
 	t_mini	mini;
 	int		i;
 	int		is_piped;
-	//char	*input;
-	//char	*user_prompt;
 
-	//Inicializar la estructura y el environment
-	ft_bzero(&args, sizeof(t_args));
-	ft_bzero(&mini, sizeof(t_mini));
-	ft_set_env(env, &mini);
-	args.mini = &mini;
+	initialize_structs(&args, &mini, env);
 	error_mini_use(argc, argv);
 
 	is_piped = !isatty(STDIN_FILENO);
