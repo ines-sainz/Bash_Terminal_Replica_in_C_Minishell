@@ -6,33 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/21 11:47:22 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/22 12:19:21 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-// Comprobar a la hora de marcar el delimitador si comienza por <, >, ;, & o | y no está entre comillas
-int	check_delimiter(t_args *args)
-{
-	t_params	*current;
-	t_params	*next;
-
-	current = args->params;
-	if (args->params != NULL)
-	{
-		while (current != NULL)
-		{
-			next = current->next;
-			if (current->type == DELIMITER && current->quotes == t_false
-				&& (current->content[0] == '<' || current->content[0] == '>'
-					|| current->content[0] == ';' || current->content[0] == '&'
-					|| current->content[0] == '|'))
-				return (ERR);
-			current = next;
-		}
-	}
-	return (OK);
-}
 
 int	ft_tokenize(t_args *args, t_mini *mini)
 {
@@ -52,15 +30,40 @@ int	ft_tokenize(t_args *args, t_mini *mini)
 	return (OK);
 }
 
-/* int	parse(t_args *args, t_mini *mini)
+int	check_delimiter(t_args *args)
 {
-	int		i;
-	t_bool	heredoc_found;
+	t_params	*current;
+	t_params	*next;
 
-	heredoc_found = t_false;
-	if (ft_tokenize(args, mini) == ERR)
-		return (ERR);
+	current = args->params;
+	if (args->params != NULL)
+	{
+		while (current != NULL)
+		{
+			next = current->next;
+			if (current->type == DELIMITER && current->quotes == t_false
+				&& (current->content[0] == '<' || current->content[0] == '>'
+					|| current->content[0] == ';' || current->content[0] == '&'
+					|| current->content[0] == '|'))
+			{
+				ft_dprintf(2, "minishell: syntax error near unexpected"
+					" token `%c'\n", current->content[0]);
+				ft_export_env("?=2", args->mini);
+				return (ERR);
+			}
+			current = next;
+		}
+	}
+	return (OK);
+}
+
+static void	loop_args_to_create_list(t_args *args)
+{
+	int			i;
+	t_bool		heredoc_found;
+
 	i = 0;
+	heredoc_found = t_false;
 	while (i < args->argc)
 	{
 		if (args->args[i])
@@ -72,67 +75,22 @@ int	ft_tokenize(t_args *args, t_mini *mini)
 		}
 		i++;
 	}
-	if (check_delimiter(args) == ERR)
-	{
-		ft_dprintf(2, "minishell: incorrect here_doc delimiter\n");
-		return (del_params(args), ERR);
-	}
-	update_last_command_env_var(args);
-	new_red_exe(args, mini);
-	close_inf_outf(mini);
-	return (OK);
-} */
+}
 
 int	parse(t_args *args, t_mini *mini)
 {
-	int			i;
 	t_params	*temp; //DB
-	t_bool		heredoc_found;
-
-	heredoc_found = t_false;
-	printf("DB: You entered: %s\n", args->input);
-
-	// Trying to EXPAND before tokenize:
-	/*
-	t_args	input_expanded;
-	ft_bzero(&input_expanded, sizeof(t_args));
-	input_expanded.mini = mini;
-	input_expanded.arg = args->input;
-	expander(&input_expanded, mini);
-	printf("DB: expanded_arg => %s\n", input_expanded.result);
-	*/
-	//END OF EXPAND
 
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
-	printf("DB: argc ==> %i\n", args->argc);
-	i = 0;
-	while (i < args->argc)
-	{
-		if (args->args[i])
-		{
-			/*printf("DB: arg[%d]: %s\n", i, args->args[i]);
-			// printf("DB: args->args[%i] ==> %s\n", i, args->args[i]);
-			// printf("DB: args->quotes[%i] ==> %i\n", i, args->quotes[i]);*/
-			add_argument_to_list(args, &i, &heredoc_found);
-			free(args->args[i]);
-			args->args[i] = NULL;
-			args->quotes[i] = t_false;
-		}
-		i++;
-	}
-	//ft_retokenize(args->params);
+	loop_args_to_create_list(args);
 	if (ft_retokenize(args->params) == 0 && args->params == NULL)
 	{
 		ft_export_env("?=0", mini);
 		return (del_params(args), ERR);
 	}
-	//switch_to_delimiter(args);
 	if (check_delimiter(args) == ERR)
-	{
-		ft_dprintf(2, "minishell: incorrect here_doc delimiter\n");
 		return (del_params(args), ERR);
-	}
 	update_last_command_env_var(args);
 	new_red_exe(args, mini);
 	close_inf_outf(mini);
