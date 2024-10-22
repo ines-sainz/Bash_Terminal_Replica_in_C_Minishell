@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 13:33:46 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:26:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 volatile sig_atomic_t	g_signal_received = 0;
 
-void	free_at_exit(t_args *args)
+static void	free_args_at_exit(t_args *args)
 {
-	close(args->mini->standard_fds[0]);
-	close(args->mini->standard_fds[1]);
 	if (args->input)
 	{
 		free (args->input);
@@ -43,6 +41,13 @@ void	free_at_exit(t_args *args)
 		free(args->last_history);
 		args->last_history = NULL;
 	}
+}
+
+void	free_at_exit(t_args *args)
+{
+	close(args->mini->standard_fds[0]);
+	close(args->mini->standard_fds[1]);
+	free_args_at_exit(args);
 	free_env(args->mini);
 	del_params(args);
 	//printf("DB: Resources freed successfully.\n");
