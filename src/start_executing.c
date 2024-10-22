@@ -190,5 +190,13 @@ int	start_executing(t_execution *iter_exe, int status,
 		iter_exe_cpy = iter_exe_cpy->next;
 	}
 	//ft_export_env("?=55", mini); //Actualizar para Built-ins y execves
+	iter_exe = mini->exe_command;
+	while (iter_exe->next != NULL)
+		iter_exe = iter_exe->next;
+	if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
+	{
+		ft_export_env("?=1", mini);
+		return (1);
+	}
 	return (last_status);
 }

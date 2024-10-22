@@ -100,7 +100,7 @@ void	fill_pipe(t_execution *iter_exe)
 	{
 		iter_exe->outf_pipe = pipe_fds[1];
 	}
-	else if (iter_exe->outf_pipe != 1 && iter_exe->outf_pipe > 0)
+	else if (iter_exe->outf_pipe != 1)
 	{
 		close(pipe_fds[1]);
 	}
