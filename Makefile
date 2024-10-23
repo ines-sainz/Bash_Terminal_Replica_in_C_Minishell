@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
+#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/17 15:28:41 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/23 20:47:56 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,14 @@ CFLAGS			=	-Wall -Wextra -Werror -g3
 READFLAG		=	-lreadline
 
 SRC_DIR			=	src
+MAIN_DIR		=	src/main
 BUILTINS_DIR	=	src/built-ins
 PARSE_DIR		=	src/parse
 ENV_DIR			=	src/env
-SRC				=	$(SRC_DIR)/main.c \
+SRC				=	$(MAIN_DIR)/main.c \
+					$(MAIN_DIR)/errors_and_exit.c \
+					$(MAIN_DIR)/signals_and_history.c \
+					$(MAIN_DIR)/initialize_main.c \
 					$(SRC_DIR)/list_of_params.c \
 					$(SRC_DIR)/here_doc.c \
 					$(SRC_DIR)/new_red_exe.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 09:14:56 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 20:44:53 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,35 @@ typedef struct s_args
                                 __/ | |              
                                |___/|_|            */
 
+// ╔═.✵.═════════════════════════════════════════════╗
+// 					MAIN FOLDER
+// ╚═════════════════════════════════════════════.✵.═╝
+
 //////////////////////////////////////////////////////
-//						MAIN.C						//
+//					ERRORS_AND_EXIT.C				//
+//////////////////////////////////////////////////////
+void		free_args_at_exit(t_args *args);
+void		free_at_exit(t_args *args);
+void		error_mini_use(int argc, char **argv);
+void		free_args_in_syntax_error(t_args *args);
+int			closing_minishell(int is_piped, t_args *args);
+
+//////////////////////////////////////////////////////
+//				SIGNALS_AND_HISTORY.C				//
 //////////////////////////////////////////////////////
 void		signal_sigint(int sig);
-void		free_at_exit(t_args *args);
+void		handle_eof(void);
+void		signal_here_doc(int sig);
+void		histcontrol(t_args *args);
+
+//////////////////////////////////////////////////////
+//					INITIALIZE_MAIN.C				//
+//////////////////////////////////////////////////////
+void		initialize_structs(t_args *args, t_mini *mini, char **env);
+void		create_minim_env_vars(t_mini *mini);
+int			create_prompt(t_mini *mini);
+int			initialize_main_loop(t_mini *mini, t_args *args, int is_piped);
+void		trim_input(t_args *args);
 
 // ╔═.✵.═════════════════════════════════════════════╗
 // 					PARSE FOLDER

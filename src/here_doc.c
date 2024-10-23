@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 14:57:23 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 20:38:14 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,6 @@ char	*ft_get_eof(char *eof)
 {
 	return (0);
 } */
-
-void	signal_here_doc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_signal_received = SIGINT;
-		//write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		//rl_redisplay();
-		//rl_done = 1;
-	}
-}
 
 //int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
