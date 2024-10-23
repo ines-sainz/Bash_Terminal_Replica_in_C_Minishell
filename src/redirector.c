@@ -12,6 +12,26 @@
 
 #include "../include/minishell.h"
 
+void	close_restant_fds(t_execution *exe_command, t_mini *mini, int i)
+{
+	t_execution	*iter_exe;
+
+	if (i == 0)
+	{
+		close(mini->standard_fds[0]);
+		close(mini->standard_fds[1]);
+	}
+	iter_exe = exe_command;
+	while (iter_exe != NULL)
+	{
+		if (iter_exe->n_command != exe_command->n_command)
+		{
+			close_fds(iter_exe);
+		}
+		iter_exe = iter_exe->next;
+	}
+}
+
 int	syntax_errors(int i, char *redir_content, t_mini *mini)
 {
 	if (i == 1)
@@ -25,7 +45,6 @@ int	syntax_errors(int i, char *redir_content, t_mini *mini)
 	else if (i == 4)
 		ft_dprintf(2,
 			"minishell: syntax error near unexpected token `|'\n");
-			//"minishell: syntax error: | at the end of the commands\n"); //Fixed by tester log
 	ft_export_env("?=2", mini);
 	return (ERR);
 }
@@ -63,7 +82,6 @@ int	if_error_in_here_doc(t_args *args, int *here_doc_fds, int n_here_doc)
 {
 	t_params	*iter;
 
-	n_here_doc = 0;
 	iter = args->params;
 	while (iter != NULL)
 	{
