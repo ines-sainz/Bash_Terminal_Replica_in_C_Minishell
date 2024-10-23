@@ -56,35 +56,11 @@ void	create_env_matrix(t_mini *mini)
 	free(env_one_line);
 }
 
-void	close_restant_fds(t_execution *exe_command, t_mini *mini, int i)
-{
-	t_execution	*iter_exe;
-
-	if (i == 0)
-	{
-		close(mini->standard_fds[0]);
-		close(mini->standard_fds[1]);
-	}
-	iter_exe = exe_command;
-	while (iter_exe != NULL)
-	{
-		if (iter_exe->n_command != exe_command->n_command)
-		{
-			close_fds(iter_exe);
-		}
-		iter_exe = iter_exe->next;
-	}
-}
-
 void	free_and_close_all(t_mini *mini)
 {
 	close_inf_outf(mini);
 	close(mini->standard_fds[0]);
 	close(mini->standard_fds[1]);
-	// We need to diference all error types (directory, command not found, permission denied...)
-	//ft_dprintf(2, "minishell: command not found\n"); // Fixed by syntax tester log
-	//ft_dprintf(2, "minishell: '%s' command not found\n", exe_comamnd->command[0]);
-	//ft_dprintf(2, "minishell: Command: Not a directory\n");
 	free(mini->user_prompt);
 	ft_lstclear(&mini->here_doc_files, free);
 	free_last_env(mini);
@@ -98,10 +74,12 @@ int	other_error(t_execution *iter_exe, t_mini *mini)
 	{
 		if (access(iter_exe->command[0], F_OK) != 0)
 		{
-			ft_dprintf(2, "minishell: %s: No such file or directory\n", iter_exe->command[0]);
+			ft_dprintf(2, "minishell: %s: No such file or directory\n",
+				iter_exe->command[0]);
 			return (0);
 		}
-		ft_dprintf(2, "minishell: %s: Is a directory or permission denied\n", iter_exe->command[0]);
+		ft_dprintf(2, "minishell: %s: Is a directory or permission denied\n",
+			iter_exe->command[0]);
 		free_and_close_all(mini);
 		return (1);
 	}
@@ -125,7 +103,6 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 			close_restant_fds(mini->exe_command, mini, 0);
 			execve(path_command, iter_exe->command, mini->env);
 		}
-		//write(2, "minishell: Command: Permission denied\n", 39);
 		free(path_command);
 		path_command = NULL;
 	}
