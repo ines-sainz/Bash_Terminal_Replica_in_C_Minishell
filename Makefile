@@ -6,7 +6,7 @@
 #    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/23 20:47:56 by danjimen         ###   ########.fr        #
+#    Updated: 2024/10/23 21:36:00 by danjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,14 @@ MAIN_DIR		=	src/main
 BUILTINS_DIR	=	src/built-ins
 PARSE_DIR		=	src/parse
 ENV_DIR			=	src/env
+HERE_DOC_DIR	=	src/here_doc
 SRC				=	$(MAIN_DIR)/main.c \
 					$(MAIN_DIR)/errors_and_exit.c \
 					$(MAIN_DIR)/signals_and_history.c \
 					$(MAIN_DIR)/initialize_main.c \
+					$(HERE_DOC_DIR)/here_doc.c \
+					$(HERE_DOC_DIR)/here_doc_loop.c \
 					$(SRC_DIR)/list_of_params.c \
-					$(SRC_DIR)/here_doc.c \
 					$(SRC_DIR)/new_red_exe.c \
 					$(SRC_DIR)/find_redirections.c \
 					$(SRC_DIR)/execution_matrix.c \
