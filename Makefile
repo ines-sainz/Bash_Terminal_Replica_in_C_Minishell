@@ -46,6 +46,7 @@ SRC				=	$(SRC_DIR)/main.c \
 					$(SRC_DIR)/start_executing.c \
 					$(SRC_DIR)/find_path.c \
 					$(SRC_DIR)/execute_commands.c \
+					$(SRC_DIR)/execution_utils.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c \
 					$(BUILTINS_DIR)/ft_export.c \

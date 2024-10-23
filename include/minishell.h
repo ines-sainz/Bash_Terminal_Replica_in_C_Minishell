@@ -351,3 +351,8 @@ void		fill_exe(t_params *iter_params, t_execution *iter_exe);
 
 // ?¿?¿? //
 void		exe_struct_free(t_mini *mini);
+int	check_built_ins(char **command, t_execution *iter_exe,
+	t_mini *mini, t_args *args);
+int	be_built_ins(char **command);
+int	create_fork(t_execution *iter_exe, t_mini *mini, t_args *args,
+	int exit_status);
