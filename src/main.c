@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 10:25:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 12:14:21 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,49 @@ int	initialize_main_loop(t_mini *mini, t_args *args, int is_piped)
 	return (OK);
 }
 
+void	histcontrol(t_args *args)
+{
+	if ((args->input[0] != '\0'
+			&& ft_strcmp(args->input, args->last_history) != 0)
+		|| args->last_history == NULL)
+	{
+		if (args->last_history != NULL)
+			free (args->last_history);
+		args->last_history = ft_strdup(args->input);
+		add_history(args->input);
+	}
+}
+
+void	trim_input(t_args *args)
+{
+	args->input_trimed = ft_strtrim(args->input, " \t\n\r\f\v");
+	free(args->input);
+	args->input = args->input_trimed;
+	args->input_trimed = NULL;
+}
+
+void	free_args_in_syntax_error(t_args *args)
+{
+	int	i;
+
+	i = 0;
+	if (args->args[i])
+	{
+		while (args->args[i])
+		{
+			printf("DB: Libero %s por syntax error\n", args->args[i]);
+			free(args->args[i]);
+			args->args[i] = NULL;
+			i++;
+		}
+	}
+}
+
 // cc signals.c -lreadline
 int	main(int argc, char **argv, char **env)
 {
 	t_args	args;
 	t_mini	mini;
-	int		i;
 	int		is_piped;
 
 	initialize_structs(&args, &mini, env);
@@ -176,58 +213,25 @@ int	main(int argc, char **argv, char **env)
 	create_minim_env_vars(&mini);
 	mini.standard_fds[0] = dup(STDIN_FILENO);
 	mini.standard_fds[1] = dup(STDOUT_FILENO);
-
 	while (1)
 	{
 		if (initialize_main_loop(&mini, &args, is_piped) == ERR)
 			break ;
-		// dup2(mini.standard_fds[0], STDIN_FILENO);
-		// dup2(mini.standard_fds[1], STDOUT_FILENO);
-		// g_signal_received = 0;
-		// if (!is_piped)
-		// 	args.input = readline(mini.user_prompt);
-		// else
-		// 	args.input = get_next_line(STDIN_FILENO, t_false);
-		// if (g_signal_received == SIGINT)
-		// {
-		// 	ft_export_env("?=130", &mini);
-		// 	g_signal_received = 0;
-		// }
-		// if (!args.input)
-		// {
-		// 	handle_eof();
-		// 	break ;
-		// }
-		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
-		{
-			if (args.last_history != NULL)
-				free (args.last_history);
-			args.last_history = ft_strdup(args.input);
-			add_history(args.input);
-		}
-		args.input_trimed = ft_strtrim(args.input, " \t\n\r\f\v");
-		free(args.input);
-		args.input = args.input_trimed;
-		args.input_trimed = NULL;
+		histcontrol(&args);
+		trim_input(&args);
 		if (args.input != NULL && args.input[0] != '\0')
 			parse(&args, &mini);
 		signal(SIGINT, signal_sigint);
-		i = 0; // En caso de que haya un error de sintaxis
-		if (args.args[i]) // Podría ponerse si parse() devuelve ERR
-		{
-			while (args.args[i])
-			{
-				printf("DB: Libero %s por syntax error\n", args.args[i]);
-				free(args.args[i]);
-				args.args[i] = NULL;
-				i++;
-			}
-		}
 		free(args.input); // Liberar la memoria asignada por readline
 		del_params(&args);
 	}
 	if (!is_piped)
 		printf("exit\n");
+	else if (is_piped && access(args.input, X_OK) != 0 )
+	{
+		free_at_exit(&args);
+		return (127);
+	}
 	free_at_exit(&args);
 	return (0);
 }
