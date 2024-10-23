@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/22 15:23:16 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 09:03:24 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,24 @@ void	initialize_structs(t_args *args, t_mini *mini, char **env)
 	args->mini = mini;
 }
 
+void	create_minim_env_vars(t_mini *mini)
+{
+	char	*cwd;
+	char	*join;
+
+	//GET $? = Exit return
+	ft_export_env("?=0", mini);
+	//GET $PWD (CREAR SIEMPRE)
+	cwd = getcwd(NULL, 0);
+	join = ft_strjoin("PWD=", cwd);
+	ft_export_env(join, mini);
+	free (cwd);
+	free (join);
+	//GET $PATH
+	if (ft_find_env(mini, "PATH") == NULL)
+		ft_export_env(PATH, mini);
+}
+
 // cc signals.c -lreadline
 int	main(int argc, char **argv, char **env)
 {
@@ -133,8 +151,9 @@ int	main(int argc, char **argv, char **env)
 	//signal(SIGQUIT, signal_sigquit);
 	signal(SIGQUIT, SIG_IGN);
 
-	//GET $? = Exit return
-	ft_export_env("?=0", &mini);
+	create_minim_env_vars(&mini);
+	// //GET $? = Exit return
+	// ft_export_env("?=0", &mini);
 
 	//GET $PWD (CREAR SIEMPRE)
 	//	cwd = getcwd(NULL, 0);
@@ -143,9 +162,19 @@ int	main(int argc, char **argv, char **env)
 	//	free (de lo concatenado)
 	//
 
-	//GET $PATH = Exit return -->> TENEMOS QUE DIFERENCIAR CUANDO HEMOS ENTRADO CON env -i Y CUANDO TRAS UN unset PATH
-	/* if (ft_find_env(&mini, "PATH") == NULL)
-		ft_export_env(PATH, &mini); */
+	// int j = 0;
+	// if (env != NULL)
+	// {
+	// 	while (env[j])
+	// 	{
+	// 		j++;
+	// 	}
+	// }
+	// printf("DB: Cantidad de elementos del ENV: $%i\n", j);
+
+	// //GET $PATH = Exit return -->> TENEMOS QUE DIFERENCIAR CUANDO HEMOS ENTRADO CON env -i Y CUANDO TRAS UN unset PATH
+	// /* if (ft_find_env(&mini, "PATH") == NULL)
+	// 	ft_export_env(PATH, &mini); */
 
 	//Get SHLVL
 	/* ft_export_env("MY_SHLVL=0", &mini);
