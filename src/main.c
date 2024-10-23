@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 12:14:21 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 12:28:35 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	initialize_structs(t_args *args, t_mini *mini, char **env)
 	ft_bzero(mini, sizeof(t_mini));
 	ft_set_env(env, mini);
 	args->mini = mini;
+	mini->standard_fds[0] = dup(STDIN_FILENO);
+	mini->standard_fds[1] = dup(STDOUT_FILENO);
 }
 
 void	create_minim_env_vars(t_mini *mini)
@@ -196,6 +198,19 @@ void	free_args_in_syntax_error(t_args *args)
 	}
 }
 
+int	closing_minishell(int is_piped, t_args *args)
+{
+	if (!is_piped)
+		printf("exit\n");
+	else if (is_piped && access(args->input, X_OK) != 0)
+	{
+		free_at_exit(args);
+		return (127);
+	}
+	free_at_exit(args);
+	return (0);
+}
+
 // cc signals.c -lreadline
 int	main(int argc, char **argv, char **env)
 {
@@ -211,8 +226,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	create_minim_env_vars(&mini);
-	mini.standard_fds[0] = dup(STDIN_FILENO);
-	mini.standard_fds[1] = dup(STDOUT_FILENO);
 	while (1)
 	{
 		if (initialize_main_loop(&mini, &args, is_piped) == ERR)
@@ -222,16 +235,8 @@ int	main(int argc, char **argv, char **env)
 		if (args.input != NULL && args.input[0] != '\0')
 			parse(&args, &mini);
 		signal(SIGINT, signal_sigint);
-		free(args.input); // Liberar la memoria asignada por readline
+		free(args.input);
 		del_params(&args);
 	}
-	if (!is_piped)
-		printf("exit\n");
-	else if (is_piped && access(args.input, X_OK) != 0 )
-	{
-		free_at_exit(&args);
-		return (127);
-	}
-	free_at_exit(&args);
-	return (0);
+	return (closing_minishell(is_piped, &args));
 }
