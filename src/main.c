@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 09:03:24 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 09:24:48 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void	error_mini_use(int argc, char **argv)
 			if (i != (argc))
 				printf(", ");
 		}
-		printf(": Not flags are allowed\n");
-		exit (127);
+		ft_dprintf(2, "minishell: Not flags or args are allowed\n");
+		exit (1);
 	}
 }
 
@@ -117,8 +117,8 @@ void	create_minim_env_vars(t_mini *mini)
 int	main(int argc, char **argv, char **env)
 {
 	t_args	args;
-	char	*entry;
 	t_mini	mini;
+	char	*entry;
 	int		i;
 	int		is_piped;
 
@@ -127,7 +127,8 @@ int	main(int argc, char **argv, char **env)
 
 	is_piped = !isatty(STDIN_FILENO);
 
-	//environment
+	//PROMPT
+	create_prompt(mini);
 	if (getenv("USER") == NULL)
 		entry = ft_strdup("user@minishell> ");
 	else
@@ -135,7 +136,7 @@ int	main(int argc, char **argv, char **env)
 	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	if (!mini.user_prompt)
 	{
-		fprintf(stderr, "Error allocating memory\n");
+		ft_dprintf(2, "Error allocating memory\n");
 		return (1);
 	}
 	ft_strcpy(mini.user_prompt, RED);
@@ -143,44 +144,11 @@ int	main(int argc, char **argv, char **env)
 	ft_strlcat(mini.user_prompt, entry, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
 	free (entry);
-	//strcat(user_prompt, entrada);
-	//strcat(user_prompt, RESET);
 
-	// Configurar los manejadores de señal
 	signal(SIGINT, signal_sigint);
-	//signal(SIGQUIT, signal_sigquit);
 	signal(SIGQUIT, SIG_IGN);
 
 	create_minim_env_vars(&mini);
-	// //GET $? = Exit return
-	// ft_export_env("?=0", &mini);
-
-	//GET $PWD (CREAR SIEMPRE)
-	//	cwd = getcwd(NULL, 0);
-	//	Concatenar a "PWD="
-	//	ft_export_env
-	//	free (de lo concatenado)
-	//
-
-	// int j = 0;
-	// if (env != NULL)
-	// {
-	// 	while (env[j])
-	// 	{
-	// 		j++;
-	// 	}
-	// }
-	// printf("DB: Cantidad de elementos del ENV: $%i\n", j);
-
-	// //GET $PATH = Exit return -->> TENEMOS QUE DIFERENCIAR CUANDO HEMOS ENTRADO CON env -i Y CUANDO TRAS UN unset PATH
-	// /* if (ft_find_env(&mini, "PATH") == NULL)
-	// 	ft_export_env(PATH, &mini); */
-
-	//Get SHLVL
-	/* ft_export_env("MY_SHLVL=0", &mini);
-	if (!ft_strcmp(getenv("SHLVL"), ft_find_env(&mini, "MY_SHLVL")));
-		ft_export_env("MY_SHLVL=1", &mini); */
-
 	mini.standard_fds[0] = dup(STDIN_FILENO);
 	mini.standard_fds[1] = dup(STDOUT_FILENO);
 
@@ -201,20 +169,9 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (!args.input)
 		{
-			// Detectar Ctrl-D (EOF)
 			handle_eof();
-			//printf("DB: Caught EOF (Ctrl-D). Exiting...\n");
 			break ;
 		}
-		/* if (g_signal_received == SIGQUIT)
-		{
-			printf("\nCaught signal %d (Ctrl-\\). Dumping core and exiting...\n", SIGQUIT);
-			printf("\nEsto debería hacerse\n");
-			//free_at_exit(&args);
-			//signal(SIGQUIT, SIG_DFL); // Restaurar el comportamiento por defecto
-			//kill(getpid(), SIGQUIT); // Enviar la señal nuevamente
-		} */
-		//if (args.input[0] != '\0')
 		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
 		{
 			if (args.last_history != NULL)
@@ -222,22 +179,13 @@ int	main(int argc, char **argv, char **env)
 			args.last_history = ft_strdup(args.input);
 			add_history(args.input);
 		}
-		// Procesar la entrada del usuario
-		// OJO: ft_strtrim utiliza malloc!!!!!
 		args.input_trimed = ft_strtrim(args.input, " \t\n\r\f\v");
 		free(args.input);
 		args.input = args.input_trimed;
 		args.input_trimed = NULL;
-		/* if (ft_strcmp(args.input, "exit") == 0)
-			exit (0); */
 		if (args.input != NULL && args.input[0] != '\0')
 			parse(&args, &mini);
 		signal(SIGINT, signal_sigint);
-		/* if (args.input[0] != '\0')
-		{
-			if (parse(&args, &mini) == ERR)
-				free_at_exit(&args);
-		} */
 		i = 0; // En caso de que haya un error de sintaxis
 		if (args.args[i]) // Podría ponerse si parse() devuelve ERR
 		{
@@ -250,11 +198,7 @@ int	main(int argc, char **argv, char **env)
 			}
 		}
 		free(args.input); // Liberar la memoria asignada por readline
-		//free(args.input_trimed); // Liberar la memoria asignada por ft_strtrim
 		del_params(&args);
-		// Cerrar descriptores originales
-		/* close(mini.standard_fds[0]);
-		close(mini.standard_fds[1]); */
 	}
 	if (!is_piped)
 		printf("exit\n");
