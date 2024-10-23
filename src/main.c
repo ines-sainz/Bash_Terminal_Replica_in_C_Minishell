@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 09:35:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 10:25:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	signal_sigint(int sig)
 	rl_redisplay();
 }
 
-// Manejo del EOF
 void	handle_eof(void)
 {
 	g_signal_received = -1;
@@ -100,17 +99,63 @@ void	create_minim_env_vars(t_mini *mini)
 	char	*cwd;
 	char	*join;
 
-	//GET $? = Exit return
 	ft_export_env("?=0", mini);
-	//GET $PWD (CREAR SIEMPRE)
 	cwd = getcwd(NULL, 0);
 	join = ft_strjoin("PWD=", cwd);
 	ft_export_env(join, mini);
 	free (cwd);
 	free (join);
-	//GET $PATH
 	if (ft_find_env(mini, "PATH") == NULL)
 		ft_export_env(PATH, mini);
+}
+
+int	create_prompt(t_mini *mini)
+{
+	char	*entry;
+
+	if (getenv("USER") == NULL)
+		entry = ft_strdup("user@minishell> ");
+	else
+		entry = ft_strjoin(getenv("USER"), "@minishell> ");
+	mini->user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD)
+			+ ft_strlen(entry) + ft_strlen(RESET) + 1);
+	if (!mini->user_prompt)
+	{
+		ft_dprintf(2, "Error allocating memory\n");
+		free_env(mini);
+		return (ERR);
+	}
+	ft_strcpy(mini->user_prompt, RED);
+	ft_strlcat(mini->user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD)
+		+ ft_strlen(entry) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini->user_prompt, entry, ft_strlen(RED) + ft_strlen(BOLD)
+		+ ft_strlen(entry) + ft_strlen(RESET) + 1);
+	ft_strlcat(mini->user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD)
+		+ ft_strlen(entry) + ft_strlen(RESET) + 1);
+	free (entry);
+	return (OK);
+}
+
+int	initialize_main_loop(t_mini *mini, t_args *args, int is_piped)
+{
+	dup2(mini->standard_fds[0], STDIN_FILENO);
+	dup2(mini->standard_fds[1], STDOUT_FILENO);
+	g_signal_received = 0;
+	if (!is_piped)
+		args->input = readline(mini->user_prompt);
+	else
+		args->input = get_next_line(STDIN_FILENO, t_false);
+	if (g_signal_received == SIGINT)
+	{
+		ft_export_env("?=130", mini);
+		g_signal_received = 0;
+	}
+	if (!args->input)
+	{
+		handle_eof();
+		return (ERR);
+	}
+	return (OK);
 }
 
 // cc signals.c -lreadline
@@ -118,60 +163,41 @@ int	main(int argc, char **argv, char **env)
 {
 	t_args	args;
 	t_mini	mini;
-	char	*entry;
 	int		i;
 	int		is_piped;
 
 	initialize_structs(&args, &mini, env);
 	error_mini_use(argc, argv);
-
 	is_piped = !isatty(STDIN_FILENO);
-
-	//PROMPT
-	//create_prompt(mini);
-	if (getenv("USER") == NULL)
-		entry = ft_strdup("user@minishell> ");
-	else
-		entry = ft_strjoin(getenv("USER"), "@minishell> ");
-	mini.user_prompt = malloc(ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
-	if (!mini.user_prompt)
-	{
-		ft_dprintf(2, "Error allocating memory\n");
-		return (1);
-	}
-	ft_strcpy(mini.user_prompt, RED);
-	ft_strlcat(mini.user_prompt, BOLD, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
-	ft_strlcat(mini.user_prompt, entry, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
-	ft_strlcat(mini.user_prompt, RESET, ft_strlen(RED) + ft_strlen(BOLD) + ft_strlen(entry) + ft_strlen(RESET) + 1);
-	free (entry);
-
+	if (create_prompt(&mini) == ERR)
+		return (ERR);
 	signal(SIGINT, signal_sigint);
 	signal(SIGQUIT, SIG_IGN);
-
 	create_minim_env_vars(&mini);
 	mini.standard_fds[0] = dup(STDIN_FILENO);
 	mini.standard_fds[1] = dup(STDOUT_FILENO);
 
-	// Bucle principal del shell
 	while (1)
 	{
-		dup2(mini.standard_fds[0], STDIN_FILENO);
-		dup2(mini.standard_fds[1], STDOUT_FILENO);
-		g_signal_received = 0;
-		if (!is_piped)
-			args.input = readline(mini.user_prompt);
-		else
-			args.input = get_next_line(STDIN_FILENO, t_false);
-		if (g_signal_received == SIGINT)
-		{
-			ft_export_env("?=130", &mini);
-			g_signal_received = 0;
-		}
-		if (!args.input)
-		{
-			handle_eof();
+		if (initialize_main_loop(&mini, &args, is_piped) == ERR)
 			break ;
-		}
+		// dup2(mini.standard_fds[0], STDIN_FILENO);
+		// dup2(mini.standard_fds[1], STDOUT_FILENO);
+		// g_signal_received = 0;
+		// if (!is_piped)
+		// 	args.input = readline(mini.user_prompt);
+		// else
+		// 	args.input = get_next_line(STDIN_FILENO, t_false);
+		// if (g_signal_received == SIGINT)
+		// {
+		// 	ft_export_env("?=130", &mini);
+		// 	g_signal_received = 0;
+		// }
+		// if (!args.input)
+		// {
+		// 	handle_eof();
+		// 	break ;
+		// }
 		if ((args.input[0] != '\0' && ft_strcmp(args.input, args.last_history) != 0) || args.last_history == NULL)
 		{
 			if (args.last_history != NULL)
