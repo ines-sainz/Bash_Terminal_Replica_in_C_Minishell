@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:25:19 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/23 20:38:14 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:10:06 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,6 @@ char	*ft_get_eof(char *eof)
 	return (eof_fin);
 }
 
-/* void signal_here_doc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\nHere-doc interrupted (Ctrl-C)\n");
-		rl_replace_line("", 0);  // Limpiar la línea actual
-		close(STDIN_FILENO);     // Cerrar stdin para interrumpir el here_doc
-	}
-} */
-
-/* int	event(void)
-{
-	return (0);
-} */
-
-//int	ft_write_temp(int fd, char *eof, char *buffer, t_mini *mini)
 int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
 {
 	t_args	here_doc;
@@ -53,15 +37,12 @@ int	ft_write_temp(int fd, t_params *param, char *buffer, t_mini *mini)
 	g_signal_received = 0;
 	while (1)
 	{
-		//rl_event_hook = event;
-		// Verificar si se recibió SIGINT
 		if (g_signal_received == SIGINT)
 			break ;
 		here_doc.arg = readline("> ");
 		if (!here_doc.arg)
 		{
 			ft_dprintf(2, "minishell: warning: here-document delimited by end-of-file (wanted `EOF')\n");
-			// Detectar Ctrl-D (EOF)
 			break ;
 		}
 		if (g_signal_received == SIGINT)
