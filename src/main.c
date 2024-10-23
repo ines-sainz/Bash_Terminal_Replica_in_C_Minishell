@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 09:24:48 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 09:35:02 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	main(int argc, char **argv, char **env)
 	is_piped = !isatty(STDIN_FILENO);
 
 	//PROMPT
-	create_prompt(mini);
+	//create_prompt(mini);
 	if (getenv("USER") == NULL)
 		entry = ft_strdup("user@minishell> ");
 	else
