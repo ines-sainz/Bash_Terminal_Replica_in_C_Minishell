@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/20 23:22:17 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:14:56 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@
 
 // DEFINES
 #define MAX_ARGS 70000
-#define PATH "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:\
-/usr/bin/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+#define PATH "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 // ANSI escape sequences for colors
 #define RESET "\001\033[0m\002"
