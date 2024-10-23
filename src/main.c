@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 13:14:37 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 14:28:55 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,14 +204,19 @@ int	closing_minishell(int is_piped, t_args *args)
 
 	ft_dprintf(2, "DB: args->input => %s\n", args->input);
 	if (!is_piped)
+	{
 		printf("exit\n");
-	else if (is_piped && access(args->input, F_OK) != 0)
+		status = 0;
+	}
+	else if (is_piped && access(args->input, F_OK) != 0 && args->input != NULL)
 	{
 		ft_dprintf(2, "DB: El archivo no existe!\n");
 		free_at_exit(args);
 		status = 127;
 	}
-	else
+	else if (status == 127 && args->input == NULL)
+		status = 127;
+	else if (status == 0 && args->input == NULL)
 		status = 0;
 	/* if (status == 127 && args->input == NULL)
 		status = 127; */
