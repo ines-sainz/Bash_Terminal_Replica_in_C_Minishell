@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:25:44 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 14:28:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/23 15:26:57 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,28 +200,15 @@ void	free_args_in_syntax_error(t_args *args)
 
 int	closing_minishell(int is_piped, t_args *args)
 {
-	static int	status;
-
-	ft_dprintf(2, "DB: args->input => %s\n", args->input);
 	if (!is_piped)
-	{
 		printf("exit\n");
-		status = 0;
-	}
-	else if (is_piped && access(args->input, F_OK) != 0 && args->input != NULL)
+	else if (is_piped)
 	{
-		ft_dprintf(2, "DB: El archivo no existe!\n");
 		free_at_exit(args);
-		status = 127;
+		return (127);
 	}
-	else if (status == 127 && args->input == NULL)
-		status = 127;
-	else if (status == 0 && args->input == NULL)
-		status = 0;
-	/* if (status == 127 && args->input == NULL)
-		status = 127; */
 	free_at_exit(args);
-	return (status);
+	return (0);
 }
 
 // cc signals.c -lreadline
