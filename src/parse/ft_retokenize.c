@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_retokenize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:35:25 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/21 17:40:12 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:41:09 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,22 @@ static int	split_args(t_params *temp, int i, int n_commands)
 	return (0);
 }
 
-static size_t	reorder_argc(t_params *params, t_params *temp)
+static int	reorder_argc(t_params *params, t_params *temp)
 {
-	size_t	args_len;
-	int		i;
+	int	args_len;
+	int	i;
 
 	temp = params;
 	i = 0;
 	args_len = 0;
 	while (temp != NULL)
 	{
+		if (temp->content[0] == '|' && temp->next
+			&& temp->next->content[0] == '|')
+		{
+			ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
+			return (ERR);
+		}
 		args_len += ft_strlen(temp->content);
 		temp->argc = i;
 		i++;
@@ -77,12 +83,41 @@ static size_t	reorder_argc(t_params *params, t_params *temp)
 	return (args_len);
 }
 
-size_t	ft_retokenize(t_params *params)
+static int	check_pipes(t_params *params, t_params *temp)
+{
+	int	nbr_nodes;
+	int	i;
+
+	temp = params;
+	nbr_nodes = 0;
+	while (temp != NULL)
+	{
+		nbr_nodes++;
+		temp = temp->next;
+	}
+	i = 1;
+	temp = params;
+	while (temp != NULL)
+	{
+		printf("DB: i ==> %i\n", i);
+		printf("DB: nbr_nodes ==> %i\n", nbr_nodes);
+		if ((i == 1 || i == nbr_nodes) && temp->content[0] == '|')
+		{
+			ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
+			return (ERR);
+		}
+		i++;
+		temp = temp->next;
+	}
+	return (OK);
+}
+
+int	ft_retokenize(t_params *params)
 {
 	t_params	*temp;
 	int			n_commands;
 	int			i;
-	size_t		args_len;
+	int			args_len;
 
 	temp = params;
 	while (temp != NULL)
@@ -98,5 +133,7 @@ size_t	ft_retokenize(t_params *params)
 		temp = temp->next;
 	}
 	args_len = reorder_argc(params, temp);
+	if (args_len != ERR && check_pipes(params, temp) == ERR)
+		args_len = ERR;
 	return (args_len);
 }
