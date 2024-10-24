@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 14:25:53 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 15:26:34 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	built_in_command(int exit_status, t_execution *iter_exe,
 		else
 		{
 			free_at_exit(args);
-			printf("exit\n"); // REMOVE BEFORE EVALUATIONS
 			exit(exit_status);
 		}
 	}
