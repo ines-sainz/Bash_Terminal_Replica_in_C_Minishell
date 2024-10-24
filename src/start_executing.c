@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 12:04:02 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 12:07:11 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	built_in_command(int exit_status, t_execution *iter_exe,
 			ft_strlen(iter_exe->command[0])) == 0
 		&& ft_strlen(iter_exe->command[0]) == 4)
 	{
-		if (exit_status == -1 && iter_exe->command[1] && ft_strncmp(iter_exe->command[1], "-1", ft_strlen(iter_exe->command[1]) == 2) != 0)
+		if (exit_status == -1 && iter_exe->command[1]
+			&& ft_strncmp(iter_exe->command[1], "-1",
+				ft_strlen(iter_exe->command[1]) == 2) != 0)
 			ft_export_env("?=1", mini);
 		else
 		{
