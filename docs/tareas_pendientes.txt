@@ -2,6 +2,8 @@ TAREAS:
 
 SEGFAULT:
 	| ls (pipe en la primera posición) ✅
+	ls | $asdasd | ls | cat -e ✅
+	ls |  | ls | cat -e ✅
 
 start_executing.C
 	- start_executing() (line 148)
