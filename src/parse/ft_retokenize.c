@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:35:25 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/24 10:41:09 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 11:10:27 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ static int	check_pipes(t_params *params, t_params *temp)
 	temp = params;
 	while (temp != NULL)
 	{
-		printf("DB: i ==> %i\n", i);
-		printf("DB: nbr_nodes ==> %i\n", nbr_nodes);
 		if ((i == 1 || i == nbr_nodes) && temp->content[0] == '|')
 		{
 			ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
