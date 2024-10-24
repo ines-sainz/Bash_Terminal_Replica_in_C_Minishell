@@ -79,7 +79,6 @@ void	free_args_in_syntax_error(t_args *args)
 	{
 		while (args->args[i])
 		{
-			printf("DB: Libero %s por syntax error\n", args->args[i]);
 			free(args->args[i]);
 			args->args[i] = NULL;
 			i++;

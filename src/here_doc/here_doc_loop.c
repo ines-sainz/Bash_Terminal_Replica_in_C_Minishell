@@ -60,7 +60,6 @@ static void	create_here_doc_content(t_params *param, t_args *here_doc,
 	if (param->quotes == t_false)
 	{
 		expander(here_doc, mini);
-		printf("DB: expanded_arg => %s\n", here_doc->result);
 		write(fd, here_doc->result, ft_strlen(here_doc->result));
 		write(fd, "\n", 1);
 		free(here_doc->arg);

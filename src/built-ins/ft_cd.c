@@ -20,7 +20,6 @@ static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
 		path = getcwd(NULL, 0);
 		output = ft_strjoin("PWD=", path);
 		free(path);
-		printf("DB: %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
 		free(buffer);
@@ -33,7 +32,6 @@ static void	update_pwd(char *buffer, char *output, char	*path, t_mini *mini)
 static void	update_oldpwd(char *output, t_mini *mini)
 {
 	output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-	printf("DB: %s\n", output);
 	ft_export_env(output, mini);
 	free(output);
 }
@@ -75,14 +73,12 @@ static int	cd_home(t_mini *mini)
 	else
 	{
 		output = ft_strjoin("OLDPWD=", ft_get_env("PWD", mini));
-		printf("DB: OLDPWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
 		path = ft_strdup(ft_find_env(mini, "HOME"));
 		output = ft_strjoin("PWD=", path);
 		free(path);
 		path = NULL;
-		printf("DB: PWD => %s\n", output);
 		ft_export_env(output, mini);
 		free(output);
 		return (0);

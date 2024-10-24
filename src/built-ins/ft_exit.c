@@ -122,7 +122,6 @@ int	ft_built_exit(t_args *args, char **exit_args)
 	exit_status = 0;
 	while (exit_args[argc])
 		argc++;
-	printf("DB: exit argc = %i\n", argc);
 	if (argc == 1)
 		return (0);
 	if (argc >= 2)

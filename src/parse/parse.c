@@ -80,7 +80,6 @@ static void	loop_args_to_create_list(t_args *args)
 int	parse(t_args *args, t_mini *mini)
 {
 	int	args_len;
-	t_params	*temp; //DB
 
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
@@ -102,34 +101,5 @@ int	parse(t_args *args, t_mini *mini)
 	mini->n_here_docs = 0;
 	mini->n_commands = 0;
 	free_last_env(mini);
-	printf("DB: Parsed arguments:\n");
-	temp = args->params; //DB
-	while (temp != NULL) //DB
-	{ //DB
-		printf("DB: arg[%d]: %s", temp->argc, temp->content);
-		if (temp->type == CMD) //DB
-			printf("\ttype: %s", "CMD"); //DB
-		else if (temp->type == INFILE) //DB
-			printf("\ttype: %s", "INFILE"); //DB
-		else if (temp->type == HERE_DOC) //DB
-			printf("\ttype: %s", "HERE_DOC"); //DB
-		else if (temp->type == OUTFILE) //DB
-			printf("\ttype: %s", "OUTFILE"); //DB
-		else if (temp->type == APPEND) //DB
-			printf("\ttype: %s", "APPEND"); //DB
-		else if (temp->type == PIPE) //DB
-			printf("\ttype: %s", "PIPE"); //DB
-		else if (temp->type == PARAMS) //DB
-			printf("\ttype: %s", "PARAMS"); //DB
-		else if (temp->type == BUILTING) //DB
-			printf("\ttype: %s", "BUILTING"); //DB
-		else if (temp->type == DELIMITER) //DB
-			printf("\ttype: %s", "DELIMITER"); //DB
-		if (temp->quotes == t_true) //DB
-			printf("\tquotes: %s\n", "TRUE"); //DB
-		else if (temp->quotes == t_false) //DB
-			printf("\tquotes: %s\n", "FALSE"); //DB
-		temp = temp->next; //DB
-	} //DB
 	return (OK);
 }

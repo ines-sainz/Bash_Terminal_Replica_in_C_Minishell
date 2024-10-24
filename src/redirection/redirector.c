@@ -74,7 +74,6 @@ int	errors_and_n_commands(t_params *iter, t_mini *mini)
 		}
 		iter = iter->next;
 	}
-	printf("DB: the number of commands is: %i\n", mini->n_commands);
 	return (0);
 }
 

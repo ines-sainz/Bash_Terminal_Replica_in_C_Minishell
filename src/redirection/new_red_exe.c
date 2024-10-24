@@ -85,25 +85,11 @@ void	dup_redirections(t_execution *iter_exe)
 int	new_red_exe(t_args *args, t_mini *mini)
 {
 	t_execution	*iter;
-	int			i; //DB
 	int			status;
 
 	if (red(args, mini) == ERR)
 		return (ERR);
 	exe(args, mini);
-	iter = mini->exe_command; //DB
-	while (iter != NULL) //DB
-	{ //DB
-		printf("DB: n_command: %i   inf: %i   outf: %i   type: %i\n",
-			iter->n_command, iter->inf_pipe, iter->outf_pipe, iter->type); //DB
-		i = 0; //DB
-		while (iter->command[i]) //DB
-		{ //DB
-			printf("DB: command = %s\n", iter->command[i]); //DB
-			i++; //DB
-		} //DB
-		iter = iter->next; //DB
-	} //DB
 	iter = mini->exe_command;
 	status = 0;
 	del_params(args);
