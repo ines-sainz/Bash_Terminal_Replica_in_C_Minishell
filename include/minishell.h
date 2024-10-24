@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 21:33:18 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:06:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,7 @@ int			out_of_quotes(char **input_ptr, t_args *args,
 //////////////////////////////////////////////////////
 //					FT_RETOKENIZE.C					//
 //////////////////////////////////////////////////////
-//void		ft_retokenize(t_params *params);
-size_t		ft_retokenize(t_params *params);
+int			ft_retokenize(t_params *params);
 
 //////////////////////////////////////////////////////
 //					EXPANDER.C						//
