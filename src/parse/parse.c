@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:15:16 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/24 10:03:22 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 13:56:01 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parse(t_args *args, t_mini *mini)
 {
 	int	args_len;
 	t_params	*temp; //DB
-	 //DB
+
 	if (ft_tokenize(args, mini) == ERR)
 		return (ERR);
 	loop_args_to_create_list(args);
