@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 21:25:32 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 22:06:56 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 08:05:59 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*initialize_here_doc(t_params *param, t_args *here_doc, t_mini *mini
 	return (eof);
 }
 
-static char	*ft_get_eof(char *eof)
+/* static char	*ft_get_eof(char *eof)
 {
 	char	*eof_fin;
 
@@ -33,7 +33,7 @@ static char	*ft_get_eof(char *eof)
 	eof_fin[ft_strlen(eof)] = '\n';
 	eof_fin[ft_strlen(eof) + 1] = '\0';
 	return (eof_fin);
-}
+} */
 
 static int	initialize_here_doc_loop(t_args	*here_doc, char *eof, t_params *param, char **eof_fin)
 {
@@ -54,7 +54,13 @@ static int	initialize_here_doc_loop(t_args	*here_doc, char *eof, t_params *param
 	if (eof[0] == '$' && ft_strlen(eof) >= 1 && param->quotes == t_true)
 		*eof_fin = ft_substr(eof, 1, ft_strlen(eof));
 	else
-		*eof_fin = ft_get_eof(eof);
+	{
+		/* *eof_fin = ft_get_eof(eof); */
+		eof_fin[0] = (char *)malloc(ft_strlen(eof) + 2);
+		ft_strlcpy(eof_fin[0], eof, ft_strlen(eof) + 1);
+		eof_fin[0][ft_strlen(eof)] = '\n';
+		eof_fin[0][ft_strlen(eof) + 1] = '\0';
+	}
 	return (OK);
 }
 
