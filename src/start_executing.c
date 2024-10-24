@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/23 18:49:10 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:04:02 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,33 @@ int	built_in_command(int exit_status, t_execution *iter_exe,
 	free(exit_status_itoa);
 	ft_export_env(exit_status_str, mini);
 	free(exit_status_str);
+	// printf("DB: iter_exe->command[0] = %s\n", iter_exe->command[0]);
+	// printf("DB: iter_exe->command[1] = %s\n", iter_exe->command[1]);
+	// if (ft_strncmp(iter_exe->command[0], "exit",
+	// 		ft_strlen(iter_exe->command[0])) == 0
+	// 	&& ft_strlen(iter_exe->command[0]) == 4 && exit_status != -1)
+	// {
+	// 	free_at_exit(args);
+	// 	printf("exit\n"); // REMOVE BEFORE EVALUATIONS
+	// 	exit(exit_status);
+	// }
+	// else if ((ft_strncmp(iter_exe->command[0], "exit",
+	// 			ft_strlen(iter_exe->command[0])) == 0
+	// 		&& ft_strlen(iter_exe->command[0]) == 4 && exit_status == -1))
+	// 	ft_export_env("?=1", mini);
 	if (ft_strncmp(iter_exe->command[0], "exit",
 			ft_strlen(iter_exe->command[0])) == 0
-		&& ft_strlen(iter_exe->command[0]) == 4 && exit_status != -1)
+		&& ft_strlen(iter_exe->command[0]) == 4)
 	{
-		free_at_exit(args);
-		printf("exit\n"); // REMOVE BEFORE EVALUATIONS
-		exit(exit_status);
+		if (exit_status == -1 && iter_exe->command[1] && ft_strncmp(iter_exe->command[1], "-1", ft_strlen(iter_exe->command[1]) == 2) != 0)
+			ft_export_env("?=1", mini);
+		else
+		{
+			free_at_exit(args);
+			printf("exit\n"); // REMOVE BEFORE EVALUATIONS
+			exit(exit_status);
+		}
 	}
-	else if ((ft_strncmp(iter_exe->command[0], "exit",
-				ft_strlen(iter_exe->command[0])) == 0
-			&& ft_strlen(iter_exe->command[0]) == 4 && exit_status == -1))
-		ft_export_env("?=1", mini);
 	return (0);
 }
 
