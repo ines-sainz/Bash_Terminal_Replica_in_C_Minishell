@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 15:26:34 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 18:22:52 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	built_in_command(int exit_status, t_execution *iter_exe,
 	free(exit_status_itoa);
 	ft_export_env(exit_status_str, mini);
 	free(exit_status_str);
-	if (ft_strncmp(iter_exe->command[0], "exit",
-			ft_strlen(iter_exe->command[0])) == 0
+	if (ft_strcmp(iter_exe->command[0], "exit") == 0
 		&& ft_strlen(iter_exe->command[0]) == 4)
 	{
-		if (exit_status == -1 && iter_exe->command[1]
-			&& ft_strncmp(iter_exe->command[1], "-1",
-				ft_strlen(iter_exe->command[1]) == 2) != 0)
+		if ((exit_status == -1 && iter_exe->command[1]
+				&& ft_strcmp(iter_exe->command[1], "-1") != 0)
+			|| (iter_exe->command[1] && iter_exe->command[2]
+				&& exit_status != 2))
 			ft_export_env("?=1", mini);
 		else
 		{
