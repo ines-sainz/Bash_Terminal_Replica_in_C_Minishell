@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+         #
+#    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/23 21:36:00 by danjimen         ###   ########.fr        #
+#    Updated: 2024/10/24 14:31:53 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,22 +37,23 @@ BUILTINS_DIR	=	src/built-ins
 PARSE_DIR		=	src/parse
 ENV_DIR			=	src/env
 HERE_DOC_DIR	=	src/here_doc
+EXECUTION_DIR	=	src/execution
+REDIRECTION_DIR	=	src/redirection
 SRC				=	$(MAIN_DIR)/main.c \
 					$(MAIN_DIR)/errors_and_exit.c \
 					$(MAIN_DIR)/signals_and_history.c \
 					$(MAIN_DIR)/initialize_main.c \
 					$(HERE_DOC_DIR)/here_doc.c \
 					$(HERE_DOC_DIR)/here_doc_loop.c \
-					$(SRC_DIR)/list_of_params.c \
-					$(SRC_DIR)/new_red_exe.c \
-					$(SRC_DIR)/find_redirections.c \
-					$(SRC_DIR)/execution_matrix.c \
-					$(SRC_DIR)/execution_structure.c \
-					$(SRC_DIR)/redirector.c \
-					$(SRC_DIR)/start_executing.c \
-					$(SRC_DIR)/find_path.c \
-					$(SRC_DIR)/execute_commands.c \
-					$(SRC_DIR)/execution_utils.c \
+					$(REDIRECTION_DIR)/new_red_exe.c \
+					$(REDIRECTION_DIR)/find_redirections.c \
+					$(REDIRECTION_DIR)/redirector.c \
+					$(EXECUTION_DIR)/execution_matrix.c \
+					$(EXECUTION_DIR)/execution_structure.c \
+					$(EXECUTION_DIR)/start_executing.c \
+					$(EXECUTION_DIR)/find_path.c \
+					$(EXECUTION_DIR)/execute_commands.c \
+					$(EXECUTION_DIR)/execution_utils.c \
 					$(BUILTINS_DIR)/ft_echo.c \
 					$(BUILTINS_DIR)/ft_exit.c \
 					$(BUILTINS_DIR)/ft_export.c \
@@ -61,6 +62,7 @@ SRC				=	$(MAIN_DIR)/main.c \
 					$(BUILTINS_DIR)/ft_pwd.c \
 					$(BUILTINS_DIR)/ft_cd.c \
 					$(BUILTINS_DIR)/ft_env.c \
+					$(PARSE_DIR)/list_of_params.c \
 					$(PARSE_DIR)/parse.c \
 					$(PARSE_DIR)/ft_tokenize.c \
 					$(PARSE_DIR)/ft_retokenize.c \

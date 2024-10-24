@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:40:54 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 12:10:59 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:30:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	exe(t_args *args, t_mini *mini)
 {

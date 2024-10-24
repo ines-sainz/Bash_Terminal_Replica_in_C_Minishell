@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 09:43:20 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/17 15:17:37 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:35 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	get_len_matrix(t_params *iter)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:01:59 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 22:10:40 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:30:43 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	close_restant_fds(t_execution *exe_command, t_mini *mini, int i)
 {

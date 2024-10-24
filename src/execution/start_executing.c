@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 12:13:39 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:53 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	built_in_command(int exit_status, t_execution *iter_exe,
 	t_mini *mini, t_args *args)

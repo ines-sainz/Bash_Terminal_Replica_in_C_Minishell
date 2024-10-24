@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isainz-r <isainz-r@student.42madrid>       +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:12:17 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/23 15:12:19 by isainz-r         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:41 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	check_built_ins(char **command, t_execution *iter_exe,
 	t_mini *mini, t_args *args)

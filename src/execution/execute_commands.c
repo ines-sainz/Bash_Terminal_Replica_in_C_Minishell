@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:50:09 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/21 13:10:30 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:26 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	free_last_env(t_mini *mini)
 {

@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:28:17 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/18 14:51:28 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:45 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 char	*check_command(char **path_list, char *path_mid, char *kid)
 {

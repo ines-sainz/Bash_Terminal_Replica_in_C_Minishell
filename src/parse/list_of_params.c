@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:43:18 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/23 09:26:30 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:31:34 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	update_last_command_env_var(t_args *args)
 {

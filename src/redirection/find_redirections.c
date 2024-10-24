@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:24:53 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/20 21:42:50 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:30:35 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	fill_infile(t_params *iter_params, t_execution *iter_exe, t_mini *mini)
 {

@@ -6,11 +6,11 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:39:43 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/14 09:11:55 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:37 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_execution	*exe_struct_new(int i)
 {
