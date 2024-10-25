@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 08:24:37 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/14 09:25:37 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/25 10:31:31 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static int	ft_to_unset(t_env *prev, char *unset, t_mini *mini)
 		free(mini->env_iter);
 		return (0);
 	}
-	while (prev != NULL && ft_strncmp(prev->next->variable,
-			unset, ft_strlen(unset)))
+	while (prev != NULL && !(!ft_strncmp(unset, prev->next->variable,
+				ft_strlen(unset))
+			&& ft_strlen(unset) == ft_strlen(prev->next->variable)))
 		prev = prev->next;
 	if (mini->env_iter->next)
 		prev->next = mini->env_iter->next;
@@ -49,7 +50,8 @@ void	ft_unset_env(char *unset, t_mini *mini)
 		return ;
 	while (mini->env_iter != NULL)
 	{
-		if (!ft_strncmp(unset, mini->env_iter->variable, ft_strlen(unset)))
+		if (!ft_strncmp(unset, mini->env_iter->variable, ft_strlen(unset))
+			&& ft_strlen(unset) == ft_strlen(mini->env_iter->variable))
 		{
 			prev = mini->env_first_node;
 			ft_to_unset(prev, unset, mini);
