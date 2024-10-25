@@ -3,13 +3,14 @@ Opciones de Valgrind:
 Uso recomendado:
 valgrind --leak-check=full --trace-children=yes --track-fds=yes ./minishell
 
---leak-check=full:		Verifica completamente si hay fugas de memoria.
---show-leak-kinds=all:	Muestra todos los tipos de fugas (definitivas, indirectas, etc.).
--s:							Muestra un resumen detallado de errores y advertencias.
---trace-children=yes:	Rastrea también a los procesos hijos, importante si estás utilizando fork() y execve().
---track-fds=yes:			Rastrea el uso de fds para detectar posibles fugas de descriptores abiertos.
---track-origins=yes:		Esta opción te ayuda a rastrear el origen de valores no inicializados,
-								lo cual puede ser útil si Valgrind detecta errores de uso de memoria sin inicializar.
+--leak-check=full:						Verifica completamente si hay fugas de memoria.
+--show-leak-kinds=all:					Muestra todos los tipos de fugas (definitivas, indirectas, etc.).
+--show-leak-kinds=definite,indirect:	Muestra solo definitivos e indirectos
+-s:										Muestra un resumen detallado de errores y advertencias.
+--trace-children=yes:					Rastrea también a los procesos hijos, importante si estás utilizando fork() y execve().
+--track-fds=yes:						Rastrea el uso de fds para detectar posibles fugas de descriptores abiertos.
+--track-origins=yes:					Esta opción te ayuda a rastrear el origen de valores no inicializados,
+											lo cual puede ser útil si Valgrind detecta errores de uso de memoria sin inicializar.
 
 EVITAR QUE VALGRIND MUESTRE LOS "LEAKS" PRODUCIDOS POR READLINE U OTRAS BIBLIOTECAS EXTERNAS UTILIZANDO SUPRESSIONS FileDescriptor
 
