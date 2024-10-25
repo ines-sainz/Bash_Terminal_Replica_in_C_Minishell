@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:12:17 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 14:25:41 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/25 12:17:30 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	check_built_ins(char **command, t_execution *iter_exe,
 
 	exit_status = 0;
 	dup_redirections(iter_exe);
-	close_restant_fds(iter_exe, mini, 1);
+	if (iter_exe->n_command < mini->n_commands)
+		close_restant_fds(iter_exe, mini, 0);
+	else
+		close_restant_fds(iter_exe, mini, 1);
 	len = ft_strlen(command[0]);
 	if (ft_strncmp(command[0], "echo", len) == 0 && len == 4)
 		exit_status = ft_built_echo(command);
