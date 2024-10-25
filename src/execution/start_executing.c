@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/24 18:22:52 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:37:53 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	start_executing(t_execution *iter_exe, int status,
 	int		last_status;
 
 	exit_status = 0;
+	last_status = 0;
 	while (iter_exe != NULL)
 	{
 		if (iter_exe->inf_pipe < 0 || iter_exe->outf_pipe < 0)
