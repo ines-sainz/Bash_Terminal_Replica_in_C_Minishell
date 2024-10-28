@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
+/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/25 11:37:53 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/28 19:04:39 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,18 @@ void	wait_and_return(int status, pid_t last_pid,
 	while (pid != -1)
 	{
 		if (pid == last_pid)
-			*last_status = WEXITSTATUS(status);
+		{
+			if (WTERMSIG(status) != 0)
+				*last_status = WTERMSIG(status) + 128;
+			else
+				*last_status = WEXITSTATUS(status);
+		}
 		pid = waitpid(-1, &status, 0);
 	}
 	set_return_value(*last_status, mini);
 	while (iter_exe_cpy != NULL)
 	{
-		if (ft_strncmp(iter_exe_cpy->command[0], "exit",
-				ft_strlen(iter_exe_cpy->command[0])) == 0
+		if (ft_strcmp(iter_exe_cpy->command[0], "exit") == 0
 			&& ft_strlen(iter_exe_cpy->command[0]) == 4
 			&& *last_status == 255 && iter_exe_cpy->command[2] != NULL)
 			ft_export_env("?=1", mini);
