@@ -6,7 +6,7 @@
 /*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/28 19:04:39 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/28 20:28:17 by danjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	wait_and_return(int status, pid_t last_pid,
 		if (pid == last_pid)
 		{
 			if (WTERMSIG(status) != 0)
+			{
+				printf("\n");
 				*last_status = WTERMSIG(status) + 128;
+			}
 			else
 				*last_status = WEXITSTATUS(status);
 		}
