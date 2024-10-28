@@ -6,14 +6,12 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 08:24:37 by danjimen &        #+#    #+#             */
-/*   Updated: 2024/10/25 10:39:24 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/28 07:52:08 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Cuento con que solo me dan la variable que
-// quiere desetear, no el contenido también
 static int	ft_to_unset(t_env *prev, char *unset, t_mini *mini)
 {
 	if (!ft_strncmp(mini->env_iter->variable,
