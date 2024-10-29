@@ -6,7 +6,7 @@
 /*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 07:52:36 by danjimen          #+#    #+#             */
-/*   Updated: 2024/10/24 14:32:18 by danjimen &       ###   ########.fr       */
+/*   Updated: 2024/10/29 07:56:49 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int			closing_minishell(int is_piped, t_args *args);
 void		signal_sigint(int sig);
 void		handle_eof(void);
 void		signal_here_doc(int sig);
+int			obtain_last_status(int *status);
 void		histcontrol(t_args *args);
 
 //////////////////////////////////////////////////////
