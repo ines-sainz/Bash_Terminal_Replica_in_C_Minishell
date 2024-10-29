@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_executing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjimen <danjimen@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:13:15 by isainz-r          #+#    #+#             */
-/*   Updated: 2024/10/28 20:28:17 by danjimen         ###   ########.fr       */
+/*   Updated: 2024/10/29 07:57:00 by danjimen &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,7 @@ void	wait_and_return(int status, pid_t last_pid,
 	while (pid != -1)
 	{
 		if (pid == last_pid)
-		{
-			if (WTERMSIG(status) != 0)
-			{
-				printf("\n");
-				*last_status = WTERMSIG(status) + 128;
-			}
-			else
-				*last_status = WEXITSTATUS(status);
-		}
+			*last_status = obtain_last_status(&status);
 		pid = waitpid(-1, &status, 0);
 	}
 	set_return_value(*last_status, mini);
