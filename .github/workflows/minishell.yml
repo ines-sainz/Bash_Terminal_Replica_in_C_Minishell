@@ -17,5 +17,7 @@ jobs:
       run: make
     - name: Clean
       run: make clean
+    - name: Make executable
+      run: chmod +x minishell
     - name: Run de program
       run: ./minishell
