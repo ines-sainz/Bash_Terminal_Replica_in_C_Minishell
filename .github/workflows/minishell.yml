@@ -21,5 +21,11 @@ jobs:
       run: chmod +x minishell
     - name: List files in directory
       run: ls -l
+    - name: Install Readline
+      run: sudo apt-get install -y libreadline-dev
+    - name: Print environment details
+      run: |
+        echo "PATH: $PATH"
+        env
     - name: Run de program
       run: bash -c "./minishell"
