@@ -29,5 +29,10 @@ jobs:
         env
     - name: Check shared library dependencies
       run: ldd ./minishell
-    - name: Run de program
-      run: bash -c "./minishell"
+    - name: Run the program in interactive mode
+      run: |
+        sudo apt-get install -y expect
+        expect -c "
+          spawn ./minishell
+          expect \"\" { send \"exit\r\" }
+        "
