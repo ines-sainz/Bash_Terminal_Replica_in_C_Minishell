@@ -6,7 +6,7 @@
 #    By: danjimen & isainz-r <danjimen & isainz-    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 14:07:24 by danjimen          #+#    #+#              #
-#    Updated: 2024/10/24 14:31:53 by danjimen &       ###   ########.fr        #
+#    Updated: 2024/10/29 08:10:29 by danjimen &       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,8 @@ all: $(NAME)
 
 r: all clean
 	./$(NAME)
+
+run: ./minishell
 
 $(LIBFT):
 	@$(MAKE) -s -C $(LIBFT_DIR)
