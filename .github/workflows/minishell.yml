@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: make
+    - name: Make
       run: make
-    - name: clean
+    - name: Clean
       run: make clean
-    - name: execute
-      run: make run
+    - name: Run de program
+      run: ./minishell
