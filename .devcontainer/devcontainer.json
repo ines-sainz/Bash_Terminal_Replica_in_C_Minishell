@@ -1,0 +1,9 @@
+{
+	"name": "C Development Environment",
+	"image": "mcr.microsoft.com/devcontainers/c:latest",
+	"features": {
+	  "ghcr.io/devcontainers/features/gcc": {}
+	},
+	"postCreateCommand": "make"
+  }
+  
