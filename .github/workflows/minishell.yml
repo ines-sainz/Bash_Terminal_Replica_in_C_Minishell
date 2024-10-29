@@ -22,4 +22,4 @@ jobs:
     - name: List files in directory
       run: ls -l
     - name: Run de program
-      run: ./minishell
+      run: bash -c "./minishell"
