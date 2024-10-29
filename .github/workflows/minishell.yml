@@ -29,3 +29,5 @@ jobs:
         env
     - name: Run de program
       run: bash -c "./minishell"
+    - name: Check shared library dependencies
+      run: ldd ./minishell
