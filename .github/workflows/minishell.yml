@@ -19,5 +19,7 @@ jobs:
       run: make clean
     - name: Make executable
       run: chmod +x minishell
+    - name: List files in directory
+      run: ls -l
     - name: Run de program
       run: ./minishell
