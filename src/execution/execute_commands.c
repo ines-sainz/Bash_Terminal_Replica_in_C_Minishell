@@ -91,11 +91,13 @@ int	execute(t_execution *iter_exe, t_mini *mini, t_args *args)
 {
 	char	*path_mid;
 	char	*path_command;
+	int		i;
 
+	i = 0;
 	create_env_matrix(args->mini);
 	dup_redirections(iter_exe);
 	path_mid = NULL;
-	path_command = get_path_command(iter_exe->command, mini->env, path_mid);
+	path_command = get_path_command(i, iter_exe->command, mini->env, path_mid);
 	if (path_command)
 	{
 		if (access(path_command, X_OK) == 0)

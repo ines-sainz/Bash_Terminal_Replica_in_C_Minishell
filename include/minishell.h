@@ -378,7 +378,7 @@ void		free_last_env(t_mini *mini);
 //////////////////////////////////////////////////////
 //					FIND_PATH.C						//
 //////////////////////////////////////////////////////
-char		*get_path_command(char **kid, char **env, char *path_mid);
+char		*get_path_command(int i, char **kid, char **env, char *path_mid);
 void		fill_exe(t_params *iter_params, t_execution *iter_exe);
 
 //////////////////////////////////////////////////////

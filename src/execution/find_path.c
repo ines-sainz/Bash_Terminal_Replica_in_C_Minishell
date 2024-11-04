@@ -47,12 +47,12 @@ char	*path_included(char	**kid)
 	return (0);
 }
 
-char	*get_path_command(char **kid, char **env, char *path_mid)
+char	*get_path_command(int i, char **kid, char **env, char *path_mid)
 {
-	int		i;
 	char	*path;
 	char	**path_list;
 
+	path_list = NULL;
 	if (kid[0] != NULL && ft_strchr(kid[0], '/'))
 		return (path_included(kid));
 	i = -1;
