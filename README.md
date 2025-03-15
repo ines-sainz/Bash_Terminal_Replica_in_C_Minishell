@@ -5,7 +5,7 @@
 - [Inés Sainz Ramón](https://github.com/ines-sainz)
 
 ## Description
-Minishell is a project that involves building a lightweight shell inspired by Bash, offering a deeper understanding of fundamental operating system concepts. Through its development, programmers gain hands-on experience with process control, inter-process communication, file descriptors, and dynamic memory management in C. By implementing a command-line interpreter from scratch, this project enhances knowledge of system calls, signal handling, and efficient command execution.
+Minishell is a project that involves building a shell inspired by Bash, offering a deeper understanding of fundamental operating system concepts. Through its development, I gained hands-on experience with process control, inter-process communication, file descriptors, and dynamic memory management in C. By implementing a command-line interpreter from scratch, this project enhances knowledge of system calls, signal handling, and efficient command execution.
 
 The primary goal is to develop a shell that provides an interactive prompt and command history while correctly handling user input, executing commands, and managing concurrent processes. Additionally, the project enforces good programming practices by ensuring memory safety and following strict coding standards.
 
